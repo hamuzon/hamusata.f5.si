@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>背景グラデーション保存</title>
+  <title>壁紙グラデーション保存</title>
   <style>
     html, body {
       margin: 0;
@@ -19,52 +19,86 @@
       height: 100%;
       display: block;
     }
-    #saveBtn {
+    #controls {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: rgba(255, 255, 255, 0.8);
+      display: flex;
+      gap: 10px;
+    }
+    button, select {
+      background: rgba(255, 255, 255, 0.85);
       border: none;
-      padding: 0.8rem 1.2rem;
-      border-radius: 12px;
-      font-size: 1rem;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
       transition: background 0.3s ease;
     }
-    #saveBtn:hover {
+    button:hover, select:hover {
       background: rgba(255, 255, 255, 1);
     }
   </style>
 </head>
 <body>
   <canvas id="bgCanvas"></canvas>
-  <button id="saveBtn">背景を保存</button>
+
+  <div id="controls">
+    <select id="resolution">
+      <option value="1920x1080">1920×1080 (Full HD)</option>
+      <option value="2560x1440">2560×1440 (WQHD)</option>
+      <option value="3840x2160">3840×2160 (4K UHD)</option>
+      <option value="5120x2880">5120×2880 (5K)</option>
+      <option value="7680x4320">7680×4320 (8K UHD)</option>
+    </select>
+    <button id="saveBtn">壁紙を保存</button>
+  </div>
 
   <script>
     const canvas = document.getElementById("bgCanvas");
     const ctx = canvas.getContext("2d");
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    function drawBackground(w, h) {
+      canvas.width = w;
+      canvas.height = h;
 
-      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      const gradient = ctx.createLinearGradient(0, 0, 0, h);
       gradient.addColorStop(0, "#ffcf91");
       gradient.addColorStop(1, "#a96bf8");
 
       ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, w, h);
     }
 
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
+    // 画面表示用にリサイズ
+    function resizeForScreen() {
+      drawBackground(window.innerWidth, window.innerHeight);
+    }
+    window.addEventListener("resize", resizeForScreen);
+    resizeForScreen();
 
-    // 保存ボタン処理
+    // 保存処理
     document.getElementById("saveBtn").addEventListener("click", () => {
+      const res = document.getElementById("resolution").value.split("x");
+      const w = parseInt(res[0], 10);
+      const h = parseInt(res[1], 10);
+
+      // 一時キャンバスを使って指定解像度で保存
+      const tempCanvas = document.createElement("canvas");
+      const tempCtx = tempCanvas.getContext("2d");
+      tempCanvas.width = w;
+      tempCanvas.height = h;
+
+      const gradient = tempCtx.createLinearGradient(0, 0, 0, h);
+      gradient.addColorStop(0, "#ffcf91");
+      gradient.addColorStop(1, "#a96bf8");
+      tempCtx.fillStyle = gradient;
+      tempCtx.fillRect(0, 0, w, h);
+
       const link = document.createElement("a");
-      link.download = "background.png";
-      link.href = canvas.toDataURL("image/png");
+      link.download = `wallpaper_${w}x${h}.png`;
+      link.href = tempCanvas.toDataURL("image/png");
       link.click();
     });
   </script>
