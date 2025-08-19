@@ -4,29 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HAMUSATA – ホームページ</title>
-<link rel="icon" href="https://home.hamusata.f5.si/icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
 
 <!-- Google Fonts: Potta One -->
 <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
-<!-- サイト説明（日本語 / 英語） -->
+<!-- サイト説明 -->
 <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
 
-<!-- Open Graph（SNS用） -->
+<!-- Open Graph -->
 <meta property="og:title" content="HAMUSATA – ホームページ">
 <meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://hamusata.f5.si">
 <meta property="og:image" content="https://home.hamusata.f5.si/icon.svg">
 
-<!-- Twitterカード用 -->
+<!-- Twitterカード -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="HAMUSATA – ホームページ">
 <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
 <meta name="twitter:image" content="https://home.hamusata.f5.si/icon.svg">
 
 <style>
-/* --- リセット --- */
+/* --- リセット & 基本 --- */
 * {
     margin: 0;
     padding: 0;
@@ -48,7 +48,6 @@ header {
     padding: 4rem 1rem;
     background: #1c1c1c;
     color: #fff;
-    position: relative;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
@@ -95,7 +94,7 @@ section h2 {
     color: #ccc;
 }
 
-/* --- カード --- */
+/* --- ポートフォリオカード --- */
 .works {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
@@ -119,7 +118,7 @@ section h2 {
     box-shadow: 0 14px 28px rgba(0,0,0,0.7);
 }
 
-/* --- ボタンふっくら化 & 日本語/英語表示 --- */
+/* --- ボタン --- */
 .work-card a {
     display: inline-flex;
     align-items: center;
@@ -153,7 +152,7 @@ footer a {
     text-decoration: underline;
 }
 
-/* --- 強調スクロール先 --- */
+/* --- ハイライト --- */
 section.highlight {
     background: rgba(255,255,255,0.1);
 }
@@ -214,6 +213,11 @@ section.highlight {
             <a href="https://link-s.f5.si" target="_self"><span>見る</span> / <span>View</span></a>
         </div>
         <div class="work-card">
+            <h3>go.link-s.f5.si – カスタムパス対応版</h3>
+            <p>任意のパスで短縮リンクを作れるカスタムリンクサービス。</p>
+            <a href="https://go.link-s.f5.si" target="_self"><span>見る</span> / <span>View</span></a>
+        </div>
+        <div class="work-card">
             <h3>pw.link-s.f5.si – パスワード生成サービス</h3>
             <p>
                 APIベースのパスワード生成サービス。ログ保存等は一切ありません。<br>
@@ -222,11 +226,6 @@ section.highlight {
             <a href="https://pw.link-s.f5.si" target="_self"><span>見る</span> / <span>View</span></a>
             <br>
             <a href="https://password-create.link-s.f5.si/" target="_self"><span>APIなし版</span> / <span>No-API</span></a>
-        </div>
-        <div class="work-card">
-            <h3>go.link-s.f5.si – カスタムパス対応版</h3>
-            <p>任意のパスで短縮リンクを作れるカスタムリンクサービス。</p>
-            <a href="https://go.link-s.f5.si" target="_self"><span>見る</span> / <span>View</span></a>
         </div>
     </div>
 </section>
@@ -254,12 +253,11 @@ section.highlight {
 
 <footer>
     &copy; <span id="year"></span> <a href="https://github.com/hamuzon" target="_self">@hamuzon / @hamusata</a> – All rights reserved.
-    <br>
 </footer>
 
 <script>
 // 年自動更新
-const baseYear = 2025 ;
+const baseYear = 2025;
 const currentYear = new Date().getFullYear();
 document.getElementById("year").textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : `${baseYear}`;
 </script>
