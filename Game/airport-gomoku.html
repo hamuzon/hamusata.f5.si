@@ -3,62 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>空港並べ</title>
+<title>空港並べ（五目並べ） / Airport Gomoku</title>
+<meta name="description" content="空港並べ（五目並べ）のブラウザゲームです。縦・横・斜めに5つ並べて勝利を目指そう！ / Airport Gomoku browser game. Place airports in a row of 5 vertically, horizontally, or diagonally to win!">
 <style>
-  body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+  body { font-family: Arial, sans-serif; text-align: center; margin: 10px; }
   h1 { color: #333; }
-  table { border-collapse: collapse; margin: 20px auto; }
-  td {
-    width: 50px; height: 50px; border: 1px solid #333;
-    text-align: center; vertical-align: middle;
-    font-size: 24px; cursor: pointer;
+  #board {
+    display: grid;
+    gap: 2px;
+    margin: 0 auto;
+    max-width: 90vw;
+    max-height: 90vw;
+    grid-template-rows: repeat(10, 1fr);
+    grid-template-columns: repeat(10, 1fr);
   }
-  td.player1 { background-color: #aaf; }
-  td.player2 { background-color: #faa; }
+  .cell {
+    border: 1px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: min(2.5vw, 24px);
+    cursor: pointer;
+    aspect-ratio: 1 / 1;
+  }
+  .player1 { background-color: #aaf; }
+  .player2 { background-color: #faa; }
+  #status { margin-top: 10px; font-size: 1.1em; }
+  button { margin-top: 10px; padding: 5px 10px; font-size: 1em; }
 </style>
 </head>
 <body>
 
-<h1>空港並べ（五目並べ派生）</h1>
-<p>縦・横・斜めに5つ並べたら勝ち！</p>
-
-<table id="board"></table>
+<h1>空港並べ（五目並べ）</h1>
+<div id="board"></div>
 <p id="status">プレイヤー1のターン</p>
 <button id="restartBtn">リスタート</button>
 
 <script>
-const SIZE = 10; // 10x10の盤
+const SIZE = 10;
 const WIN_COUNT = 5;
-
 let board = [];
-let currentPlayer = 1; // 1=プレイヤー1, 2=プレイヤー2
+let currentPlayer = 1;
 
-const tableEl = document.getElementById("board");
+const boardEl = document.getElementById("board");
 const statusEl = document.getElementById("status");
 const restartBtn = document.getElementById("restartBtn");
 
 function createBoard() {
   board = Array(SIZE).fill(null).map(() => Array(SIZE).fill(0));
-  tableEl.innerHTML = "";
+  boardEl.innerHTML = "";
   for (let r = 0; r < SIZE; r++) {
-    const tr = document.createElement("tr");
     for (let c = 0; c < SIZE; c++) {
-      const td = document.createElement("td");
-      td.addEventListener("click", () => handleClick(r, c, td));
-      tr.appendChild(td);
+      const cell = document.createElement("div");
+      cell.classList.add("cell");
+      cell.addEventListener("click", () => handleClick(r, c, cell));
+      boardEl.appendChild(cell);
     }
-    tableEl.appendChild(tr);
   }
 }
 
-function handleClick(r, c, td) {
-  if (board[r][c] !== 0) return; // すでに置かれている
+function handleClick(r, c, cell) {
+  if (board[r][c] !== 0) return;
   board[r][c] = currentPlayer;
-  td.textContent = currentPlayer === 1 ? "✈" : "🛬"; // 空港マーク
-  td.classList.add(currentPlayer === 1 ? "player1" : "player2");
+  cell.textContent = currentPlayer === 1 ? "✈" : "🛬";
+  cell.classList.add(currentPlayer === 1 ? "player1" : "player2");
 
   if (checkWin(r, c)) {
-    alert(`プレイヤー${currentPlayer}の勝利！`);
+    setTimeout(() => alert(`プレイヤー${currentPlayer}の勝利！`), 10);
     return;
   }
 
@@ -66,22 +77,20 @@ function handleClick(r, c, td) {
   statusEl.textContent = `プレイヤー${currentPlayer}のターン`;
 }
 
-// 横・縦・斜めチェック
+// 勝利判定（横・縦・斜め）
 function checkWin(r, c) {
   const directions = [
-    [0,1],[1,0],[1,1],[1,-1]
+    [0,1], [1,0], [1,1], [1,-1]
   ];
   for (let [dr, dc] of directions) {
     let count = 1;
-    // 前方向
     for (let i = 1; i < WIN_COUNT; i++) {
-      let nr = r - dr*i, nc = c - dc*i;
+      const nr = r - dr*i, nc = c - dc*i;
       if (nr<0||nc<0||nr>=SIZE||nc>=SIZE||board[nr][nc]!==currentPlayer) break;
       count++;
     }
-    // 後方向
     for (let i = 1; i < WIN_COUNT; i++) {
-      let nr = r + dr*i, nc = c + dc*i;
+      const nr = r + dr*i, nc = c + dc*i;
       if (nr<0||nc<0||nr>=SIZE||nc>=SIZE||board[nr][nc]!==currentPlayer) break;
       count++;
     }
