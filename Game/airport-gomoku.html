@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>空港並べ</title>
+<style>
+  body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+  h1 { color: #333; }
+  table { border-collapse: collapse; margin: 20px auto; }
+  td {
+    width: 50px; height: 50px; border: 1px solid #333;
+    text-align: center; vertical-align: middle;
+    font-size: 24px; cursor: pointer;
+  }
+  td.player1 { background-color: #aaf; }
+  td.player2 { background-color: #faa; }
+</style>
+</head>
+<body>
+
+<h1>空港並べ（五目並べ派生）</h1>
+<p>縦・横・斜めに5つ並べたら勝ち！</p>
+
+<table id="board"></table>
+<p id="status">プレイヤー1のターン</p>
+<button id="restartBtn">リスタート</button>
+
+<script>
+const SIZE = 10; // 10x10の盤
+const WIN_COUNT = 5;
+
+let board = [];
+let currentPlayer = 1; // 1=プレイヤー1, 2=プレイヤー2
+
+const tableEl = document.getElementById("board");
+const statusEl = document.getElementById("status");
+const restartBtn = document.getElementById("restartBtn");
+
+function createBoard() {
+  board = Array(SIZE).fill(null).map(() => Array(SIZE).fill(0));
+  tableEl.innerHTML = "";
+  for (let r = 0; r < SIZE; r++) {
+    const tr = document.createElement("tr");
+    for (let c = 0; c < SIZE; c++) {
+      const td = document.createElement("td");
+      td.addEventListener("click", () => handleClick(r, c, td));
+      tr.appendChild(td);
+    }
+    tableEl.appendChild(tr);
+  }
+}
+
+function handleClick(r, c, td) {
+  if (board[r][c] !== 0) return; // すでに置かれている
+  board[r][c] = currentPlayer;
+  td.textContent = currentPlayer === 1 ? "✈" : "🛬"; // 空港マーク
+  td.classList.add(currentPlayer === 1 ? "player1" : "player2");
+
+  if (checkWin(r, c)) {
+    alert(`プレイヤー${currentPlayer}の勝利！`);
+    return;
+  }
+
+  currentPlayer = currentPlayer === 1 ? 2 : 1;
+  statusEl.textContent = `プレイヤー${currentPlayer}のターン`;
+}
+
+// 横・縦・斜めチェック
+function checkWin(r, c) {
+  const directions = [
+    [0,1],[1,0],[1,1],[1,-1]
+  ];
+  for (let [dr, dc] of directions) {
+    let count = 1;
+    // 前方向
+    for (let i = 1; i < WIN_COUNT; i++) {
+      let nr = r - dr*i, nc = c - dc*i;
+      if (nr<0||nc<0||nr>=SIZE||nc>=SIZE||board[nr][nc]!==currentPlayer) break;
+      count++;
+    }
+    // 後方向
+    for (let i = 1; i < WIN_COUNT; i++) {
+      let nr = r + dr*i, nc = c + dc*i;
+      if (nr<0||nc<0||nr>=SIZE||nc>=SIZE||board[nr][nc]!==currentPlayer) break;
+      count++;
+    }
+    if (count >= WIN_COUNT) return true;
+  }
+  return false;
+}
+
+restartBtn.addEventListener("click", () => {
+  currentPlayer = 1;
+  statusEl.textContent = "プレイヤー1のターン";
+  createBoard();
+});
+
+// 初期表示
+createBoard();
+</script>
+
+</body>
+</html>
