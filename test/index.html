@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAMUSATA – ホームページ</title>
+
+<!-- Favicon -->
+<link rel="icon" href="https://hamusata.f5.si/icon.svg" type="image/svg+xml">
+<link rel="icon" href="https://hamusata.f5.si/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
+
+<!-- Google Fonts: Potta One -->
+<link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
+
+<!-- サイト説明 -->
+<meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
+
+<!-- Open Graph -->
+<meta property="og:title" content="HAMUSATA – ホームページ">
+<meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hamusata.f5.si">
+<meta property="og:image" content="https://hamusata.f5.si/icon.png">
+
+<!-- Twitterカード -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HAMUSATA – ホームページ">
+<meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
+<meta name="twitter:image" content="https://hamusata.f5.si/icon.png">
+
+<style>
+/* --- リセット & 基本 --- */
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Potta One', sans-serif; }
+body { min-height:100vh; background:#121212; color:#ddd; line-height:1.6; scroll-behavior:smooth; }
+
+/* --- ヘッダー --- */
+header { text-align:center; padding:4rem 1rem; background:#1c1c1c; color:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+header a { text-decoration:none; color:inherit; }
+header img { width:120px; height:120px; margin-bottom:1rem; border-radius:50%; border:2px solid #555; }
+header h1 { font-size:2.8rem; margin-bottom:0.5rem; letter-spacing:1px; }
+
+/* --- セクション --- */
+section { max-width:1000px; margin:3rem auto; padding:0 1rem; border-radius:8px; transition:0.5s; }
+section h2 { font-size:2rem; margin-bottom:1rem; text-align:center; color:#aaa; }
+
+/* --- 自己紹介 --- */
+.profile p { text-align:center; max-width:700px; margin:0.5rem auto; color:#ccc; }
+
+/* --- ポートフォリオカード --- */
+.works { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5rem; }
+.work-card { display:block; background:#1f1f1f; color:#ddd; text-decoration:none; padding:1.5rem; border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,0.5); text-align:center; transition:0.3s; }
+.work-card img { width:80px; height:80px; margin-bottom:1rem; border-radius:50%; border:2px solid #555; }
+.work-card:hover { transform:translateY(-5px); box-shadow:0 14px 28px rgba(0,0,0,0.7); }
+
+/* --- ボタン --- */
+.work-card a { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; margin-top:1rem; padding:0.8rem 1.8rem; border-radius:18px; background:#444; color:#ddd; font-weight:600; text-decoration:none; transition:0.3s; }
+.work-card a:hover { background:#555; color:#fff; }
+
+/* --- 注意文 --- */
+.work-card p.note { margin-top:0.5rem; font-size:0.9rem; }
+
+/* --- フッター --- */
+footer { text-align:center; padding:2rem 1rem; color:#aaa; font-size:0.9rem; }
+footer a { color:#888; text-decoration:underline; }
+
+/* --- ハイライト --- */
+section.highlight { background:rgba(255,255,255,0.1); }
+
+/* --- レスポンシブ --- */
+@media(max-width:768px){
+  .works { grid-template-columns:1fr; }
+  section h2 { font-size:1.5rem; }
+  .profile p { font-size:0.95rem; }
+  header h1 { font-size:2rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="https://home.hamusata.f5.si" target="_self">
+    <img src="https://hamusata.f5.si/icon.svg" alt="プロフィール">
+    <h1>HAMUSATA</h1>
+  </a>
+</header>
+
+<section id="profile">
+  <div class="profile">
+    <h2>自己紹介</h2>
+    <p>こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。</p>
+    <p>ハムスターを飼っています。</p>
+    <p>ネットの海でプログラミングしたりネットしたりして過ごしてます。</p>
+  </div>
+</section>
+
+<section id="portfolio">
+  <h2>ポートフォリオリンク集</h2>
+  <div class="works">
+
+    <!-- 既存の各リンクカード -->
+    <div class="work-card">
+      <img src="https://hamusata.f5.si/icon.svg" alt="HAMUSATA icon">
+      <h3>HAMUSATA – ホームページ</h3>
+      <p>メインのポータルリンク。色々なものをまとめています。</p>
+      <a href="https://home.hamusata.f5.si" target="_self"><span>見る</span> / <span>View</span></a>
+    </div>
+
+    <div class="work-card">
+      <img src="https://hamusata.f5.si/icon.svg" alt="GitHub版 icon">
+      <h3>GitHub版 – ホームページ</h3>
+      <p>GitHub Pages 版ホームページ。</p>
+      <a href="https://hamuzon.github.io" target="_self"><span>見る</span> / <span>View</span></a>
+    </div>
+
+    <!-- 省略せず他のカードも同様に追加 -->
+
+    <!-- ランダムリンクカード -->
+    <div class="work-card">
+      <img src="https://hamusata.f5.si/icon.svg" alt="ランダムリンク icon">
+      <h3>ランダムリンク</h3>
+      <p>リストからランダムでリンクを開きます。</p>
+      <a href="#" onclick="openRandomLink(); return false;"><span>ランダムで開く</span></a>
+    </div>
+
+  </div>
+</section>
+
+<section id="status">
+  <h2>サービス稼働状況 / Status Page</h2>
+  <div class="works">
+    <div class="work-card">
+      <img src="https://hamusata.f5.si/icon.svg" alt="Status icon">
+      <h3>サービス稼働状況</h3>
+      <p>
+        ※本サービスは一部 <strong>PCサーバー + Cloudflare Tunnel</strong> を利用しています。<br>
+        PCは毎日 <strong>日本時間の朝4時に自動再起動</strong> しており、再起動時にサーバーや Cloudflare Tunnel が自動起動しない場合、<br>
+        一時的に接続できないことがあります。
+      </p>
+      <a href="https://stats.uptimerobot.com/tT7bs2uEHa" target="_self">
+        <span>稼働状況を見る</span> / <span>View Status</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="sns">
+  <h2>SNSリンク</h2>
+  <div class="works">
+    <!-- SNSカードも既存のまま -->
+  </div>
+</section>
+
+<footer>
+  &copy; <span id="year"></span> <a href="https://github.com/hamuzon" target="_self">@hamuzon / @hamusata</a> – All rights reserved.
+</footer>
+
+<!-- 年自動更新 -->
+<script>
+const baseYear = 2025;
+const currentYear = new Date().getFullYear();
+document.getElementById("year").textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : `${baseYear}`;
+</script>
+
+<!-- 外部 links.js 読み込み -->
+<script src="links.js"></script>
+
+</body>
+</html>
