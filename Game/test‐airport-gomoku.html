@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>空港並べ（五目並べ） / Airport Gomoku</title>
+<style>
+body { font-family: Arial, sans-serif; text-align: center; margin:10px; transition: background 1s; }
+h1 { color:#333; }
+#controls { margin-bottom:10px; }
+#board { display:grid; gap:2px; margin:0 auto; max-width:90vw; max-height:90vw; grid-template-rows:repeat(10,1fr); grid-template-columns:repeat(10,1fr);}
+.cell { border:1px solid #333; display:flex; justify-content:center; align-items:center; font-size:min(2.5vw,24px); cursor:pointer; aspect-ratio:1/1; transition: background 0.5s,color 0.3s;}
+.player1 { background-color:#aaf;}
+.player2 { background-color:#faa;}
+.highlight { background-color:#ff0 !important; color:#000 !important;}
+#status { margin-top:10px; font-size:1.2em; font-weight:bold; padding:5px; border-radius:5px; color:#fff; transition: background 0.5s;}
+#scoreboard { margin-top:10px; font-size:1.2em;}
+button, select { margin-top:10px; padding:5px 10px; font-size:1em;}
+</style>
+</head>
+<body>
+
+<h1>空港並べ（五目並べ）</h1>
+
+<div id="controls">
+  対戦モード：
+  <select id="modeSelect">
+    <option value="human-cpu">人 vs CPU</option>
+    <option value="cpu-cpu">CPU vs CPU</option>
+    <option value="human-human">人 vs 人</option>
+  </select>
+  CPU難易度：
+  <select id="cpuLevel">
+    <option value="1">簡単</option>
+    <option value="2">中級</option>
+    <option value="3">上級</option>
+  </select>
+</div>
+
+<div id="board"></div>
+<p id="status">プレイヤー1のターン</p>
+<p id="scoreboard">スコア - プレイヤー1: 0 | CPU: 0</p>
+<button id="restartBtn">リスタート</button>
+<button id="downloadBtn">履歴保存 (JSON)</button>
+<input type="file" id="loadFile" accept=".json">
+
+<script>
+const SIZE=10, WIN_COUNT=5;
+let board=[], currentPlayer=1, scores=[0,0], movesThisGame=[];
+let historyData = [];
+
+const boardEl=document.getElementById("board");
+const statusEl=document.getElementById("status");
+const scoreboardEl=document.getElementById("scoreboard");
+const restartBtn=document.getElementById("restartBtn");
+const downloadBtn=document.getElementById("downloadBtn");
+const loadFile=document.getElementById("loadFile");
+const modeSelect=document.getElementById("modeSelect");
+const cpuLevelSelect=document.getElementById("cpuLevel");
+const playerColors=["#aaf","#faa"];
+
+function createBoard(){
+  board=Array(SIZE).fill(null).map(()=>Array(SIZE).fill(0));
+  movesThisGame=[];
+  boardEl.innerHTML="";
+  document.body.style.background="#fff";
+  updateStatus();
+  for(let r=0;r<SIZE;r++){
+    for(let c=0;c<SIZE;c++){
+      const cell=document.createElement("div");
+      cell.classList.add("cell");
+      cell.addEventListener("click",()=>handleClick(r,c,cell));
+      boardEl.appendChild(cell);
+    }
+  }
+  if(modeSelect.value==="cpu-cpu") setTimeout(cpuMove,300);
+}
+
+function updateStatus(){
+  if(modeSelect.value==="human-cpu" && currentPlayer===2){
+    statusEl.style.backgroundColor=playerColors[1];
+    statusEl.textContent="CPUのターン";
+  } else {
+    statusEl.style.backgroundColor=playerColors[currentPlayer-1];
+    statusEl.textContent=(currentPlayer===1?"プレイヤー1":"プレイヤー2")+"のターン";
+  }
+}
+
+function handleClick(r,c,cell){
+  if(board[r][c]!==0) return;
+  if(modeSelect.value!=="human-human" && currentPlayer===2) return;
+  makeMove(r,c,currentPlayer,cell);
+  if(checkWin(r,c,currentPlayer)) return handleWin(currentPlayer);
+  nextTurn();
+}
+
+function makeMove(r,c,player,cell){
+  board[r][c]=player;
+  cell.textContent=player===1?"✈":"🛬";
+  cell.classList.add(player===1?"player1":"player2");
+  movesThisGame.push([r,c,player]);
+}
+
+function nextTurn(){
+  const mode=modeSelect.value;
+  if(mode==="human-cpu"){
+    currentPlayer=currentPlayer===1?2:1;
+    updateStatus();
+    if(currentPlayer===2) setTimeout(cpuMove,300);
+  } else if(mode==="cpu-cpu"){
+    currentPlayer=currentPlayer===1?2:1;
+    updateStatus();
+    setTimeout(cpuMove,300);
+  } else currentPlayer=currentPlayer===1?2:1;
+}
+
+function cpuMove(){
+  const level=parseInt(cpuLevelSelect.value);
+  let r,c;
+  if(level===1) [r,c]=getRandomEmptyCell();
+  else [r,c]=getSmartMove();
+  const cell=boardEl.children[r*SIZE+c];
+  makeMove(r,c,2,cell);
+  if(checkWin(r,c,2)) return handleWin(2);
+  nextTurn();
+}
+
+function getRandomEmptyCell(){
+  const empty=[];
+  for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(board[r][c]===0) empty.push([r,c]);
+  return empty[Math.floor(Math.random()*empty.length)];
+}
+
+function getSmartMove(){
+  // 勝てる手
+  for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++){
+    if(board[r][c]===0){ board[r][c]=2; if(checkWin(r,c,2)){ board[r][c]=0; return [r,c]; } board[r][c]=0;}
+  }
+  // 相手阻止
+  for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++){
+    if(board[r][c]===0){ board[r][c]=1; if(checkWin(r,c,1)){ board[r][c]=0; return [r,c]; } board[r][c]=0;}
+  }
+  // 履歴に基づく学習（簡易：過去勝利位置を優先）
+  for(let past of historyData){
+    if(past.winner===2){
+      for(let [r,c,p] of past.moves){
+        if(board[r][c]===0) return [r,c];
+      }
+    }
+  }
+  return getRandomEmptyCell();
+}
+
+// 勝利判定
+function checkWin(r,c,player){
+  const dirs=[[0,1],[1,0],[1,1],[1,-1]];
+  for(let [dr,dc] of dirs){
+    let count=1,line=[[r,c]];
+    for(let i=1;i<WIN_COUNT;i++){
+      let nr=r-dr*i,nc=c-dc*i; if(nr<0||nc<0||nr>=SIZE||nc>=SIZE||board[nr][nc]!==player) break; line.push([nr,nc]); count++;
+    }
+    for(let i=1;i<WIN_COUNT;i++){
+      let nr=r+dr*i,nc=c+dc*i; if(nr<0||nc<0||nr>=SIZE||nc>=SIZE||board[nr][nc]!==player) break; line.push([nr,nc]); count++;
+    }
+    if(count>=WIN_COUNT){ highlightLine(line); return true;}
+  }
+  return false;
+}
+
+function highlightLine(line){
+  line.forEach(([r,c])=>{
+    const cell=boardEl.children[r*SIZE+c];
+    if(cell) cell.classList.add("highlight");
+  });
+}
+
+function handleWin(player){
+  scores[player-1]++;
+  scoreboardEl.textContent=`スコア - プレイヤー1: ${scores[0]} | CPU: ${scores[1]}`;
+  const gradient=`linear-gradient(135deg, ${playerColors[player-1]}, ${playerColors[2-player]})`;
+  document.body.style.background=gradient;
+  statusEl.textContent=(player===1?"プレイヤー1":"CPU")+"の勝利！自動リスタートします...";
+  historyData.push({moves:movesThisGame.slice(),winner:player});
+  setTimeout(()=>{currentPlayer=1; createBoard();},2000);
+}
+
+// JSON 保存
+downloadBtn.addEventListener("click",()=>{
+  const blob=new Blob([JSON.stringify(historyData,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url; a.download="gomoku_history.json"; a.click();
+  URL.revokeObjectURL(url);
+});
+
+// JSON 読み込み
+loadFile.addEventListener("change",(e)=>{
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(evt){
+    try{ historyData=JSON.parse(evt.target.result); alert("履歴読み込み成功");}
+    catch{ alert("読み込み失敗"); }
+  };
+  reader.readAsText(file);
+});
+
+restartBtn.addEventListener("click",()=>{
+  currentPlayer=1; createBoard();
+});
+
+createBoard();
+</script>
+</body>
+</html>
