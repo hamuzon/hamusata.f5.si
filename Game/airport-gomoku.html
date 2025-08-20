@@ -6,7 +6,7 @@
 <title>空港並べ（五目並べ） / Airport Gomoku</title>
 <meta name="description" content="空港並べ（五目並べ）のブラウザゲームです。縦・横・斜めに5つ並べて勝利を目指そう！ / Airport Gomoku browser game. Place airports in a row of 5 vertically, horizontally, or diagonally to win!">
 <style>
-  body { font-family: Arial, sans-serif; text-align: center; margin: 10px; transition: background-color 0.5s; }
+  body { font-family: Arial, sans-serif; text-align: center; margin: 10px; transition: background 1s; }
   h1 { color: #333; }
   #board {
     display: grid;
@@ -25,10 +25,11 @@
     font-size: min(2.5vw, 24px);
     cursor: pointer;
     aspect-ratio: 1 / 1;
+    transition: background 0.5s;
   }
   .player1 { background-color: #aaf; }
   .player2 { background-color: #faa; }
-  #status { margin-top: 10px; font-size: 1.1em; }
+  #status { margin-top: 10px; font-size: 1.2em; font-weight: bold; padding: 5px; border-radius: 5px; color: #fff; transition: background 0.5s; }
   #scoreboard { margin-top: 10px; font-size: 1.2em; }
   button { margin-top: 10px; padding: 5px 10px; font-size: 1em; }
 </style>
@@ -53,10 +54,13 @@ const statusEl = document.getElementById("status");
 const scoreboardEl = document.getElementById("scoreboard");
 const restartBtn = document.getElementById("restartBtn");
 
+const playerColors = ["#aaf", "#faa"];
+
 function createBoard() {
   board = Array(SIZE).fill(null).map(() => Array(SIZE).fill(0));
   boardEl.innerHTML = "";
-  document.body.style.backgroundColor = "#fff"; // デフォルト背景
+  document.body.style.background = "#fff"; // デフォルト背景
+  updateStatusColor();
   for (let r = 0; r < SIZE; r++) {
     for (let c = 0; c < SIZE; c++) {
       const cell = document.createElement("div");
@@ -65,6 +69,11 @@ function createBoard() {
       boardEl.appendChild(cell);
     }
   }
+}
+
+function updateStatusColor() {
+  statusEl.style.backgroundColor = playerColors[currentPlayer-1];
+  statusEl.textContent = `プレイヤー${currentPlayer}のターン`;
 }
 
 function handleClick(r, c, cell) {
@@ -76,21 +85,22 @@ function handleClick(r, c, cell) {
   if (checkWin(r, c)) {
     scores[currentPlayer-1]++;
     scoreboardEl.textContent = `スコア - プレイヤー1: ${scores[0]} | プレイヤー2: ${scores[1]}`;
-    document.body.style.backgroundColor = currentPlayer === 1 ? "#aaf" : "#faa";
+    // 勝利グラデーション
+    const gradient = `linear-gradient(135deg, ${playerColors[currentPlayer-1]}, ${playerColors[2-currentPlayer]})`;
+    document.body.style.background = gradient;
     statusEl.textContent = `プレイヤー${currentPlayer}の勝利！自動リスタートします...`;
     setTimeout(() => {
       currentPlayer = 1;
-      statusEl.textContent = "プレイヤー1のターン";
       createBoard();
     }, 2000);
     return;
   }
 
   currentPlayer = currentPlayer === 1 ? 2 : 1;
-  statusEl.textContent = `プレイヤー${currentPlayer}のターン`;
+  updateStatusColor();
 }
 
-// 勝利判定（横・縦・斜め）
+// 勝利判定
 function checkWin(r, c) {
   const directions = [
     [0,1], [1,0], [1,1], [1,-1]
@@ -114,7 +124,6 @@ function checkWin(r, c) {
 
 restartBtn.addEventListener("click", () => {
   currentPlayer = 1;
-  statusEl.textContent = "プレイヤー1のターン";
   createBoard();
 });
 
