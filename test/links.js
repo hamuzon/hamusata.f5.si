@@ -1,5 +1,5 @@
 // links.js
-const hamusataLinks = [
+const links = [
   "https://home.hamusata.f5.si/",
   "https://hamusata.f5.si/",
   "https://YouTube.hamusata.f5.si",
@@ -45,3 +45,8 @@ const hamusataLinks = [
   "https://pw-sp.link-s.f5.si/",
   "https://qr.link-s.f5.si/"
 ];
+
+function openRandomLink() {
+  const randomIndex = Math.floor(Math.random() * links.length);
+  window.open(links[randomIndex], "_blank");
+}
