@@ -26,6 +26,7 @@ button, select { margin-top:10px; padding:5px 10px; font-size:1em;}
   対戦モード：
   <select id="modeSelect">
     <option value="human-cpu">人 vs CPU</option>
+    <option value="cpu-human">CPU vs 人</option>
     <option value="cpu-cpu">CPU vs CPU</option>
     <option value="human-human">人 vs 人</option>
   </select>
@@ -62,8 +63,8 @@ const modeSelect=document.getElementById("modeSelect");
 const cpuLevelSelect=document.getElementById("cpuLevel");
 const firstPlayerSelect=document.getElementById("firstPlayer");
 
-const playerColors=["#3498db","#e74c3c"];
-let playerTypes=["Human","CPU"]; // 1,2のタイプ
+const playerColors=["#3498db","#e74c3c"]; // 1=青,2=赤
+let playerTypes=["Human","CPU"]; // プレイヤー1,2のタイプ
 
 function createBoard(){
   board=Array(SIZE).fill(null).map(()=>Array(SIZE).fill(0));
@@ -71,15 +72,24 @@ function createBoard(){
   boardEl.innerHTML="";
   document.body.style.background="#fff";
 
-  // CPU/Human設定
+  // プレイヤータイプ設定
   const mode=modeSelect.value;
   const first=parseInt(firstPlayerSelect.value);
-  if(mode==="human-cpu"){
-    playerTypes[first-1]="CPU";
-    playerTypes[2-first]="Human";
-  } else if(mode==="cpu-cpu"){
-    playerTypes=["CPU","CPU"];
-  } else playerTypes=["Human","Human"];
+  switch(mode){
+    case "human-cpu":
+      playerTypes[first-1]="Human";
+      playerTypes[2-first]="CPU";
+      break;
+    case "cpu-human":
+      playerTypes[first-1]="CPU";
+      playerTypes[2-first]="Human";
+      break;
+    case "cpu-cpu":
+      playerTypes=["CPU","CPU"];
+      break;
+    default:
+      playerTypes=["Human","Human"];
+  }
 
   currentPlayer=first;
   updateStatus();
@@ -93,7 +103,6 @@ function createBoard(){
     }
   }
 
-  // CPU先手なら自動開始
   if(playerTypes[currentPlayer-1]==="CPU") setTimeout(cpuMove,300);
 }
 
@@ -185,4 +194,38 @@ function highlightLine(line){
 
 function handleWin(player){
   scores[player-1]++;
-  scoreboardEl.textContent=`スコア - プレイヤー1: ${
+  scoreboardEl.textContent=`スコア - プレイヤー1: ${scores[0]} | プレイヤー2: ${scores[1]}`;
+  const gradient=`linear-gradient(135deg, ${playerColors[player-1]}, ${playerColors[2-player]})`;
+  document.body.style.background=gradient;
+  statusEl.textContent = `${playerTypes[player-1]}（プレイヤー${player}）の勝利！自動リスタートします...`;
+  historyData.push({moves:movesThisGame.slice(),winner:player});
+  setTimeout(()=>{createBoard();},2000);
+}
+
+// JSON 保存
+downloadBtn.addEventListener("click",()=>{
+  const blob=new Blob([JSON.stringify(historyData,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url; a.download="gomoku_history.json"; a.click();
+  URL.revokeObjectURL(url);
+});
+
+// JSON 読み込み
+loadFile.addEventListener("change",(e)=>{
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(evt){
+    try{ historyData=JSON.parse(evt.target.result); alert("履歴読み込み成功");}
+    catch{ alert("読み込み失敗"); }
+  };
+  reader.readAsText(file);
+});
+
+restartBtn.addEventListener("click",()=>{createBoard();});
+createBoard();
+</script>
+
+</body>
+</html>
