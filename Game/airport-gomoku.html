@@ -6,7 +6,7 @@
 <title>空港並べ（五目並べ） / Airport Gomoku</title>
 <meta name="description" content="空港並べ（五目並べ）のブラウザゲームです。縦・横・斜めに5つ並べて勝利を目指そう！ / Airport Gomoku browser game. Place airports in a row of 5 vertically, horizontally, or diagonally to win!">
 <style>
-  body { font-family: Arial, sans-serif; text-align: center; margin: 10px; }
+  body { font-family: Arial, sans-serif; text-align: center; margin: 10px; transition: background-color 0.5s; }
   h1 { color: #333; }
   #board {
     display: grid;
@@ -29,6 +29,7 @@
   .player1 { background-color: #aaf; }
   .player2 { background-color: #faa; }
   #status { margin-top: 10px; font-size: 1.1em; }
+  #scoreboard { margin-top: 10px; font-size: 1.2em; }
   button { margin-top: 10px; padding: 5px 10px; font-size: 1em; }
 </style>
 </head>
@@ -37,6 +38,7 @@
 <h1>空港並べ（五目並べ）</h1>
 <div id="board"></div>
 <p id="status">プレイヤー1のターン</p>
+<p id="scoreboard">スコア - プレイヤー1: 0 | プレイヤー2: 0</p>
 <button id="restartBtn">リスタート</button>
 
 <script>
@@ -44,14 +46,17 @@ const SIZE = 10;
 const WIN_COUNT = 5;
 let board = [];
 let currentPlayer = 1;
+let scores = [0, 0]; // [player1, player2]
 
 const boardEl = document.getElementById("board");
 const statusEl = document.getElementById("status");
+const scoreboardEl = document.getElementById("scoreboard");
 const restartBtn = document.getElementById("restartBtn");
 
 function createBoard() {
   board = Array(SIZE).fill(null).map(() => Array(SIZE).fill(0));
   boardEl.innerHTML = "";
+  document.body.style.backgroundColor = "#fff"; // デフォルト背景
   for (let r = 0; r < SIZE; r++) {
     for (let c = 0; c < SIZE; c++) {
       const cell = document.createElement("div");
@@ -69,7 +74,15 @@ function handleClick(r, c, cell) {
   cell.classList.add(currentPlayer === 1 ? "player1" : "player2");
 
   if (checkWin(r, c)) {
-    setTimeout(() => alert(`プレイヤー${currentPlayer}の勝利！`), 10);
+    scores[currentPlayer-1]++;
+    scoreboardEl.textContent = `スコア - プレイヤー1: ${scores[0]} | プレイヤー2: ${scores[1]}`;
+    document.body.style.backgroundColor = currentPlayer === 1 ? "#aaf" : "#faa";
+    statusEl.textContent = `プレイヤー${currentPlayer}の勝利！自動リスタートします...`;
+    setTimeout(() => {
+      currentPlayer = 1;
+      statusEl.textContent = "プレイヤー1のターン";
+      createBoard();
+    }, 2000);
     return;
   }
 
