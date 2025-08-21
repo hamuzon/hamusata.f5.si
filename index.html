@@ -239,18 +239,5 @@ const currentYear = new Date().getFullYear();
 document.getElementById("year").textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : `${baseYear}`;
 </script>
 
-<script>
-function checkRedirect() {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
-    const host = window.location.host;
-    if ((isMobile && host === 'm.hamusata.f5.si') || (!isMobile && host === 'hamusata.f5.si')) return;
-    const target = isMobile ? 'https://m.hamusata.f5.si' : 'https://hamusata.f5.si';
-    window.location.href = target;
-}
-window.addEventListener('load', checkRedirect);
-window.addEventListener('resize', checkRedirect);
-window.addEventListener('orientationchange', checkRedirect);
-</script>
-
 </body>
 </html>
