@@ -36,20 +36,28 @@ body { min-height:100vh; background:#121212; color:#ddd; line-height:1.6; scroll
 
 /* --- ヘッダー --- */
 header {
-  text-align: center;
-  padding: 0;
-  background: url('banana_icon_hamusata.png') no-repeat center center;
-  background-size: contain; 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   position: relative;
-  min-height: 90px; 
+  width: 100%;
+  height: 120px; /* バナー高さ */
 }
-header a {
-  display: block;
+
+/* バナー画像 */
+header .banner {
   width: 100%;
   height: 100%;
+  background: url('banana_icon_hamusata.png') no-repeat center center;
+  background-size: contain;
+}
+
+/* 透明なクリック判定リンク */
+header .banner-hit {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
   text-decoration: none;
-  color: inherit;
+  z-index: 10;
 }
 
 /* --- セクション --- */
@@ -90,10 +98,11 @@ section.highlight { background:rgba(255,255,255,0.1); }
 <body>
 
 <header>
-  <a href="https://home.hamusata.f5.si" target="_self">
-    <!-- 文字非表示 -->
-    <!-- <h1>HAMUSATA</h1> -->
-  </a>
+  <!-- 背景バナー -->
+  <div class="banner"></div>
+  
+  <!-- 透明なクリック判定 -->
+  <a href="https://home.hamusata.f5.si" class="banner-hit"></a>
 </header>
 
 <section id="profile">
@@ -108,49 +117,42 @@ section.highlight { background:rgba(255,255,255,0.1); }
 <section id="portfolio">
   <h2>ポートフォリオリンク集</h2>
   <div class="works">
-
     <div class="work-card">
       <img src="https://hamusata.f5.si/icon.svg" alt="HAMUSATA icon">
       <h3>HAMUSATA – ホームページ</h3>
       <p>メインのポータルリンク。色々なものをまとめています。</p>
       <a href="https://home.hamusata.f5.si" target="_self"><span>見る</span> / <span>View</span></a>
     </div>
-
     <div class="work-card">
       <img src="https://hamusata.f5.si/icon.svg" alt="GitHub版 icon">
       <h3>GitHub版 – ホームページ</h3>
       <p>GitHub Pages 版ホームページ。</p>
       <a href="https://hamuzon.github.io" target="_self"><span>見る</span> / <span>View</span></a>
     </div>
-
     <div class="work-card">
       <img src="https://hamusata.f5.si/icon.svg" alt="hamuzon icon">
       <h3>hamuzon – ホームページ</h3>
       <p>hamuzon-jp.f5.si のホームページ・リンクポータル版 (fc2の一部コピーサイト)</p>
       <a href="https://hamuzon-jp.f5.si/" target="_self"><span>見る</span> / <span>View</span></a>
     </div>
-
     <div class="work-card">
       <img src="https://hamusata.f5.si/icon.svg" alt="hamuzon FC2 icon">
       <h3>hamuzon (FC2)系 – ホームページ</h3>
       <p>FC2版ホームページ。いろんなコードやコンテンツがあります。</p>
       <a href="https://hamuzon.web.fc2.com/" target="_self"><span>見る</span> / <span>View</span></a>
     </div>
-
     <div class="work-card">
       <img src="https://hamusata.f5.si/icon.svg" alt="link-s icon">
       <h3>link-s.f5.si – ショートカットリンクサービス</h3>
       <p>短縮URL・ショートカットリンクサービス。</p>
       <a href="https://link-s.f5.si" target="_self"><span>見る</span> / <span>View</span></a>
     </div>
-
     <div class="work-card">
       <img src="https://hamusata.f5.si/icon.svg" alt="go.link-s icon">
       <h3>go.link-s.f5.si – カスタムパス対応版</h3>
       <p>任意のパスで短縮リンクを作れるカスタムリンクサービス。</p>
       <a href="https://go.link-s.f5.si" target="_self"><span>見る</span> / <span>View</span></a>
     </div>
-
     <div class="work-card">
       <img src="https://hamusata.f5.si/icon.svg" alt="pw.link-s icon">
       <h3>pw.link-s.f5.si – パスワード生成サービス</h3>
@@ -159,21 +161,18 @@ section.highlight { background:rgba(255,255,255,0.1); }
       <p class="note">※リダイレクトがうまくできない場合は <a href="https://password.link-s.f5.si" target="_self">こちら</a> を利用してください。</p>
       <a href="https://password-create.link-s.f5.si/" target="_self"><span>APIなし版</span> / <span>No-API</span></a>
     </div>
-
     <div class="work-card">
       <img src="https://hamusata.f5.si/icon.svg" alt="www.link-s icon">
       <h3>www.link-s.f5.si</h3>
       <p>リンクのメイン機能はショートカットリンクサービスのlink-s.f5.si 系列作品集一覧。</p>
       <a href="https://www.link-s.f5.si/" target="_self"><span>見る</span> / <span>View</span></a>
     </div>
-
     <div class="work-card">
       <img src="https://hamusata.f5.si/icon.svg" alt="ランダム作品 icon">
       <h3>ランダム作品</h3>
       <p>作品をランダムに開くボタンです。</p>
       <a href="./random" target="_self"><span>開く</span> / <span>Open</span></a>
     </div>
-
   </div>
 </section>
 
