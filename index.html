@@ -100,9 +100,9 @@ section.highlight { background:rgba(255,255,255,0.1); }
 <header>
   <!-- 背景バナー -->
   <div class="banner"></div>
-
+  
   <!-- 透明なクリック判定 -->
-  <a href="https://hamusata.f5.si" class="banner-hit"></a>
+  <a href="https://home.hamusata.f5.si" class="banner-hit"></a>
 </header>
 
 <section id="profile">
@@ -121,13 +121,13 @@ section.highlight { background:rgba(255,255,255,0.1); }
       <img src="https://hamusata.f5.si/icon.svg" alt="HAMUSATA icon">
       <h3>HAMUSATA – ホームページ</h3>
       <p>メインのポータルリンク。色々なものをまとめています。</p>
-      <a href="https://hamusata.f5.si" target="_self"><span>見る</span> / <span>View</span></a>
+      <a href="https://home.hamusata.f5.si" target="_self"><span>見る</span> / <span>View</span></a>
     </div>
     <div class="work-card">
       <img src="https://hamusata.f5.si/icon.svg" alt="GitHub版 icon">
       <h3>GitHub版 – ホームページ</h3>
       <p>GitHub Pages 版ホームページ。</p>
-      <a href="https://github.com/hamuzon" target="_self"><span>見る</span> / <span>View</span></a>
+      <a href="https://hamuzon.github.io" target="_self"><span>見る</span> / <span>View</span></a>
     </div>
     <div class="work-card">
       <img src="https://hamusata.f5.si/icon.svg" alt="hamuzon icon">
@@ -157,6 +157,7 @@ section.highlight { background:rgba(255,255,255,0.1); }
       <img src="https://hamusata.f5.si/icon.svg" alt="pw.link-s icon">
       <h3>pw.link-s.f5.si – パスワード生成サービス</h3>
       <p>APIベースのパスワード生成サービス。ログ保存等は一切ありません。</p>
+      <a href="https://pw.link-s.f5.si" target="_self"><span>見る</span> / <span>View</span></a>
       <p class="note">※リダイレクトがうまくできない場合は <a href="https://password.link-s.f5.si" target="_self">こちら</a> を利用してください。</p>
       <a href="https://password-create.link-s.f5.si/" target="_self"><span>APIなし版</span> / <span>No-API</span></a>
     </div>
@@ -236,26 +237,6 @@ section.highlight { background:rgba(255,255,255,0.1); }
 const baseYear = 2025;
 const currentYear = new Date().getFullYear();
 document.getElementById("year").textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : `${baseYear}`;
-
-// PC / スマホ用リンク切替
-function updateLinks() {
-  const isMobile = window.innerWidth <= 768; // スマホ判定
-  const mainURL = isMobile ? "https://m.hamusata.f5.si" : "https://hamusata.f5.si";
-
-  // ヘッダーリンク
-  const bannerLink = document.querySelector(".banner-hit");
-  if(bannerLink) bannerLink.href = mainURL;
-
-  // ポートフォリオ内のメインリンク（最初のwork-card）
-  const firstWorkLink = document.querySelector("#portfolio .work-card a");
-  if(firstWorkLink) firstWorkLink.href = mainURL;
-}
-
-// 初回実行
-updateLinks();
-
-// リサイズ時も切替
-window.addEventListener('resize', updateLinks);
 </script>
 
 </body>
