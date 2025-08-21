@@ -35,10 +35,39 @@
 body { min-height:100vh; background:#121212; color:#ddd; line-height:1.6; scroll-behavior:smooth; }
 
 /* --- ヘッダー --- */
-header { text-align:center; padding:4rem 1rem; background:#1c1c1c; color:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-header a { text-decoration:none; color:inherit; }
-header img { width:120px; height:120px; margin-bottom:1rem; border-radius:50%; border:2px solid #555; }
-header h1 { font-size:2.8rem; margin-bottom:0.5rem; letter-spacing:1px; }
+header {
+  text-align: center;
+  padding: 1rem 0;
+  color: #fff;
+  background: url('banana_icon_hamusata.png') no-repeat center center;
+  background-size: contain; /* ヘッダー内に収める */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  position: relative;
+  min-height: 90px; /* バナー高さに合わせる */
+}
+header a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+header img {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 0.5rem;
+  border-radius: 50%;
+  border: 2px solid #555;
+  position: relative;
+  z-index: 2;
+}
+header h1 {
+  font-size: 2.8rem;
+  margin: 0;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 2;
+}
 
 /* --- セクション --- */
 section { max-width:1000px; margin:3rem auto; padding:0 1rem; border-radius:8px; transition:0.5s; }
@@ -72,7 +101,8 @@ section.highlight { background:rgba(255,255,255,0.1); }
   .works { grid-template-columns:1fr; }
   section h2 { font-size:1.5rem; }
   .profile p { font-size:0.95rem; }
-  header h1 { font-size:2rem; }
+  header h1 { font-size:1.8rem; }
+  header img { width:80px; height:80px; }
 }
 </style>
 </head>
@@ -156,7 +186,6 @@ section.highlight { background:rgba(255,255,255,0.1); }
       <a href="https://www.link-s.f5.si/" target="_self"><span>見る</span> / <span>View</span></a>
     </div>
 
-    <!-- 新しいカード：ランダム作品 -->
     <div class="work-card">
       <img src="https://hamusata.f5.si/icon.svg" alt="ランダム作品 icon">
       <h3>ランダム作品</h3>
@@ -178,9 +207,7 @@ section.highlight { background:rgba(255,255,255,0.1); }
         PCは毎日 <strong>日本時間の朝4時に自動再起動</strong> しており、再起動時にサーバーや Cloudflare Tunnel が自動起動しない場合、<br>
         一時的に接続できないことがあります。
       </p>
-      <a href="https://stats.uptimerobot.com/tT7bs2uEHa" target="_self">
-        <span>稼働状況を見る</span> / <span>View Status</span>
-      </a>
+      <a href="https://stats.uptimerobot.com/tT7bs2uEHa" target="_self"><span>稼働状況を見る</span> / <span>View Status</span></a>
     </div>
   </div>
 </section>
