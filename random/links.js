@@ -63,6 +63,7 @@ const links = [
 
 "https://hamuzon-jp.f5.si/Time-Zone_app/",
 "https://hamuzon-jp.f5.si/expo2025-counter/",
+"https://expo.hamuzon-jp.f5.si/",
 "https://hamuzon-jp.f5.si/clock/",
 "https://hamuzon-jp.f5.si/bin2dec/",
 "https://hamuzon-jp.f5.si/text/",
