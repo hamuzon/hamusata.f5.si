@@ -1,8 +1,6 @@
 const links = [
 "https://home.hamusata.f5.si/",
 "https://hamusata.f5.si/",
-"https://YouTube.hamusata.f5.si",
-"https://scratch-user-info.hamusata.f5.si",
 "https://scratch.hamusata.f5.si/",
 "https://time.hamusata.f5.si",
 "https://time-zone.hamusata.f5.si",
