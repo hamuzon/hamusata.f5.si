@@ -173,5 +173,21 @@
         : `${baseYear}`;
   </script>
 
+<script>
+function checkRedirect() {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    const host = window.location.host;
+    if (host !== 'hamusata.f5.si' && host !== 'm.hamusata.f5.si') return;
+    if ((isMobile && host === 'm.hamusata.f5.si') || (!isMobile && host === 'hamusata.f5.si')) return;
+    const path = window.location.pathname + window.location.search + window.location.hash;
+    const targetDomain = isMobile ? 'https://m.hamusata.f5.si' : 'https://hamusata.f5.si';
+    const target = targetDomain + path;
+    window.location.href = target;
+}
+window.addEventListener('load', checkRedirect);
+window.addEventListener('resize', checkRedirect);
+window.addEventListener('orientationchange', checkRedirect);
+</script>
+
 </body>
 </html>
