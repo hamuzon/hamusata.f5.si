@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HAMUSATA – 相互リンク</title>
-
   <link rel="icon" href="../icon.svg" type="image/svg+xml">
   <link rel="icon" href="../icon.png" type="image/png">
   <link rel="apple-touch-icon" href="../icon.png">
@@ -70,9 +69,17 @@
 
     .works {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.5rem;
       margin-top: 2rem;
+    }
+
+    .works.with-img {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .works.no-img {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      justify-content: center;
     }
 
     .sougolink {
@@ -86,6 +93,7 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.5);
       text-align: center;
       transition: 0.3s;
+      width: 100%;
     }
 
     .sougolink:hover {
@@ -99,6 +107,8 @@
       object-fit: cover;
       border-radius: 12px;
       margin-bottom: 1rem;
+      display: block;
+      background: #222;
     }
 
     .sougolink h3 {
@@ -110,6 +120,11 @@
     .sougolink a {
       color: inherit;
       text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      height: 100%;
     }
 
     footer {
@@ -124,9 +139,17 @@
       text-decoration: underline;
     }
 
-    @media (max-width: 500px) {
-      section h2 {
-        font-size: 1.5rem;
+    @media (max-width: 900px) {
+      .works.with-img,
+      .works.no-img {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .works.with-img,
+      .works.no-img {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -135,7 +158,7 @@
 
 <header>
   <a href="https://home.hamusata.f5.si" class="banner-link" aria-label="HAMUSATA ホームへ移動">
-    <img src="../banner_icon_hamusata.png" alt="hamusata home banner" width="512" height="154" loading="lazy" decoding="async">
+    <img src="../hamusata.webp" alt="hamusata home banner">
   </a>
 </header>
 
@@ -150,6 +173,7 @@
         <h3>@rampotchi</h3>
       </a>
     </div>
+
     <div class="sougolink">
       <a href="https://lase.dev/" target="_blank">
         <img src="https://lase.dev/assets/lase_dev_header.webp" alt="@driplase – lase.dev">
@@ -157,6 +181,7 @@
         <h3>@driplase</h3>
       </a>
     </div>
+
     <div class="sougolink">
       <a href="https://9a.si/" target="_blank">
         <img src="https://9a.si/9a.si.webp" alt="@Lunar – 9a.si">
@@ -167,8 +192,13 @@
   </div>
 
   <div class="works no-img">
-    <div class="sougolink"></div>
-  </div>
+    <div class="sougolink">
+      <a href="https://kntnkmr.f5.si/" target="_blank">
+        <h3>kntnkmr.f5.si</h3>
+        <h3>@kntnkmr</h3>
+      </a>
+    </div>
+
 </section>
 
 <footer>
