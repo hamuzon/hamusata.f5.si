@@ -11,7 +11,7 @@
       yearElem.textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
     }
     function redirectToLinks() {
-      const targetPath = '/links';
+      const targetPath = "../links/index.html"
       if (window.location.pathname.startsWith('/mutual_Links')) {
         window.location.href = targetPath;
       }
@@ -20,6 +20,6 @@
   </script>
 </head>
 <body>
-  <p>自動で移動しない場合は、こちらをクリックしてください： <a href="/links">/links</a></p>
+  <p>自動で移動しない場合は、こちらをクリックしてください： <a href="../links/index.html">/links</a></p>
 </body>
 </html>
