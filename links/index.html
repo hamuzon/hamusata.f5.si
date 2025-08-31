@@ -71,6 +71,7 @@
       display: grid;
       gap: 1.5rem;
       margin-top: 2rem;
+<<<<<<< HEAD
     }
 
     .works.with-img {
@@ -82,6 +83,11 @@
       justify-content: center;
     }
 
+=======
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+>>>>>>> hamuzon-patch-1
     .sougolink {
       display: flex;
       flex-direction: column;
@@ -107,8 +113,17 @@
       object-fit: cover;
       border-radius: 12px;
       margin-bottom: 1rem;
+<<<<<<< HEAD
       display: block;
       background: #222;
+=======
+      background: #222;
+      display: none;
+    }
+
+    .sougolink a img[src] {
+      display: block;
+>>>>>>> hamuzon-patch-1
     }
 
     .sougolink h3 {
@@ -140,15 +155,23 @@
     }
 
     @media (max-width: 900px) {
+<<<<<<< HEAD
       .works.with-img,
       .works.no-img {
+=======
+      .works {
+>>>>>>> hamuzon-patch-1
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       }
     }
 
     @media (max-width: 600px) {
+<<<<<<< HEAD
       .works.with-img,
       .works.no-img {
+=======
+      .works {
+>>>>>>> hamuzon-patch-1
         grid-template-columns: 1fr;
       }
     }
@@ -165,7 +188,19 @@
 <section>
   <h2>相互リンク / Mutual Links</h2>
 
+<<<<<<< HEAD
   <div class="works with-img">
+=======
+  <div class="works">
+    <div class="sougolink">
+      <a href="https://9a.si/" target="_blank">
+        <img src="https://9a.si/9a.si.webp" alt="@Lunar – 9a.si">
+        <h3 class="zenmaru">9a.si</h3>
+        <h3 class="zenmaru">@Lunar</h3>
+      </a>
+    </div>
+
+>>>>>>> hamuzon-patch-1
     <div class="sougolink">
       <a href="https://rampo.f5.si/" target="_blank">
         <img src="https://rampo.f5.si/img/logo.webp" alt="@rampotchi – rampo.f5.si">
@@ -183,6 +218,7 @@
     </div>
 
     <div class="sougolink">
+<<<<<<< HEAD
       <a href="https://9a.si/" target="_blank">
         <img src="https://9a.si/9a.si.webp" alt="@Lunar – 9a.si">
         <h3 class="zenmaru">9a.si</h3>
@@ -193,12 +229,24 @@
 
   <div class="works no-img">
     <div class="sougolink">
+=======
+>>>>>>> hamuzon-patch-1
       <a href="https://kntnkmr.f5.si/" target="_blank">
         <h3>kntnkmr.f5.si</h3>
         <h3>@kntnkmr</h3>
       </a>
     </div>
 
+<<<<<<< HEAD
+=======
+    <div class="sougolink">
+      <a href="https://kurogehome.f5.si/" target="_blank">
+        <h3>kurogehome.f5.si</h3>
+        <h3>@kuroge_</h3>
+      </a>
+    </div>
+  </div>
+>>>>>>> hamuzon-patch-1
 </section>
 
 <footer>
@@ -227,4 +275,8 @@
 </script>
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> hamuzon-patch-1
