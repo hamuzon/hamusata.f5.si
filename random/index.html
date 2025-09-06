@@ -80,12 +80,12 @@ btn.addEventListener("click", () => {
 const baseYear = 2025;
 const currentYear = new Date().getFullYear();
 document.addEventListener('DOMContentLoaded', () => {
-  const yearElem = document.createElement('span');
-  yearElem.id = 'year';
-  yearElem.textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
   const footer = document.querySelector('footer');
-  footer.insertAdjacentHTML('afterbegin', '© '); 
-  footer.insertBefore(yearElem, footer.childNodes[1]);
+  const yearSpan = document.createElement('span');
+  yearSpan.id = 'year';
+  yearSpan.textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
+  footer.insertAdjacentHTML('afterbegin', '&copy; ');
+  footer.insertBefore(yearSpan, footer.childNodes[1]);
 });
 function checkRedirect() {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
