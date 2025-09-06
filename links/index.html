@@ -90,16 +90,9 @@
     .works {
       display: grid;
       gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      justify-items: center;
       margin-top: 2rem;
-    }
-
-    .works.with-img {
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
-
-    .works.no-img {
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      justify-content: center;
     }
 
     .sougolink {
@@ -160,15 +153,13 @@
     }
 
     @media (max-width: 900px) {
-      .works.with-img,
-      .works.no-img {
+      .works {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       }
     }
 
     @media (max-width: 600px) {
-      .works.with-img,
-      .works.no-img {
+      .works {
         grid-template-columns: 1fr;
       }
     }
@@ -185,12 +176,13 @@
 <section>
   <h2>相互リンク / Mutual Links</h2>
 
-  <div class="works with-img">
+  <div class="works">
+
     <div class="sougolink">
-      <a href="https://rampo.f5.si/" target="_blank">
-        <img src="https://rampo.f5.si/img/logo.webp" alt="@rampotchi – rampo.f5.si">
-        <h3>rampo.f5.si</h3>
-        <h3>@rampotchi</h3>
+      <a href="https://9a.si/" target="_blank">
+        <img src="https://9a.si/9a.si.webp" alt="@Lunar – 9a.si">
+        <h3 class="zenmaru">9a.si</h3>
+        <h3 class="zenmaru">@Lunar</h3>
       </a>
     </div>
 
@@ -203,27 +195,34 @@
     </div>
 
     <div class="sougolink">
-      <a href="https://9a.si/" target="_blank">
-        <img src="https://9a.si/9a.si.webp" alt="@Lunar – 9a.si">
-        <h3 class="zenmaru">9a.si</h3>
-        <h3 class="zenmaru">@Lunar</h3>
+      <a href="https://rampo.f5.si/" target="_blank">
+        <img src="https://rampo.f5.si/img/logo.webp" alt="@rampotchi – rampo.f5.si">
+        <h3>rampo.f5.si</h3>
+        <h3>@rampotchi</h3>
       </a>
     </div>
-  </div>
 
-  <div class="works no-img">
     <div class="sougolink">
       <a href="https://kntnkmr.f5.si/" target="_blank">
         <h3>kntnkmr.f5.si</h3>
         <h3>@kntnkmr</h3>
       </a>
     </div>
-     <div class="sougolink">
+
+    <div class="sougolink">
       <a href="https://kurogehome.f5.si/" target="_blank">
         <h3>kurogehome.f5.si</h3>
         <h3>@kuroge_</h3>
       </a>
     </div>
+
+    <div class="sougolink">
+      <a href="https://spacer4719.f5.si/" target="_blank">
+        <img src="https://spacer4719.f5.si/images/NSH.webp" alt="@spacer4719 – spacer4719.f5.si">
+        <h3>@spacer4719</h3>
+      </a>
+    </div>
+
   </div>
 </section>
 
