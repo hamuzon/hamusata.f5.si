@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>作品ランダムリンク</title>
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="icon" href="../icon.png" type="image/png">
+<link rel="apple-touch-icon" href="../icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -22,33 +25,46 @@
     --button-hover: #666;
   }
 }
-body { 
-  font-family: 'Potta One', sans-serif; 
-  background: var(--bg); 
-  color: var(--text); 
-  display:flex; 
-  flex-direction:column; 
-  align-items:center; 
-  justify-content:center; 
-  min-height:100vh; 
-  margin:0; 
+body {
+  font-family: 'Potta One', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  text-align: center;
 }
-h1 { 
-  margin-bottom:2rem; 
-  text-align:center; 
+h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
 }
 button {
-  padding:1rem 2rem;
-  font-size:1.2rem;
-  border:none;
-  border-radius:12px;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 12px;
   background: var(--button-bg);
   color: var(--button-text);
-  cursor:pointer;
-  transition:0.3s;
+  cursor: pointer;
+  transition: 0.3s, transform 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-button:hover { 
-  background: var(--button-hover); 
+button:hover {
+  background: var(--button-hover);
+  transform: translateY(-2px);
+}
+footer {
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+footer a {
+  color: var(--text);
+  text-decoration: underline;
+  margin: 0 0.3rem;
 }
 </style>
 </head>
@@ -64,23 +80,32 @@ btn.addEventListener("click", () => {
   const randomIndex = Math.floor(Math.random() * links.length);
   window.open(links[randomIndex], "_blank");
 });
-</script>
-
-<script>
+const baseYear = 2025;
+const currentYear = new Date().getFullYear();
+document.addEventListener('DOMContentLoaded', () => {
+  const yearElem = document.createElement('span');
+  yearElem.id = 'year';
+  yearElem.textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
+  document.querySelector('footer').prepend(yearElem);
+});
 function checkRedirect() {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
-    const host = window.location.host;
-    if (host !== 'hamusata.f5.si' && host !== 'm.hamusata.f5.si') return;
-    if ((isMobile && host === 'm.hamusata.f5.si') || (!isMobile && host === 'hamusata.f5.si')) return;
-    const path = window.location.pathname + window.location.search + window.location.hash;
-    const targetDomain = isMobile ? 'https://m.hamusata.f5.si' : 'https://hamusata.f5.si';
-    const target = targetDomain + path;
-    window.location.href = target;
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+  const host = window.location.host;
+  if (host !== 'hamusata.f5.si' && host !== 'm.hamusata.f5.si') return;
+  if ((isMobile && host === 'm.hamusata.f5.si') || (!isMobile && host === 'hamusata.f5.si')) return;
+  const path = window.location.pathname + window.location.search + window.location.hash;
+  const targetDomain = isMobile ? 'https://m.hamusata.f5.si' : 'https://hamusata.f5.si';
+  window.location.href = targetDomain + path;
 }
 window.addEventListener('load', checkRedirect);
 window.addEventListener('resize', checkRedirect);
 window.addEventListener('orientationchange', checkRedirect);
 </script>
+
+<footer>
+  &copy; <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved. |
+  <a href="../index.html">ホームページに戻る</a>
+</footer>
 
 </body>
 </html>
