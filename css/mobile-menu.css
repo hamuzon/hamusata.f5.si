@@ -1,28 +1,47 @@
 /* --- mobile-menu.css --- */
+/* --- リセット & 基本 --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Potta One', sans-serif;
+}
 
 /* --- ハンバーガーボタン --- */
 #menu-toggle {
-  display: none;
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 35px;
-  height: 30px;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
+  background: transparent;
+  border: none;
   cursor: pointer;
   z-index: 1003;
-  background: none;
-  border: none;
 }
 
 #menu-toggle span {
   display: block;
-  height: 4px;
   width: 100%;
-  background: var(--md-sys-color-on-background);
+  height: 4px;
+  background-color: var(--md-sys-color-on-surface);
   border-radius: 2px;
-  transition: 0.4s;
+  transition: 0.3s;
+}
+
+body.menu-open #menu-toggle span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+body.menu-open #menu-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+body.menu-open #menu-toggle span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
 }
 
 /* --- モバイルメニュー --- */
@@ -35,78 +54,78 @@
   width: 280px;
   height: 100vh;
   padding: 5rem 1rem 1rem 1rem;
-  gap: 1.5rem;
   transform: translateX(100%);
   transition: transform 0.35s cubic-bezier(0.77,0,0.175,1);
   z-index: 1002;
   background-color: var(--menu-bg, #1e1e2f);
+  color: var(--menu-color, #fff);
 }
 
-/* --- ライト/ダークテーマ対応 --- */
-body.light #mobile-menu {
-  --menu-bg: #ffffff;
-}
-
-body.dark #mobile-menu {
-  --menu-bg: #1e1e2f;
-}
-
-/* --- メニュー開いた時 --- */
 body.menu-open #mobile-menu {
   transform: translateX(0);
 }
 
-/* --- メニュー内リスト --- */
 #mobile-menu ul {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  margin: 0;
+  padding: 0;
 }
 
 #mobile-menu ul li a {
+  display: block;
   text-decoration: none;
+  color: inherit;
   font-size: 1.2rem;
-  color: var(--menu-text, #ffffff);
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* --- ライト/ダークテーマ対応 --- */
-body.light #mobile-menu ul li a {
-  --menu-text: #1e1e2f;
-}
-
-body.dark #mobile-menu ul li a {
-  --menu-text: #ffffff;
-}
-
-/* --- ホバー時の色 --- */
 #mobile-menu ul li a:hover {
-  background-color: #ff6f61;
-  color: #ffffff;
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+/* 最後のリスト余白調整 */
+#mobile-menu ul li:last-child a {
+  margin-bottom: 0;
 }
 
 /* --- メニューオーバーレイ --- */
 #menu-overlay {
-  display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.5);
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s;
   z-index: 1001;
 }
 
 body.menu-open #menu-overlay {
-  display: block;
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* --- ダーク・ライトテーマ対応 --- */
+body.light #mobile-menu {
+  --menu-bg: #f8f8f8;
+  --menu-color: #1e1e2f;
+}
+
+body.dark #mobile-menu {
+  --menu-bg: #1e1e2f;
+  --menu-color: #f8f8f8;
 }
 
 /* --- レスポンシブ --- */
-@media (max-width: 768px) {
-  #menu-toggle {
-    display: flex;
+@media (min-width: 769px) {
+  #menu-toggle,
+  #mobile-menu,
+  #menu-overlay {
+    display: none;
   }
 }
