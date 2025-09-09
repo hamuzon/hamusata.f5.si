@@ -1,5 +1,19 @@
 /* --- mobile-menu.css --- */
 
+/* --- カラー変数 --- */
+:root {
+  --color-light-bg: #ffffff;
+  --color-light-text: #1e1e2f;
+  --color-light-hover: #ff6f61;
+
+  --color-dark-bg: #1e1e2f;
+  --color-dark-text: #ffffff;
+  --color-dark-hover: #ff8c42;
+
+  --menu-width: 240px;
+  --menu-gap: 0.6rem;
+}
+
 /* --- ハンバーガーボタン --- */
 #menu-toggle {
   display: none;
@@ -21,13 +35,13 @@
   display: block;
   height: 3px;
   width: 100%;
-  background: var(--md-sys-color-on-background);
+  background: var(--hamburger-color, #1e1e2f);
   border-radius: 2px;
   transition: all 0.3s ease;
   transform-origin: center;
 }
 
-/* 開閉アニメーション */
+/* ハンバーガー開閉アニメーション */
 body.menu-open #menu-toggle span:nth-child(1) {
   transform: rotate(45deg) translate(4px, 4px);
 }
@@ -45,20 +59,30 @@ body.menu-open #menu-toggle span:nth-child(3) {
   position: fixed;
   top: 0;
   right: 0;
-  width: 240px;
+  width: var(--menu-width);
   height: 100vh;
   padding: 4rem 0.5rem 0.5rem 0.5rem;
-  gap: 0.5rem; 
+  gap: var(--menu-gap);
   transform: translateX(100%);
   transition: transform 0.35s cubic-bezier(0.77,0,0.175,1);
   z-index: 1002;
-  background-color: var(--menu-bg, #1e1e2f);
-  box-shadow: -2px 0 12px rgba(0,0,0,0.3);
+  background-color: var(--menu-bg);
+  box-shadow: -2px 0 20px rgba(0,0,0,0.35);
+  backdrop-filter: blur(5px);
+  border-left: 1px solid rgba(255,255,255,0.1);
 }
 
 /* ライト/ダーク対応 */
-body.light #mobile-menu { --menu-bg: #ffffff; }
-body.dark  #mobile-menu { --menu-bg: #1e1e2f; }
+body.light #mobile-menu {
+  --menu-bg: var(--color-light-bg);
+  --menu-text: var(--color-light-text);
+  --hamburger-color: var(--color-light-text);
+}
+body.dark #mobile-menu {
+  --menu-bg: var(--color-dark-bg);
+  --menu-text: var(--color-dark-text);
+  --hamburger-color: var(--color-dark-text);
+}
 
 /* 開いた時 */
 body.menu-open #mobile-menu {
@@ -70,48 +94,38 @@ body.menu-open #mobile-menu {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: var(--menu-gap);
   margin: 0;
   padding: 0;
 }
 
-#mobile-menu ul li {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-}
-
-body.menu-open #mobile-menu ul li {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-body.menu-open #mobile-menu ul li:nth-child(1) { transition-delay: 0.05s; }
-body.menu-open #mobile-menu ul li:nth-child(2) { transition-delay: 0.10s; }
-body.menu-open #mobile-menu ul li:nth-child(3) { transition-delay: 0.15s; }
-body.menu-open #mobile-menu ul li:nth-child(4) { transition-delay: 0.20s; }
-body.menu-open #mobile-menu ul li:nth-child(5) { transition-delay: 0.25s; }
-
-/* リンク */
 #mobile-menu ul li a {
   text-decoration: none;
   font-size: 1rem;
-  color: var(--menu-text, #ffffff);
+  color: var(--menu-text);
   padding: 0.6rem 1rem;
-  border-radius: 10px;
-  transition: background-color 0.25s, color 0.25s, transform 0.2s;
+  border-radius: 12px;
+  transition: all 0.25s ease;
   font-weight: 500;
+  background: linear-gradient(120deg, transparent 0%, transparent 100%);
 }
 
-/* ライト/ダークテーマ文字色 */
-body.light #mobile-menu ul li a { --menu-text: #1e1e2f; }
-body.dark  #mobile-menu ul li a { --menu-text: #ffffff; }
-
-/* ホバー */
+/* ホバー・アクティブカラー */
 #mobile-menu ul li a:hover {
-  background-color: #ff6f61;
-  color: #ffffff;
+  background: linear-gradient(120deg, rgba(255,111,97,0.2) 0%, rgba(255,111,97,0.35) 100%);
+  color: var(--color-light-hover);
   transform: scale(1.05);
+}
+
+/* ダークテーマホバー */
+body.dark #mobile-menu ul li a:hover {
+  background: linear-gradient(120deg, rgba(255,140,66,0.2) 0%, rgba(255,140,66,0.35) 100%);
+  color: var(--color-dark-hover);
+}
+
+/* リスト最後の余白調整 */
+#mobile-menu ul li:last-child a {
+  margin-bottom: 0;
 }
 
 /* --- メニューオーバーレイ --- */
@@ -124,7 +138,8 @@ body.dark  #mobile-menu ul li a { --menu-text: #ffffff; }
   height: 100vh;
   background: rgba(0,0,0,0.45);
   z-index: 1001;
-  transition: opacity 0.35s;
+  transition: opacity 0.35s ease;
+  backdrop-filter: blur(2px);
 }
 
 body.menu-open #menu-overlay {
