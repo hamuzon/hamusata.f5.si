@@ -16,10 +16,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="preload" as="style" href="css/style.css" onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="css/style.css"></noscript>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile-menu.css">
+
+  <!-- テーマCSS -->
   <script>
-    // テーマCSSをループで読み込み
     const themeCSS = [
       "css/dark.css",
       "css/dark-hc.css",
@@ -47,14 +48,31 @@
 
   <!-- ヘッダー -->
   <header>
-    <a href="https://home.hamusata.f5.si" class="banner-link" aria-label="HAMUSATA ホームへ移動">
-      <img src="hamusata_399-120.webp" 
-           alt="hamusata home banner" 
-           width="399" 
-           height="120" 
-           loading="lazy" 
-           decoding="async">
+    <a href="#home" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
+      <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
     </a>
+
+    <!-- ハンバーガー -->
+    <button id="menu-toggle" aria-label="メニューを開く">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- スマホメニュー -->
+    <nav id="mobile-menu">
+      <ul>
+        <li><a href="#home" class="nav-home">ホーム</a></li>
+        <li><a href="#profile">自己紹介</a></li>
+        <li><a href="#portfolio">ポートフォリオ</a></li>
+        <li><a href="#status">サービス稼働状況</a></li>
+        <li><a href="#mutual-links">相互リンク</a></li>
+        <li><a href="#sns">SNSリンク</a></li>
+      </ul>
+    </nav>
+
+    <!-- オーバーレイ -->
+    <div id="menu-overlay"></div>
   </header>
 
   <!-- 自己紹介 -->
@@ -226,7 +244,26 @@
     }
     applyTheme();
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
-  </script>
 
+    // ハンバーガーメニュー開閉
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuOverlay = document.getElementById('menu-overlay');
+    menuToggle.addEventListener('click', () => {
+      document.body.classList.toggle('menu-open');
+    });
+    menuOverlay.addEventListener('click', () => {
+      document.body.classList.remove('menu-open');
+    });
+
+    // #homeクリック時にスクロール＆ハッシュ削除
+    function scrollToHome(event) {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      history.replaceState(null, '', ' ');
+      document.body.classList.remove('menu-open'); // メニュー閉じる
+    }
+    document.getElementById('home').addEventListener('click', scrollToHome);
+    document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', scrollToHome));
+  </script>
 </body>
 </html>
