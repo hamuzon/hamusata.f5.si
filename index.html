@@ -15,28 +15,29 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
-  <!-- 共通 CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- CSS -->
+  <link rel="preload" as="style" href="css/style.css" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/style.css"></noscript>
+  <script>
+    // テーマCSSをループで読み込み
+    const themeCSS = [
+      "css/dark.css",
+      "css/dark-hc.css",
+      "css/dark-mc.css",
+      "css/light.css",
+      "css/light-hc.css",
+      "css/light-mc.css"
+    ];
+    themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
+  </script>
 
-  <!-- テーマ別 CSS -->
-  <link rel="stylesheet" href="css/dark.css">
-  <link rel="stylesheet" href="css/dark-hc.css">
-  <link rel="stylesheet" href="css/dark-mc.css">
-  <link rel="stylesheet" href="css/light.css">
-  <link rel="stylesheet" href="css/light-hc.css">
-  <link rel="stylesheet" href="css/light-mc.css">
-
-  <!-- サイト説明（SEO用） -->
+  <!-- SEO -->
   <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
-
-  <!-- Open Graph -->
   <meta property="og:title" content="HAMUSATA – ホームページ">
   <meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hamusata.f5.si">
   <meta property="og:image" content="https://hamusata.f5.si/icon_500_500.webp">
-
-  <!-- Twitterカード -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="HAMUSATA – ホームページ">
   <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
@@ -47,7 +48,12 @@
   <!-- ヘッダー -->
   <header>
     <a href="https://home.hamusata.f5.si" class="banner-link" aria-label="HAMUSATA ホームへ移動">
-      <img src="banner_icon_hamusata.png" alt="hamusata home banner" width="512" height="154" loading="lazy" decoding="async">
+      <img src="hamusata_399-120.webp" 
+           alt="hamusata home banner" 
+           width="399" 
+           height="120" 
+           loading="lazy" 
+           decoding="async">
     </a>
   </header>
 
@@ -66,43 +72,43 @@
     <h2>ポートフォリオリンク集</h2>
     <div class="works">
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="HAMUSATA icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="HAMUSATA icon" loading="lazy" decoding="async">
         <h3>HAMUSATA – ホームページ</h3>
         <p>メインのポータルリンク。色々なものをまとめています。</p>
         <a href="https://home.hamusata.f5.si"><span>見る</span> / <span>View</span></a>
       </div>
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="GitHub Pages icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="GitHub Pages icon" loading="lazy" decoding="async">
         <h3>GitHub版 – ホームページ</h3>
         <p>GitHub Pages 版ホームページ。</p>
         <a href="https://hamuzon.github.io"><span>見る</span> / <span>View</span></a>
       </div>
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="hamuzon icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="hamuzon icon" loading="lazy" decoding="async">
         <h3>hamuzon – ホームページ</h3>
         <p>hamuzon-jp.f5.si のホームページ・リンクポータル版 (fc2の一部コピーサイト)</p>
         <a href="https://hamuzon-jp.f5.si/"><span>見る</span> / <span>View</span></a>
       </div>
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="hamuzon FC2 icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="hamuzon FC2 icon" loading="lazy" decoding="async">
         <h3>hamuzon (FC2)系 – ホームページ</h3>
         <p>FC2版ホームページ。いろんなコードやコンテンツがあります。</p>
         <a href="https://hamuzon.web.fc2.com/"><span>見る</span> / <span>View</span></a>
       </div>
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="link-s icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="link-s icon" loading="lazy" decoding="async">
         <h3>link-s.f5.si – ショートカットリンクサービス</h3>
         <p>短縮URL・ショートカットリンクサービス。</p>
         <a href="https://link-s.f5.si"><span>見る</span> / <span>View</span></a>
       </div>
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="go.link-s icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="go.link-s icon" loading="lazy" decoding="async">
         <h3>go.link-s.f5.si – カスタムパス対応版</h3>
         <p>任意のパスで短縮リンクを作れるカスタムリンクサービス。</p>
         <a href="https://go.link-s.f5.si"><span>見る</span> / <span>View</span></a>
       </div>
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="pw.link-s icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="pw.link-s icon" loading="lazy" decoding="async">
         <h3>pw.link-s.f5.si – パスワード生成サービス</h3>
         <p>APIベースのパスワード生成サービス。ログ保存等は一切ありません。</p>
         <a href="https://pw.link-s.f5.si"><span>見る</span> / <span>View</span></a>
@@ -110,13 +116,13 @@
         <a href="https://password-create.link-s.f5.si/"><span>APIなし版</span> / <span>No-API</span></a>
       </div>
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="www.link-s icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="www.link-s icon" loading="lazy" decoding="async">
         <h3>www.link-s.f5.si</h3>
         <p>リンクのメイン機能はショートカットリンクサービスのlink-s.f5.si 系列作品集一覧。</p>
         <a href="https://www.link-s.f5.si/"><span>見る</span> / <span>View</span></a>
       </div>
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="ランダム作品 icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="ランダム作品 icon" loading="lazy" decoding="async">
         <h3>ランダム作品</h3>
         <p>作品をランダムに開くボタンです。</p>
         <a href="./random/index.html"><span>開く</span> / <span>Open</span></a>
@@ -129,7 +135,7 @@
     <h2>サービス稼働状況 / Status Page</h2>
     <div class="works">
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="Status icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="Status icon" loading="lazy" decoding="async">
         <h3>サービス稼働状況</h3>
         <p>※本サービスは一部 <strong>PCサーバー + Cloudflare Tunnel</strong> を利用しています。<br>
         PCは毎日 <strong>日本時間の朝4時に自動再起動</strong> しており、再起動時にサーバーや Cloudflare Tunnel が自動起動しない場合、<br>
@@ -144,7 +150,7 @@
     <h2>相互リンク / Mutual Links</h2>
     <div class="works">
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="Mutual Links icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="Mutual Links icon" loading="lazy" decoding="async">
         <h3>相互リンクページ</h3>
         <p>こちらをクリックすると相互リンクページに移動します。</p>
         <a href="./links/index.html"><span>開く</span> / <span>Open</span></a>
@@ -157,31 +163,31 @@
     <h2>SNSリンク</h2>
     <div class="works">
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="Scratch icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="Scratch icon" loading="lazy" decoding="async">
         <h3>Scratch</h3>
         <p>hamusataアカウント</p>
         <a href="https://scratch.mit.edu/users/hamusata/"><span>見る</span> / <span>View</span></a>
       </div>
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="Scratch icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="Scratch icon" loading="lazy" decoding="async">
         <h3>Scratch</h3>
         <p>hamuzonアカウント</p>
         <a href="https://scratch.mit.edu/users/hamuzon/"><span>見る</span> / <span>View</span></a>
       </div>
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="GitHub icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="GitHub icon" loading="lazy" decoding="async">
         <h3>GitHub</h3>
         <p>GitHubアカウント</p>
         <a href="https://github.com/hamuzon"><span>見る</span> / <span>View</span></a>
       </div>
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="Bluesky icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="Bluesky icon" loading="lazy" decoding="async">
         <h3>Bluesky</h3>
         <p>Blueskyアカウント</p>
         <a href="https://bsky.app/profile/hamuzon-jp.f5.si"><span>見る</span> / <span>View</span></a>
       </div>
       <div class="work-card">
-        <img src="https://hamusata.f5.si/icon.svg" alt="Twitter(X) icon">
+        <img src="https://hamusata.f5.si/icon.svg" alt="Twitter(X) icon" loading="lazy" decoding="async">
         <h3>Twitter (X)</h3>
         <p>@hamu_sata アカウント</p>
         <a href="https://x.com/hamu_sata"><span>見る</span> / <span>View</span></a>
@@ -191,45 +197,32 @@
 
   <!-- フッター -->
   <footer>
-    &copy; <span id="year"></span>
-    <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved.
+    &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved.
   </footer>
 
-  <!-- 年自動更新 -->
+  <!-- スクリプト -->
   <script>
+    // 年自動更新
     const baseYear = 2025;
-    const currentYear = new Date().getFullYear();
-    document.getElementById("year").textContent =
-      currentYear > baseYear ? `${baseYear}~${currentYear}` : `${baseYear}`;
-  </script>
+    const now = new Date().getFullYear();
+    document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
-  <!-- リダイレクト判定（サブパス保持対応） -->
-  <script>
+    // サブパス保持リダイレクト
     function checkRedirect() {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
       const host = window.location.host;
-      const path = window.location.pathname + window.location.search + window.location.hash;
-      if (host !== 'hamusata.f5.si' && host !== 'm.hamusata.f5.si') return;
-      if ((isMobile && host === 'm.hamusata.f5.si') || (!isMobile && host === 'hamusata.f5.si')) return;
-      const target = isMobile ? 'https://m.hamusata.f5.si' : 'https://hamusata.f5.si';
-      window.location.href = target + path;
-    }
-    window.addEventListener('load', checkRedirect);
-    window.addEventListener('resize', checkRedirect);
-    window.addEventListener('orientationchange', checkRedirect);
-  </script>
-
-  <!-- テーマ自動切替 -->
-  <script>
-    function applyTheme() {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const body = document.body;
-      body.classList.remove('light', 'light-hc', 'light-mc', 'dark', 'dark-hc', 'dark-mc');
-      if (prefersDark) {
-        body.classList.add('dark');
-      } else {
-        body.classList.add('light');
+      if (host.includes('hamusata.f5.si')) {
+        const target = isMobile ? 'https://m.hamusata.f5.si' : 'https://hamusata.f5.si';
+        if (!location.href.startsWith(target)) {
+          window.location.href = target + location.pathname + location.search + location.hash;
+        }
       }
+    }
+    ['load','resize','orientationchange'].forEach(evt => window.addEventListener(evt, checkRedirect));
+
+    // テーマ自動切替
+    function applyTheme() {
+      document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
     applyTheme();
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
