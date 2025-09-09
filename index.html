@@ -48,7 +48,8 @@
 
   <!-- ヘッダー -->
   <header>
-    <a href="#home" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
+    <!-- バナーリンク -->
+    <a href="https://home.hamusata.f5.si" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
       <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
     </a>
 
@@ -255,15 +256,6 @@
       document.body.classList.remove('menu-open');
     });
 
-    // #homeクリック時にスクロール＆ハッシュ削除
-    function scrollToHome(event) {
-      event.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      history.replaceState(null, '', ' ');
-      document.body.classList.remove('menu-open'); // メニュー閉じる
-    }
-    document.getElementById('home').addEventListener('click', scrollToHome);
-    document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', scrollToHome));
   </script>
 </body>
 </html>
