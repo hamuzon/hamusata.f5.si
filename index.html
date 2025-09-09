@@ -6,11 +6,13 @@
   <title>HAMUSATA – ホームページ</title>
 
   <!-- Favicon -->
-  <link rel="icon" href="https://hamusata.f5.si/icon.svg" type="image/svg+xml">
-  <link rel="icon" href="https://hamusata.f5.si/icon.png" type="image/png">
+  <link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp">
+  <link rel="icon" type="image/svg+xml" href="https://hamusata.f5.si/icon.svg">
+  <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png">
   <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
 
   <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
   <!-- 共通 CSS -->
@@ -32,13 +34,13 @@
   <meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hamusata.f5.si">
-  <meta property="og:image" content="https://hamusata.f5.si/icon_500_500.png">
+  <meta property="og:image" content="https://hamusata.f5.si/icon_500_500.webp">
 
   <!-- Twitterカード -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="HAMUSATA – ホームページ">
   <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
-  <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.png">
+  <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp">
 </head>
 <body class="light">
 
@@ -201,42 +203,37 @@
       currentYear > baseYear ? `${baseYear}~${currentYear}` : `${baseYear}`;
   </script>
 
-  <!-- リダイレクト判定 -->
+  <!-- リダイレクト判定（サブパス保持対応） -->
   <script>
     function checkRedirect() {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
       const host = window.location.host;
+      const path = window.location.pathname + window.location.search + window.location.hash;
       if (host !== 'hamusata.f5.si' && host !== 'm.hamusata.f5.si') return;
       if ((isMobile && host === 'm.hamusata.f5.si') || (!isMobile && host === 'hamusata.f5.si')) return;
       const target = isMobile ? 'https://m.hamusata.f5.si' : 'https://hamusata.f5.si';
-      window.location.href = target;
+      window.location.href = target + path;
     }
     window.addEventListener('load', checkRedirect);
     window.addEventListener('resize', checkRedirect);
     window.addEventListener('orientationchange', checkRedirect);
   </script>
-<script>
-  function applyTheme() {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const body = document.body;
 
-    // 既存のテーマクラスを削除
-    body.classList.remove('light', 'light-hc', 'light-mc', 'dark', 'dark-hc', 'dark-mc');
-
-    // 推奨テーマを適用
-    if(prefersDark) {
-      body.classList.add('dark'); // 好みに応じて 'dark-hc' や 'dark-mc' も選択可能
-    } else {
-      body.classList.add('light'); // 'light-hc' や 'light-mc' も選択可能
+  <!-- テーマ自動切替 -->
+  <script>
+    function applyTheme() {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const body = document.body;
+      body.classList.remove('light', 'light-hc', 'light-mc', 'dark', 'dark-hc', 'dark-mc');
+      if (prefersDark) {
+        body.classList.add('dark');
+      } else {
+        body.classList.add('light');
+      }
     }
-  }
-
-  // 初回適用
-  applyTheme();
-
-  // 端末のテーマ変更時に自動更新
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
-</script>
+    applyTheme();
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+  </script>
 
 </body>
 </html>
