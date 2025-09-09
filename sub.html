@@ -16,8 +16,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="preload" as="style" href="css/style.css" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/style.css"></noscript>
   <script>
+    // テーマCSSをループで読み込み
     const themeCSS = [
       "css/dark.css",
       "css/dark-hc.css",
@@ -35,18 +37,23 @@
   <meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hamusata.f5.si">
-  <meta property="og:image" content="https://hamusata.f5.si/icon_500_500.png">
+  <meta property="og:image" content="https://hamusata.f5.si/icon_500_500.webp">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="HAMUSATA – ホームページ">
   <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
-  <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.png">
+  <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp">
 </head>
 <body class="light">
 
   <!-- ヘッダー -->
   <header>
     <a href="https://home.hamusata.f5.si" class="banner-link" aria-label="HAMUSATA ホームへ移動">
-      <img src="hamusata.webp" alt="hamusata home banner" width="512" height="154" loading="lazy" decoding="async">
+      <img src="hamusata_399-120.webp" 
+           alt="hamusata home banner" 
+           width="399" 
+           height="120" 
+           loading="lazy" 
+           decoding="async">
     </a>
   </header>
 
@@ -195,10 +202,12 @@
 
   <!-- スクリプト -->
   <script>
+    // 年自動更新
     const baseYear = 2025;
     const now = new Date().getFullYear();
     document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
+    // サブパス保持リダイレクト
     function checkRedirect() {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
       const host = window.location.host;
@@ -211,6 +220,7 @@
     }
     ['load','resize','orientationchange'].forEach(evt => window.addEventListener(evt, checkRedirect));
 
+    // テーマ自動切替
     function applyTheme() {
       document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
