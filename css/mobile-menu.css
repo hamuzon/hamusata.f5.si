@@ -1,9 +1,7 @@
 /* --- mobile-menu.css --- */
-
-/* ハンバーガーボタン */
 #menu-toggle {
-  display: none; /* PCでは非表示 */
-  position: absolute;
+  display: none;
+  position: fixed;
   top: 20px;
   right: 20px;
   width: 35px;
@@ -20,12 +18,11 @@
   display: block;
   height: 4px;
   width: 100%;
-  background: var(--md-sys-color-on-surface);
+  background: var(--md-sys-color-on-background);
   border-radius: 2px;
   transition: 0.4s;
 }
 
-/* ハンバーガー開閉アニメーション */
 #menu-toggle.active span:nth-child(1) {
   transform: rotate(45deg) translate(7px, 7px);
 }
@@ -36,22 +33,38 @@
   transform: rotate(-45deg) translate(7px, -7px);
 }
 
-/* モバイルメニュー */
 #mobile-menu {
-  display: none;
+  display: flex;
   flex-direction: column;
   position: fixed;
   top: 0;
   right: 0;
-  width: 260px;
+  width: 280px;
   height: 100vh;
-  background-color: var(--md-sys-color-surface);
-  box-shadow: -4px 0 16px rgba(0,0,0,0.2);
-  padding: 4rem 1rem 1rem 1rem;
+  padding: 5rem 1rem 1rem 1rem;
   gap: 1.5rem;
   transform: translateX(100%);
-  transition: transform 0.3s ease-in-out;
-  z-index: 1001;
+  transition: transform 0.35s cubic-bezier(0.77,0,0.175,1);
+  z-index: 1002;
+  background-color: var(--menu-bg, #1e1e2f);
+}
+
+body.light #mobile-menu {
+  --menu-bg: #ffffff;
+  background-color: var(--menu-bg);
+}
+
+body.light #menu-toggle span {
+  background: #000000;
+}
+
+body.dark #mobile-menu {
+  --menu-bg: #1e1e2f;
+  background-color: var(--menu-bg);
+}
+
+body.dark #menu-toggle span {
+  background: #ffffff;
 }
 
 #mobile-menu.open {
@@ -62,24 +75,33 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 #mobile-menu ul li a {
   text-decoration: none;
   font-size: 1.2rem;
-  color: var(--md-sys-color-on-surface);
-  padding: 0.5rem 1rem;
+  color: var(--menu-text, #ffffff);
+  padding: 0.75rem 1rem;
   border-radius: 12px;
   transition: background-color 0.3s, color 0.3s;
 }
 
-#mobile-menu ul li a:hover {
-  background-color: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
+body.light #mobile-menu ul li a {
+  --menu-text: #1e1e2f;
+  color: var(--menu-text);
 }
 
-/* メニューオーバーレイ */
+body.dark #mobile-menu ul li a {
+  --menu-text: #ffffff;
+  color: var(--menu-text);
+}
+
+#mobile-menu ul li a:hover {
+  background-color: #ff6f61;
+  color: #ffffff;
+}
+
 #menu-overlay {
   display: none;
   position: fixed;
@@ -87,18 +109,14 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.4);
-  z-index: 1000;
-  opacity: 0;
-  transition: opacity 0.3s;
+  background: rgba(0,0,0,0.5);
+  z-index: 1001;
 }
 
 #menu-overlay.active {
   display: block;
-  opacity: 1;
 }
 
-/* --- レスポンシブ --- */
 @media (max-width: 768px) {
   #menu-toggle {
     display: flex;
