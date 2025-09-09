@@ -3,8 +3,8 @@
 /* ハンバーガーボタン */
 #menu-toggle {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
   width: 48px;
   height: 48px;
   background: transparent;
@@ -47,28 +47,30 @@ body.menu-open #menu-toggle span:nth-child(3) {
 #mobile-menu {
   position: fixed;
   top: 0;
-  left: -100%;
+  right: -100%;
   width: 75%;
-  max-width: 300px;
+  max-width: 320px;
   height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--md-sys-color-surface-container);
   padding-top: 80px;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
-  transition: left 0.5s ease;
+  box-shadow: -4px 0 16px rgba(0,0,0,0.25);
+  transition: right 0.4s ease;
   z-index: 1000;
+  border-radius: 16px 0 0 16px; /* 左側のみ角丸 */
   overflow-y: auto;
 }
 
 /* ダークモード */
 body.dark #mobile-menu {
-  background-color: #1a1a1a;
+  background-color: var(--md-sys-color-surface-container-high);
 }
 
 /* メニュー開いた時 */
 body.menu-open #mobile-menu {
-  left: 0;
+  right: 0;
 }
 
+/* メニューリスト */
 #mobile-menu ul {
   list-style: none;
   padding: 0;
@@ -77,37 +79,33 @@ body.menu-open #mobile-menu {
 
 #mobile-menu li {
   margin: 0;
-  padding: 0;
 }
 
 #mobile-menu a {
   display: block;
-  padding: 15px 25px;
-  text-decoration: none;
+  padding: 18px 24px;
   font-size: 18px;
-  color: #000;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  color: var(--md-sys-color-on-surface);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
   transition: background 0.3s, color 0.3s;
+  border-radius: 12px;
+  margin: 4px 12px;
 }
 
 /* ダークモードリンク色 */
 body.dark #mobile-menu a {
-  color: #fff;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: var(--md-sys-color-on-surface);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 /* ホバー効果 */
 #mobile-menu a:hover {
-  background-color: rgba(74,144,226,0.1);
-  color: #4a90e2;
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
 }
 
-body.dark #mobile-menu a:hover {
-  background-color: rgba(74,144,226,0.3);
-  color: #4a90e2;
-}
-
-/* メニューオーバーレイ */
+/* オーバーレイ */
 #menu-overlay {
   position: fixed;
   top: 0;
@@ -124,4 +122,16 @@ body.dark #mobile-menu a:hover {
 body.menu-open #menu-overlay {
   opacity: 1;
   visibility: visible;
+}
+
+/* レスポンシブ調整 */
+@media (max-width: 480px) {
+  #mobile-menu {
+    width: 85%;
+    padding-top: 70px;
+  }
+  #mobile-menu a {
+    font-size: 16px;
+    padding: 14px 20px;
+  }
 }
