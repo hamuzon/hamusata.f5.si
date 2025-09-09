@@ -1,4 +1,6 @@
 /* --- mobile-menu.css --- */
+
+/* --- ハンバーガーボタン --- */
 #menu-toggle {
   display: none;
   position: fixed;
@@ -23,16 +25,7 @@
   transition: 0.4s;
 }
 
-#menu-toggle.active span:nth-child(1) {
-  transform: rotate(45deg) translate(7px, 7px);
-}
-#menu-toggle.active span:nth-child(2) {
-  opacity: 0;
-}
-#menu-toggle.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -7px);
-}
-
+/* --- モバイルメニュー --- */
 #mobile-menu {
   display: flex;
   flex-direction: column;
@@ -49,28 +42,21 @@
   background-color: var(--menu-bg, #1e1e2f);
 }
 
+/* --- ライト/ダークテーマ対応 --- */
 body.light #mobile-menu {
   --menu-bg: #ffffff;
-  background-color: var(--menu-bg);
-}
-
-body.light #menu-toggle span {
-  background: #000000;
 }
 
 body.dark #mobile-menu {
   --menu-bg: #1e1e2f;
-  background-color: var(--menu-bg);
 }
 
-body.dark #menu-toggle span {
-  background: #ffffff;
-}
-
-#mobile-menu.open {
+/* --- メニュー開いた時 --- */
+body.menu-open #mobile-menu {
   transform: translateX(0);
 }
 
+/* --- メニュー内リスト --- */
 #mobile-menu ul {
   list-style: none;
   display: flex;
@@ -87,21 +73,22 @@ body.dark #menu-toggle span {
   transition: background-color 0.3s, color 0.3s;
 }
 
+/* --- ライト/ダークテーマ対応 --- */
 body.light #mobile-menu ul li a {
   --menu-text: #1e1e2f;
-  color: var(--menu-text);
 }
 
 body.dark #mobile-menu ul li a {
   --menu-text: #ffffff;
-  color: var(--menu-text);
 }
 
+/* --- ホバー時の色 --- */
 #mobile-menu ul li a:hover {
   background-color: #ff6f61;
   color: #ffffff;
 }
 
+/* --- メニューオーバーレイ --- */
 #menu-overlay {
   display: none;
   position: fixed;
@@ -113,10 +100,11 @@ body.dark #mobile-menu ul li a {
   z-index: 1001;
 }
 
-#menu-overlay.active {
+body.menu-open #menu-overlay {
   display: block;
 }
 
+/* --- レスポンシブ --- */
 @media (max-width: 768px) {
   #menu-toggle {
     display: flex;
