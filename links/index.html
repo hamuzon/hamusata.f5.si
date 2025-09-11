@@ -10,7 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 
   <style>
-    /* --- 変数設定 --- */
     :root {
       --bg: #f7f3e9;
       --text: #3b2f2f;
@@ -21,7 +20,6 @@
       --hover-translate: -5px;
       --hover-shadow: 0 14px 28px var(--card-shadow);
     }
-
     @media (prefers-color-scheme: dark) {
       :root {
         --bg: #121212;
@@ -32,19 +30,15 @@
         --footer-text: #aaa;
       }
     }
-
-    /* --- 全体リセット --- */
     *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Potta One', sans-serif;
     }
-
     .zenmaru {
       font-family: 'Zen Maru Gothic', sans-serif;
     }
-
     html, body {
       min-height: 100vh;
       background: var(--bg);
@@ -52,21 +46,17 @@
       line-height: 1.6;
       scroll-behavior: smooth;
     }
-
-    /* --- ヘッダー --- */
     header {
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 12px 0;
     }
-
     .banner-link {
       display: inline-block;
       line-height: 0;
       text-decoration: none;
     }
-
     .banner-link img {
       display: block;
       width: min(100%, 512px);
@@ -79,34 +69,27 @@
       background: var(--banner-bg);
       transition: transform 0.3s, box-shadow 0.3s;
     }
-
     .banner-link img:hover {
       transform: translateY(var(--hover-translate));
       box-shadow: var(--hover-shadow);
     }
-
-    /* --- セクション --- */
     section {
       max-width: 1000px;
       margin: 3rem auto;
       padding: 0 1rem;
     }
-
     section h2 {
       font-size: 2rem;
       text-align: center;
       color: var(--text);
       margin-bottom: 2rem;
     }
-
     .works {
       display: grid;
       gap: 1.5rem;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       justify-items: center;
     }
-
-    /* --- 相互リンクカード --- */
     .sougolink {
       display: flex;
       flex-direction: column;
@@ -120,12 +103,10 @@
       transition: transform 0.3s, box-shadow 0.3s;
       width: 100%;
     }
-
     .sougolink:hover {
       transform: translateY(var(--hover-translate));
       box-shadow: var(--hover-shadow);
     }
-
     .sougolink img {
       max-width: 100%;
       max-height: 150px;
@@ -136,17 +117,14 @@
       background: var(--banner-bg);
       transition: transform 0.3s;
     }
-
     .sougolink img:hover {
       transform: scale(1.05);
     }
-
     .sougolink h3 {
       font-size: 1.2rem;
       margin-bottom: 0.25rem;
       word-break: break-word;
     }
-
     .sougolink a {
       color: inherit;
       text-decoration: none;
@@ -156,32 +134,25 @@
       width: 100%;
       height: 100%;
     }
-
-    /* --- フッター --- */
     footer {
       text-align: center;
       padding: 2rem 1rem;
       color: var(--footer-text);
       font-size: 0.9rem;
     }
-
     footer a {
       color: var(--footer-text);
       text-decoration: underline;
       transition: color 0.3s;
     }
-
     footer a:hover {
       color: var(--text);
     }
-
-    /* --- レスポンシブ --- */
     @media (max-width: 900px) {
       .works {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       }
     }
-
     @media (max-width: 600px) {
       .works {
         grid-template-columns: 1fr;
@@ -201,7 +172,6 @@
   <h2>相互リンク / Mutual Links</h2>
 
   <div class="works">
-
     <div class="sougolink">
       <a href="https://9a.si/" target="_blank">
         <img src="https://9a.si/9a.si.webp" alt="@Lunar – 9a.si">
@@ -247,7 +217,6 @@
         <h3>@spacer4719</h3>
       </a>
     </div>
-
   </div>
 </section>
 
@@ -260,20 +229,8 @@
 <script>
   const baseYear = 2025;
   const currentYear = new Date().getFullYear();
-  document.getElementById("year").textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
-
-  function checkRedirect() {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
-    const host = window.location.host;
-    if (host !== 'hamusata.f5.si' && host !== 'm.hamusata.f5.si') return;
-    if ((isMobile && host === 'm.hamusata.f5.si') || (!isMobile && host === 'hamusata.f5.si')) return;
-    const path = window.location.pathname + window.location.search + window.location.hash;
-    const targetDomain = isMobile ? 'https://m.hamusata.f5.si' : 'https://hamusata.f5.si';
-    window.location.href = targetDomain + path;
-  }
-  window.addEventListener('load', checkRedirect);
-  window.addEventListener('resize', checkRedirect);
-  window.addEventListener('orientationchange', checkRedirect);
+  document.getElementById("year").textContent =
+    currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
 </script>
 
 </body>
