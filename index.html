@@ -235,51 +235,38 @@
     </footer>
 
     <!-- スクリプト -->
-    <script>
-      // 年自動更新
-      const baseYear = 2025;
-      const now = new Date().getFullYear();
-      document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
+ <script>
+  // 年自動更新
+  const baseYear = 2025;
+  const now = new Date().getFullYear();
+  document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
-      // サブパス保持リダイレクト
-      function checkRedirect() {
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
-        const host = window.location.host;
-        if (host.includes('hamusata.f5.si')) {
-          const target = isMobile ? 'https://m.hamusata.f5.si' : 'https://hamusata.f5.si';
-          if (!location.href.startsWith(target)) {
-            window.location.href = target + location.pathname + location.search + location.hash;
-          }
-        }
-      }
-      ['load','resize','orientationchange'].forEach(evt => window.addEventListener(evt, checkRedirect));
+  // テーマ自動切替
+  function applyTheme() {
+    document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  applyTheme();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
 
-      // テーマ自動切替
-      function applyTheme() {
-        document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
-      applyTheme();
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+  // ハンバーガーメニュー開閉
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuOverlay = document.getElementById('menu-overlay');
+  menuToggle.addEventListener('click', () => {
+    document.body.classList.toggle('menu-open');
+  });
+  menuOverlay.addEventListener('click', () => {
+    document.body.classList.remove('menu-open');
+  });
 
-      // ハンバーガーメニュー開閉
-      const menuToggle = document.getElementById('menu-toggle');
-      const menuOverlay = document.getElementById('menu-overlay');
-      menuToggle.addEventListener('click', () => {
-        document.body.classList.toggle('menu-open');
-      });
-      menuOverlay.addEventListener('click', () => {
-        document.body.classList.remove('menu-open');
-      });
+  // メニュー内 #home 用（スクロール＆ハッシュ削除）
+  function menuScrollToHome(event) {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.replaceState(null, '', ' ');
+    document.body.classList.remove('menu-open');
+  }
 
-      // メニュー内 #home 用（スクロール＆ハッシュ削除）
-      function menuScrollToHome(event) {
-        event.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        history.replaceState(null, '', ' ');
-        document.body.classList.remove('menu-open');
-      }
-
-      document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
-    </script>
+  document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
+</script>
   </body>
 </html>
