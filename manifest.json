@@ -1,7 +1,7 @@
 {
   "name": "HAMUSATA",
   "short_name": "HAMUSATA",
-  "description": "HAMUSATA.f5.si のホームページです。サイト全体をオフライン対応可能にします。",
+  "description": "HAMUSATA.f5.si のホームページ",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
