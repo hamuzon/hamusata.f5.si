@@ -43,28 +43,25 @@
     <meta name="twitter:title" content="HAMUSATA – ホームページ">
     <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
     <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp">
-
-    <style>
-      /* 簡易スタイル統合（カード・検索・お気に入り用） */
-      .work-card { display:block; margin:0.5em; padding:1em; border-radius:12px; background:#f9f9f9; box-shadow:0 2px 4px rgba(0,0,0,0.1);}
-      .work-card a { text-decoration:none; font-weight:bold; color:#0066cc; }
-      .fav-btn { cursor:pointer; font-size:1.2em; margin-left:0.5em; }
-      #search { width:80%; max-width:400px; padding:0.5em; margin-bottom:1em; border-radius:8px; border:1px solid #ccc; }
-      #favorites,#history{padding:1em;text-align:center;}
-      #favorites.hidden,#history.hidden{display:none;}
-    </style>
   </head>
 
   <body class="light">
 
     <!-- ヘッダー -->
     <header>
+      <!-- バナーリンク -->
       <a href="https://home.hamusata.f5.si" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
         <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
       </a>
+
+      <!-- ハンバーガー -->
       <button id="menu-toggle" aria-label="メニューを開く">
-        <span></span><span></span><span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
+
+      <!-- スマホメニュー -->
       <nav id="mobile-menu">
         <ul>
           <li><a href="#home" class="nav-home">ホーム</a></li>
@@ -75,11 +72,10 @@
           <li><a href="#sns">SNSリンク</a></li>
         </ul>
       </nav>
+
+      <!-- オーバーレイ -->
       <div id="menu-overlay"></div>
     </header>
-
-    <!-- 検索 -->
-    <div style="text-align:center;"><input type="text" id="search" placeholder="🔍 検索..." oninput="doSearch()"></div>
 
     <!-- 自己紹介 -->
     <section id="profile">
@@ -95,15 +91,70 @@
     <section id="portfolio">
       <h2>ポートフォリオリンク集</h2>
       <div class="works">
-        <!-- サンプルカード -->
-        <div class="work-card" data-title="HAMUSATA – ホームページ" data-categories="メイン,ポータル">
-          <img src="https://hamusata.f5.si/icon.svg" alt="HAMUSATA icon" width="50">
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="HAMUSATA icon" loading="lazy" decoding="async">
           <h3>HAMUSATA – ホームページ</h3>
           <p>メインのポータルリンク。色々なものをまとめています。</p>
-          <a href="https://home.hamusata.f5.si">見る / View</a>
-          <span class="fav-btn" onclick="toggleFav('HAMUSATA – ホームページ','https://home.hamusata.f5.si')">☆</span>
+          <a href="https://home.hamusata.f5.si"><span>見る</span> / <span>View</span></a>
         </div>
-        <!-- 他カードも同様に data-title, data-categories, ☆ボタン追加 -->
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="GitHub Pages icon" loading="lazy" decoding="async">
+          <h3>GitHub版 – ホームページ</h3>
+          <p>GitHub Pages 版ホームページ。</p>
+          <a href="https://hamuzon.github.io"><span>見る</span> / <span>View</span></a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="hamuzon icon" loading="lazy" decoding="async">
+          <h3>hamuzon – ホームページ</h3>
+          <p>hamuzon-jp.f5.si のホームページ・リンクポータル版 (fc2の一部コピーサイト)</p>
+          <a href="https://hamuzon-jp.f5.si/"><span>見る</span> / <span>View</span></a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="hamuzon FC2 icon" loading="lazy" decoding="async">
+          <h3>hamuzon (FC2)系 – ホームページ</h3>
+          <p>FC2版ホームページ。いろんなコードやコンテンツがあります。</p>
+          <a href="https://hamuzon.web.fc2.com/"><span>見る</span> / <span>View</span></a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="link-s icon" loading="lazy" decoding="async">
+          <h3>link-s.f5.si – ショートカットリンクサービス</h3>
+          <p>短縮URL・ショートカットリンクサービス。</p>
+          <a href="https://link-s.f5.si"><span>見る</span> / <span>View</span></a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="go.link-s icon" loading="lazy" decoding="async">
+          <h3>go.link-s.f5.si – カスタムパス対応版</h3>
+          <p>任意のパスで短縮リンクを作れるカスタムリンクサービス。</p>
+          <a href="https://go.link-s.f5.si"><span>見る</span> / <span>View</span></a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="pw.link-s icon" loading="lazy" decoding="async">
+          <h3>pw.link-s.f5.si – パスワード生成サービス</h3>
+          <p>APIベースのパスワード生成サービス。ログ保存等は一切ありません。</p>
+          <a href="https://pw.link-s.f5.si"><span>見る</span> / <span>View</span></a>
+          <p class="note">※リダイレクトがうまくできない場合は <a href="https://password.link-s.f5.si">こちら</a> を利用してください。</p>
+          <a href="https://password-create.link-s.f5.si/"><span>APIなし版</span> / <span>No-API</span></a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="www.link-s icon" loading="lazy" decoding="async">
+          <h3>www.link-s.f5.si</h3>
+          <p>リンクのメイン機能はショートカットリンクサービスのlink-s.f5.si 系列作品集一覧。</p>
+          <a href="https://www.link-s.f5.si/"><span>見る</span> / <span>View</span></a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="ランダム作品 icon" loading="lazy" decoding="async">
+          <h3>ランダム作品</h3>
+          <p>作品をランダムに開くボタンです。</p>
+          <a href="./random/index.html"><span>開く</span> / <span>Open</span></a>
+        </div>
       </div>
     </section>
 
@@ -111,12 +162,15 @@
     <section id="status">
       <h2>サービス稼働状況 / Status Page</h2>
       <div class="works">
-        <div class="work-card" data-title="サービス稼働状況" data-categories="ステータス,監視">
-          <img src="https://hamusata.f5.si/icon.svg" alt="Status icon" width="50">
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="Status icon" loading="lazy" decoding="async">
           <h3>サービス稼働状況</h3>
-          <p>PCサーバー + Cloudflare Tunnel を利用しています。再起動時に一時的に接続できない場合があります。</p>
-          <a href="https://stats.uptimerobot.com/tT7bs2uEHa">稼働状況を見る / View Status</a>
-          <span class="fav-btn" onclick="toggleFav('サービス稼働状況','https://stats.uptimerobot.com/tT7bs2uEHa')">☆</span>
+          <p>
+            ※本サービスは一部 <strong>PCサーバー + Cloudflare Tunnel</strong> を利用しています。<br>
+            PCは毎日 <strong>日本時間の朝4時に自動再起動</strong> しており、再起動時にサーバーや Cloudflare Tunnel が自動起動しない場合、<br>
+            一時的に接続できないことがあります。
+          </p>
+          <a href="https://stats.uptimerobot.com/tT7bs2uEHa"><span>稼働状況を見る</span> / <span>View Status</span></a>
         </div>
       </div>
     </section>
@@ -125,12 +179,11 @@
     <section id="mutual-links">
       <h2>相互リンク / Mutual Links</h2>
       <div class="works">
-        <div class="work-card" data-title="相互リンクページ" data-categories="リンク,相互">
-          <img src="https://hamusata.f5.si/icon.svg" alt="Mutual Links icon" width="50">
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="Mutual Links icon" loading="lazy" decoding="async">
           <h3>相互リンクページ</h3>
           <p>こちらをクリックすると相互リンクページに移動します。</p>
-          <a href="./links/index.html">開く / Open</a>
-          <span class="fav-btn" onclick="toggleFav('相互リンクページ','./links/index.html')">☆</span>
+          <a href="./links/index.html"><span>開く</span> / <span>Open</span></a>
         </div>
       </div>
     </section>
@@ -139,19 +192,42 @@
     <section id="sns">
       <h2>SNSリンク</h2>
       <div class="works">
-        <div class="work-card" data-title="Scratch hamusata" data-categories="SNS,Scratch">
-          <img src="https://hamusata.f5.si/icon.svg" alt="Scratch icon" width="50">
-          <h3>Scratch (hamusata)</h3>
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="Scratch icon" loading="lazy" decoding="async">
+          <h3>Scratch</h3>
           <p>hamusataアカウント</p>
-          <a href="https://scratch.mit.edu/users/hamusata/">見る / View</a>
-          <span class="fav-btn" onclick="toggleFav('Scratch hamusata','https://scratch.mit.edu/users/hamusata/')">☆</span>
+          <a href="https://scratch.mit.edu/users/hamusata/"><span>見る</span> / <span>View</span></a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="Scratch icon" loading="lazy" decoding="async">
+          <h3>Scratch</h3>
+          <p>hamuzonアカウント</p>
+          <a href="https://scratch.mit.edu/users/hamuzon/"><span>見る</span> / <span>View</span></a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="GitHub icon" loading="lazy" decoding="async">
+          <h3>GitHub</h3>
+          <p>GitHubアカウント</p>
+          <a href="https://github.com/hamuzon"><span>見る</span> / <span>View</span></a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="Bluesky icon" loading="lazy" decoding="async">
+          <h3>Bluesky</h3>
+          <p>Blueskyアカウント</p>
+          <a href="https://bsky.app/profile/hamuzon-jp.f5.si"><span>見る</span> / <span>View</span></a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.svg" alt="Twitter(X) icon" loading="lazy" decoding="async">
+          <h3>Twitter (X)</h3>
+          <p>@hamu_sata アカウント</p>
+          <a href="https://x.com/hamu_sata"><span>見る</span> / <span>View</span></a>
         </div>
       </div>
     </section>
-
-    <!-- お気に入り & 履歴 -->
-    <section id="favorites" class="hidden"><h2>⭐ お気に入り</h2><ul id="fav-list"></ul></section>
-    <section id="history" class="hidden"><h2>🕑 履歴</h2><ul id="history-list"></ul></section>
 
     <!-- フッター -->
     <footer>
@@ -159,69 +235,38 @@
     </footer>
 
     <!-- スクリプト -->
-    <script>
-      // 年表示
-      const baseYear=2025; const now=new Date().getFullYear();
-      document.getElementById("year").textContent = now>baseYear?`${baseYear}~${now}`:`${baseYear}`;
+ <script>
+  // 年自動更新
+  const baseYear = 2025;
+  const now = new Date().getFullYear();
+  document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
-      // ダークモード切替
-      function applyTheme(){const saved=localStorage.getItem('theme');if(saved)document.body.className=saved;
-        else document.body.className=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
-      applyTheme();
-      function toggleTheme(){const next=document.body.className==='dark'?'light':'dark';
-        document.body.className=next;localStorage.setItem('theme',next);}
+  // テーマ自動切替
+  function applyTheme() {
+    document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  applyTheme();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
 
-      // ハンバーガー
-      const menuToggle=document.getElementById('menu-toggle');
-      const menuOverlay=document.getElementById('menu-overlay');
-      menuToggle.addEventListener('click',()=>document.body.classList.toggle('menu-open'));
-      menuOverlay.addEventListener('click',()=>document.body.classList.remove('menu-open'));
-      document.querySelectorAll('.nav-home').forEach(el=>el.addEventListener('click',e=>{
-        e.preventDefault();
-        window.scrollTo({top:0,behavior:'smooth'});
-        history.replaceState(null,'',' ');
-        document.body.classList.remove('menu-open');
-      }));
+  // ハンバーガーメニュー開閉
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuOverlay = document.getElementById('menu-overlay');
+  menuToggle.addEventListener('click', () => {
+    document.body.classList.toggle('menu-open');
+  });
+  menuOverlay.addEventListener('click', () => {
+    document.body.classList.remove('menu-open');
+  });
 
-      // 検索
-      function doSearch(){
-        const q=document.getElementById("search")?.value.toLowerCase()||'';
-        document.querySelectorAll('.work-card').forEach(card=>{
-          const title=card.dataset.title.toLowerCase()||'';
-          const cats=card.dataset.categories.toLowerCase()||'';
-          card.style.display=title.includes(q)||cats.includes(q)?'block':'none';
-        });
-      }
+  // メニュー内 #home 用（スクロール＆ハッシュ削除）
+  function menuScrollToHome(event) {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.replaceState(null, '', ' ');
+    document.body.classList.remove('menu-open');
+  }
 
-      // お気に入り
-      function toggleFav(title,url){
-        let favs=JSON.parse(localStorage.getItem('favs')||'[]');
-        const idx=favs.findIndex(f=>f.url===url);
-        if(idx>=0) favs.splice(idx,1); else favs.push({title,url});
-        localStorage.setItem('favs',JSON.stringify(favs));
-        renderFavs();
-      }
-      function renderFavs(){
-        let list=document.getElementById("fav-list"); if(!list)return;
-        const favs=JSON.parse(localStorage.getItem('favs')||'[]'); list.innerHTML='';
-        favs.forEach(f=>{const li=document.createElement('li'); li.innerHTML=`<a href="${f.url}" target="_blank">${f.title}</a>`; list.appendChild(li);});
-      }
-      function showFavorites(){const section=document.getElementById("favorites");if(!section)return;section.classList.toggle('hidden');renderFavs();}
-
-      // 履歴
-      function recordHistory(title,url){
-        let hist=JSON.parse(localStorage.getItem('history')||'[]'); hist.unshift({title,url}); hist=hist.slice(0,10);
-        localStorage.setItem('history',JSON.stringify(hist));
-      }
-      function renderHistory(){
-        let list=document.getElementById("history-list"); if(!list)return;
-        const hist=JSON.parse(localStorage.getItem('history')||'[]'); list.innerHTML='';
-        hist.forEach(h=>{const li=document.createElement('li'); li.innerHTML=`<a href="${h.url}" target="_blank">${h.title}</a>`; list.appendChild(li);});
-      }
-      function showHistory(){const section=document.getElementById("history");if(!section)return;section.classList.toggle('hidden');renderHistory();}
-
-      // work-card クリックで履歴記録
-      document.querySelectorAll('.work-card a').forEach(a=>{a.addEventListener('click',()=>recordHistory(a.textContent,a.href));});
-    </script>
+  document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
+</script>
   </body>
 </html>
