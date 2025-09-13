@@ -11,6 +11,10 @@
     <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png">
     <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
 
+    <!-- PWA マニフェスト -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
@@ -43,6 +47,17 @@
     <meta name="twitter:title" content="HAMUSATA – ホームページ">
     <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
     <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp">
+
+    <!-- Service Worker 登録 -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(reg => console.log('Service Worker registered:', reg.scope))
+            .catch(err => console.log('Service Worker registration failed:', err));
+        });
+      }
+    </script>
   </head>
 
   <body class="light">
@@ -235,38 +250,39 @@
     </footer>
 
     <!-- スクリプト -->
- <script>
-  // 年自動更新
-  const baseYear = 2025;
-  const now = new Date().getFullYear();
-  document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
+    <script>
+      // 年自動更新
+      const baseYear = 2025;
+      const now = new Date().getFullYear();
+      document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
-  // テーマ自動切替
-  function applyTheme() {
-    document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  applyTheme();
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+      // テーマ自動切替
+      function applyTheme() {
+        document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      applyTheme();
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
 
-  // ハンバーガーメニュー開閉
-  const menuToggle = document.getElementById('menu-toggle');
-  const menuOverlay = document.getElementById('menu-overlay');
-  menuToggle.addEventListener('click', () => {
-    document.body.classList.toggle('menu-open');
-  });
-  menuOverlay.addEventListener('click', () => {
-    document.body.classList.remove('menu-open');
-  });
+      // ハンバーガーメニュー開閉
+      const menuToggle = document.getElementById('menu-toggle');
+      const menuOverlay = document.getElementById('menu-overlay');
+      menuToggle.addEventListener('click', () => {
+        document.body.classList.toggle('menu-open');
+      });
+      menuOverlay.addEventListener('click', () => {
+        document.body.classList.remove('menu-open');
+      });
 
-  // メニュー内 #home 用（スクロール＆ハッシュ削除）
-  function menuScrollToHome(event) {
-    event.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    history.replaceState(null, '', ' ');
-    document.body.classList.remove('menu-open');
-  }
+      // メニュー内 #home 用（スクロール＆ハッシュ削除）
+      function menuScrollToHome(event) {
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        history.replaceState(null, '', ' ');
+        document.body.classList.remove('menu-open');
+      }
 
-  document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
-</script>
+      document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
+    </script>
+
   </body>
 </html>
