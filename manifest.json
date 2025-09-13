@@ -1,21 +1,46 @@
 {
   "name": "HAMUSATA",
   "short_name": "HAMUSATA",
-  "description": "HAMUSATA.f5.si のホームページです",
+  "description": "HAMUSATA.f5.si のホームページです。サイト全体をオフライン対応可能にします。",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "icon_500_500.png",
-      "sizes": "512x512",
+      "src": "/icon_400.webp",
+      "sizes": "400x400",
+      "type": "image/webp"
+    },
+    {
+      "src": "/icon_500_500.png",
+      "sizes": "500x500",
       "type": "image/png"
     },
     {
-      "src": "icon_500_500.webp",
-      "sizes": "512x512",
+      "src": "/icon_500_500.webp",
+      "sizes": "500x500",
       "type": "image/webp"
+    },
+    {
+      "src": "/icon_800.webp",
+      "sizes": "800x800",
+      "type": "image/webp"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "any",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon.webp",
+      "sizes": "any",
+      "type": "image/webp"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
     }
   ]
 }
