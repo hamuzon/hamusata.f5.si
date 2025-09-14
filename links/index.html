@@ -133,6 +133,7 @@
       align-items: center;
       width: 100%;
       height: 100%;
+      position: relative;
     }
     footer {
       text-align: center;
@@ -158,9 +159,29 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* 外部リンクアイコン用 */
+    .external-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .external-link svg {
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+    }
   </style>
 </head>
 <body>
+
+<!-- 外部リンクアイコンテンプレート -->
+<svg id="external-link-template" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
+  <path d="M11 13l9 -9" />
+  <path d="M15 4h5v5" />
+</svg>
 
 <header>
   <a href="https://home.hamusata.f5.si" class="banner-link" aria-label="HAMUSATA ホームへ移動">
@@ -173,7 +194,7 @@
 
   <div class="works">
     <div class="sougolink">
-      <a href="https://9a.si/" target="_blank">
+      <a href="https://9a.si/">
         <img src="https://9a.si/9a.si.webp" alt="@Lunar – 9a.si">
         <h3 class="zenmaru">9a.si</h3>
         <h3 class="zenmaru">@Lunar</h3>
@@ -181,7 +202,7 @@
     </div>
 
     <div class="sougolink">
-      <a href="https://lase.dev/" target="_blank">
+      <a href="https://lase.dev/">
         <img src="https://lase.dev/assets/lase_dev_header.webp" alt="@driplase – lase.dev">
         <h3>lase.dev</h3>
         <h3>@driplase</h3>
@@ -189,7 +210,7 @@
     </div>
 
     <div class="sougolink">
-      <a href="https://rampo.f5.si/" target="_blank">
+      <a href="https://rampo.f5.si/">
         <img src="https://rampo.f5.si/img/logo.webp" alt="@rampotchi – rampo.f5.si">
         <h3>rampo.f5.si</h3>
         <h3>@rampotchi</h3>
@@ -197,21 +218,21 @@
     </div>
 
     <div class="sougolink">
-      <a href="https://kntnkmr.f5.si/" target="_blank">
+      <a href="https://kntnkmr.f5.si/">
         <h3>kntnkmr.f5.si</h3>
         <h3>@kntnkmr</h3>
       </a>
     </div>
 
     <div class="sougolink">
-      <a href="https://kurogehome.f5.si/" target="_blank">
+      <a href="https://kurogehome.f5.si/">
         <h3>kurogehome.f5.si</h3>
         <h3>@kuroge_</h3>
       </a>
     </div>
 
     <div class="sougolink">
-      <a href="https://spacer4719.f5.si/" target="_blank">
+      <a href="https://spacer4719.f5.si/">
         <img src="https://spacer4719.f5.si/images/NSH.webp" alt="@spacer4719 – spacer4719.f5.si">
         <h3>spacer4719.f5.si</h3>
         <h3>@spacer4719</h3>
@@ -227,10 +248,34 @@
 </footer>
 
 <script>
+  // 年表示
   const baseYear = 2025;
   const currentYear = new Date().getFullYear();
   document.getElementById("year").textContent =
     currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
+
+  // 外部リンクに自動で Tabler アイコン追加
+  document.addEventListener("DOMContentLoaded", () => {
+    const links = document.querySelectorAll("a[href]");
+    const hostname = location.hostname;
+
+    links.forEach(link => {
+      const url = link.href;
+      if (url.includes("://") && !url.includes(hostname)) {
+        link.classList.add("external-link");
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+
+        const template = document.getElementById("external-link-template");
+        if (template) {
+          const svgClone = template.cloneNode(true);
+          svgClone.style.display = "inline-block";
+          svgClone.removeAttribute("id");
+          link.appendChild(svgClone);
+        }
+      }
+    });
+  });
 </script>
 
 </body>
