@@ -59,6 +59,15 @@
       }
     </script>
   </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-E3VWGLZJ27');
+</script>
 
   <body class="light">
 
@@ -106,11 +115,12 @@
     <section id="portfolio">
       <h2>ポートフォリオリンク集</h2>
       <div class="works">
+        <!-- 修正済み: 季節ごとにリンクが変わる -->
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.svg" alt="HAMUSATA icon" loading="lazy" decoding="async">
           <h3>HAMUSATA – ホームページ</h3>
           <p>メインのポータルリンク。色々なものをまとめています。</p>
-          <a href="https://home.hamusata.f5.si"><span>見る</span> / <span>View</span></a>
+          <a id="seasonLink"><span>見る</span> / <span>View</span></a>
         </div>
 
         <div class="work-card">
@@ -282,6 +292,25 @@
       }
 
       document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
+
+      // 季節ごとのリンク先切り替え
+      const seasonLinks = {
+        spring: "https://home.hamusata.f5.si/spring",
+        summer: "https://home.hamusata.f5.si/summer",
+        autumn: "https://home.hamusata.f5.si/autumn",
+        winter: "https://home.hamusata.f5.si/winter"
+      };
+
+      function getSeason(date = new Date()) {
+        const month = date.getMonth() + 1;
+        if (month >= 3 && month <= 5) return "spring";
+        if (month >= 6 && month <= 8) return "summer";
+        if (month >= 9 && month <= 11) return "autumn";
+        return "winter";
+      }
+
+      const season = getSeason();
+      document.getElementById("seasonLink").href = seasonLinks[season];
     </script>
 
   </body>
