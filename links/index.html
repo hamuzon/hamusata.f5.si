@@ -124,6 +124,9 @@
       font-size: 1.2rem;
       margin-bottom: 0.25rem;
       word-break: break-word;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
     .sougolink a {
       color: inherit;
@@ -169,6 +172,7 @@
     .external-link svg {
       width: 16px;
       height: 16px;
+      flex-shrink: 0;
       vertical-align: middle;
     }
   </style>
@@ -271,7 +275,14 @@
           const svgClone = template.cloneNode(true);
           svgClone.style.display = "inline-block";
           svgClone.removeAttribute("id");
-          link.appendChild(svgClone);
+
+          // h3 の最後にアイコンを追加
+          const lastH3 = link.querySelectorAll("h3");
+          if (lastH3.length > 0) {
+            lastH3[lastH3.length - 1].appendChild(svgClone);
+          } else {
+            link.appendChild(svgClone);
+          }
         }
       }
     });
