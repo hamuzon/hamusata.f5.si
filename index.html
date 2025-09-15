@@ -11,10 +11,6 @@
     <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png">
     <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
 
-    <!-- PWA マニフェスト -->
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#000000">
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
@@ -59,15 +55,15 @@
       }
     </script>
   </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-E3VWGLZJ27');
-</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-E3VWGLZJ27');
+  </script>
 
   <body class="light">
 
@@ -91,6 +87,7 @@
           <li><a href="#home" class="nav-home">ホーム</a></li>
           <li><a href="#profile">自己紹介</a></li>
           <li><a href="#portfolio">ポートフォリオ</a></li>
+          <li><a href="#random">ランダム作品</a></li>
           <li><a href="#status">サービス稼働状況</a></li>
           <li><a href="#mutual-links">相互リンク</a></li>
           <li><a href="#sns">SNSリンク</a></li>
@@ -115,6 +112,7 @@
     <section id="portfolio">
       <h2>ポートフォリオリンク集</h2>
       <div class="works">
+
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.svg" alt="HAMUSATA icon" loading="lazy" decoding="async">
           <h3>HAMUSATA – ホームページ</h3>
@@ -173,6 +171,13 @@
           <a href="https://www.link-s.f5.si/"><span>見る</span> / <span>View</span></a>
         </div>
 
+      </div>
+    </section>
+
+    <!-- ランダム作品 -->
+    <section id="random">
+      <h2>ランダム作品</h2>
+      <div class="works">
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.svg" alt="ランダム作品 icon" loading="lazy" decoding="async">
           <h3>ランダム作品</h3>
