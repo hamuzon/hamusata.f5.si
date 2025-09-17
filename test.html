@@ -44,28 +44,44 @@
   <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
   <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp">
 
-  <!-- Cookie バナー用スタイル -->
+  <!-- Cookieバナー用スタイル -->
   <style>
     #cookie-banner {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: rgba(0,0,0,0.9); color: #fff;
-      padding: 12px; text-align: center;
-      font-size: 14px; z-index: 9999;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.9);
+      color: #fff;
+      padding: 12px;
+      text-align: center;
+      font-size: 14px;
+      z-index: 9999;
+      line-height: 1.6;
     }
     #cookie-banner button {
-      margin: 0 6px; padding: 4px 8px; cursor: pointer; border:none; border-radius:4px;
+      margin: 0 6px;
+      padding: 4px 8px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
     }
-    #cookie-banner button#minimal-cookie { background:#555; color:#fff; }
-    #cookie-banner button#accept-all-cookie { background:#2a9d8f; color:#fff; }
+    #cookie-banner button#minimal-cookie { background: #555; color: #fff; }
+    #cookie-banner button#accept-all-cookie { background: #2a9d8f; color: #fff; }
+    #cookie-banner button#reject-cookie { background: #d62828; color: #fff; }
   </style>
 </head>
+
 <body class="light">
 
-  <!-- Cookie バナー -->
+  <!-- Cookieバナー -->
   <div id="cookie-banner" style="display:none;">
-    このサイトではCookieを使用します。<br>
-    <button id="minimal-cookie">必要最低限のみ</button>
-    <button id="accept-all-cookie">全て許可</button>
+    <p>このサイトではCookieを使用します。</p>
+    <p>
+      <button id="minimal-cookie">必要最低限のみ</button>
+      <button id="accept-all-cookie">全て許可</button>
+      <button id="reject-cookie">拒否</button>
+    </p>
   </div>
 
   <!-- ヘッダー -->
@@ -74,7 +90,9 @@
       <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
     </a>
 
-    <button id="menu-toggle" aria-label="メニューを開く"><span></span><span></span><span></span></button>
+    <button id="menu-toggle" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
 
     <nav id="mobile-menu">
       <ul>
@@ -113,42 +131,49 @@
   <section id="portfolio">
     <h2>ポートフォリオリンク集</h2>
     <div class="works">
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="HAMUSATA icon" loading="lazy" decoding="async">
         <h3>HAMUSATA – ホームページ</h3>
         <p>メインのポータルリンク。色々なものをまとめています。</p>
         <a href="https://home.hamusata.f5.si"><span>見る</span> / <span>View</span></a>
       </div>
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="GitHub Pages icon" loading="lazy" decoding="async">
         <h3>GitHub版 – ホームページ</h3>
         <p>GitHub Pages 版ホームページ。</p>
         <a href="https://hamuzon.github.io"><span>見る</span> / <span>View</span></a>
       </div>
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="hamuzon icon" loading="lazy" decoding="async">
         <h3>hamuzon – ホームページ</h3>
         <p>hamuzon-jp.f5.si のホームページ・リンクポータル版 (fc2の一部コピーサイト)</p>
         <a href="https://hamuzon-jp.f5.si/"><span>見る</span> / <span>View</span></a>
       </div>
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="hamuzon FC2 icon" loading="lazy" decoding="async">
         <h3>hamuzon (FC2)系 – ホームページ</h3>
         <p>FC2版ホームページ。いろんなコードやコンテンツがあります。</p>
         <a href="https://hamuzon.web.fc2.com/"><span>見る</span> / <span>View</span></a>
       </div>
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="link-s icon" loading="lazy" decoding="async">
         <h3>link-s.f5.si – ショートカットリンクサービス</h3>
         <p>短縮URL・ショートカットリンクサービス。</p>
         <a href="https://link-s.f5.si"><span>見る</span> / <span>View</span></a>
       </div>
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="go.link-s icon" loading="lazy" decoding="async">
         <h3>go.link-s.f5.si – カスタムパス対応版</h3>
         <p>任意のパスで短縮リンクを作れるカスタムリンクサービス。</p>
         <a href="https://go.link-s.f5.si"><span>見る</span> / <span>View</span></a>
       </div>
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="pw.link-s icon" loading="lazy" decoding="async">
         <h3>pw.link-s.f5.si – パスワード生成サービス</h3>
@@ -157,12 +182,14 @@
         <p class="note">※リダイレクトがうまくできない場合は <a href="https://password.link-s.f5.si">こちら</a> を利用してください。</p>
         <a href="https://password-create.link-s.f5.si/"><span>APIなし版</span> / <span>No-API</span></a>
       </div>
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="www.link-s icon" loading="lazy" decoding="async">
         <h3>www.link-s.f5.si</h3>
         <p>リンクのメイン機能はショートカットリンクサービスのlink-s.f5.si 系列作品集一覧。</p>
         <a href="https://www.link-s.f5.si/"><span>見る</span> / <span>View</span></a>
       </div>
+
     </div>
   </section>
 
@@ -213,36 +240,42 @@
   <section id="sns">
     <h2>SNSリンク</h2>
     <div class="works">
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="Scratch icon" loading="lazy" decoding="async">
         <h3>Scratch</h3>
         <p>hamusataアカウント</p>
         <a href="https://scratch.mit.edu/users/hamusata/"><span>見る</span> / <span>View</span></a>
       </div>
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="Scratch icon" loading="lazy" decoding="async">
         <h3>Scratch</h3>
         <p>hamuzonアカウント</p>
         <a href="https://scratch.mit.edu/users/hamuzon/"><span>見る</span> / <span>View</span></a>
       </div>
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="GitHub icon" loading="lazy" decoding="async">
         <h3>GitHub</h3>
         <p>GitHubアカウント</p>
         <a href="https://github.com/hamuzon"><span>見る</span> / <span>View</span></a>
       </div>
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="Bluesky icon" loading="lazy" decoding="async">
         <h3>Bluesky</h3>
         <p>Blueskyアカウント</p>
         <a href="https://bsky.app/profile/hamuzon-jp.f5.si"><span>見る</span> / <span>View</span></a>
       </div>
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="Twitter(X) icon" loading="lazy" decoding="async">
         <h3>Twitter (X)</h3>
         <p>@hamu_sata アカウント</p>
         <a href="https://x.com/hamu_sata"><span>見る</span> / <span>View</span></a>
       </div>
+
     </div>
   </section>
 
@@ -268,12 +301,8 @@
     // ハンバーガーメニュー開閉
     const menuToggle = document.getElementById('menu-toggle');
     const menuOverlay = document.getElementById('menu-overlay');
-    menuToggle.addEventListener('click', () => {
-      document.body.classList.toggle('menu-open');
-    });
-    menuOverlay.addEventListener('click', () => {
-      document.body.classList.remove('menu-open');
-    });
+    menuToggle.addEventListener('click', () => { document.body.classList.toggle('menu-open'); });
+    menuOverlay.addEventListener('click', () => { document.body.classList.remove('menu-open'); });
 
     // メニュー内 #home 用（スクロール＆ハッシュ削除）
     function menuScrollToHome(event) {
@@ -284,41 +313,41 @@
     }
     document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
 
-    // Cookie 同意処理
-    const cookieBanner=document.getElementById('cookie-banner');
-    const minimalBtn=document.getElementById('minimal-cookie');
-    const allBtn=document.getElementById('accept-all-cookie');
+    // Cookieバナー制御
+    const cookieBanner = document.getElementById('cookie-banner');
 
-    function loadGA(){
-      const gaScript=document.createElement('script');
-      gaScript.async=true;
-      gaScript.src="https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27";
-      document.head.appendChild(gaScript);
-      window.dataLayer=window.dataLayer||[];
-      function gtag(){dataLayer.push(arguments);}
-      window.gtag=gtag;
-      gtag('js', new Date());
-      gtag('config','G-E3VWGLZJ27');
+    function showCookieBanner() {
+      if (!localStorage.getItem('cookieConsent')) {
+        cookieBanner.style.display = 'block';
+      }
     }
 
-    if(!localStorage.getItem('cookieConsent')){
-      cookieBanner.style.display='block';
+    function acceptCookies(type) {
+      localStorage.setItem('cookieConsent', type);
+      cookieBanner.style.display = 'none';
+
+      if (type === 'all') {
+        // Googleタグを動的に読み込む
+        const gtagScript = document.createElement('script');
+        gtagScript.async = true;
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27';
+        document.head.appendChild(gtagScript);
+
+        gtagScript.onload = () => {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', 'G-E3VWGLZJ27');
+        };
+      }
     }
 
-    minimalBtn.addEventListener('click', ()=>{
-      localStorage.setItem('cookieConsent','minimal');
-      cookieBanner.style.display='none';
-    });
+    document.getElementById('minimal-cookie').addEventListener('click', () => acceptCookies('minimal'));
+    document.getElementById('accept-all-cookie').addEventListener('click', () => acceptCookies('all'));
+    document.getElementById('reject-cookie').addEventListener('click', () => acceptCookies('reject'));
 
-    allBtn.addEventListener('click', ()=>{
-      localStorage.setItem('cookieConsent','all');
-      cookieBanner.style.display='none';
-      loadGA();
-    });
-
-    if(localStorage.getItem('cookieConsent')==='all'){
-      loadGA();
-    }
+    showCookieBanner();
   </script>
 
 </body>
