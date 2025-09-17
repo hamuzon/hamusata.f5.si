@@ -1,77 +1,127 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>利用規約・プライバシーポリシー – HAMUSATA</title>
-  <link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>利用規約・プライバシーポリシー – HAMUSATA</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp">
+
+<!-- 共通CSS -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/mobile-menu.css">
+
+<!-- テーマCSS切替 -->
+<script>
+  const themeCSS = [
+    "css/dark.css",
+    "css/dark-hc.css",
+    "css/dark-mc.css",
+    "css/light.css",
+    "css/light-hc.css",
+    "css/light-mc.css"
+  ];
+  themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
+</script>
+
+<style>
+  :root {
+    --terms-timestamp: 1758106200; /* 制定日 */
+  }
+
+  body { font-family: 'Inter', 'Segoe UI', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
+  main { padding: 1rem; max-width: 800px; margin: auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 1rem; }
+  h2 { font-size: 1.4rem; margin-top: 1.5rem; }
+  p, li { margin-bottom: 0.8rem; }
+  ul { padding-left: 1.5rem; }
+</style>
+
 </head>
 <body class="light">
 
-  <!-- ヘッダー -->
-  <header>
-    <a href="index.html" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
-      <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
-    </a>
-    <nav>
-      <ul>
-        <li><a href="index.html">ホーム</a></li>
-        <li><a href="terms.html">利用規約・プライバシーポリシー</a></li>
-      </ul>
-    </nav>
-  </header>
+<header>
+  <a href="index.html" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
+    <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
+  </a>
+</header>
 
-  <!-- 利用規約・プライバシーポリシー -->
-  <main>
-    <section>
-      <h1>利用規約・プライバシーポリシー / Terms of Service & Privacy Policy</h1>
-      
-      <p><strong>制定日:</strong> 2025年9月17日 18:45 (日本時間)</p>
+<main>
+<section>
+<h1>利用規約・プライバシーポリシー / Terms of Service & Privacy Policy</h1>
 
-      <p>このウェブサイト（以下「当サイト」）は、hamusata が運営しています。当サイトをご利用いただく前に、以下の内容をご確認ください。</p>
+<p><strong>制定日:</strong></p>
+<ul>
+  <li>JST: <span id="japan-time"></span></li>
+  <li>UTC: <span id="utc-time"></span></li>
+  <li>Local time: <span id="local-time"></span></li>
+</ul>
 
-      <h2>1. サービス内容</h2>
-      <p>当サイトは、HAMUSATA関連の情報提供およびリンク集、コンテンツ閲覧サービスを提供します。利用者は自己の責任でご利用ください。</p>
+<p>このウェブサイト（以下「当サイト」）は、hamusata が運営しています。当サイトをご利用いただく前に、以下の内容をご確認ください。</p>
 
-      <h2>2. 禁止事項</h2>
-      <p>当サイトの利用にあたり、以下の行為を禁止します：</p>
-      <ul>
-        <li>法令・公序良俗に反する行為</li>
-        <li>他者や当サイトの運営に損害を与える行為</li>
-        <li>不正アクセスやサーバーへの攻撃行為</li>
-        <li>サイト内コンテンツの無断転載・改変</li>
-      </ul>
+<h2>1. サービス内容</h2>
+<p>当サイトは、HAMUSATA関連の情報提供およびリンク集、コンテンツ閲覧サービスを提供します。利用者は自己の責任でご利用ください。</p>
 
-      <h2>3. 免責事項</h2>
-      <p>当サイトに掲載される情報は正確性に努めていますが、内容の完全性・正確性を保証するものではありません。当サイトの利用により生じた損害について、一切責任を負いません。</p>
+<h2>2. 禁止事項</h2>
+<p>当サイトの利用にあたり、以下の行為を禁止します：</p>
+<ul>
+  <li>法令・公序良俗に反する行為</li>
+  <li>他者や当サイトの運営に損害を与える行為</li>
+  <li>不正アクセスやサーバーへの攻撃行為</li>
+  <li>サイト内コンテンツの無断転載・改変</li>
+</ul>
 
-      <h2>4. 著作権</h2>
-      <p>当サイト内のコンテンツ（文章・画像・プログラムなど）の著作権は当サイト運営者または各権利者に帰属します。無断使用・転載は禁止します。</p>
+<h2>3. 免責事項</h2>
+<p>当サイトに掲載される情報は正確性に努めていますが、内容の完全性・正確性を保証するものではありません。当サイトの利用により生じた損害について、一切責任を負いません。</p>
 
-      <h2>5. クッキー・アクセス解析</h2>
-      <p>当サイトでは、サービス向上のために最低限のアクセス解析（Google Analytics）を利用する場合があります。必要に応じて同意を求める場合があります。</p>
+<h2>4. 著作権</h2>
+<p>当サイト内のコンテンツ（文章・画像・プログラムなど）の著作権は当サイト運営者または各権利者に帰属します。無断使用・転載は禁止します。</p>
 
-      <h2>6. 規約の変更</h2>
-      <p>当サイトは本規約を予告なく変更することがあります。最新の内容は当ページにてご確認ください。</p>
+<h2>5. クッキー・アクセス解析</h2>
+<p>当サイトでは、サービス向上のためアクセス解析（Google Analytics 等）を利用する場合があります。必要に応じて、ユーザーの同意を求める場合があります。</p>
 
-    </section>
-  </main>
+<h2>6. 規約の変更</h2>
+<p>当サイトは本規約を予告なく変更することがあります。最新の内容は当ページにてご確認ください。</p>
+</section>
+</main>
 
-  <!-- フッター -->
-  <footer>
-    &copy; <span id="year"></span>
-    <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved. |
-    <a href="../index.html">ホームページに戻る</a>
-  </footer>
+<footer>
+&copy; <span id="year"></span>
+<a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved. |
+<a href="./index.html">ホームページに戻る</a>
+</footer>
 
-  <!-- スクリプト -->
-  <script>
-    const baseYear = 2025;
-    const currentYear = new Date().getFullYear();
-    document.getElementById("year").textContent =
-      currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
-  </script>
+<script>
+  // 年自動更新
+  const baseYear = 2025;
+  const currentYear = new Date().getFullYear();
+  document.getElementById("year").textContent =
+    currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
+
+  // テーマ自動切替
+  function applyTheme() {
+    document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  applyTheme();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+
+  // CSS変数からUNIXタイムスタンプ取得
+  const rootStyles = getComputedStyle(document.documentElement);
+  const timestamp = Number(rootStyles.getPropertyValue('--terms-timestamp').trim());
+
+  // 日付生成
+  const date = new Date(timestamp * 1000);
+
+  // JST
+  document.getElementById('japan-time').textContent = date.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
+
+  // UTC
+  document.getElementById('utc-time').textContent = date.toLocaleString('en-US', { timeZone: 'UTC', hour12: false });
+
+  // Local time (ユーザーのローカル時間)
+  document.getElementById('local-time').textContent = date.toLocaleString();
+</script>
 
 </body>
 </html>
