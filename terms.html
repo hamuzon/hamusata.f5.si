@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>利用規約・プライバシーポリシー – HAMUSATA</title>
+
+<meta name="description" content="HAMUSATA.f5.si 利用規約・プライバシーポリシー">
+<meta name="keywords" content="HAMUSATA, 利用規約, プライバシーポリシー">
+<meta name="robots" content="index, follow">
+
+<link rel="icon" type="image/svg+xml" href="https://hamusata.f5.si/icon.svg">
+<link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp">
+<link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/mobile-menu.css">
+
+<script>
+  const themeCSS = [
+    "css/dark.css",
+    "css/dark-hc.css",
+    "css/dark-mc.css",
+    "css/light.css",
+    "css/light-hc.css",
+    "css/light-mc.css"
+  ];
+  themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
+</script>
+</head>
+
+<body class="light">
+
+<header>
+  <a href="https://hamusata.f5.si" class="banner-link">
+    <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy">
+  </a>
+  <button id="menu-toggle" aria-label="メニューを開く"><span></span><span></span><span></span></button>
+  <nav id="mobile-menu">
+    <ul><li><a href="https://hamusata.f5.si" class="nav-home">ホーム</a></li></ul>
+  </nav>
+  <div id="menu-overlay"></div>
+</header>
+
+<main>
+<section id="terms">
+  <h1>利用規約・プライバシーポリシー</h1>
+
+  <h2>はじめに</h2>
+  <p>当サイトの利用にあたってのルールと個人情報の取り扱いについて説明します。</p>
+
+  <h2>1. 利用規約</h2>
+  <ul>
+    <li>コンテンツは著作権で保護されています。無断転載・複製は禁止です。</li>
+    <li>迷惑行為や違法行為は禁止です。</li>
+    <li>利用は自己責任です。損害について当サイトは責任を負いません。</li>
+  </ul>
+
+  <h2>2. プライバシーポリシー</h2>
+  <ul>
+    <li>アクセス解析データ、Cookieによる利用状況記録を収集します。</li>
+    <li>個人情報は第三者に提供しません。</li>
+    <li>利用目的はサイト改善・ユーザー体験向上の分析です。</li>
+  </ul>
+</section>
+</main>
+
+<footer>
+  &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved.
+</footer>
+
+<script>
+  // 年自動更新
+  const baseYear = 2025;
+  const now = new Date().getFullYear();
+  document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
+
+  // ハンバーガーメニュー
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuOverlay = document.getElementById('menu-overlay');
+  menuToggle.addEventListener('click', () => document.body.classList.toggle('menu-open'));
+  menuOverlay.addEventListener('click', () => document.body.classList.remove('menu-open'));
+
+  document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', e => {
+    e.preventDefault();
+    window.scrollTo({top:0,behavior:'smooth'});
+    history.replaceState(null,'',' ');
+    document.body.classList.remove('menu-open');
+  }));
+
+  // テーマ切替
+  function applyTheme() {
+    document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  applyTheme();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+</script>
+</body>
+</html>
