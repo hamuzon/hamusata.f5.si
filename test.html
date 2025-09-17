@@ -326,7 +326,7 @@
       localStorage.setItem('cookieConsent', type);
       cookieBanner.style.display = 'none';
 
-      if (type === 'all') {
+      if (type === 'all' || type === 'minimal') {
         // Googleタグを動的に読み込む
         const gtagScript = document.createElement('script');
         gtagScript.async = true;
@@ -338,7 +338,18 @@
           function gtag(){dataLayer.push(arguments);}
           window.gtag = gtag;
           gtag('js', new Date());
-          gtag('config', 'G-E3VWGLZJ27');
+
+          if(type === 'minimal') {
+            // 匿名化＆広告パーソナライズ無効
+            gtag('config', 'G-E3VWGLZJ27', {
+              anonymize_ip: true,
+              allow_google_signals: false,
+              allow_ad_personalization_signals: false
+            });
+          } else {
+            // 全許可
+            gtag('config', 'G-E3VWGLZJ27');
+          }
         };
       }
     }
