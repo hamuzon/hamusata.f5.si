@@ -44,62 +44,33 @@
   <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
   <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp">
 
-  <!-- Cookie 同意後にのみ Google Analytics -->
-  <script>
-    function loadGA() {
-      if (localStorage.getItem('cookieConsent') === 'true') {
-        const gaScript = document.createElement('script');
-        gaScript.async = true;
-        gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27";
-        document.head.appendChild(gaScript);
-
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        window.gtag = gtag;
-        gtag('js', new Date());
-        gtag('config', 'G-E3VWGLZJ27');
-      }
-    }
-    document.addEventListener('DOMContentLoaded', loadGA);
-  </script>
-
+  <!-- Cookie バナー用スタイル -->
   <style>
-    /* Cookie 同意バナー */
     #cookie-banner {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: rgba(0,0,0,0.9);
-      color: #fff;
-      padding: 16px;
-      font-size: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 9999;
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.9); color: #fff;
+      padding: 12px; text-align: center;
+      font-size: 14px; z-index: 9999;
     }
     #cookie-banner button {
-      background: #fff;
-      color: #000;
-      border: none;
-      padding: 8px 12px;
-      cursor: pointer;
-      border-radius: 4px;
-      font-weight: bold;
+      margin: 0 6px; padding: 4px 8px; cursor: pointer; border:none; border-radius:4px;
     }
+    #cookie-banner button#minimal-cookie { background:#555; color:#fff; }
+    #cookie-banner button#accept-all-cookie { background:#2a9d8f; color:#fff; }
   </style>
-
 </head>
 <body class="light">
 
-  <!-- Cookie 同意バナー -->
+  <!-- Cookie バナー -->
   <div id="cookie-banner" style="display:none;">
-    このサイトではCookieを使用しています。統計分析や利便性向上のため、Cookieの使用に同意しますか？
-    <button id="accept-cookie">同意する</button>
+    このサイトではCookieを使用します。<br>
+    <button id="minimal-cookie">必要最低限のみ</button>
+    <button id="accept-all-cookie">全て許可</button>
   </div>
 
   <!-- ヘッダー -->
   <header>
-    <a href="https://home.hamusata.f5.si" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
+    <a href="index.html" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
       <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
     </a>
 
@@ -218,7 +189,7 @@
         <p>
           ※本サービスは一部 <strong>PCサーバー + Cloudflare Tunnel</strong> を利用しています。<br>
           PCは毎日 <strong>日本時間の朝4時に自動再起動</strong> しており、再起動時にサーバーや Cloudflare Tunnel が自動起動しない場合、<br>
-          一時的に接続できないことがあります。また、自宅のサーバーが起動していない時間もあります。
+          一時的に接続できないことがあります。自宅サーバーの起動していない時間もあります。
         </p>
         <a href="https://stats.uptimerobot.com/tT7bs2uEHa"><span>稼働状況を見る</span> / <span>View Status</span></a>
       </div>
@@ -305,25 +276,49 @@
     });
 
     // メニュー内 #home 用（スクロール＆ハッシュ削除）
-    function menuHomeClick(e) {
-      e.preventDefault();
+    function menuScrollToHome(event) {
+      event.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      history.replaceState(null, '', window.location.pathname);
+      history.replaceState(null, '', ' ');
       document.body.classList.remove('menu-open');
     }
-    document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuHomeClick));
+    document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
 
-    // Cookie バナー
-    const cookieBanner = document.getElementById('cookie-banner');
-    const acceptBtn = document.getElementById('accept-cookie');
-    if (!localStorage.getItem('cookieConsent')) {
-      cookieBanner.style.display = 'flex';
+    // Cookie 同意処理
+    const cookieBanner=document.getElementById('cookie-banner');
+    const minimalBtn=document.getElementById('minimal-cookie');
+    const allBtn=document.getElementById('accept-all-cookie');
+
+    function loadGA(){
+      const gaScript=document.createElement('script');
+      gaScript.async=true;
+      gaScript.src="https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27";
+      document.head.appendChild(gaScript);
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag=gtag;
+      gtag('js', new Date());
+      gtag('config','G-E3VWGLZJ27');
     }
-    acceptBtn.addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'true');
-      cookieBanner.style.display = 'none';
+
+    if(!localStorage.getItem('cookieConsent')){
+      cookieBanner.style.display='block';
+    }
+
+    minimalBtn.addEventListener('click', ()=>{
+      localStorage.setItem('cookieConsent','minimal');
+      cookieBanner.style.display='none';
+    });
+
+    allBtn.addEventListener('click', ()=>{
+      localStorage.setItem('cookieConsent','all');
+      cookieBanner.style.display='none';
       loadGA();
     });
+
+    if(localStorage.getItem('cookieConsent')==='all'){
+      loadGA();
+    }
   </script>
 
 </body>
