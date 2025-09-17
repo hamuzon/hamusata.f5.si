@@ -327,9 +327,9 @@
       cookieBanner.style.display = 'none';
 
       if (type === 'all' || type === 'minimal') {
-        // Googleタグを動的に読み込む
         const gtagScript = document.createElement('script');
         gtagScript.async = true;
+        gtagScript.setAttribute('data-cfasync', 'false');
         gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27';
         document.head.appendChild(gtagScript);
 
@@ -363,3 +363,4 @@
 
 </body>
 </html>
+  
