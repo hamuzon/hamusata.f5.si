@@ -44,17 +44,58 @@
   <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
   <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27" data-cfasync="false"></script>
+  <!-- Cookie 同意後にのみ Google Analytics -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-E3VWGLZJ27');
+    function loadGA() {
+      if (localStorage.getItem('cookieConsent') === 'true') {
+        const gaScript = document.createElement('script');
+        gaScript.async = true;
+        gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27";
+        document.head.appendChild(gaScript);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', 'G-E3VWGLZJ27');
+      }
+    }
+    document.addEventListener('DOMContentLoaded', loadGA);
   </script>
+
+  <style>
+    /* Cookie 同意バナー */
+    #cookie-banner {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.9);
+      color: #fff;
+      padding: 16px;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999;
+    }
+    #cookie-banner button {
+      background: #fff;
+      color: #000;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+  </style>
 
 </head>
 <body class="light">
+
+  <!-- Cookie 同意バナー -->
+  <div id="cookie-banner" style="display:none;">
+    このサイトではCookieを使用しています。統計分析や利便性向上のため、Cookieの使用に同意しますか？
+    <button id="accept-cookie">同意する</button>
+  </div>
 
   <!-- ヘッダー -->
   <header>
@@ -101,7 +142,6 @@
   <section id="portfolio">
     <h2>ポートフォリオリンク集</h2>
     <div class="works">
-      <!-- カード群（省略せず） -->
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="HAMUSATA icon" loading="lazy" decoding="async">
         <h3>HAMUSATA – ホームページ</h3>
@@ -169,22 +209,21 @@
   </section>
 
   <!-- サービス稼働状況 -->
-<section id="status">
-  <h2>サービス稼働状況 / Status Page</h2>
-  <div class="works">
-    <div class="work-card">
-      <img src="https://hamusata.f5.si/icon.webp" alt="Status icon" loading="lazy" decoding="async">
-      <h3>サービス稼働状況</h3>
-      <p>
-        ※本サービスは一部 <strong>PCサーバー + Cloudflare Tunnel</strong> を利用しています。<br>
-        PCは毎日 <strong>日本時間の朝4時に自動再起動</strong> しており、再起動時にサーバーや Cloudflare Tunnel が自動起動しない場合、<br>
-        一時的に接続できないことがあります。<br>
-        また、一部 <strong>自宅のサーバーが起動していない時間</strong> もあります。
-      </p>
-      <a href="https://stats.uptimerobot.com/tT7bs2uEHa"><span>稼働状況を見る</span> / <span>View Status</span></a>
+  <section id="status">
+    <h2>サービス稼働状況 / Status Page</h2>
+    <div class="works">
+      <div class="work-card">
+        <img src="https://hamusata.f5.si/icon.webp" alt="Status icon" loading="lazy" decoding="async">
+        <h3>サービス稼働状況</h3>
+        <p>
+          ※本サービスは一部 <strong>PCサーバー + Cloudflare Tunnel</strong> を利用しています。<br>
+          PCは毎日 <strong>日本時間の朝4時に自動再起動</strong> しており、再起動時にサーバーや Cloudflare Tunnel が自動起動しない場合、<br>
+          一時的に接続できないことがあります。また、自宅のサーバーが起動していない時間もあります。
+        </p>
+        <a href="https://stats.uptimerobot.com/tT7bs2uEHa"><span>稼働状況を見る</span> / <span>View Status</span></a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- 相互リンク -->
   <section id="mutual-links">
@@ -266,13 +305,25 @@
     });
 
     // メニュー内 #home 用（スクロール＆ハッシュ削除）
-    function menuScrollToHome(event) {
-      event.preventDefault();
+    function menuHomeClick(e) {
+      e.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      history.replaceState(null, '', ' ');
+      history.replaceState(null, '', window.location.pathname);
       document.body.classList.remove('menu-open');
     }
-    document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
+    document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuHomeClick));
+
+    // Cookie バナー
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('accept-cookie');
+    if (!localStorage.getItem('cookieConsent')) {
+      cookieBanner.style.display = 'flex';
+    }
+    acceptBtn.addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'true');
+      cookieBanner.style.display = 'none';
+      loadGA();
+    });
   </script>
 
 </body>
