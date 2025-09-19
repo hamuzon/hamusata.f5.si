@@ -10,43 +10,43 @@
   "theme_color": "#2a9d8f",
   "icons": [
     {
-      "src": "/images/icon.png",
+      "src": "/icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/icon.svg",
+      "src": "/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/icon.webp",
+      "src": "/icon.webp",
       "sizes": "512x512",
       "type": "image/webp",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/icon_400.webp",
+      "src": "/icon_400.webp",
       "sizes": "400x400",
       "type": "image/webp",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/icon_500_500.png",
+      "src": "/icon_500_500.png",
       "sizes": "500x500",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/icon_500_500.webp",
+      "src": "/icon_500_500.webp",
       "sizes": "500x500",
       "type": "image/webp",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/icon_800.webp",
+      "src": "/icon_800.webp",
       "sizes": "800x800",
       "type": "image/webp",
       "purpose": "any maskable"
