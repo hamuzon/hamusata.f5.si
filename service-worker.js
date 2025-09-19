@@ -80,7 +80,7 @@ self.addEventListener('fetch', event => {
         .catch(() => {
           // オフライン時フォールバック
           if (event.request.destination === 'image') {
-            return caches.match('/images/icon.webp');
+            return caches.match('/icon.webp');
           } else if (event.request.destination === 'document') {
             return caches.match('/index.html');
           }
