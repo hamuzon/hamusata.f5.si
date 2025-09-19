@@ -11,6 +11,10 @@
   <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png">
   <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
 
+  <!-- PWA manifest -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#000000">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
@@ -128,7 +132,7 @@
   </section>
 
   <!-- ポートフォリオ -->
-  <section id="portfolio">
+<section id="portfolio">
     <h2>ポートフォリオリンク集</h2>
     <div class="works">
 
@@ -201,7 +205,7 @@
         <img src="https://hamusata.f5.si/icon.webp" alt="ランダム作品 icon" loading="lazy" decoding="async">
         <h3>ランダム作品</h3>
         <p>作品をランダムに開くボタンです。</p>
-        <a href="./random/index.html"><span>開く</span> / <span>Open</span></a>
+        <a href="./random/"><span>開く</span> / <span>Open</span></a>
       </div>
     </div>
   </section>
@@ -231,7 +235,7 @@
         <img src="https://hamusata.f5.si/icon.webp" alt="Mutual Links icon" loading="lazy" decoding="async">
         <h3>相互リンクページ</h3>
         <p>こちらをクリックすると相互リンクページに移動します。</p>
-        <a href="./links/index.html"><span>開く</span> / <span>Open</span></a>
+        <a href="./links/"><span>開く</span> / <span>Open</span></a>
       </div>
     </div>
   </section>
@@ -277,7 +281,6 @@
       </div>
 
     </div>
-  </section>
 
   <!-- フッター -->
   <footer>
@@ -340,14 +343,12 @@
           gtag('js', new Date());
 
           if(type === 'minimal') {
-            // 匿名化＆広告パーソナライズ無効
             gtag('config', 'G-E3VWGLZJ27', {
               anonymize_ip: true,
               allow_google_signals: false,
               allow_ad_personalization_signals: false
             });
           } else {
-            // 全許可
             gtag('config', 'G-E3VWGLZJ27');
           }
         };
@@ -359,8 +360,21 @@
     document.getElementById('reject-cookie').addEventListener('click', () => acceptCookies('reject'));
 
     showCookieBanner();
+
+    // PWA: Service Worker 登録
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registered with scope:', registration.scope);
+          })
+          .catch(error => {
+            console.error('Service Worker registration failed:', error);
+          });
+      });
+    }
+
   </script>
 
 </body>
 </html>
-  
