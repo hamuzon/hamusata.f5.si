@@ -15,6 +15,9 @@
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#000000">
 
+  <!-- SEO / ページ説明 -->
+  <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si. Web制作・リンク集・SNSなどをまとめています。">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
@@ -36,17 +39,18 @@
     themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
   </script>
 
-  <!-- SEO -->
-  <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
+  <!-- Open Graph -->
   <meta property="og:title" content="HAMUSATA – ホームページ">
-  <meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
+  <meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si. Web制作・リンク集・SNSなどをまとめています。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hamusata.f5.si">
   <meta property="og:image" content="https://hamusata.f5.si/icon_500_500.webp">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="HAMUSATA – ホームページ">
-  <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
-  <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HAMUSATA - のホームページです">
+  <meta name="twitter:description" content="hamusata.f5.si 系列 / English version available">
+  <meta name="twitter:image" content="https://hamusata.f5.si/icon_120.webp">
 
   <!-- Cookieバナー用スタイル -->
   <style>
@@ -78,18 +82,9 @@
 
 <body class="light">
 
-  <!-- Cookieバナー -->
-  <div id="cookie-banner" style="display:none;">
-    <p>このサイトではCookieを使用します。</p>
-    <p>
-      <button id="minimal-cookie">必要最低限のみ</button>
-      <button id="accept-all-cookie">全て許可</button>
-      <button id="reject-cookie">拒否</button>
-    </p>
-  </div>
-
-  <!-- ヘッダー -->
+  <!-- <h1> サイトタイトル -->
   <header>
+    <h1>HAMUSATA – ホームページ</h1>
     <a href="index.html" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
       <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
     </a>
@@ -121,11 +116,21 @@
     <div id="menu-overlay"></div>
   </header>
 
+  <!-- Cookieバナー -->
+  <div id="cookie-banner" style="display:none;">
+    <p>このサイトではCookieを使用します。</p>
+    <p>
+      <button id="minimal-cookie">必要最低限のみ</button>
+      <button id="accept-all-cookie">全て許可</button>
+      <button id="reject-cookie">拒否</button>
+    </p>
+  </div>
+
   <!-- 自己紹介 -->
   <section id="profile">
     <div class="profile">
       <h2>自己紹介</h2>
-      <p>こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。</p>
+      <p>こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住人。</p>
       <p>ハムスターを飼っています。</p>
       <p>ネットの海でプログラミングしたりネットしたりして過ごしてます。</p>
     </div>
@@ -320,15 +325,11 @@
   const cookieBanner = document.getElementById('cookie-banner');
 
   function showCookieBanner() {
-    // consentが未設定の場合のみバナーを表示
     const consent = localStorage.getItem('cookieConsent');
-    if (!consent) {
-      cookieBanner.style.display = 'block';
-    }
+    if (!consent) cookieBanner.style.display = 'block';
   }
 
   function loadGA(minimal) {
-    // GAスクリプト読み込み
     const gtagScript = document.createElement('script');
     gtagScript.async = true;
     gtagScript.setAttribute('data-cfasync', 'false');
@@ -340,7 +341,6 @@
       function gtag(){dataLayer.push(arguments);}
       window.gtag = gtag;
       gtag('js', new Date());
-
       if (minimal) {
         gtag('config', 'G-E3VWGLZJ27', {
           anonymize_ip: true,
@@ -354,45 +354,27 @@
   }
 
   function acceptCookies(type) {
-    // ユーザーの選択を保存
     localStorage.setItem('cookieConsent', type);
     cookieBanner.style.display = 'none';
-
-    if (type === 'all') {
-      loadGA(false);
-    } else if (type === 'minimal') {
-      loadGA(true);
-    }
-    // rejectの場合はGAもCookieもロードせず保存のみ
+    if (type === 'all') loadGA(false);
+    else if (type === 'minimal') loadGA(true);
   }
 
-  // 各ボタンにクリックイベントを設定
   document.getElementById('minimal-cookie').addEventListener('click', () => acceptCookies('minimal'));
   document.getElementById('accept-all-cookie').addEventListener('click', () => acceptCookies('all'));
   document.getElementById('reject-cookie').addEventListener('click', () => acceptCookies('reject'));
 
-  // 初期表示判定
   const consent = localStorage.getItem('cookieConsent');
-  if (consent === 'minimal') {
-    loadGA(true);
-  } else if (consent === 'all') {
-    loadGA(false);
-  } else if (consent === 'reject') {
-    // 拒否は何もしない（バナーも非表示）
-  } else {
-    showCookieBanner();
-  }
+  if (consent === 'minimal') loadGA(true);
+  else if (consent === 'all') loadGA(false);
+  else if (!consent) showCookieBanner();
 
   // PWA: Service Worker 登録
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/service-worker.js')
-        .then(registration => {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(error => {
-          console.error('Service Worker registration failed:', error);
-        });
+        .then(registration => console.log('Service Worker registered with scope:', registration.scope))
+        .catch(error => console.error('Service Worker registration failed:', error));
     });
   }
 </script>
