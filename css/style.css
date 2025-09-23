@@ -15,6 +15,7 @@ body {
   line-height: 1.6;
   scroll-behavior: smooth;
   transition: background-color 0.3s, color 0.3s;
+  text-align: center;
 }
 
 /* =========================
@@ -33,17 +34,6 @@ header {
   text-align: center;
 }
 
-header h1 {
-  font-size: 2rem;
-  text-align: center;
-  color: var(--md-sys-color-on-background, #000);
-  margin: 1rem 0;
-}
-
-header h1 span {
-  display: block;
-}
-
 .banner-link {
   display: block;
   margin-bottom: 1rem;
@@ -59,6 +49,14 @@ header h1 span {
   box-shadow: 0 4px 16px rgba(0,0,0,0.18);
   background-color: var(--md-sys-color-surface, #fff);
   transition: background-color 0.3s;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 1rem auto;
+  text-align: center;
+  color: var(--md-sys-color-on-background, #000);
+  line-height: 1.2;
 }
 
 /* =========================
@@ -232,6 +230,9 @@ footer a {
   }
   #profile .profile p {
     font-size: 0.95rem;
+  }
+  h1 {
+    font-size: 1.8rem;
   }
 }
 
