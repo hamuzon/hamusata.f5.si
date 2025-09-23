@@ -10,50 +10,11 @@
 
 body {
   min-height: 100vh;
+  background-color: var(--md-sys-color-background, #ffffff);
+  color: var(--md-sys-color-on-background, #000000);
   line-height: 1.6;
   scroll-behavior: smooth;
   transition: background-color 0.3s, color 0.3s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* =========================
-   テーマカラー変数
-========================= */
-body.light {
-  --bg-color: #ffffff;
-  --on-bg-color: #000000;
-  --surface: #f0f0f0;
-  --on-surface: #000000;
-  --surface-variant: #555555;
-  --primary-container: #e0f7fa;
-  --on-primary-container: #000000;
-  --primary: #00bcd4;
-  --on-primary: #ffffff;
-  --outline: #ccc;
-}
-
-body.dark {
-  --bg-color: #121212;
-  --on-bg-color: #ffffff;
-  --surface: #1e1e1e;
-  --on-surface: #ffffff;
-  --surface-variant: #bbbbbb;
-  --primary-container: #004d40;
-  --on-primary-container: #ffffff;
-  --primary: #26a69a;
-  --on-primary: #ffffff;
-  --outline: #666;
-}
-
-/* =========================
-   body & 基本
-========================= */
-body {
-  background-color: var(--bg-color);
-  color: var(--on-bg-color);
-  width: 100%;
 }
 
 /* =========================
@@ -72,7 +33,7 @@ header {
   text-align: center;
 }
 
-/* h1 とバナー上下中央 */
+/* h1 とバナーまとめ用 */
 header .header-content {
   display: flex;
   flex-direction: column;
@@ -84,17 +45,11 @@ header .header-content {
 header h1 {
   font-size: 2rem;
   text-align: center;
+  color: var(--md-sys-color-on-background, #000);
 }
 
 header h1 span {
   display: block;
-}
-
-/* スマホ縦並び */
-@media (max-width: 480px) {
-  header h1 {
-    font-size: 1.6rem;
-  }
 }
 
 .banner-link {
@@ -111,8 +66,8 @@ header h1 span {
   max-height: 120px;
   object-fit: contain;
   border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-  background-color: var(--surface);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  background-color: var(--md-sys-color-surface, #fff);
   transition: background-color 0.3s;
 }
 
@@ -124,8 +79,8 @@ section {
   margin: 3rem auto;
   padding: 1rem;
   border-radius: 8px;
-  background-color: var(--surface);
-  color: var(--on-surface);
+  background-color: var(--md-sys-color-surface-container, #f0f0f0);
+  color: var(--md-sys-color-on-surface, #000);
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -133,11 +88,11 @@ section h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
   text-align: center;
-  color: var(--surface-variant);
+  color: var(--md-sys-color-on-surface-variant, #555);
 }
 
 section.highlight {
-  background-color: var(--primary-container);
+  background-color: var(--md-sys-color-surface-container-high, #e0e0e0);
 }
 
 /* =========================
@@ -150,14 +105,14 @@ section.highlight {
 }
 
 #profile h2 {
-  color: var(--on-surface);
+  color: var(--md-sys-color-on-surface, #000);
 }
 
 #profile .profile p {
   text-align: center;
   max-width: 700px;
   margin: 0.5rem auto;
-  color: var(--surface-variant);
+  color: var(--md-sys-color-on-surface-variant, #555);
 }
 
 /* =========================
@@ -171,8 +126,8 @@ section.highlight {
 
 .work-card {
   display: block;
-  background-color: var(--surface);
-  color: var(--on-surface);
+  background-color: var(--md-sys-color-surface-container, #f8f8f8);
+  color: var(--md-sys-color-on-surface, #000);
   text-decoration: none;
   padding: 1.5rem;
   border-radius: 16px;
@@ -186,7 +141,7 @@ section.highlight {
   height: 80px;
   margin-bottom: 1rem;
   border-radius: 50%;
-  border: 2px solid var(--outline);
+  border: 2px solid var(--md-sys-color-outline, #ccc);
   transition: border-color 0.3s;
 }
 
@@ -203,22 +158,22 @@ section.highlight {
   margin-top: 1rem;
   padding: 0.8rem 1.8rem;
   border-radius: 18px;
-  background-color: var(--primary-container);
-  color: var(--on-primary-container);
+  background-color: var(--md-sys-color-primary-container, #e0f7fa);
+  color: var(--md-sys-color-on-primary-container, #000);
   font-weight: 600;
   text-decoration: none;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .work-card a:hover {
-  background-color: var(--primary);
-  color: var(--on-primary);
+  background-color: var(--md-sys-color-primary, #00bcd4);
+  color: var(--md-sys-color-on-primary, #fff);
 }
 
 .work-card p.note {
   margin-top: 0.5rem;
   font-size: 0.9rem;
-  color: var(--surface-variant);
+  color: var(--md-sys-color-on-surface-variant, #555);
 }
 
 /* =========================
@@ -227,12 +182,12 @@ section.highlight {
 footer {
   text-align: center;
   padding: 2rem 1rem;
-  color: var(--surface-variant);
+  color: var(--md-sys-color-on-surface-variant, #555);
   font-size: 0.9rem;
 }
 
 footer a {
-  color: var(--outline);
+  color: var(--md-sys-color-outline, #888);
   text-decoration: underline;
 }
 
@@ -244,7 +199,7 @@ footer a {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0, 0, 0, 0.9);
   color: #fff;
   padding: 12px;
   text-align: center;
