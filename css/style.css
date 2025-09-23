@@ -10,8 +10,8 @@
 
 body {
   min-height: 100vh;
-  background-color: var(--md-sys-color-background, #ffffff);
-  color: var(--md-sys-color-on-background, #000000);
+  background-color: var(--md-sys-color-background, #fff);
+  color: var(--md-sys-color-on-background, #000);
   line-height: 1.6;
   scroll-behavior: smooth;
   transition: background-color 0.3s, color 0.3s;
@@ -35,13 +35,9 @@ header {
 
 header h1 {
   font-size: 2rem;
-  text-align: center; 
-  justify-content: center; 
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  text-align: center;
   color: var(--md-sys-color-on-background, #000);
+  margin: 1rem 0;
 }
 
 header h1 span {
@@ -50,14 +46,13 @@ header h1 span {
 
 .banner-link {
   display: inline-block;
-  line-height: 0;
   text-decoration: none;
+  margin-bottom: 1rem;
 }
 
 .banner-link img {
   display: block;
   width: min(100%, 512px);
-  max-width: 100%;
   height: auto;
   max-height: 120px;
   object-fit: contain;
@@ -198,6 +193,7 @@ footer a {
   background: rgba(0, 0, 0, 0.9);
   color: #fff;
   padding: 12px;
+  text-align: center;
   font-size: 14px;
   z-index: 9999;
   line-height: 1.6;
@@ -229,13 +225,26 @@ footer a {
    レスポンシブ
 ========================= */
 @media (max-width: 768px) {
-  .works { grid-template-columns: 1fr; }
-  section h2 { font-size: 1.5rem; }
-  #profile .profile p { font-size: 0.95rem; }
+  .works {
+    grid-template-columns: 1fr;
+  }
+  section h2 {
+    font-size: 1.5rem;
+  }
+  #profile .profile p {
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 480px) {
-  header h1 { font-size: 1.6rem; }
-  #cookie-banner { font-size: 13px; }
-  #cookie-banner button { padding: 5px 10px; font-size: 0.85rem; }
+  header h1 {
+    font-size: 1.6rem;
+  }
+  #cookie-banner {
+    font-size: 13px;
+  }
+  #cookie-banner button {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+  }
 }
