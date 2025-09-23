@@ -23,15 +23,16 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px 0 8px 0;
+  justify-content: center;
+  padding: 16px 0;
   background: transparent;
-  text-align: center;
 }
 
 header h1 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   margin-bottom: 8px;
-  color: var(--md-sys-color-on-surface, #222);
+  text-align: center;
+  color: var(--md-sys-color-on-surface, #000);
 }
 
 .banner-link {
@@ -49,7 +50,7 @@ header h1 {
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
-  background-color: var(--md-sys-color-surface, #f5f5f5);
+  background-color: var(--md-sys-color-surface, #fff);
   transition: background-color 0.3s;
 }
 
@@ -59,8 +60,8 @@ section {
   margin: 3rem auto;
   padding: 1rem;
   border-radius: 8px;
-  background-color: var(--md-sys-color-surface-container, #fafafa);
-  color: var(--md-sys-color-on-surface, #111);
+  background-color: var(--md-sys-color-surface-container, #f0f0f0);
+  color: var(--md-sys-color-on-surface, #000);
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -68,22 +69,22 @@ section h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
   text-align: center;
-  color: var(--md-sys-color-on-surface-variant, #444);
+  color: var(--md-sys-color-on-surface-variant, #555);
 }
 
 section.highlight {
-  background-color: var(--md-sys-color-surface-container-high, #eee);
+  background-color: var(--md-sys-color-surface-container-high, #e0e0e0);
 }
 
 /* --- 自己紹介 --- */
 #profile {
   background-color: transparent;
   box-shadow: none;
-  padding: 0; 
+  padding: 0;
 }
 
 #profile h2 {
-  color: var(--md-sys-color-on-surface, #222);
+  color: var(--md-sys-color-on-surface, #000);
 }
 
 #profile .profile p {
@@ -102,8 +103,8 @@ section.highlight {
 
 .work-card {
   display: block;
-  background-color: var(--md-sys-color-surface-container, #fafafa);
-  color: var(--md-sys-color-on-surface, #111);
+  background-color: var(--md-sys-color-surface-container, #f8f8f8);
+  color: var(--md-sys-color-on-surface, #000);
   text-decoration: none;
   padding: 1.5rem;
   border-radius: 16px;
@@ -134,15 +135,15 @@ section.highlight {
   margin-top: 1rem;
   padding: 0.8rem 1.8rem;
   border-radius: 18px;
-  background-color: var(--md-sys-color-primary-container, #6200ee);
-  color: var(--md-sys-color-on-primary-container, #fff);
+  background-color: var(--md-sys-color-primary-container, #e0f7fa);
+  color: var(--md-sys-color-on-primary-container, #000);
   font-weight: 600;
   text-decoration: none;
   transition: 0.3s, background-color 0.3s, color 0.3s;
 }
 
 .work-card a:hover {
-  background-color: var(--md-sys-color-primary, #3700b3);
+  background-color: var(--md-sys-color-primary, #00bcd4);
   color: var(--md-sys-color-on-primary, #fff);
 }
 
@@ -165,6 +166,33 @@ footer a {
   text-decoration: underline;
 }
 
+/* --- Cookieバナー --- */
+#cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.9);
+  color: #fff;
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
+  z-index: 9999;
+  line-height: 1.6;
+}
+
+#cookie-banner button {
+  margin: 0 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+#cookie-banner button#minimal-cookie { background: #555; color: #fff; }
+#cookie-banner button#accept-all-cookie { background: #2a9d8f; color: #fff; }
+#cookie-banner button#reject-cookie { background: #d62828; color: #fff; }
+
 /* --- レスポンシブ --- */
 @media (max-width: 768px) {
   .works {
@@ -175,8 +203,5 @@ footer a {
   }
   .profile p {
     font-size: 0.95rem;
-  }
-  header h1 {
-    font-size: 1.5rem;
   }
 }
