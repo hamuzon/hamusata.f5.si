@@ -272,112 +272,89 @@
   </footer>
 
 <script>
-  // 年自動更新
-  const baseYear = 2025;
-  const now = new Date().getFullYear();
-  document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
+// 年自動更新
+const baseYear = 2025;
+const now = new Date().getFullYear();
+document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
-  // テーマ自動切替
-  function applyTheme() {
-    document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+// テーマ自動切替
+function applyTheme() {
+  document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+applyTheme();
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+
+// ハンバーガーメニュー
+const menuToggle = document.getElementById('menu-toggle');
+const menuOverlay = document.getElementById('menu-overlay');
+menuToggle.addEventListener('click', () => { document.body.classList.toggle('menu-open'); });
+menuOverlay.addEventListener('click', () => { document.body.classList.remove('menu-open'); });
+document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', e => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  history.replaceState(null, '', '/');
+  document.body.classList.remove('menu-open');
+}));
+
+// Cookieバナー
+const cookieBanner = document.getElementById('cookie-banner');
+
+function showCookieBanner() {
+  if (!localStorage.getItem('cookieConsent')) {
+    cookieBanner.style.display = 'block';
   }
-  applyTheme();
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+}
 
-  // ハンバーガーメニュー開閉処理
-  const menuToggle = document.getElementById('menu-toggle');
-  const menuOverlay = document.getElementById('menu-overlay');
-  menuToggle.addEventListener('click', () => { document.body.classList.toggle('menu-open'); });
-  menuOverlay.addEventListener('click', () => { document.body.classList.remove('menu-open'); });
+// GAロード
+function loadGA(minimal) {
+  if (window.gtag) return;
+  const gtagScript = document.createElement('script');
+  gtagScript.async = true;
+  gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27';
+  document.head.appendChild(gtagScript);
 
-  // メニュー内 #home 用（スクロール＆ハッシュ削除）
-  function menuScrollToHome(event) {
-    event.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    history.replaceState(null, '', ' ');
-    document.body.classList.remove('menu-open');
-  }
-  document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
+  gtagScript.onload = () => {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
 
-  // Cookieバナー制御
-  const cookieBanner = document.getElementById('cookie-banner');
+    gtag('js', new Date());
+    gtag('config', 'G-E3VWGLZJ27', minimal ? {
+      anonymize_ip: true,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false
+    } : {});
 
-  function showCookieBanner() {
-    // consentが未設定の場合のみバナーを表示
-    const consent = localStorage.getItem('cookieConsent');
-    if (!consent) {
-      cookieBanner.style.display = 'block';
-    }
-  }
+    gtag('event', 'page_view');
+  };
+}
 
-  function loadGA(minimal) {
-    // GAスクリプト読み込み
-    const gtagScript = document.createElement('script');
-    gtagScript.async = true;
-    gtagScript.setAttribute('data-cfasync', 'false');
-    gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27';
-    document.head.appendChild(gtagScript);
+// Cookie同意
+function acceptCookies(type) {
+  localStorage.setItem('cookieConsent', type);
+  cookieBanner.style.display = 'none';
+  if (type === 'all') loadGA(false);
+  if (type === 'minimal') loadGA(true);
+}
 
-    gtagScript.onload = () => {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      window.gtag = gtag;
-      gtag('js', new Date());
+document.getElementById('minimal-cookie').addEventListener('click', () => acceptCookies('minimal'));
+document.getElementById('accept-all-cookie').addEventListener('click', () => acceptCookies('all'));
+document.getElementById('reject-cookie').addEventListener('click', () => acceptCookies('reject'));
 
-      if (minimal) {
-        gtag('config', 'G-E3VWGLZJ27', {
-          anonymize_ip: true,
-          allow_google_signals: false,
-          allow_ad_personalization_signals: false
-        });
-      } else {
-        gtag('config', 'G-E3VWGLZJ27');
-      }
-    };
-  }
+// 初期表示
+const consent = localStorage.getItem('cookieConsent');
+if (consent === 'minimal') loadGA(true);
+else if (consent === 'all') loadGA(false);
+else if (!consent) showCookieBanner();
 
-  function acceptCookies(type) {
-    // ユーザーの選択を保存
-    localStorage.setItem('cookieConsent', type);
-    cookieBanner.style.display = 'none';
-
-    if (type === 'all') {
-      loadGA(false);
-    } else if (type === 'minimal') {
-      loadGA(true);
-    }
-    // rejectの場合はGAもCookieもロードせず保存のみ
-  }
-
-  // 各ボタンにクリックイベントを設定
-  document.getElementById('minimal-cookie').addEventListener('click', () => acceptCookies('minimal'));
-  document.getElementById('accept-all-cookie').addEventListener('click', () => acceptCookies('all'));
-  document.getElementById('reject-cookie').addEventListener('click', () => acceptCookies('reject'));
-
-  // 初期表示判定
-  const consent = localStorage.getItem('cookieConsent');
-  if (consent === 'minimal') {
-    loadGA(true);
-  } else if (consent === 'all') {
-    loadGA(false);
-  } else if (consent === 'reject') {
-    // 拒否は何もしない（バナーも非表示）
-  } else {
-    showCookieBanner();
-  }
-
-  // PWA: Service Worker 登録
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(registration => {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(error => {
-          console.error('Service Worker registration failed:', error);
-        });
-    });
-  }
+// PWA Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(reg => console.log('Service Worker registered:', reg.scope))
+      .catch(err => console.error('Service Worker registration failed:', err));
+  });
+}
 </script>
 
 </body>
