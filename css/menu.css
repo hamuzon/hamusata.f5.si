@@ -1,6 +1,4 @@
-/* --- menu.css --- */
-
-/* ハンバーガーボタン */
+/* --- ハンバーガーボタン --- */
 #menu-toggle {
   position: fixed;
   top: 16px;
@@ -43,7 +41,7 @@ body.menu-open #menu-toggle span:nth-child(3) {
   transform: rotate(45deg) translate(-6px, -6px);
 }
 
-/* サイドメニュー */
+/* --- サイドメニュー --- */
 #side-menu {
   position: fixed;
   top: 0;
@@ -51,7 +49,7 @@ body.menu-open #menu-toggle span:nth-child(3) {
   width: 75%;
   max-width: 320px;
   height: 100vh;
-  background-color: var(--md-sys-color-surface-container);
+  background-color: var(--md-sys-color-surface-container, #f8f8f8);
   padding-top: 80px;
   box-shadow: -4px 0 16px rgba(0,0,0,0.25);
   transition: right 0.4s ease;
@@ -62,7 +60,7 @@ body.menu-open #menu-toggle span:nth-child(3) {
 
 /* ダークモード */
 body.dark #side-menu {
-  background-color: var(--md-sys-color-surface-container-high);
+  background-color: var(--md-sys-color-surface-container-high, #333);
 }
 
 /* メニュー開いた時 */
@@ -85,7 +83,7 @@ body.menu-open #side-menu {
   display: block;
   padding: 18px 24px;
   font-size: 18px;
-  color: var(--md-sys-color-on-surface);
+  color: var(--md-sys-color-on-surface, #000);
   text-decoration: none;
   border-bottom: 1px solid rgba(0,0,0,0.05);
   transition: background 0.3s, color 0.3s;
@@ -95,17 +93,17 @@ body.menu-open #side-menu {
 
 /* ダークモードリンク色 */
 body.dark #side-menu a {
-  color: var(--md-sys-color-on-surface);
+  color: var(--md-sys-color-on-surface, #fff);
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 /* ホバー効果 */
 #side-menu a:hover {
-  background-color: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
+  background-color: var(--md-sys-color-primary-container, #00bcd4);
+  color: var(--md-sys-color-on-primary-container, #fff);
 }
 
-/* オーバーレイ */
+/* --- メニューオーバーレイ --- */
 #menu-overlay {
   position: fixed;
   top: 0;
@@ -124,8 +122,8 @@ body.menu-open #menu-overlay {
   visibility: visible;
 }
 
-/* レスポンシブ調整 */
-@media (max-width: 480px) {
+/* --- レスポンシブ調整 --- */
+@media (max-width: 768px) {
   #side-menu {
     width: 85%;
     padding-top: 70px;
@@ -133,5 +131,28 @@ body.menu-open #menu-overlay {
   #side-menu a {
     font-size: 16px;
     padding: 14px 20px;
+  }
+}
+
+/* --- h1 レスポンシブ（スマホ縦並び、PC横並び） --- */
+header h1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+header h1 span {
+  display: inline-block;
+}
+
+/* スマホ縦並び */
+@media (max-width: 480px) {
+  header h1 {
+    flex-direction: column;
+    font-size: 1.6rem;
   }
 }
