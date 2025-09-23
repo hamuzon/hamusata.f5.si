@@ -1,0 +1,9 @@
+/*
+
+# iframe 埋め込み許可
+X-Frame-Options:
+Content-Security-Policy: frame-ancestors *;
+
+# Google Analytics 対応（クロスサイトでの送信を許可）
+Access-Control-Allow-Origin: *
+Referrer-Policy: same-origin
