@@ -43,20 +43,20 @@ body.menu-open #menu-toggle span:nth-child(3) {
   transform: rotate(45deg) translate(-6px, -6px);
 }
 
-/* モバイルメニュー */
+/* モバイルメニュー（右からスライド） */
 #mobile-menu {
   position: fixed;
   top: 0;
-  right: -100%;
+  right: -100%; /* 初期位置は右外 */
   width: 75%;
   max-width: 320px;
   height: 100vh;
   background-color: var(--md-sys-color-surface-container);
   padding-top: 80px;
-  box-shadow: -4px 0 16px rgba(0,0,0,0.25);
-  transition: right 0.4s ease;
+  box-shadow: -4px 0 16px rgba(0,0,0,0.25); /* 左側に影 */
+  transition: right 0.4s ease; /* right でアニメーション */
   z-index: 1000;
-  border-radius: 16px 0 0 16px; /* 左側のみ角丸 */
+  border-radius: 16px 0 0 16px; /* 左側だけ角丸 */
   overflow-y: auto;
 }
 
@@ -67,7 +67,7 @@ body.dark #mobile-menu {
 
 /* メニュー開いた時 */
 body.menu-open #mobile-menu {
-  right: 0;
+  right: 0; /* 右からスライドイン */
 }
 
 /* メニューリスト */
