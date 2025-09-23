@@ -22,17 +22,15 @@
 #menu-toggle span {
   display: block;
   height: 4px;
-  background-color: #000; /* ライトモードデフォルト */
+  background-color: #000;
   border-radius: 2px;
   transition: all 0.4s ease;
 }
 
-/* ダークモード対応 */
 body.dark #menu-toggle span {
   background-color: #fff;
 }
 
-/* メニュー開閉アニメーション */
 body.menu-open #menu-toggle span:nth-child(1) {
   transform: rotate(-45deg) translate(-6px, 6px);
 }
@@ -43,34 +41,31 @@ body.menu-open #menu-toggle span:nth-child(3) {
   transform: rotate(45deg) translate(-6px, -6px);
 }
 
-/* モバイルメニュー（右からスライド） */
+/* モバイルメニュー */
 #mobile-menu {
   position: fixed;
   top: 0;
-  right: -100%; /* 初期位置は右外 */
+  right: -100%;
   width: 75%;
   max-width: 320px;
   height: 100vh;
   background-color: var(--md-sys-color-surface-container);
   padding-top: 80px;
-  box-shadow: -4px 0 16px rgba(0,0,0,0.25); /* 左側に影 */
-  transition: right 0.4s ease; /* right でアニメーション */
+  box-shadow: -4px 0 16px rgba(0,0,0,0.25);
+  transition: right 0.4s ease;
   z-index: 1000;
-  border-radius: 16px 0 0 16px; /* 左側だけ角丸 */
+  border-radius: 16px 0 0 16px;
   overflow-y: auto;
 }
 
-/* ダークモード */
 body.dark #mobile-menu {
   background-color: var(--md-sys-color-surface-container-high);
 }
 
-/* メニュー開いた時 */
 body.menu-open #mobile-menu {
-  right: 0; /* 右からスライドイン */
+  right: 0;
 }
 
-/* メニューリスト */
 #mobile-menu ul {
   list-style: none;
   padding: 0;
@@ -93,13 +88,11 @@ body.menu-open #mobile-menu {
   margin: 4px 12px;
 }
 
-/* ダークモードリンク色 */
 body.dark #mobile-menu a {
   color: var(--md-sys-color-on-surface);
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-/* ホバー効果 */
 #mobile-menu a:hover {
   background-color: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
@@ -124,7 +117,6 @@ body.menu-open #menu-overlay {
   visibility: visible;
 }
 
-/* レスポンシブ調整 */
 @media (max-width: 480px) {
   #mobile-menu {
     width: 85%;
