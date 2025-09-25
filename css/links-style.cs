@@ -1,10 +1,10 @@
 :root {
-  --bg: #f7f3e9;
-  --text: #3b2f2f;
-  --card-bg: #fffdf7;
-  --card-shadow: rgba(0,0,0,0.2);
-  --banner-bg: #eee;
-  --footer-text: #5c4b3b;
+  --bg: #f0f8ff;
+  --text: #1a1a1a;
+  --card-bg: #ffffffcc;
+  --card-shadow: rgba(0,0,0,0.25);
+  --banner-bg: #e0f7fa;
+  --footer-text: #333;
   --hover-translate: -5px;
   --hover-shadow: 0 14px 28px var(--card-shadow);
 }
@@ -12,11 +12,12 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #121212;
-    --text: #ddd;
-    --card-bg: #1f1f1f;
+    --text: #e0e0e0;
+    --card-bg: #1f1f1fcc;
     --card-shadow: rgba(0,0,0,0.5);
     --banner-bg: #222;
     --footer-text: #aaa;
+    --hover-shadow: 0 14px 28px var(--card-shadow);
   }
 }
 
