@@ -1,129 +1,150 @@
 /* --- mobile-menu.css --- */
 
-/* ハンバーガーボタン */
+/* =========================
+   ハンバーガーボタン
+========================= */
 #menu-toggle {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  width: 48px;
-  height: 48px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 1001;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 10px;
-  box-sizing: border-box;
-  transition: transform 0.4s ease;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+    box-sizing: border-box;
+    transition: transform 0.4s ease;
 }
 
 #menu-toggle span {
-  display: block;
-  height: 4px;
-  background-color: #000;
-  border-radius: 2px;
-  transition: all 0.4s ease;
+    display: block;
+    height: 4px;
+    background-color: #000;
+    border-radius: 2px;
+    transition: all 0.4s ease;
 }
 
 body.dark #menu-toggle span {
-  background-color: #fff;
+    background-color: #fff;
 }
 
 body.menu-open #menu-toggle span:nth-child(1) {
-  transform: rotate(-45deg) translate(-6px, 6px);
-}
-body.menu-open #menu-toggle span:nth-child(2) {
-  opacity: 0;
-}
-body.menu-open #menu-toggle span:nth-child(3) {
-  transform: rotate(45deg) translate(-6px, -6px);
+    transform: rotate(-45deg) translate(-6px, 6px);
 }
 
-/* モバイルメニュー */
+body.menu-open #menu-toggle span:nth-child(2) {
+    opacity: 0;
+}
+
+body.menu-open #menu-toggle span:nth-child(3) {
+    transform: rotate(45deg) translate(-6px, -6px);
+}
+
+/* =========================
+   モバイルメニュー
+========================= */
 #mobile-menu {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 75%;
-  max-width: 320px;
-  height: 100vh;
-  background-color: var(--md-sys-color-surface-container);
-  padding-top: 80px;
-  box-shadow: -4px 0 16px rgba(0,0,0,0.25);
-  transition: right 0.4s ease;
-  z-index: 1000;
-  border-radius: 16px 0 0 16px;
-  overflow-y: auto;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 75%;
+    max-width: 320px;
+    height: 100vh;
+    padding-top: 80px;
+    border-radius: 16px 0 0 16px;
+    overflow-y: auto;
+    z-index: 1000;
+
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(28px) saturate(120%);
+    box-shadow: -8px 0 24px rgba(0,0,0,0.25);
+    transition: right 0.4s ease, background 0.3s;
 }
 
 body.dark #mobile-menu {
-  background-color: var(--md-sys-color-surface-container-high);
+    background: rgba(10,10,10,0.6);
 }
 
+/* メニュー開閉 */
 body.menu-open #mobile-menu {
-  right: 0;
+    right: 0;
 }
 
+/* メニューリスト */
 #mobile-menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 #mobile-menu li {
-  margin: 0;
+    margin: 0;
 }
 
 #mobile-menu a {
-  display: block;
-  padding: 18px 24px;
-  font-size: 18px;
-  color: var(--md-sys-color-on-surface);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  transition: background 0.3s, color 0.3s;
-  border-radius: 12px;
-  margin: 4px 12px;
+    display: block;
+    padding: 18px 24px;
+    font-size: 18px;
+    color: var(--md-sys-color-on-surface);
+    text-decoration: none;
+    border-radius: 12px;
+    margin: 6px 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+
+    /* リキットガラス風 */
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(22px);
+    transition: background 0.3s, color 0.3s, transform 0.3s;
 }
 
 body.dark #mobile-menu a {
-  color: var(--md-sys-color-on-surface);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 #mobile-menu a:hover {
-  background-color: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
+    background-color: rgba(0,188,212,0.2);
+    color: #00bcd4;
+    transform: translateX(4px);
 }
 
-/* オーバーレイ */
+/* =========================
+   オーバーレイ
+========================= */
 #menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.5);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s ease;
-  z-index: 900;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    z-index: 900;
 }
 
 body.menu-open #menu-overlay {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 
+/* =========================
+   レスポンシブ
+========================= */
 @media (max-width: 480px) {
-  #mobile-menu {
-    width: 85%;
-    padding-top: 70px;
-  }
-  #mobile-menu a {
-    font-size: 16px;
-    padding: 14px 20px;
-  }
+    #mobile-menu {
+        width: 85%;
+        padding-top: 70px;
+    }
+
+    #mobile-menu a {
+        font-size: 16px;
+        padding: 14px 20px;
+    }
 }
