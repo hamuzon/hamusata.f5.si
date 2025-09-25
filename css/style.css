@@ -14,42 +14,15 @@ body {
   scroll-behavior: smooth;
   text-align: center;
   position: relative;
-  overflow-x: hidden;
-  transition: background-color 0.3s, color 0.3s;
-  color: #111;
-}
-
-/* =========================
-リキットガラス風背景
-========================= */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  filter: blur(60px);
-  background-blend-mode: overlay;
-  transition: background 0.5s;
-}
-
-/* --- ライトモード --- */
-body.light {
-  color: #111;
-}
-body.light::before {
+  transition: background-color 0.5s, color 0.5s;
   background: linear-gradient(225deg, #B3E5FC 0%, #E0F2F1 25%, #F0F4C3 50%, #FFF8E1 75%, #FFECB3 100%);
+  color: #000;
 }
 
-/* --- ダークモード --- */
+/* ダークモード */
 body.dark {
-  color: #eee;
-}
-body.dark::before {
-  background:
-    radial-gradient(ellipse 120% 70% at 70% 80%, rgba(20, 35, 60, 0.25), transparent 52%),
-    radial-gradient(ellipse 160% 45% at 30% 30%, rgba(10, 20, 40, 0.2), transparent 58%),
-    radial-gradient(ellipse 85% 100% at 10% 60%, rgba(30, 50, 70, 0.25), transparent 46%),
-    #0d1117;
+  background: linear-gradient(225deg, #0F2027 0%, #203A43 50%, #2C5364 100%);
+  color: #fff;
 }
 
 /* =========================
@@ -64,6 +37,12 @@ header {
   align-items: center;
   justify-content: center;
   padding: 16px 0;
+  background: transparent;
+}
+
+.banner-link {
+  display: block;
+  margin-bottom: 1rem;
 }
 
 .banner-link img {
@@ -72,11 +51,14 @@ header {
   height: auto;
   max-height: 120px;
   object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-  background-color: rgba(255,255,255,0.5);
-  backdrop-filter: blur(12px);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  background-color: rgba(255,255,255,0.8);
   transition: background-color 0.3s;
+}
+
+body.dark .banner-link img {
+  background-color: rgba(0,0,0,0.6);
 }
 
 h1 {
@@ -91,27 +73,49 @@ h1 {
 section {
   max-width: 1000px;
   margin: 3rem auto;
-  padding: 2rem;
-  border-radius: 20px;
-  backdrop-filter: blur(15px);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-  transition: background-color 0.3s, color 0.3s;
-}
-
-body.light section {
-  background-color: rgba(255,255,255,0.55);
-  color: #111;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: rgba(255,255,255,0.8);
+  color: #000;
+  transition: background-color 0.5s, color 0.5s;
 }
 
 body.dark section {
-  background-color: rgba(20,30,50,0.7);
-  color: #eee;
+  background-color: rgba(30,30,30,0.7);
+  color: #fff;
 }
 
 section h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
   text-align: center;
+}
+
+section.highlight {
+  background-color: rgba(255,255,255,0.9);
+}
+
+body.dark section.highlight {
+  background-color: rgba(50,50,50,0.8);
+}
+
+/* =========================
+自己紹介
+========================= */
+#profile {
+  background-color: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+#profile h2 {
+  color: inherit;
+}
+
+#profile .profile p {
+  text-align: center;
+  max-width: 700px;
+  margin: 0.5rem auto;
 }
 
 /* =========================
@@ -125,23 +129,19 @@ section h2 {
 
 .work-card {
   display: block;
+  background-color: rgba(255,255,255,0.85);
+  color: #000;
+  text-decoration: none;
   padding: 1.5rem;
-  border-radius: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-  backdrop-filter: blur(12px);
-}
-
-body.light .work-card {
-  background-color: rgba(255,255,255,0.6);
-  color: #111;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
 }
 
 body.dark .work-card {
-  background-color: rgba(20,30,50,0.7);
-  color: #eee;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+  background-color: rgba(40,40,40,0.8);
+  color: #fff;
 }
 
 .work-card img {
@@ -149,7 +149,13 @@ body.dark .work-card {
   height: 80px;
   margin-bottom: 1rem;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.8);
+  border: 2px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+.work-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.35);
 }
 
 .work-card a {
@@ -160,24 +166,31 @@ body.dark .work-card {
   margin-top: 1rem;
   padding: 0.8rem 1.8rem;
   border-radius: 18px;
+  background-color: #E0F7FA;
+  color: #000;
   font-weight: 600;
   text-decoration: none;
-  backdrop-filter: blur(6px);
-}
-
-body.light .work-card a {
-  background-color: rgba(255,255,255,0.6);
-  color: #111;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 body.dark .work-card a {
-  background-color: rgba(50,50,70,0.6);
-  color: #eee;
+  background-color: #555;
+  color: #fff;
 }
 
 .work-card a:hover {
-  background-color: rgba(0,188,212,0.85);
+  background-color: #00bcd4;
   color: #fff;
+}
+
+.work-card p.note {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+body.dark .work-card p.note {
+  color: #ccc;
 }
 
 /* =========================
@@ -187,10 +200,16 @@ footer {
   text-align: center;
   padding: 2rem 1rem;
   font-size: 0.9rem;
+  color: #555;
 }
 
-body.light footer { color: #555; }
-body.dark footer { color: #ccc; }
+body.dark footer {
+  color: #ccc;
+}
+
+footer a {
+  text-decoration: underline;
+}
 
 /* =========================
 Cookieバナー
@@ -200,6 +219,8 @@ Cookieバナー
   bottom: 0;
   left: 0;
   right: 0;
+  background: rgba(0,0,0,0.9);
+  color: #fff;
   padding: 12px;
   text-align: center;
   font-size: 14px;
@@ -220,30 +241,27 @@ Cookieバナー
   transition: background-color 0.3s, color 0.3s;
 }
 
+#cookie-banner button#minimal-cookie { background: #555; color: #fff; }
+#cookie-banner button#accept-all-cookie { background: #2a9d8f; color: #fff; }
+#cookie-banner button#reject-cookie { background: #d62828; color: #fff; }
+
+#cookie-banner p {
+  flex-basis: 100%;
+  margin-bottom: 6px;
+}
+
 /* =========================
 レスポンシブ
 ========================= */
 @media (max-width: 768px) {
-  .works {
-    grid-template-columns: 1fr;
-  }
-  section h2 {
-    font-size: 1.5rem;
-  }
-  h1 {
-    font-size: 1.8rem;
-  }
+  .works { grid-template-columns: 1fr; }
+  section h2 { font-size: 1.5rem; }
+  #profile .profile p { font-size: 0.95rem; }
+  h1 { font-size: 1.8rem; }
 }
 
 @media (max-width: 480px) {
-  header h1 {
-    font-size: 1.6rem;
-  }
-  #cookie-banner {
-    font-size: 13px;
-  }
-  #cookie-banner button {
-    padding: 5px 10px;
-    font-size: 0.85rem;
-  }
+  header h1 { font-size: 1.6rem; }
+  #cookie-banner { font-size: 13px; }
+  #cookie-banner button { padding: 5px 10px; font-size: 0.85rem; }
 }
