@@ -72,7 +72,7 @@ header {
   justify-content: center;
   padding: 16px 0;
   background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
 }
 
 body.dark header {
@@ -109,17 +109,17 @@ section {
   padding: 2rem;
   border-radius: 20px;
   transition: background-color 0.3s, color 0.3s;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.15);
 }
 
 body.light section {
-  background-color: rgba(255,255,255,0.65);
+  background-color: rgba(255,255,255,0.6);
   color: #000;
 }
 
 body.dark section {
-  background-color: rgba(20,20,20,0.65);
+  background-color: rgba(30,30,30,0.6);
   color: #fff;
 }
 
@@ -130,7 +130,7 @@ section h2 {
 }
 
 /* =========================
-ポートフォリオカード
+ポートフォリオカード（リキットガラス風）
 ========================= */
 .works {
   display: grid;
@@ -145,20 +145,20 @@ section h2 {
   border-radius: 20px;
   text-align: center;
   transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
 }
 
 body.light .work-card {
   background-color: rgba(255,255,255,0.55);
   color: #000;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.2);
   border: 1px solid rgba(255,255,255,0.2);
 }
 
 body.dark .work-card {
-  background-color: rgba(30,30,30,0.55);
+  background-color: rgba(20,20,20,0.55);
   color: #fff;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
   border: 1px solid rgba(255,255,255,0.1);
 }
 
@@ -172,7 +172,7 @@ body.dark .work-card {
 
 .work-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 14px 32px rgba(0,0,0,0.45);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.45);
 }
 
 .work-card a {
@@ -209,6 +209,40 @@ body.dark .work-card a:hover {
 }
 
 /* =========================
+Cookieバナー
+========================= */
+#cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
+  z-index: 9999;
+  line-height: 1.6;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+#cookie-banner button {
+  padding: 6px 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#cookie-banner button#minimal-cookie { background: #555; color: #fff; }
+#cookie-banner button#accept-all-cookie { background: #2a9d8f; color: #fff; }
+#cookie-banner button#reject-cookie { background: #d62828; color: #fff; }
+
+/* =========================
 フッター
 ========================= */
 footer {
@@ -243,5 +277,12 @@ body.dark footer {
 @media (max-width: 480px) {
   header h1 {
     font-size: 1.6rem;
+  }
+  #cookie-banner {
+    font-size: 13px;
+  }
+  #cookie-banner button {
+    padding: 5px 10px;
+    font-size: 0.85rem;
   }
 }
