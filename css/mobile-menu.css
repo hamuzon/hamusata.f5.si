@@ -1,4 +1,4 @@
-/* --- mobile-menu.css (Liquid Glass版) --- */
+/* --- mobile-menu.css --- */
 
 /* ハンバーガーボタン */
 #menu-toggle {
@@ -7,11 +7,9 @@
   right: 16px;
   width: 48px;
   height: 48px;
-  background: rgba(255,255,255,0.1); /* 半透明 */
-  backdrop-filter: blur(10px);        /* 背景ぼかし */
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 12px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  border: none;
   cursor: pointer;
   z-index: 1001;
   display: flex;
@@ -19,15 +17,21 @@
   justify-content: space-around;
   padding: 10px;
   box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   transition: transform 0.4s ease, background 0.3s;
 }
 
 #menu-toggle span {
   display: block;
   height: 4px;
-  background-color: #fff; /* 白系でガラス風 */
+  background-color: #000;
   border-radius: 2px;
   transition: all 0.4s ease;
+}
+
+body.dark #menu-toggle span {
+  background-color: #fff;
 }
 
 body.menu-open #menu-toggle span:nth-child(1) {
@@ -48,16 +52,18 @@ body.menu-open #menu-toggle span:nth-child(3) {
   width: 75%;
   max-width: 320px;
   height: 100vh;
-  background: rgba(255,255,255,0.1); /* 半透明 */
-  backdrop-filter: blur(15px);        /* 背景ぼかし */
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255,255,255,0.25);
-  box-shadow: -4px 0 32px rgba(0,0,0,0.25);
-  padding-top: 80px;
-  border-radius: 16px 0 0 16px;
-  overflow-y: auto;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(14px);
+  box-shadow: -4px 0 16px rgba(0,0,0,0.25);
   transition: right 0.4s ease, background 0.3s;
   z-index: 1000;
+  border-radius: 16px 0 0 16px;
+  overflow-y: auto;
+}
+
+body.dark #mobile-menu {
+  background: rgba(10,10,10,0.45);
+  backdrop-filter: blur(18px);
 }
 
 body.menu-open #mobile-menu {
@@ -78,17 +84,24 @@ body.menu-open #mobile-menu {
   display: block;
   padding: 18px 24px;
   font-size: 18px;
-  color: #fff;
+  color: var(--md-sys-color-on-surface);
   text-decoration: none;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  transition: background 0.3s, color 0.3s;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
   border-radius: 12px;
   margin: 4px 12px;
-  backdrop-filter: blur(5px);
+  transition: background 0.3s, color 0.3s;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+}
+
+body.dark #mobile-menu a {
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.05);
 }
 
 #mobile-menu a:hover {
-  background: rgba(255,255,255,0.25);
+  background-color: rgba(0, 188, 212, 0.25);
   color: #fff;
 }
 
