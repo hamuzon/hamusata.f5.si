@@ -32,17 +32,16 @@ body::before {
 
 /* --- ライトモード --- */
 body.light::before {
-  background: 
-    linear-gradient(135deg, #F8BBD9 0%, #FDD5B4 25%, #FFF2CC 50%, #E1F5FE 75%, #BBDEFB 100%);
+  background: linear-gradient(225deg, #B3E5FC 0%, #E0F2F1 25%, #F0F4C3 50%, #FFF8E1 75%, #FFECB3 100%);
 }
 
 /* --- ダークモード --- */
 body.dark::before {
-  background: 
-    radial-gradient(ellipse 120% 70% at 70% 80%, rgba(87, 24, 69, 0.20), transparent 52%),
-    radial-gradient(ellipse 160% 45% at 30% 30%, rgba(153, 27, 27, 0.16), transparent 58%),
-    radial-gradient(ellipse 85% 100% at 10% 60%, rgba(69, 26, 3, 0.22), transparent 46%),
-    #1c1917;
+  background:
+    radial-gradient(ellipse 120% 70% at 70% 80%, rgba(20, 35, 60, 0.20), transparent 52%),
+    radial-gradient(ellipse 160% 45% at 30% 30%, rgba(10, 20, 40, 0.16), transparent 58%),
+    radial-gradient(ellipse 85% 100% at 10% 60%, rgba(30, 50, 70, 0.22), transparent 46%),
+    #0d1117;
 }
 
 /* =========================
@@ -98,7 +97,7 @@ body.light section {
 }
 
 body.dark section {
-  background-color: rgba(30,30,50,0.7);
+  background-color: rgba(20,30,50,0.7);
   color: #eee;
 }
 
@@ -148,7 +147,7 @@ body.light .work-card {
 }
 
 body.dark .work-card {
-  background-color: rgba(30,30,50,0.7);
+  background-color: rgba(20,30,50,0.7);
   color: #eee;
   box-shadow: 0 12px 28px rgba(0,0,0,0.4);
 }
