@@ -1,4 +1,6 @@
-# hamusata.f5.si
-[hamusata.f5.si](https://hamusata.f5.si) 
+# HAMUSATA
 
-Code-home-Page
+hamusata の個人サイトです。  
+This is the personal website of hamusata.  
+
+[https://hamusata.f5.si](https://hamusata.f5.si)
