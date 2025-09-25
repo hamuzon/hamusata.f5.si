@@ -10,13 +10,14 @@
 
 body {
   min-height: 100vh;
-  background-color: var(--md-sys-color-background, #fff);
-  color: var(--md-sys-color-on-background, #000);
+  background: url('https://picsum.photos/1920/1080') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
   line-height: 1.6;
   scroll-behavior: smooth;
-  transition: background-color 0.3s, color 0.3s;
   text-align: center;
   position: relative;
+  transition: background 0.3s, color 0.3s;
 }
 
 /* =========================
@@ -45,16 +46,18 @@ header {
   height: auto;
   max-height: 120px;
   object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-  background-color: var(--md-sys-color-surface, #fff);
-  transition: background-color 0.3s;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background 0.3s;
 }
 
 h1 {
   font-size: 2rem;
   margin: 1rem auto;
-  color: var(--md-sys-color-on-background, #000);
+  color: #fff;
   line-height: 1.2;
 }
 
@@ -64,42 +67,49 @@ h1 {
 section {
   max-width: 1000px;
   margin: 3rem auto;
-  padding: 1rem;
-  border-radius: 8px;
-  background-color: var(--md-sys-color-surface-container, #f0f0f0);
-  color: var(--md-sys-color-on-surface, #000);
-  transition: background-color 0.3s, color 0.3s;
+  padding: 2rem;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  color: #fff;
+  transition: background 0.3s, color 0.3s;
 }
 
 section h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
   text-align: center;
-  color: var(--md-sys-color-on-surface-variant, #555);
+  color: rgba(255,255,255,0.85);
 }
 
 section.highlight {
-  background-color: var(--md-sys-color-surface-container-high, #e0e0e0);
+  background: rgba(255,255,255,0.15);
 }
 
 /* =========================
    自己紹介
 ========================= */
 #profile {
-  background-color: transparent;
-  box-shadow: none;
-  padding: 0;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 
 #profile h2 {
-  color: var(--md-sys-color-on-surface, #000);
+  color: #fff;
 }
 
 #profile .profile p {
   text-align: center;
   max-width: 700px;
   margin: 0.5rem auto;
-  color: var(--md-sys-color-on-surface-variant, #555);
+  color: rgba(255,255,255,0.8);
 }
 
 /* =========================
@@ -113,14 +123,17 @@ section.highlight {
 
 .work-card {
   display: block;
-  background-color: var(--md-sys-color-surface-container, #f8f8f8);
-  color: var(--md-sys-color-on-surface, #000);
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;
   text-decoration: none;
   padding: 1.5rem;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.25);
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
 }
 
 .work-card img {
@@ -128,13 +141,12 @@ section.highlight {
   height: 80px;
   margin-bottom: 1rem;
   border-radius: 50%;
-  border: 2px solid var(--md-sys-color-outline, #ccc);
-  transition: border-color 0.3s;
+  border: 2px solid rgba(255,255,255,0.4);
 }
 
 .work-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 14px 28px rgba(0,0,0,0.7);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.5);
 }
 
 .work-card a {
@@ -145,22 +157,16 @@ section.highlight {
   margin-top: 1rem;
   padding: 0.8rem 1.8rem;
   border-radius: 18px;
-  background-color: var(--md-sys-color-primary-container, #e0f7fa);
-  color: var(--md-sys-color-on-primary-container, #000);
+  background: rgba(255,255,255,0.2);
+  color: #fff;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.3s, color 0.3s;
+  backdrop-filter: blur(8px);
+  transition: background 0.3s, color 0.3s;
 }
 
 .work-card a:hover {
-  background-color: var(--md-sys-color-primary, #00bcd4);
-  color: var(--md-sys-color-on-primary, #fff);
-}
-
-.work-card p.note {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--md-sys-color-on-surface-variant, #555);
+  background: rgba(255,255,255,0.35);
 }
 
 /* =========================
@@ -169,12 +175,12 @@ section.highlight {
 footer {
   text-align: center;
   padding: 2rem 1rem;
-  color: var(--md-sys-color-on-surface-variant, #555);
+  color: rgba(255,255,255,0.7);
   font-size: 0.9rem;
 }
 
 footer a {
-  color: var(--md-sys-color-outline, #888);
+  color: rgba(255,255,255,0.8);
   text-decoration: underline;
 }
 
@@ -186,7 +192,7 @@ footer a {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.7);
   color: #fff;
   padding: 12px;
   text-align: center;
@@ -197,6 +203,7 @@ footer a {
   flex-wrap: wrap;
   justify-content: center;
   gap: 6px;
+  border-top: 1px solid rgba(255,255,255,0.25);
 }
 
 #cookie-banner button {
@@ -205,12 +212,12 @@ footer a {
   border: none;
   border-radius: 6px;
   font-weight: 600;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
 
-#cookie-banner button#minimal-cookie { background: #555; color: #fff; }
-#cookie-banner button#accept-all-cookie { background: #2a9d8f; color: #fff; }
-#cookie-banner button#reject-cookie { background: #d62828; color: #fff; }
+#cookie-banner button#minimal-cookie { background: rgba(85,85,85,0.8); color: #fff; }
+#cookie-banner button#accept-all-cookie { background: rgba(42,157,143,0.8); color: #fff; }
+#cookie-banner button#reject-cookie { background: rgba(214,40,40,0.8); color: #fff; }
 
 #cookie-banner p {
   flex-basis: 100%;
