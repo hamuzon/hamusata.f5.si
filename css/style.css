@@ -16,6 +16,7 @@ body {
   position: relative;
   overflow-x: hidden;
   transition: background-color 0.3s, color 0.3s;
+  color: #111;
 }
 
 /* =========================
@@ -28,19 +29,26 @@ body::before {
   z-index: -1;
   filter: blur(60px);
   background-blend-mode: overlay;
+  transition: background 0.5s;
 }
 
 /* --- ライトモード --- */
+body.light {
+  color: #111;
+}
 body.light::before {
   background: linear-gradient(225deg, #B3E5FC 0%, #E0F2F1 25%, #F0F4C3 50%, #FFF8E1 75%, #FFECB3 100%);
 }
 
 /* --- ダークモード --- */
+body.dark {
+  color: #eee;
+}
 body.dark::before {
   background:
-    radial-gradient(ellipse 120% 70% at 70% 80%, rgba(20, 35, 60, 0.20), transparent 52%),
-    radial-gradient(ellipse 160% 45% at 30% 30%, rgba(10, 20, 40, 0.16), transparent 58%),
-    radial-gradient(ellipse 85% 100% at 10% 60%, rgba(30, 50, 70, 0.22), transparent 46%),
+    radial-gradient(ellipse 120% 70% at 70% 80%, rgba(20, 35, 60, 0.25), transparent 52%),
+    radial-gradient(ellipse 160% 45% at 30% 30%, rgba(10, 20, 40, 0.2), transparent 58%),
+    radial-gradient(ellipse 85% 100% at 10% 60%, rgba(30, 50, 70, 0.25), transparent 46%),
     #0d1117;
 }
 
@@ -75,7 +83,6 @@ h1 {
   font-size: 2rem;
   margin: 1rem auto;
   line-height: 1.2;
-  color: inherit;
 }
 
 /* =========================
@@ -105,21 +112,6 @@ section h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
   text-align: center;
-}
-
-/* =========================
-自己紹介
-========================= */
-#profile {
-  background-color: transparent;
-  box-shadow: none;
-  padding: 0;
-}
-
-#profile .profile p {
-  text-align: center;
-  max-width: 700px;
-  margin: 0.5rem auto;
 }
 
 /* =========================
@@ -237,9 +229,6 @@ Cookieバナー
   }
   section h2 {
     font-size: 1.5rem;
-  }
-  #profile .profile p {
-    font-size: 0.95rem;
   }
   h1 {
     font-size: 1.8rem;
