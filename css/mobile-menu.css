@@ -1,4 +1,4 @@
-/* --- mobile-menu.css --- */
+/* --- mobile-menu.css (Liquid Glass版) --- */
 
 /* ハンバーガーボタン */
 #menu-toggle {
@@ -7,8 +7,11 @@
   right: 16px;
   width: 48px;
   height: 48px;
-  background: transparent;
-  border: none;
+  background: rgba(255,255,255,0.1); /* 半透明 */
+  backdrop-filter: blur(10px);        /* 背景ぼかし */
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 12px;
   cursor: pointer;
   z-index: 1001;
   display: flex;
@@ -16,19 +19,15 @@
   justify-content: space-around;
   padding: 10px;
   box-sizing: border-box;
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, background 0.3s;
 }
 
 #menu-toggle span {
   display: block;
   height: 4px;
-  background-color: #000;
+  background-color: #fff; /* 白系でガラス風 */
   border-radius: 2px;
   transition: all 0.4s ease;
-}
-
-body.dark #menu-toggle span {
-  background-color: #fff;
 }
 
 body.menu-open #menu-toggle span:nth-child(1) {
@@ -49,17 +48,16 @@ body.menu-open #menu-toggle span:nth-child(3) {
   width: 75%;
   max-width: 320px;
   height: 100vh;
-  background-color: var(--md-sys-color-surface-container);
+  background: rgba(255,255,255,0.1); /* 半透明 */
+  backdrop-filter: blur(15px);        /* 背景ぼかし */
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: -4px 0 32px rgba(0,0,0,0.25);
   padding-top: 80px;
-  box-shadow: -4px 0 16px rgba(0,0,0,0.25);
-  transition: right 0.4s ease;
-  z-index: 1000;
   border-radius: 16px 0 0 16px;
   overflow-y: auto;
-}
-
-body.dark #mobile-menu {
-  background-color: var(--md-sys-color-surface-container-high);
+  transition: right 0.4s ease, background 0.3s;
+  z-index: 1000;
 }
 
 body.menu-open #mobile-menu {
@@ -80,22 +78,18 @@ body.menu-open #mobile-menu {
   display: block;
   padding: 18px 24px;
   font-size: 18px;
-  color: var(--md-sys-color-on-surface);
+  color: #fff;
   text-decoration: none;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
   transition: background 0.3s, color 0.3s;
   border-radius: 12px;
   margin: 4px 12px;
-}
-
-body.dark #mobile-menu a {
-  color: var(--md-sys-color-on-surface);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  backdrop-filter: blur(5px);
 }
 
 #mobile-menu a:hover {
-  background-color: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
+  background: rgba(255,255,255,0.25);
+  color: #fff;
 }
 
 /* オーバーレイ */
@@ -117,6 +111,7 @@ body.menu-open #menu-overlay {
   visibility: visible;
 }
 
+/* レスポンシブ */
 @media (max-width: 480px) {
   #mobile-menu {
     width: 85%;
