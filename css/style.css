@@ -15,8 +15,14 @@ body {
   text-align: center;
   position: relative;
   transition: background-color 0.5s, color 0.5s;
-  background: linear-gradient(225deg, #B3E5FC 0%, #E0F2F1 25%, #F0F4C3 50%, #FFF8E1 75%, #FFECB3 100%);
+  background: linear-gradient(135deg, #a3d8f4 0%, #e0f7fa 35%, #fff9c4 65%, #ffe0b2 100%);
   color: #000;
+}
+
+/* ダークモード背景 */
+body.dark {
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  color: #f0f0f0;
 }
 
 /* =========================
@@ -70,6 +76,11 @@ section {
   transition: background-color 0.5s, color 0.5s;
 }
 
+body.dark section {
+  background-color: rgba(20,20,30,0.85);
+  color: #f0f0f0;
+}
+
 section h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -78,6 +89,10 @@ section h2 {
 
 section.highlight {
   background-color: rgba(255,255,255,0.9);
+}
+
+body.dark section.highlight {
+  background-color: rgba(40,40,60,0.9);
 }
 
 /* =========================
@@ -120,6 +135,11 @@ section.highlight {
   transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
 }
 
+body.dark .work-card {
+  background-color: rgba(30,30,50,0.85);
+  color: #f0f0f0;
+}
+
 .work-card img {
   width: 80px;
   height: 80px;
@@ -149,6 +169,11 @@ section.highlight {
   transition: background-color 0.3s, color 0.3s;
 }
 
+body.dark .work-card a {
+  background-color: #2c5364;
+  color: #fff;
+}
+
 .work-card a:hover {
   background-color: #00bcd4;
   color: #fff;
@@ -160,6 +185,10 @@ section.highlight {
   color: #555;
 }
 
+body.dark .work-card p.note {
+  color: #ccc;
+}
+
 /* =========================
 フッター
 ========================= */
@@ -168,6 +197,10 @@ footer {
   padding: 2rem 1rem;
   font-size: 0.9rem;
   color: #555;
+}
+
+body.dark footer {
+  color: #ccc;
 }
 
 footer a {
