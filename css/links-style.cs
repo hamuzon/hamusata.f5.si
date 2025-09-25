@@ -1,189 +1,170 @@
-/* =========================
-   リセット & 基本スタイル
-========================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Potta One', sans-serif;
+:root {
+  --bg: #f7f3e9;
+  --text: #3b2f2f;
+  --card-bg: #fffdf7;
+  --card-shadow: rgba(0,0,0,0.2);
+  --banner-bg: #eee;
+  --footer-text: #5c4b3b;
+  --hover-translate: -5px;
+  --hover-shadow: 0 14px 28px var(--card-shadow);
 }
 
-body {
-    min-height: 100vh;
-    line-height: 1.6;
-    scroll-behavior: smooth;
-    text-align: center;
-    background: var(--bg, #f7f3e9);
-    color: var(--text, #3b2f2f);
-    transition: background 0.3s, color 0.3s;
-}
-
-/* =========================
-   カラーバリエーション
-========================= */
-body.light {
-    --bg: #f7f3e9;
-    --text: #3b2f2f;
-    --card-bg: #fffdf7;
-    --card-shadow: rgba(0,0,0,0.2);
-    --banner-bg: #eee;
-    --footer-text: #5c4b3b;
-    --hover-translate: -5px;
-    --hover-shadow: 0 14px 28px var(--card-shadow);
-}
-
-body.dark {
+@media (prefers-color-scheme: dark) {
+  :root {
     --bg: #121212;
     --text: #ddd;
     --card-bg: #1f1f1f;
     --card-shadow: rgba(0,0,0,0.5);
     --banner-bg: #222;
     --footer-text: #aaa;
-    --hover-translate: -5px;
-    --hover-shadow: 0 14px 28px var(--card-shadow);
+  }
 }
 
-/* =========================
-   ヘッダー & バナー
-========================= */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Potta One', sans-serif;
+}
+
+.zenmaru {
+  font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+html, body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
 header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 12px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
 }
 
 .banner-link {
-    display: inline-block;
-    line-height: 0;
-    text-decoration: none;
+  display: inline-block;
+  line-height: 0;
+  text-decoration: none;
 }
 
 .banner-link img {
-    display: block;
-    width: min(100%, 512px);
-    max-width: 100%;
-    height: auto;
-    max-height: 120px;
-    object-fit: contain;
-    border-radius: 16px;
-    box-shadow: 0 6px 20px var(--card-shadow);
-    background: var(--banner-bg);
-    transition: transform 0.3s, box-shadow 0.3s;
+  display: block;
+  width: min(100%, 512px);
+  max-width: 100%;
+  height: auto;
+  max-height: 120px;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px var(--card-shadow);
+  background: var(--banner-bg);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .banner-link img:hover {
-    transform: translateY(var(--hover-translate));
-    box-shadow: var(--hover-shadow);
+  transform: translateY(var(--hover-translate));
+  box-shadow: var(--hover-shadow);
 }
 
-/* =========================
-   セクション
-========================= */
 section {
-    max-width: 1000px;
-    margin: 3rem auto;
-    padding: 0 1rem;
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 0 1rem;
 }
 
 section h2 {
-    font-size: 2rem;
-    text-align: center;
-    color: var(--text);
-    margin-bottom: 2rem;
+  font-size: 2rem;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 2rem;
 }
 
-/* =========================
-   相互リンクカード
-========================= */
 .works {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    justify-items: center;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-items: center;
 }
 
 .sougolink {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: var(--card-bg);
-    color: var(--text);
-    padding: 1rem;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px var(--card-shadow);
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--card-bg);
+  color: var(--text);
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px var(--card-shadow);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: 100%;
 }
 
 .sougolink:hover {
-    transform: translateY(var(--hover-translate));
-    box-shadow: var(--hover-shadow);
+  transform: translateY(var(--hover-translate));
+  box-shadow: var(--hover-shadow);
 }
 
 .sougolink img {
-    max-width: 100%;
-    max-height: 150px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    display: block;
-    background: var(--banner-bg);
-    transition: transform 0.3s;
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  display: block;
+  background: var(--banner-bg);
+  transition: transform 0.3s;
 }
 
 .sougolink img:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .sougolink h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.25rem;
-    word-break: break-word;
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+  word-break: break-word;
 }
 
 .sougolink a {
-    color: inherit;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
-/* =========================
-   フッター
-========================= */
 footer {
-    text-align: center;
-    padding: 2rem 1rem;
-    color: var(--footer-text);
-    font-size: 0.9rem;
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--footer-text);
+  font-size: 0.9rem;
 }
 
 footer a {
-    color: var(--footer-text);
-    text-decoration: underline;
-    transition: color 0.3s;
+  color: var(--footer-text);
+  text-decoration: underline;
+  transition: color 0.3s;
 }
 
 footer a:hover {
-    color: var(--text);
+  color: var(--text);
 }
 
-/* =========================
-   レスポンシブ
-========================= */
 @media (max-width: 900px) {
-    .works {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
+  .works {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 }
 
 @media (max-width: 600px) {
-    .works {
-        grid-template-columns: 1fr;
-    }
+  .works {
+    grid-template-columns: 1fr;
+  }
 }
