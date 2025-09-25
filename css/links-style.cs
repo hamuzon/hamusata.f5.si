@@ -13,93 +13,84 @@ body {
     line-height: 1.6;
     scroll-behavior: smooth;
     text-align: center;
-    position: relative;
-    overflow-x: hidden;
-    transition: background-color 0.3s, color 0.3s;
+    background: var(--bg, #f7f3e9);
+    color: var(--text, #3b2f2f);
+    transition: background 0.3s, color 0.3s;
 }
 
 /* =========================
-   ライト・ダーク背景
+   カラーバリエーション
 ========================= */
 body.light {
-    background: 
-        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175,109,255,0.85), transparent 68%),
-        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,100,180,0.75), transparent 68%),
-        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,235,170,0.98), transparent 68%),
-        radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120,190,255,0.3), transparent 68%),
-        linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
-    color: #3b2f2f;
+    --bg: #f7f3e9;
+    --text: #3b2f2f;
+    --card-bg: #fffdf7;
+    --card-shadow: rgba(0,0,0,0.2);
+    --banner-bg: #eee;
+    --footer-text: #5c4b3b;
+    --hover-translate: -5px;
+    --hover-shadow: 0 14px 28px var(--card-shadow);
 }
 
 body.dark {
-    background-color: #0a0a0a;
-    background-image: 
-        radial-gradient(ellipse at 20% 30%, rgba(56,189,248,0.4) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 70%, rgba(139,92,246,0.3) 0%, transparent 70%),
-        radial-gradient(ellipse at 60% 20%, rgba(236,72,153,0.25) 0%, transparent 50%),
-        radial-gradient(ellipse at 40% 80%, rgba(34,197,94,0.2) 0%, transparent 65%);
-    color: #fff;
+    --bg: #121212;
+    --text: #ddd;
+    --card-bg: #1f1f1f;
+    --card-shadow: rgba(0,0,0,0.5);
+    --banner-bg: #222;
+    --footer-text: #aaa;
+    --hover-translate: -5px;
+    --hover-shadow: 0 14px 28px var(--card-shadow);
 }
 
 /* =========================
    ヘッダー & バナー
 ========================= */
 header {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    padding: 16px 0;
-    background: transparent;
-    position: relative;
-    z-index: 10;
+    align-items: center;
+    padding: 12px 0;
 }
 
 .banner-link {
-    display: block;
-    margin-bottom: 1rem;
+    display: inline-block;
+    line-height: 0;
+    text-decoration: none;
 }
 
 .banner-link img {
     display: block;
     width: min(100%, 512px);
+    max-width: 100%;
     height: auto;
     max-height: 120px;
     object-fit: contain;
-    border-radius: 14px;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(24px);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    background: var(--banner-bg);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .banner-link img:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+    transform: translateY(var(--hover-translate));
+    box-shadow: var(--hover-shadow);
 }
 
 /* =========================
-   セクション & タイトル
+   セクション
 ========================= */
 section {
     max-width: 1000px;
     margin: 3rem auto;
-    padding: 2rem;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(28px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
-    color: inherit;
-    transition: background-color 0.3s, color 0.3s;
+    padding: 0 1rem;
 }
 
 section h2 {
     font-size: 2rem;
-    margin-bottom: 2rem;
     text-align: center;
+    color: var(--text);
+    margin-bottom: 2rem;
 }
 
 /* =========================
@@ -107,8 +98,8 @@ section h2 {
 ========================= */
 .works {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
     gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     justify-items: center;
 }
 
@@ -116,20 +107,19 @@ section h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(20px);
-    color: inherit;
+    background: var(--card-bg);
+    color: var(--text);
     padding: 1rem;
     border-radius: 20px;
-    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    box-shadow: 0 8px 20px var(--card-shadow);
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
     width: 100%;
 }
 
 .sougolink:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 45px rgba(0,0,0,0.35);
+    transform: translateY(var(--hover-translate));
+    box-shadow: var(--hover-shadow);
 }
 
 .sougolink img {
@@ -139,6 +129,7 @@ section h2 {
     border-radius: 12px;
     margin-bottom: 1rem;
     display: block;
+    background: var(--banner-bg);
     transition: transform 0.3s;
 }
 
@@ -168,29 +159,31 @@ section h2 {
 footer {
     text-align: center;
     padding: 2rem 1rem;
+    color: var(--footer-text);
     font-size: 0.9rem;
-    color: rgba(255,255,255,0.7);
 }
 
 footer a {
-    color: inherit;
+    color: var(--footer-text);
     text-decoration: underline;
     transition: color 0.3s;
 }
 
 footer a:hover {
-    color: #fff;
+    color: var(--text);
 }
 
 /* =========================
    レスポンシブ
 ========================= */
 @media (max-width: 900px) {
-    .works { grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); }
-    section h2 { font-size: 1.7rem; }
+    .works {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
 }
 
 @media (max-width: 600px) {
-    .works { grid-template-columns: 1fr; }
-    section h2 { font-size: 1.5rem; }
+    .works {
+        grid-template-columns: 1fr;
+    }
 }
