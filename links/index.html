@@ -1,86 +1,189 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HAMUSATA – 相互リンク</title>
-  <link rel="icon" href="../icon.svg" type="image/svg+xml">
-  <link rel="icon" href="../icon.png" type="image/png">
-  <link rel="apple-touch-icon" href="../icon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Potta+One&family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/links-style.css">
-</head>
-<body class="light">
+/* =========================
+   リセット & 基本スタイル
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Potta One', sans-serif;
+}
 
-<header>
-  <a href="https://home.hamusata.f5.si" class="banner-link" aria-label="HAMUSATA ホームへ移動">
-    <img src="../hamusata.webp" alt="hamusata home banner">
-  </a>
-</header>
+body {
+    min-height: 100vh;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    text-align: center;
+    background: var(--bg, #f7f3e9);
+    color: var(--text, #3b2f2f);
+    transition: background 0.3s, color 0.3s;
+}
 
-<section>
-  <h2>相互リンク / Mutual Links</h2>
-  <div class="works">
-    <div class="sougolink">
-      <a href="https://9a.si/" target="_blank">
-        <img src="https://9a.si/9a.si.webp" alt="@Lunar – 9a.si">
-        <h3 class="zenmaru">9a.si</h3>
-        <h3 class="zenmaru">@Lunar</h3>
-      </a>
-    </div>
+/* =========================
+   カラーバリエーション
+========================= */
+body.light {
+    --bg: #f7f3e9;
+    --text: #3b2f2f;
+    --card-bg: #fffdf7;
+    --card-shadow: rgba(0,0,0,0.2);
+    --banner-bg: #eee;
+    --footer-text: #5c4b3b;
+    --hover-translate: -5px;
+    --hover-shadow: 0 14px 28px var(--card-shadow);
+}
 
-    <div class="sougolink">
-      <a href="https://lase.dev/" target="_blank">
-        <img src="https://lase.dev/assets/lase_dev_header.webp" alt="@driplase – lase.dev">
-        <h3>lase.dev</h3>
-        <h3>@driplase</h3>
-      </a>
-    </div>
+body.dark {
+    --bg: #121212;
+    --text: #ddd;
+    --card-bg: #1f1f1f;
+    --card-shadow: rgba(0,0,0,0.5);
+    --banner-bg: #222;
+    --footer-text: #aaa;
+    --hover-translate: -5px;
+    --hover-shadow: 0 14px 28px var(--card-shadow);
+}
 
-    <div class="sougolink">
-      <a href="https://rampo.f5.si/" target="_blank">
-        <img src="https://rampo.f5.si/img/logo.webp" alt="@rampotchi – rampo.f5.si">
-        <h3>rampo.f5.si</h3>
-        <h3>@rampotchi</h3>
-      </a>
-    </div>
+/* =========================
+   ヘッダー & バナー
+========================= */
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0;
+}
 
-    <div class="sougolink">
-      <a href="https://kntnkmr.f5.si/" target="_blank">
-        <h3>kntnkmr.f5.si</h3>
-        <h3>@kntnkmr</h3>
-      </a>
-    </div>
+.banner-link {
+    display: inline-block;
+    line-height: 0;
+    text-decoration: none;
+}
 
-    <div class="sougolink">
-      <a href="https://kurogehome.f5.si/" target="_blank">
-        <h3>kurogehome.f5.si</h3>
-        <h3>@kuroge_</h3>
-      </a>
-    </div>
+.banner-link img {
+    display: block;
+    width: min(100%, 512px);
+    max-width: 100%;
+    height: auto;
+    max-height: 120px;
+    object-fit: contain;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    background: var(--banner-bg);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
 
-    <div class="sougolink">
-      <a href="https://spacer4719.f5.si/" target="_blank">
-        <img src="https://spacer4719.f5.si/images/NSH.webp" alt="@spacer4719 – spacer4719.f5.si">
-        <h3>spacer4719.f5.si</h3>
-        <h3>@spacer4719</h3>
-      </a>
-    </div>
-  </div>
-</section>
+.banner-link img:hover {
+    transform: translateY(var(--hover-translate));
+    box-shadow: var(--hover-shadow);
+}
 
-<footer>
-  &copy; <span id="year"></span>
-  <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved. |
-  <a href="../index.html">ホームページに戻る</a>
-</footer>
+/* =========================
+   セクション
+========================= */
+section {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
 
-<script>
-  const baseYear = 2025;
-  const currentYear = new Date().getFullYear();
-  document.getElementById("year").textContent =
-    currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
-</script>
+section h2 {
+    font-size: 2rem;
+    text-align: center;
+    color: var(--text);
+    margin-bottom: 2rem;
+}
 
-</body>
-</html>
+/* =========================
+   相互リンクカード
+========================= */
+.works {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    justify-items: center;
+}
+
+.sougolink {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--card-bg);
+    color: var(--text);
+    padding: 1rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px var(--card-shadow);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%;
+}
+
+.sougolink:hover {
+    transform: translateY(var(--hover-translate));
+    box-shadow: var(--hover-shadow);
+}
+
+.sougolink img {
+    max-width: 100%;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    display: block;
+    background: var(--banner-bg);
+    transition: transform 0.3s;
+}
+
+.sougolink img:hover {
+    transform: scale(1.05);
+}
+
+.sougolink h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+    word-break: break-word;
+}
+
+.sougolink a {
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* =========================
+   フッター
+========================= */
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--footer-text);
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: var(--footer-text);
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: var(--text);
+}
+
+/* =========================
+   レスポンシブ
+========================= */
+@media (max-width: 900px) {
+    .works {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .works {
+        grid-template-columns: 1fr;
+    }
+}
