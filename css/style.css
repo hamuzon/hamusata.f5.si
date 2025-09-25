@@ -1,5 +1,5 @@
 /* =========================
-リセット & 基本スタイル
+   リセット & 基本スタイル
 ========================= */
 * {
   margin: 0;
@@ -21,7 +21,7 @@ body {
 }
 
 /* =========================
-ヘッダー & h1中央
+   ヘッダー & h1中央
 ========================= */
 header {
   width: 100%;
@@ -63,7 +63,7 @@ h1 {
 }
 
 /* =========================
-セクション共通
+   セクション共通
 ========================= */
 section {
   max-width: 1000px;
@@ -85,7 +85,7 @@ section h2 {
 }
 
 /* =========================
-自己紹介
+   自己紹介
 ========================= */
 #profile {
   background-color: transparent;
@@ -105,7 +105,7 @@ section h2 {
 }
 
 /* =========================
-ポートフォリオカード
+   ポートフォリオカード
 ========================= */
 .works {
   display: grid;
@@ -167,7 +167,7 @@ section h2 {
 }
 
 /* =========================
-フッター
+   フッター
 ========================= */
 footer {
   text-align: center;
@@ -182,7 +182,7 @@ footer a {
 }
 
 /* =========================
-Cookieバナー
+   Cookieバナー
 ========================= */
 #cookie-banner {
   position: fixed;
@@ -211,9 +211,20 @@ Cookieバナー
   transition: background-color 0.3s, color 0.3s;
 }
 
-#cookie-banner button#minimal-cookie { background: #555; color: #fff; }
-#cookie-banner button#accept-all-cookie { background: #2a9d8f; color: #fff; }
-#cookie-banner button#reject-cookie { background: #d62828; color: #fff; }
+#cookie-banner button#minimal-cookie { 
+  background: #555; 
+  color: #fff; 
+}
+
+#cookie-banner button#accept-all-cookie { 
+  background: #2a9d8f; 
+  color: #fff; 
+}
+
+#cookie-banner button#reject-cookie { 
+  background: #d62828; 
+  color: #fff; 
+}
 
 #cookie-banner p {
   flex-basis: 100%;
@@ -221,17 +232,37 @@ Cookieバナー
 }
 
 /* =========================
-レスポンシブ
+   レスポンシブ
 ========================= */
 @media (max-width: 768px) {
-  .works { grid-template-columns: 1fr; }
-  section h2 { font-size: 1.5rem; }
-  #profile .profile p { font-size: 0.95rem; }
-  h1 { font-size: 1.8rem; }
+  .works { 
+    grid-template-columns: 1fr; 
+  }
+  
+  section h2 { 
+    font-size: 1.5rem; 
+  }
+  
+  #profile .profile p { 
+    font-size: 0.95rem; 
+  }
+  
+  h1 { 
+    font-size: 1.8rem; 
+  }
 }
 
 @media (max-width: 480px) {
-  header h1 { font-size: 1.6rem; }
-  #cookie-banner { font-size: 13px; }
-  #cookie-banner button { padding: 5px 10px; font-size: 0.85rem; }
+  header h1 { 
+    font-size: 1.6rem; 
+  }
+  
+  #cookie-banner { 
+    font-size: 13px; 
+  }
+  
+  #cookie-banner button { 
+    padding: 5px 10px; 
+    font-size: 0.85rem; 
+  }
 }
