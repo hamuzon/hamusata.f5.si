@@ -23,22 +23,22 @@ body {
 ========================= */
 body.light {
     background: 
-        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(135,206,250,0.85), transparent 68%),
-        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,182,193,0.75), transparent 68%),
-        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,255,224,0.98), transparent 68%),
-        radial-gradient(ellipse 65% 40% at 50% 60%, rgba(144,238,144,0.3), transparent 68%),
-        linear-gradient(180deg, #f0f8ff 0%, #ffe4e1 100%);
-    color: #1a1a1a;
+        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175,109,255,0.85), transparent 68%),
+        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,100,180,0.75), transparent 68%),
+        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,235,170,0.98), transparent 68%),
+        radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120,190,255,0.3), transparent 68%),
+        linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
+    color: var(--md-sys-color-on-background, #000);
 }
 
 body.dark {
-    background-color: #121212;
+    background-color: #0a0a0a;
     background-image: 
-        radial-gradient(ellipse at 20% 30%, rgba(30,144,255,0.4) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 70%, rgba(138,43,226,0.3) 0%, transparent 70%),
-        radial-gradient(ellipse at 60% 20%, rgba(255,105,180,0.25) 0%, transparent 50%),
-        radial-gradient(ellipse at 40% 80%, rgba(60,179,113,0.2) 0%, transparent 65%);
-    color: #e0e0e0;
+        radial-gradient(ellipse at 20% 30%, rgba(56,189,248,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 70%, rgba(139,92,246,0.3) 0%, transparent 70%),
+        radial-gradient(ellipse at 60% 20%, rgba(236,72,153,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 40% 80%, rgba(34,197,94,0.2) 0%, transparent 65%);
+    color: #fff;
 }
 
 /* =========================
@@ -70,10 +70,10 @@ header {
     max-height: 120px;
     object-fit: contain;
     border-radius: 14px;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.25);
-    background: rgba(255,255,255,0.2);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.15);
     backdrop-filter: blur(24px);
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s;
 }
 
 h1 {
@@ -90,9 +90,9 @@ section {
     margin: 3rem auto;
     padding: 2rem;
     border-radius: 20px;
-    background: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.1);
     backdrop-filter: blur(28px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
     color: inherit;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -111,6 +111,8 @@ section h2 {
     box-shadow: none;
     padding: 0;
 }
+
+#profile h2 {}
 
 #profile .profile p {
     text-align: center;
@@ -132,9 +134,9 @@ section h2 {
     padding: 1.5rem;
     text-align: center;
     border-radius: 20px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.12);
     backdrop-filter: blur(28px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
 
@@ -143,7 +145,7 @@ section h2 {
     height: 80px;
     margin-bottom: 1rem;
     border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.35);
+    border: 2px solid rgba(255,255,255,0.3);
 }
 
 .work-card:hover {
@@ -159,7 +161,7 @@ section h2 {
     margin-top: 1rem;
     padding: 0.8rem 1.8rem;
     border-radius: 18px;
-    background-color: rgba(0,206,209,0.2);
+    background-color: rgba(0,188,212,0.15);
     color: inherit;
     font-weight: 600;
     text-decoration: none;
@@ -167,7 +169,7 @@ section h2 {
 }
 
 .work-card a:hover {
-    background-color: #00ced1;
+    background-color: #00bcd4;
     color: #fff;
 }
 
@@ -183,7 +185,7 @@ footer {
     text-align: center;
     padding: 2rem 1rem;
     font-size: 0.9rem;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255,255,255,0.7);
 }
 
 /* =========================
@@ -215,11 +217,11 @@ footer {
     transition: background-color 0.3s, color 0.3s;
 }
 
-#cookie-banner button#minimal-cookie { background: #666; color: #fff; }
+#cookie-banner button#minimal-cookie { background: #555; color: #fff; }
 
-#cookie-banner button#accept-all-cookie { background: #20c997; color: #fff; }
+#cookie-banner button#accept-all-cookie { background: #2a9d8f; color: #fff; }
 
-#cookie-banner button#reject-cookie { background: #e63946; color: #fff; }
+#cookie-banner button#reject-cookie { background: #d62828; color: #fff; }
 
 #cookie-banner p {
     flex-basis: 100%;
