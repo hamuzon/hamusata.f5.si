@@ -14,7 +14,6 @@ body {
   transition: background-color 0.3s, color 0.3s;
   text-align: center;
   position: relative;
-  backdrop-filter: blur(6px);
 }
 
 /* =========================
@@ -73,6 +72,8 @@ header {
   padding: 16px 0;
   background: rgba(255,255,255,0.2);
   backdrop-filter: blur(8px);
+  position: relative;
+  z-index: 20000;
 }
 
 body.dark header {
@@ -209,7 +210,7 @@ body.dark .work-card a:hover {
 }
 
 /* =========================
-Cookieバナー
+Cookieバナー（画面下固定）
 ========================= */
 #cookie-banner {
   position: fixed;
@@ -221,7 +222,7 @@ Cookieバナー
   padding: 12px;
   text-align: center;
   font-size: 14px;
-  z-index: 9999;
+  z-index: 10000;
   line-height: 1.6;
   display: flex;
   flex-wrap: wrap;
@@ -241,6 +242,37 @@ Cookieバナー
 #cookie-banner button#minimal-cookie { background: #555; color: #fff; }
 #cookie-banner button#accept-all-cookie { background: #2a9d8f; color: #fff; }
 #cookie-banner button#reject-cookie { background: #d62828; color: #fff; }
+
+/* =========================
+ハンバーガーメニュー
+========================= */
+#mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 260px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+  transform: translateX(100%);
+  transition: transform 0.3s;
+  z-index: 20001;
+  padding: 2rem 1rem;
+}
+
+body.dark #mobile-menu {
+  background: rgba(20,20,20,0.95);
+}
+
+body.menu-open #mobile-menu {
+  transform: translateX(0);
+}
+
+#menu-toggle {
+  position: relative;
+  z-index: 20002;
+}
 
 /* =========================
 フッター
