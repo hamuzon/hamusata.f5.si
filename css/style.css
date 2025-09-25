@@ -215,7 +215,10 @@ Cookieバナー
 #cookie-banner button#accept-all-cookie { background: #2a9d8f; color: #fff; }
 #cookie-banner button#reject-cookie { background: #d62828; color: #fff; }
 
-#cookie-banner p { flex-basis: 100%; margin-bottom: 6px; }
+#cookie-banner p {
+  flex-basis: 100%;
+  margin-bottom: 6px;
+}
 
 /* =========================
 レスポンシブ
