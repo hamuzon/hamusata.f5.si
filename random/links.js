@@ -18,6 +18,7 @@ const links = [
 "http://omikuji.hamusata.f5.si",
 "https://dice.hamusata.f5.si",
 "https://pixel-art.hamusata.f5.si/",
+"https://editor.hamusata.f5.si/",
 
 "https://hamuzon.github.io/Time-Zone_app/",
 "https://hamuzon.github.io/expo2025-counter/",
@@ -33,6 +34,7 @@ const links = [
 "https://hamuzon.github.io/dice/",
 "https://hamuzon.github.io/Short-Link/",
 "https://hamuzon.github.io/pixel-art/",
+"https://hamuzon.github.io/editor/",
 
 "https://link-s.f5.si/",
 "https://go.link-s.f5.si/",
