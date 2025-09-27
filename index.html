@@ -282,12 +282,22 @@
   const now = new Date().getFullYear();
   document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
-  // テーマ自動切替
+// URLパラメータ取得
+const urlParams = new URLSearchParams(window.location.search);
+const themeParam = urlParams.get('theme');
+
+// URL指定があればそれを優先
+if (themeParam === 'dark' || themeParam === 'light') {
+  document.body.className = themeParam;
+} else {
+  // URL指定がなければOS設定で自動切替
   function applyTheme() {
     document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
   applyTheme();
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+}
+
 
   // ハンバーガーメニュー開閉処理
   const menuToggle = document.getElementById('menu-toggle');
