@@ -288,14 +288,21 @@
     })();
 
     // テーマ自動切替
-    (function () {
+    // URLパラメータ取得
+    const urlParams = new URLSearchParams(window.location.search);
+    const themeParam = urlParams.get('theme');
+    
+    // URL指定があればそれを優先
+    if (themeParam === 'dark' || themeParam === 'light') {
+      document.body.className = themeParam;
+    } else {
+      // URL指定がなければOS設定で自動切替
       function applyTheme() {
         document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
       applyTheme();
-      const mq = window.matchMedia('(prefers-color-scheme: dark)');
-      if (mq && mq.addEventListener) mq.addEventListener('change', applyTheme);
-    })();
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+    }
 
     // ハンバーガーメニュー開閉処理（aria更新）
     (function () {
