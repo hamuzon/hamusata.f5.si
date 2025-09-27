@@ -62,6 +62,7 @@ const links = [
 "https://hamuzon.web.fc2.com/text/",
 "https://hamuzon.web.fc2.com/fraction/",
 "https://hamuzon.web.fc2.com/expo/",
+"https://hamuzon.web.fc2.com/editor/",
 
 "https://hamuzon-jp.f5.si/Time-Zone_app/",
 "https://hamuzon-jp.f5.si/expo2025-counter/",
@@ -83,6 +84,8 @@ const links = [
 "https://hamuzon-jp.f5.si/discord/",
 "https://hamuzon-jp.f5.si/fraction/",
 "https://hamuzon-jp.f5.si/pixel-art/"
+"https://hamuzon-jp.f5.si/editor/"
+
 ];
 
 function openRandomLink() {
