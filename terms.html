@@ -151,8 +151,10 @@
   }
 
   if(themeParam === 'dark' || themeParam === 'light'){
+    // URLパラメータ優先
     applyTheme(themeParam);
   } else {
+    // URL指定なし → OSのカラースキームを参照
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     applyTheme(prefersDark ? 'dark' : 'light');
   }
@@ -169,27 +171,17 @@
   // 日付生成
   const date = new Date(timestamp * 1000);
 
+  // JST
   document.getElementById('japan-time').textContent =
     date.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
 
+  // UTC
   document.getElementById('utc-time').textContent =
     date.toLocaleString('en-US', { timeZone: 'UTC', hour12: false });
 
+  // Local time (ユーザーのローカル時間)
   document.getElementById('local-time').textContent =
     date.toLocaleString();
-
-  // URLクエリを内部リンクに自動付与
-  (function(){
-    const currentParams = window.location.search; // 現在のURLのクエリ
-    if(!currentParams) return; // クエリがなければ何もしない
-    const links = document.querySelectorAll('a[href]');
-    links.forEach(link => {
-      const href = link.getAttribute('href');
-      if(!href.startsWith('/') && !href.endsWith('.html')) return; // 内部HTMLリンクのみ対象
-      if(href.includes('?')) return; // すでにクエリがある場合は上書きしない
-      link.setAttribute('href', href + currentParams);
-    });
-  })();
 </script>
 
 </body>
