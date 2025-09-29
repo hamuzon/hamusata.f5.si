@@ -104,39 +104,53 @@
 
   <button id="randomBtn">ランダムで開く</button>
 
-
   <script src="links.js"></script>
 
-<script>
-const btn = document.getElementById("randomBtn");
-btn.addEventListener("click", () => {
-  const randomIndex = Math.floor(Math.random() * links.length);
-  window.open(links[randomIndex], "_blank");
-});
+  <!-- ランダムボタン・フッター・テーマ処理 -->
+  <script>
+    const btn = document.getElementById("randomBtn");
+    btn.addEventListener("click", () => {
+      const randomIndex = Math.floor(Math.random() * links.length);
+      window.open(links[randomIndex], "_blank");
+    });
 
-const baseYear = 2025;
-const currentYear = new Date().getFullYear();
-document.addEventListener('DOMContentLoaded', () => {
-  const footer = document.querySelector('footer');
-  const yearSpan = document.createElement('span');
-  yearSpan.id = 'year';
-  yearSpan.textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
-  footer.insertAdjacentHTML('afterbegin', '&copy; ');
-  footer.insertBefore(yearSpan, footer.childNodes[1]);
-});
+    const baseYear = 2025;
+    const currentYear = new Date().getFullYear();
+    document.addEventListener('DOMContentLoaded', () => {
+      const footer = document.querySelector('footer');
+      const yearSpan = document.createElement('span');
+      yearSpan.id = 'year';
+      yearSpan.textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
+      footer.insertAdjacentHTML('afterbegin', '&copy; ');
+      footer.insertBefore(yearSpan, footer.childNodes[1]);
+    });
 
-const urlParams = new URLSearchParams(window.location.search);
-const themeParam = urlParams.get('theme');
+    const urlParams = new URLSearchParams(window.location.search);
+    const themeParam = urlParams.get('theme');
 
-if (themeParam === 'dark' || themeParam === 'light') {
-  document.body.className = themeParam;
-} else {
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.body.classList.toggle('dark', prefersDark);
-}
-</script>
+    if (themeParam === 'dark' || themeParam === 'light') {
+      document.body.className = themeParam;
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.body.classList.toggle('dark', prefersDark);
+    }
+  </script>
 
-
+  <!-- 内部リンクにURLクエリを付与 -->
+  <script>
+    (function(){
+      const currentParams = window.location.search;
+      if(!currentParams) return; // クエリが無ければ何もしない
+      const links = document.querySelectorAll('a[href]');
+      links.forEach(link => {
+        const url = new URL(link.href, window.location.origin);
+        if(url.origin !== window.location.origin) return; // 外部リンクは除外
+        if(url.search) return; // 既存クエリがあれば上書きしない
+        url.search = currentParams; // 現在のクエリを付与
+        link.href = url.pathname + url.search + url.hash;
+      });
+    })();
+  </script>
 
   <footer>
     <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved. |
