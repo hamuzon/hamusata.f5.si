@@ -48,8 +48,10 @@
   <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
   <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp">
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7413522404678991"
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7413522404678991"
      crossorigin="anonymous"></script>
+
 </head>
 
 <body class="light">
@@ -95,10 +97,11 @@
       </ul>
     </nav>
     <div id="menu-overlay"></div>
+    
   </header>
 
   <h1>HAMUSATA ホームページ</h1>
-
+  
   <!-- 自己紹介 -->
   <section id="profile">
     <div class="profile">
@@ -113,6 +116,7 @@
   <section id="portfolio">
     <h2>ポートフォリオリンク集</h2>
     <div class="works">
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="HAMUSATA icon" loading="lazy" decoding="async">
         <h3>HAMUSATA – ホームページ</h3>
@@ -170,13 +174,14 @@
         <p>リンクのメイン機能はショートカットリンクサービスのlink-s.f5.si 系列作品集一覧。</p>
         <a href="https://www.link-s.f5.si/"><span>見る</span> / <span>View</span></a>
       </div>
-
+      
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="利用規約 icon" loading="lazy" decoding="async">
         <h3>利用規約・プライバシーポリシー</h3>
         <p>サイト利用規約とプライバシーポリシーの確認はこちら。</p>
         <a href="terms.html"><span>確認する</span> / <span>View</span></a>
       </div>
+      
     </div>
   </section>
 
@@ -227,12 +232,42 @@
   <section id="sns">
     <h2>SNSリンク</h2>
     <div class="works">
+
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="Scratch icon" loading="lazy" decoding="async">
         <h3>Scratch</h3>
         <p>hamusataアカウント</p>
         <a href="https://scratch.mit.edu/users/hamusata/"><span>見る</span> / <span>View</span></a>
       </div>
+
+      <div class="work-card">
+        <img src="https://hamusata.f5.si/icon.webp" alt="Scratch icon" loading="lazy" decoding="async">
+        <h3>Scratch</h3>
+        <p>hamuzonアカウント</p>
+        <a href="https://scratch.mit.edu/users/hamuzon/"><span>見る</span> / <span>View</span></a>
+      </div>
+
+      <div class="work-card">
+        <img src="https://hamusata.f5.si/icon.webp" alt="GitHub icon" loading="lazy" decoding="async">
+        <h3>GitHub</h3>
+        <p>GitHubアカウント</p>
+        <a href="https://github.com/hamuzon"><span>見る</span> / <span>View</span></a>
+      </div>
+
+      <div class="work-card">
+        <img src="https://hamusata.f5.si/icon.webp" alt="Bluesky icon" loading="lazy" decoding="async">
+        <h3>Bluesky</h3>
+        <p>Blueskyアカウント</p>
+        <a href="https://bsky.app/profile/hamuzon-jp.f5.si"><span>見る</span> / <span>View</span></a>
+      </div>
+
+      <div class="work-card">
+        <img src="https://hamusata.f5.si/icon.webp" alt="Twitter(X) icon" loading="lazy" decoding="async">
+        <h3>Twitter (X)</h3>
+        <p>@hamu_sata アカウント</p>
+        <a href="https://x.com/hamu_sata"><span>見る</span> / <span>View</span></a>
+      </div>
+
     </div>
   </section>
 
@@ -268,6 +303,7 @@
   menuToggle.addEventListener('click', () => { document.body.classList.toggle('menu-open'); });
   menuOverlay.addEventListener('click', () => { document.body.classList.remove('menu-open'); });
 
+  // #home スクロール処理
   function menuScrollToHome(event) {
     event.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -289,21 +325,13 @@
     gtagScript.setAttribute('data-cfasync', 'false');
     gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27';
     document.head.appendChild(gtagScript);
-
     gtagScript.onload = () => {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       window.gtag = gtag;
       gtag('js', new Date());
-      if (minimal) {
-        gtag('config', 'G-E3VWGLZJ27', {
-          anonymize_ip: true,
-          allow_google_signals: false,
-          allow_ad_personalization_signals: false
-        });
-      } else {
-        gtag('config', 'G-E3VWGLZJ27');
-      }
+      if (minimal) gtag('config', 'G-E3VWGLZJ27', {anonymize_ip:true, allow_google_signals:false, allow_ad_personalization_signals:false});
+      else gtag('config', 'G-E3VWGLZJ27');
     };
   }
 
@@ -314,40 +342,41 @@
     else if (type === 'minimal') loadGA(true);
   }
 
-  document.getElementById('minimal-cookie').addEventListener('click', () => acceptCookies('minimal'));
-  document.getElementById('accept-all-cookie').addEventListener('click', () => acceptCookies('all'));
-  document.getElementById('reject-cookie').addEventListener('click', () => acceptCookies('reject'));
+  document.getElementById('minimal-cookie').addEventListener('click', ()=>acceptCookies('minimal'));
+  document.getElementById('accept-all-cookie').addEventListener('click', ()=>acceptCookies('all'));
+  document.getElementById('reject-cookie').addEventListener('click', ()=>acceptCookies('reject'));
 
   const consent = localStorage.getItem('cookieConsent');
   if (consent === 'minimal') loadGA(true);
   else if (consent === 'all') loadGA(false);
   else if (!consent) showCookieBanner();
 
-  // 内部リンクに URL パラメータ保持
-  const currentQuery = window.location.search;
-  document.querySelectorAll('a[href]').forEach(a => {
-    const href = a.getAttribute('href');
-    if (
-      href.startsWith('http') ||
-      href.startsWith('#') ||
-      href.startsWith('mailto:') ||
-      href.startsWith('javascript:') ||
-      href.includes('://')
-    ) return;
-
-    if (currentQuery && !href.includes('?')) a.href = href + currentQuery;
-    else if (currentQuery && href.includes('?')) a.href = href + '&' + currentQuery.replace(/^\?/, '');
-  });
-
   // PWA Service Worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/service-worker.js')
-        .then(registration => { console.log('Service Worker registered with scope:', registration.scope); })
-        .catch(error => { console.error('Service Worker registration failed:', error); });
+        .then(r=>console.log('Service Worker registered with scope:', r.scope))
+        .catch(e=>console.error('Service Worker registration failed:', e));
     });
   }
+
+  // ===== 内部リンクURLパラメータ維持 =====
+  (function(){
+    const currentParams = window.location.search;
+    if(!currentParams) return;
+    const links = document.querySelectorAll('a[href]');
+    links.forEach(link=>{
+      const url = new URL(link.href, window.location.origin);
+      // 外部リンクを除外
+      if(url.origin !== window.location.origin) return;
+      // すでにクエリがある場合は追加せず
+      if(url.search) return;
+      url.search = currentParams;
+      link.href = url.pathname + url.search + url.hash;
+    });
+  })();
 </script>
+
 
 </body>
 </html>
