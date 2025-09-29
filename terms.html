@@ -22,7 +22,13 @@
     "css/light-hc.css",
     "css/light-mc.css"
   ];
-  themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
+
+  themeCSS.forEach(href => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    document.head.appendChild(link);
+  });
 </script>
 
 <style>
@@ -30,12 +36,49 @@
     --terms-timestamp: 1758106200; /* 制定日 */
   }
 
-  body { font-family: 'Inter', 'Segoe UI', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
-  main { padding: 1rem; max-width: 800px; margin: auto; }
-  h1 { font-size: 1.8rem; margin-bottom: 1rem; }
-  h2 { font-size: 1.4rem; margin-top: 1.5rem; }
-  p, li { margin-bottom: 0.8rem; }
-  ul { padding-left: 1.5rem; }
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  main {
+    padding: 1rem;
+    max-width: 800px;
+    margin: auto;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+  }
+
+  p, li {
+    margin-bottom: 0.8rem;
+  }
+
+  ul {
+    padding-left: 1.5rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #ccc;
+  }
+
+  footer a {
+    color: inherit;
+    text-decoration: none;
+    margin: 0 0.3rem;
+  }
 </style>
 
 </head>
@@ -99,12 +142,27 @@
   document.getElementById("year").textContent =
     currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
 
-  // テーマ自動切替
-  function applyTheme() {
-    document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  // URLパラメータからテーマ取得
+  const urlParams = new URLSearchParams(window.location.search);
+  const themeParam = urlParams.get('theme');
+
+  function applyTheme(theme) {
+    document.body.className = theme === 'dark' ? 'dark' : 'light';
   }
-  applyTheme();
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+
+  if(themeParam === 'dark' || themeParam === 'light'){
+    // URLパラメータ優先
+    applyTheme(themeParam);
+  } else {
+    // URL指定なし → OSのカラースキームを参照
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(prefersDark ? 'dark' : 'light');
+  }
+
+  // OS設定変更時に自動切替（URLパラメータなしの場合のみ）
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if(!themeParam) applyTheme(e.matches ? 'dark' : 'light');
+  });
 
   // CSS変数からUNIXタイムスタンプ取得
   const rootStyles = getComputedStyle(document.documentElement);
@@ -114,13 +172,16 @@
   const date = new Date(timestamp * 1000);
 
   // JST
-  document.getElementById('japan-time').textContent = date.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
+  document.getElementById('japan-time').textContent =
+    date.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
 
   // UTC
-  document.getElementById('utc-time').textContent = date.toLocaleString('en-US', { timeZone: 'UTC', hour12: false });
+  document.getElementById('utc-time').textContent =
+    date.toLocaleString('en-US', { timeZone: 'UTC', hour12: false });
 
   // Local time (ユーザーのローカル時間)
-  document.getElementById('local-time').textContent = date.toLocaleString();
+  document.getElementById('local-time').textContent =
+    date.toLocaleString();
 </script>
 
 </body>
