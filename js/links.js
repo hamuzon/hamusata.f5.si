@@ -92,3 +92,23 @@ async function loadLinks() {
 
 // ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", loadLinks);
+
+// ===== 内部リンクURLパラメータ維持 =====
+(function() {
+  const currentParams = window.location.search;
+  if (!currentParams) return;
+
+  const links = document.querySelectorAll('a[href]');
+  links.forEach(link => {
+    const url = new URL(link.href, window.location.origin);
+
+    // 外部リンクを除外
+    if (url.origin !== window.location.origin) return;
+
+    // すでにクエリがある場合は追加せず
+    if (url.search) return;
+
+    url.search = currentParams;
+    link.href = url.pathname + url.search + url.hash;
+  });
+})();
