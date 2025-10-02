@@ -1,15 +1,19 @@
 // /js/style-links.js
 
-// ===== 年自動更新 =====
+/* =========================
+   年自動更新
+========================= */
 const baseYear = 2025;
 const now = new Date().getFullYear();
 document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : baseYear;
 
-// ===== URLパラメータ取得 & テーマ適用 =====
+/* =========================
+   URLパラメータ取得 & テーマ適用
+========================= */
 const urlParams = new URLSearchParams(window.location.search);
 const themeParam = urlParams.get('theme');
 
-if(themeParam === 'dark' || themeParam === 'light'){
+if (themeParam === 'dark' || themeParam === 'light') {
     document.body.className = themeParam;
 } else {
     function applyTheme() {
@@ -20,7 +24,9 @@ if(themeParam === 'dark' || themeParam === 'light'){
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
 }
 
-// ===== 相互リンク読み込み =====
+/* =========================
+   相互リンク読み込み
+========================= */
 async function loadLinks() {
     const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
     const sheetName = "links"; // スプレッドシート名
@@ -37,6 +43,7 @@ async function loadLinks() {
 
         container.innerHTML = "";
 
+        // データ行をカード化
         rows.slice(1).forEach(row => {
             const [title, description, image, link] = row;
             if (!link && !title) return;
@@ -47,6 +54,7 @@ async function loadLinks() {
             cardLink.href = link || "#";
             cardLink.target = "_blank";
             cardLink.rel = "noopener noreferrer";
+            cardLink.style.color = "inherit"; // 文字色を絶対に変えない
 
             // 画像
             if (image) {
@@ -66,7 +74,7 @@ async function loadLinks() {
                 cardLink.appendChild(h3Title);
             }
 
-            // サブタイトル（description欄）
+            // サブタイトル（description）
             if (description) {
                 const h3Desc = document.createElement("h3");
                 h3Desc.textContent = description;
@@ -77,6 +85,7 @@ async function loadLinks() {
             container.appendChild(cardLink);
         });
 
+        // データがない場合
         if (container.children.length === 0) {
             container.innerHTML = '<p>links の読み込みに失敗</p>';
         }
@@ -90,7 +99,9 @@ async function loadLinks() {
 // ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", loadLinks);
 
-// ===== 内部リンクURLパラメータ維持 =====
+/* =========================
+   内部リンクURLパラメータ維持
+========================= */
 (function() {
     const currentParams = window.location.search;
     if (!currentParams) return;
