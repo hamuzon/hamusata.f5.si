@@ -1,11 +1,11 @@
 // /js/style-links.js
 
+// ===== スプレッドシートからリンク読み込み =====
 async function loadLinks() {
-    const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
+    const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
     const sheetName = "links";
     const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
-    // 表示対象セクションの初期値
     const containers = {
         portfolio: document.getElementById("portfolioLinks"),
         random: document.getElementById("randomLinks"),
@@ -14,28 +14,18 @@ async function loadLinks() {
         sns: document.getElementById("snsLinks")
     };
 
-    // 初期表示「読み込み中」
-    Object.values(containers).forEach(container => {
-        if (container) {
-            container.innerHTML = "<p>読み込み中…</p>";
-        }
-    });
+    // 初期表示「読み込み中…」
+    Object.values(containers).forEach(c => { if(c) c.innerHTML = "<p>読み込み中…</p>"; });
 
     try {
         const res = await fetch(url);
         const text = await res.text();
-        const json = JSON.parse(
-            text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]
-        );
-
+        const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
         const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
-        // 1行目はヘッダーなので除く
         rows.slice(1).forEach(row => {
             const [title, description, image, link, section] = row;
             if (!section || !containers[section]) return;
-
-            const container = containers[section];
 
             const card = document.createElement("div");
             card.className = "sougolink";
@@ -70,36 +60,46 @@ async function loadLinks() {
                 card.appendChild(a);
             }
 
-            container.appendChild(card);
+            containers[section].appendChild(card);
         });
 
     } catch (e) {
         console.error("links の読み込みに失敗:", e);
-        Object.values(containers).forEach(container => {
-            if (container) {
-                container.innerHTML = "<p>links の読み込みに失敗</p>";
-            }
-        });
+        Object.values(containers).forEach(c => { if(c) c.innerHTML = "<p>links の読み込みに失敗</p>"; });
     }
 }
 
-// ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", loadLinks);
-
 
 // ===== 内部リンクURLパラメータ維持 =====
 (function() {
     const currentParams = window.location.search;
     if (!currentParams) return;
 
-    const links = document.querySelectorAll('a[href]');
-    links.forEach(link => {
+    document.querySelectorAll('a[href]').forEach(link => {
         const url = new URL(link.href, window.location.origin);
-
         if (url.origin !== window.location.origin) return;
         if (url.search) return;
-
         url.search = currentParams;
         link.href = url.pathname + url.search + url.hash;
     });
 })();
+
+// ===== 年自動更新 =====
+const baseYear = 2025;
+const currentYear = new Date().getFullYear();
+document.getElementById("year").textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
+
+// ===== URLパラメータ取得 & テーマ適用 =====
+const urlParams = new URLSearchParams(window.location.search);
+const themeParam = urlParams.get('theme');
+
+if(themeParam === 'dark' || themeParam === 'light'){
+    document.body.className = themeParam;
+} else {
+    const applyTheme = () => {
+        document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    applyTheme();
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+}
