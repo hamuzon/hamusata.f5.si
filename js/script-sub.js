@@ -152,4 +152,23 @@
         seasonLink.href = seasonLinks[season] || seasonLinks.winter;
         seasonLink.setAttribute('title', `現在の季節: ${season}`);
       }
-    })();
+
+      // ===== 内部リンクURLパラメータ維持 =====
+(function() {
+  const currentParams = window.location.search;
+  if (!currentParams) return;
+
+  const links = document.querySelectorAll('a[href]');
+  links.forEach(link => {
+    const url = new URL(link.href, window.location.origin);
+
+    // 外部リンクを除外
+    if (url.origin !== window.location.origin) return;
+
+    // すでにクエリがある場合は追加せず
+    if (url.search) return;
+
+    url.search = currentParams;
+    link.href = url.pathname + url.search + url.hash;
+  });
+})();
