@@ -70,7 +70,14 @@ async function loadLinks() {
 
       if (link) {
         const a = document.createElement("a");
-        a.href = link;
+
+        // 季節リンク対象タイトルだけ差し替え
+        if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
+          a.href = seasonLinks[season] || link;
+        } else {
+          a.href = link;
+        }
+
         a.target = "_blank";
         a.rel = "noopener noreferrer";
         a.textContent = "見る / View";
@@ -79,12 +86,6 @@ async function loadLinks() {
 
       container.appendChild(card);
     });
-
-    // 季節リンク反映
-    const seasonLink = document.getElementById('seasonLink');
-    if (seasonLink) {
-      seasonLink.href = seasonLinks[season] || "#";
-    }
 
     // データがない場合
     for (const key in sections) {
