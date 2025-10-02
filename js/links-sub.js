@@ -28,7 +28,7 @@ async function loadLinks() {
     // セクション初期化
     for (const key in sections) if (sections[key].container) sections[key].container.innerHTML = "";
 
-    // 季節リンク定義
+    // 季節リンク定義（JSだけで切替）
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
       summer: "https://home.hamusata.f5.si/summer",
@@ -83,7 +83,7 @@ async function loadLinks() {
     // 季節リンク反映
     const seasonLink = document.getElementById('seasonLink');
     if (seasonLink) {
-      seasonLink.href = seasonLinks[season] || seasonLinks.winter;
+      seasonLink.href = seasonLinks[season] || "#";
     }
 
     // データがない場合
