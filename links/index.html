@@ -176,13 +176,13 @@ footer a:hover {
             </a>
         </div>
         <div class="sougolink">
-            <a href="https://kntnkmr.f5.si/" target="_blank" class="internal-link">
+            <a href="https://kntnkmr.f5.si/" target="_blank">
                 <h3>kntnkmr.f5.si</h3>
                 <h3>@kntnkmr</h3>
             </a>
         </div>
         <div class="sougolink">
-            <a href="https://kurogehome.f5.si/" target="_blank" class="internal-link">
+            <a href="https://kurogehome.f5.si/" target="_blank">
                 <h3>kurogehome.f5.si</h3>
                 <h3>@kuroge_</h3>
             </a>
@@ -216,14 +216,20 @@ if(themeParam === 'dark' || themeParam === 'light'){
     document.body.classList.toggle('light', !prefersDark);
 }
 
-document.querySelectorAll('a.internal-link').forEach(link => {
-    link.addEventListener('click', e => {
-        e.preventDefault();
-        const currentPath = window.location.pathname + window.location.search;
-        const target = new URL(link.href);
-        target.searchParams.set('from', currentPath);
-        window.location.href = target.href;
-    });
+document.querySelectorAll('a').forEach(link=>{
+    const href = link.getAttribute('href');
+    if(!href) return;
+    const isInternal = href.startsWith('/') || href.startsWith('../') || href.startsWith('home.hamusata.f5.si') || !href.startsWith('http');
+    if(isInternal){
+        link.addEventListener('click', e=>{
+            e.preventDefault();
+            const currentPath = window.location.pathname + window.location.search;
+            const targetUrl = href.startsWith('home.hamusata.f5.si') ? `https://${href}` : href;
+            const url = new URL(targetUrl, window.location.origin);
+            url.searchParams.set('from', currentPath);
+            window.location.href = url.href;
+        });
+    }
 });
 </script>
 </body>
