@@ -37,18 +37,16 @@ async function loadLinks() {
 
         container.innerHTML = "";
 
-        // 1行目はヘッダー
         rows.slice(1).forEach(row => {
             const [title, description, image, link] = row;
             if (!link && !title) return;
 
-            const card = document.createElement("div");
-            card.className = "sougolink";
-
-            const a = document.createElement("a");
-            a.href = link || "#";
-            a.target = "_blank";
-            a.rel = "noopener noreferrer";
+            // カード全体をリンク化
+            const cardLink = document.createElement("a");
+            cardLink.className = "sougolink";
+            cardLink.href = link || "#";
+            cardLink.target = "_blank";
+            cardLink.rel = "noopener noreferrer";
 
             // 画像
             if (image) {
@@ -57,14 +55,15 @@ async function loadLinks() {
                 img.alt = title || "";
                 img.loading = "lazy";
                 img.decoding = "async";
-                a.appendChild(img);
+                cardLink.appendChild(img);
             }
 
             // タイトル
             if (title) {
                 const h3Title = document.createElement("h3");
                 h3Title.textContent = title;
-                a.appendChild(h3Title);
+                h3Title.className = "zenmaru";
+                cardLink.appendChild(h3Title);
             }
 
             // サブタイトル（description欄）
@@ -72,11 +71,10 @@ async function loadLinks() {
                 const h3Desc = document.createElement("h3");
                 h3Desc.textContent = description;
                 h3Desc.className = "zenmaru";
-                a.appendChild(h3Desc);
+                cardLink.appendChild(h3Desc);
             }
 
-            card.appendChild(a);
-            container.appendChild(card);
+            container.appendChild(cardLink);
         });
 
         if (container.children.length === 0) {
