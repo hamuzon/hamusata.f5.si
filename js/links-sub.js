@@ -2,7 +2,7 @@
 
 async function loadLinks() {
   const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
-  const sheetName = "cards"; // シート名
+  const sheetName = "sub"; // シート名
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
   // ===== セクション初期値 =====
@@ -84,6 +84,25 @@ async function loadLinks() {
     }
     console.error("スプレッドシート読み込み失敗:", e);
   }
+
+  // ===== 季節別link処理 =====
+  (function () {
+    const seasonLinks = {
+      spring: "https://home.hamusata.f5.si/spring",
+      summer: "https://home.hamusata.f5.si/summer",
+      autumn: "https://home.hamusata.f5.si/autumn",
+      winter: "https://home.hamusata.f5.si/winter"
+    };
+    const month = new Date().getMonth() + 1;
+    const season = month >= 3 && month <= 5 ? "spring" :
+                   month >= 6 && month <= 8 ? "summer" :
+                   month >= 9 && month <= 11 ? "autumn" : "winter";
+
+    const seasonLink = document.getElementById('seasonLink');
+    if (seasonLink) {
+      seasonLink.href = seasonLinks[season] || seasonLinks.winter;
+    }
+  })();
 }
 
 // ページ読み込み時に実行
