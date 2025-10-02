@@ -28,6 +28,18 @@ async function loadLinks() {
     // セクション初期化
     for (const key in sections) if (sections[key].container) sections[key].container.innerHTML = "";
 
+    // 季節リンク定義
+    const seasonLinks = {
+      spring: "https://home.hamusata.f5.si/spring",
+      summer: "https://home.hamusata.f5.si/summer",
+      autumn: "https://home.hamusata.f5.si/autumn",
+      winter: "https://home.hamusata.f5.si/winter"
+    };
+    const month = new Date().getMonth() + 1;
+    const season = month >= 3 && month <= 5 ? "spring" :
+                   month >= 6 && month <= 8 ? "summer" :
+                   month >= 9 && month <= 11 ? "autumn" : "winter";
+
     // 1行目はヘッダーなので除く
     rows.slice(1).forEach(row => {
       const [title, description, image, link, section] = row;
@@ -68,6 +80,12 @@ async function loadLinks() {
       container.appendChild(card);
     });
 
+    // 季節リンク反映
+    const seasonLink = document.getElementById('seasonLink');
+    if (seasonLink) {
+      seasonLink.href = seasonLinks[season] || seasonLinks.winter;
+    }
+
     // データがない場合
     for (const key in sections) {
       if (sections[key].container && sections[key].container.children.length === 0) {
@@ -84,25 +102,6 @@ async function loadLinks() {
     }
     console.error("スプレッドシート読み込み失敗:", e);
   }
-
-  // ===== 季節別link処理 =====
-  (function () {
-    const seasonLinks = {
-      spring: "https://home.hamusata.f5.si/spring",
-      summer: "https://home.hamusata.f5.si/summer",
-      autumn: "https://home.hamusata.f5.si/autumn",
-      winter: "https://home.hamusata.f5.si/winter"
-    };
-    const month = new Date().getMonth() + 1;
-    const season = month >= 3 && month <= 5 ? "spring" :
-                   month >= 6 && month <= 8 ? "summer" :
-                   month >= 9 && month <= 11 ? "autumn" : "winter";
-
-    const seasonLink = document.getElementById('seasonLink');
-    if (seasonLink) {
-      seasonLink.href = seasonLinks[season] || seasonLinks.winter;
-    }
-  })();
 }
 
 // ページ読み込み時に実行
