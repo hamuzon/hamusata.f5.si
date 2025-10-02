@@ -2,7 +2,7 @@
 
 async function loadLinks() {
   const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
-  const sheetName = "sub"; // シート名
+  const sheetName = "cards"; // シート名
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
   // ===== セクション初期値 =====
@@ -27,18 +27,6 @@ async function loadLinks() {
 
     // セクション初期化
     for (const key in sections) if (sections[key].container) sections[key].container.innerHTML = "";
-
-    // 季節リンク定義（JSだけで切替）
-    const seasonLinks = {
-      spring: "https://home.hamusata.f5.si/spring",
-      summer: "https://home.hamusata.f5.si/summer",
-      autumn: "https://home.hamusata.f5.si/autumn",
-      winter: "https://home.hamusata.f5.si/winter"
-    };
-    const month = new Date().getMonth() + 1;
-    const season = month >= 3 && month <= 5 ? "spring" :
-                   month >= 6 && month <= 8 ? "summer" :
-                   month >= 9 && month <= 11 ? "autumn" : "winter";
 
     // 1行目はヘッダーなので除く
     rows.slice(1).forEach(row => {
@@ -70,15 +58,7 @@ async function loadLinks() {
 
       if (link) {
         const a = document.createElement("a");
-
-        // 季節リンク対象タイトルだけ差し替え
-        if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
-          a.href = seasonLinks[season] || link;
-          a.setAttribute('title', `現在の季節: ${season}`);
-        } else {
-          a.href = link;
-        }
-
+        a.href = link;
         a.target = "_blank";
         a.rel = "noopener noreferrer";
         a.textContent = "見る / View";
