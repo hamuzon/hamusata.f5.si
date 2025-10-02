@@ -2,7 +2,7 @@
 
 async function loadLinks() {
   const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
-  const sheetName = "sub"; // ← シート名
+  const sheetName = "sub"; // シート名
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
   // ===== セクション初期値 =====
@@ -16,9 +16,7 @@ async function loadLinks() {
 
   // 初期値セット
   for (const key in sections) {
-    if (sections[key].container) {
-      sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
-    }
+    if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
   }
 
   try {
@@ -27,10 +25,20 @@ async function loadLinks() {
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => c ? c.v : ""));
 
-    // セクションごとに初期化
-    for (const key in sections) {
-      if (sections[key].container) sections[key].container.innerHTML = "";
-    }
+    // セクション初期化
+    for (const key in sections) if (sections[key].container) sections[key].container.innerHTML = "";
+
+    // 季節リンク定義（JSだけで切替）
+    const seasonLinks = {
+      spring: "https://home.hamusata.f5.si/spring",
+      summer: "https://home.hamusata.f5.si/summer",
+      autumn: "https://home.hamusata.f5.si/autumn",
+      winter: "https://home.hamusata.f5.si/winter"
+    };
+    const month = new Date().getMonth() + 1;
+    const season = month >= 3 && month <= 5 ? "spring" :
+                   month >= 6 && month <= 8 ? "summer" :
+                   month >= 9 && month <= 11 ? "autumn" : "winter";
 
     // 1行目はヘッダーなので除く
     rows.slice(1).forEach(row => {
@@ -38,7 +46,6 @@ async function loadLinks() {
       if (!section || !sections[section] || !sections[section].container) return;
 
       const container = sections[section].container;
-
       const card = document.createElement("div");
       card.className = "work-card";
 
@@ -63,7 +70,15 @@ async function loadLinks() {
 
       if (link) {
         const a = document.createElement("a");
-        a.href = link;
+
+        // 季節リンク対象タイトルだけ差し替え
+        if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
+          a.href = seasonLinks[season] || link;
+          a.setAttribute('title', `現在の季節: ${season}`);
+        } else {
+          a.href = link;
+        }
+
         a.target = "_blank";
         a.rel = "noopener noreferrer";
         a.textContent = "見る / View";
@@ -73,7 +88,7 @@ async function loadLinks() {
       container.appendChild(card);
     });
 
-    // データがない場合の表示
+    // データがない場合
     for (const key in sections) {
       if (sections[key].container && sections[key].container.children.length === 0) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
