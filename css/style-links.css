@@ -96,6 +96,9 @@ section h2 {
     gap: 1.5rem;
 }
 
+/* =========================
+   カード（カード全体リンク化）
+========================= */
 .sougolink {
     display: flex;
     flex-direction: column;
@@ -107,6 +110,9 @@ section h2 {
     box-shadow: 0 12px 40px rgba(0,0,0,0.25);
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
+
+    text-decoration: none; /* 下線なし */
+    color: inherit;        /* 文字色維持 */
 }
 
 .sougolink:hover {
@@ -130,15 +136,6 @@ section h2 {
 
 .sougolink h3 {
     margin-bottom: 0.25rem;
-}
-
-.sougolink a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.sougolink a:visited {
-    color: inherit;
 }
 
 /* =========================
