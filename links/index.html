@@ -176,13 +176,13 @@ footer a:hover {
             </a>
         </div>
         <div class="sougolink">
-            <a href="https://kntnkmr.f5.si/" target="_blank">
+            <a href="https://kntnkmr.f5.si/" target="_blank" class="internal-link">
                 <h3>kntnkmr.f5.si</h3>
                 <h3>@kntnkmr</h3>
             </a>
         </div>
         <div class="sougolink">
-            <a href="https://kurogehome.f5.si/" target="_blank">
+            <a href="https://kurogehome.f5.si/" target="_blank" class="internal-link">
                 <h3>kurogehome.f5.si</h3>
                 <h3>@kuroge_</h3>
             </a>
@@ -215,6 +215,16 @@ if(themeParam === 'dark' || themeParam === 'light'){
     document.body.classList.toggle('dark', prefersDark);
     document.body.classList.toggle('light', !prefersDark);
 }
+
+document.querySelectorAll('a.internal-link').forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        const currentPath = window.location.pathname + window.location.search;
+        const target = new URL(link.href);
+        target.searchParams.set('from', currentPath);
+        window.location.href = target.href;
+    });
+});
 </script>
 </body>
 </html>
