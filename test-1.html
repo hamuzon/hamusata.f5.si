@@ -20,9 +20,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
+    <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/mobile-menu.css">
+
+  <!-- テーマCSS -->
+  <script>
+    const themeCSS = [
+      "css/dark.css",
+      "css/dark-hc.css",
+      "css/dark-mc.css",
+      "css/light.css",
+      "css/light-hc.css",
+      "css/light-mc.css"
+    ];
+    themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
+  </script>
+
 
   <!-- SEO -->
   <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
