@@ -155,37 +155,47 @@
   }
 
   if(themeParam === 'dark' || themeParam === 'light'){
-    // URLパラメータ優先
     applyTheme(themeParam);
   } else {
-    // URL指定なし → OSのカラースキームを参照
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     applyTheme(prefersDark ? 'dark' : 'light');
   }
 
-  // OS設定変更時に自動切替（URLパラメータなしの場合のみ）
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
     if(!themeParam) applyTheme(e.matches ? 'dark' : 'light');
   });
 
   // CSS変数からUNIXタイムスタンプ取得
-  const rootStyles = getComputedStyle(document.documentElement);
-  const timestamp = Number(rootStyles.getPropertyValue('--terms-timestamp').trim());
-
-  // 日付生成
+  const timestamp = Number(getComputedStyle(document.documentElement)
+                    .getPropertyValue('--terms-timestamp').trim());
   const date = new Date(timestamp * 1000);
 
-  // JST
   document.getElementById('japan-time').textContent =
     date.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
-
-  // UTC
   document.getElementById('utc-time').textContent =
     date.toLocaleString('en-US', { timeZone: 'UTC', hour12: false });
-
-  // Local time (ユーザーのローカル時間)
   document.getElementById('local-time').textContent =
     date.toLocaleString();
+
+  // ===== 内部リンク URL パラメータ維持 =====
+  (function() {
+    const currentParams = window.location.search;
+    if (!currentParams) return;
+
+    const links = document.querySelectorAll('a[href]');
+    links.forEach(link => {
+      const url = new URL(link.href, window.location.origin);
+
+      // 外部リンクは除外
+      if (url.origin !== window.location.origin) return;
+
+      // すでにクエリがある場合は追加せず
+      if (url.search) return;
+
+      url.search = currentParams;
+      link.href = url.pathname + url.search + url.hash;
+    });
+  })();
 </script>
 
 </body>
