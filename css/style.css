@@ -5,7 +5,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Potta One', sans-serif;
+    font-family: 'Potta One', 'Arial', 'Helvetica', sans-serif;
 }
 
 body {
@@ -16,6 +16,7 @@ body {
     position: relative;
     overflow-x: hidden;
     transition: background-color 0.3s, color 0.3s;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
 }
 
 /* =========================
@@ -50,14 +51,6 @@ a {
     transition: color 0.3s;
 }
 
-body.light a {
-    color: #000;
-}
-
-body.dark a {
-    color: #fff;
-}
-
 /* =========================
    ヘッダー
 ========================= */
@@ -69,7 +62,7 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 16px 0;
+    padding: 1rem 0;
     background: transparent;
     position: relative;
     z-index: 10;
@@ -94,7 +87,7 @@ header {
 }
 
 h1 {
-    font-size: 2rem;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
     margin: 1rem auto;
     line-height: 1.2;
 }
@@ -115,7 +108,7 @@ section {
 }
 
 section h2 {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 3vw, 2rem);
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -133,6 +126,7 @@ section h2 {
     text-align: center;
     max-width: 700px;
     margin: 0.5rem auto;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
 }
 
 /* =========================
@@ -181,6 +175,7 @@ section h2 {
     font-weight: 600;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
 }
 
 .work-card a:hover {
@@ -190,7 +185,7 @@ section h2 {
 
 .work-card p.note {
     margin-top: 0.5rem;
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 1vw, 0.9rem);
 }
 
 /* =========================
@@ -199,7 +194,7 @@ section h2 {
 footer {
     text-align: center;
     padding: 2rem 1rem;
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 1vw, 0.9rem);
     color: inherit;
 }
 
@@ -221,6 +216,11 @@ footer {
     flex-wrap: wrap;
     justify-content: center;
     gap: 6px;
+}
+
+#cookie-banner p {
+    flex-basis: 100%;
+    margin-bottom: 6px;
 }
 
 #cookie-banner button {
@@ -247,35 +247,26 @@ footer {
     color: #fff;
 }
 
-#cookie-banner p {
-    flex-basis: 100%;
-    margin-bottom: 6px;
-}
-
 /* =========================
-   レスポンシブ
+   レスポンシブ補助
 ========================= */
-@media (max-width: 768px) {
-    .works {
-        grid-template-columns: 1fr;
-    }
+@media (max-width: 480px) {
 
-    section h2 {
-        font-size: 1.5rem;
-    }
-
-    #profile .profile p {
-        font-size: 0.95rem;
+    .work-card img {
+        width: 64px;
+        height: 64px;
     }
 
     h1 {
-        font-size: 1.8rem;
+        font-size: clamp(1.4rem, 6vw, 1.8rem);
     }
-}
 
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 1.6rem;
+    section h2 {
+        font-size: clamp(1.2rem, 5vw, 1.6rem);
+    }
+
+    #profile .profile p {
+        font-size: clamp(0.85rem, 2vw, 0.95rem);
     }
 
     #cookie-banner {
