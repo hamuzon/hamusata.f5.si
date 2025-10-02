@@ -1,46 +1,41 @@
-// js/style-links.js
+// /js/style-links.js
 
-// ===== 年自動更新 =====
-const baseYear = 2025;
-const now = new Date().getFullYear();
-document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : baseYear;
-
-// ===== URLパラメータ取得 & テーマ適用 =====
-const urlParams = new URLSearchParams(window.location.search);
-const themeParam = urlParams.get('theme');
-
-if(themeParam === 'dark' || themeParam === 'light'){
-    document.body.className = themeParam;
-} else {
-    function applyTheme() {
-        document.body.className =
-            window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    applyTheme();
-    window.matchMedia('(prefers-color-scheme: dark)')
-          .addEventListener('change', applyTheme);
-}
-
-// ===== 相互リンク読み込み =====
 async function loadLinks() {
-    const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
-    const sheetName = "相互リンク";
+    const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
+    const sheetName = "links";
     const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
-    const container = document.getElementById("mutualLinks");
 
-    container.innerHTML = '<div class="sougolink">読み込み中...</div>';
+    // 表示対象セクションの初期値
+    const containers = {
+        portfolio: document.getElementById("portfolioLinks"),
+        random: document.getElementById("randomLinks"),
+        status: document.getElementById("statusLinks"),
+        "mutual-links": document.getElementById("mutualLinks"),
+        sns: document.getElementById("snsLinks")
+    };
+
+    // 初期表示「読み込み中」
+    Object.values(containers).forEach(container => {
+        if (container) {
+            container.innerHTML = "<p>読み込み中…</p>";
+        }
+    });
 
     try {
         const res = await fetch(url);
         const text = await res.text();
-        const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
-        const rows = json.table.rows.map(r => r.c.map(c => c ? c.v : ""));
+        const json = JSON.parse(
+            text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]
+        );
 
-        container.innerHTML = ""; // 初期値削除
+        const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
+        // 1行目はヘッダーなので除く
         rows.slice(1).forEach(row => {
             const [title, description, image, link, section] = row;
-            if (!link && !title) return;
+            if (!section || !containers[section]) return;
+
+            const container = containers[section];
 
             const card = document.createElement("div");
             card.className = "sougolink";
@@ -48,7 +43,9 @@ async function loadLinks() {
             if (image) {
                 const img = document.createElement("img");
                 img.src = image;
-                img.alt = title;
+                img.alt = title || "";
+                img.loading = "lazy";
+                img.decoding = "async";
                 card.appendChild(img);
             }
 
@@ -69,24 +66,26 @@ async function loadLinks() {
                 a.href = link;
                 a.target = "_blank";
                 a.rel = "noopener noreferrer";
-                a.textContent = "リンクを開く / Open";
+                a.textContent = "開く / Open";
                 card.appendChild(a);
             }
 
             container.appendChild(card);
         });
 
-        if (container.children.length === 0) {
-            container.innerHTML = '<div class="sougolink">相互リンクの読み込みに失敗</div>';
-        }
-
     } catch (e) {
-        console.error(e);
-        container.innerHTML = '<div class="sougolink">相互リンクの読み込みに失敗</div>';
+        console.error("links の読み込みに失敗:", e);
+        Object.values(containers).forEach(container => {
+            if (container) {
+                container.innerHTML = "<p>links の読み込みに失敗</p>";
+            }
+        });
     }
 }
 
+// ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", loadLinks);
+
 
 // ===== 内部リンクURLパラメータ維持 =====
 (function() {
