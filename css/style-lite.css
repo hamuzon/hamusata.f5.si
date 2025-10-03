@@ -5,7 +5,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Potta One', 'Arial', 'Helvetica', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -15,30 +15,20 @@ body {
     text-align: center;
     position: relative;
     overflow-x: hidden;
-    transition: background-color 0.3s, color 0.3s;
     font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    transition: none; /* 軽量化 */
 }
 
 /* =========================
    ライト・ダーク背景
 ========================= */
 body.light {
-    background: 
-        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175,109,255,0.85), transparent 68%),
-        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,100,180,0.75), transparent 68%),
-        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,235,170,0.98), transparent 68%),
-        radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120,190,255,0.3), transparent 68%),
-        linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
+    background: #f7eaff;
     color: #000;
 }
 
 body.dark {
     background-color: #0a0a0a;
-    background-image: 
-        radial-gradient(ellipse at 20% 30%, rgba(56,189,248,0.4) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 70%, rgba(139,92,246,0.3) 0%, transparent 70%),
-        radial-gradient(ellipse at 60% 20%, rgba(236,72,153,0.25) 0%, transparent 50%),
-        radial-gradient(ellipse at 40% 80%, rgba(34,197,94,0.2) 0%, transparent 65%);
     color: #fff;
 }
 
@@ -48,7 +38,6 @@ body.dark {
 a {
     color: inherit;
     text-decoration: underline;
-    transition: color 0.3s;
 }
 
 /* =========================
@@ -64,8 +53,6 @@ header {
     justify-content: center;
     padding: 1rem 0;
     background: transparent;
-    position: relative;
-    z-index: 10;
 }
 
 .banner-link {
@@ -78,12 +65,7 @@ header {
     width: min(100%, 512px);
     height: auto;
     max-height: 120px;
-    object-fit: contain;
-    border-radius: 14px;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(24px);
-    transition: background-color 0.3s;
+    border-radius: 8px;
 }
 
 h1 {
@@ -99,12 +81,9 @@ section {
     max-width: 1000px;
     margin: 3rem auto;
     padding: 2rem;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(28px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
     color: inherit;
-    transition: background-color 0.3s, color 0.3s;
 }
 
 section h2 {
@@ -118,7 +97,6 @@ section h2 {
 ========================= */
 #profile {
     background-color: transparent;
-    box-shadow: none;
     padding: 0;
 }
 
@@ -135,31 +113,22 @@ section h2 {
 .works {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .work-card {
     display: block;
-    padding: 1.5rem;
+    padding: 1rem;
     text-align: center;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(28px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
-    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
 }
 
 .work-card img {
     width: 80px;
     height: 80px;
     margin-bottom: 1rem;
-    border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.3);
-}
-
-.work-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 45px rgba(0,0,0,0.35);
+    border-radius: 8px;
 }
 
 .work-card a {
@@ -168,13 +137,12 @@ section h2 {
     justify-content: center;
     gap: 0.5rem;
     margin-top: 1rem;
-    padding: 0.8rem 1.8rem;
-    border-radius: 18px;
-    background-color: rgba(0,188,212,0.15);
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    background-color: rgba(0,188,212,0.1);
     color: inherit;
     font-weight: 600;
     text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
     font-size: clamp(0.9rem, 1.2vw, 1rem);
 }
 
@@ -211,7 +179,7 @@ footer {
     padding: 12px;
     text-align: center;
     font-size: 14px;
-    z-index: 99999;
+    z-index: 9999;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -229,7 +197,6 @@ footer {
     border: none;
     border-radius: 6px;
     font-weight: 600;
-    transition: background-color 0.3s, color 0.3s;
 }
 
 #cookie-banner button#minimal-cookie {
