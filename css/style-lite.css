@@ -61,9 +61,8 @@ header {
   max-height: 120px;
   object-fit: contain;
   border-radius: 14px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.2);
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(24px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.1);
   transition: background-color 0.3s;
 }
 
@@ -78,9 +77,8 @@ section {
   margin: 3rem auto;
   padding: 2rem;
   border-radius: 20px;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(28px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  background-color: rgba(255,255,255,0.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   color: inherit;
   transition: background-color 0.3s, color 0.3s;
 }
@@ -115,9 +113,8 @@ section h2 {
   padding: 1.5rem;
   text-align: center;
   border-radius: 20px;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(28px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  background-color: rgba(255,255,255,0.08);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
 
@@ -126,12 +123,12 @@ section h2 {
   height: 80px;
   margin-bottom: 1rem;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.3);
+  border: 2px solid rgba(255,255,255,0.2);
 }
 
 .work-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 45px rgba(0,0,0,0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
 .work-card a {
@@ -142,7 +139,7 @@ section h2 {
   margin-top: 1rem;
   padding: 0.8rem 1.8rem;
   border-radius: 18px;
-  background-color: rgba(0,188,212,0.15);
+  background-color: rgba(0,188,212,0.1);
   color: inherit;
   font-weight: 600;
   text-decoration: none;
