@@ -157,5 +157,16 @@
   <script src="js/script-sub.js"></script>
   <script src="js/links-sub.js"></script>
 
+<script>
+  // リロード時にハッシュ(#profile など)を削除してトップに戻す
+  window.addEventListener('load', () => {
+    if (location.hash) {
+      // ハッシュを削除してページをトップへスクロール
+      history.replaceState(null, '', location.pathname + location.search);
+      window.scrollTo({ top: 0 });
+    }
+  });
+</script>
+
  </body>
 </html>
