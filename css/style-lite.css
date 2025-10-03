@@ -5,7 +5,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif; 
 }
 
 body {
@@ -16,14 +16,13 @@ body {
     position: relative;
     overflow-x: hidden;
     font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-    transition: none; /* 軽量化 */
 }
 
 /* =========================
    ライト・ダーク背景
 ========================= */
 body.light {
-    background: #f7eaff;
+    background: linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
     color: #000;
 }
 
@@ -52,12 +51,6 @@ header {
     align-items: center;
     justify-content: center;
     padding: 1rem 0;
-    background: transparent;
-}
-
-.banner-link {
-    display: block;
-    margin-bottom: 1rem;
 }
 
 .banner-link img {
@@ -68,10 +61,59 @@ header {
     border-radius: 8px;
 }
 
+#menu-toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 22px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+#menu-toggle span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: currentColor;
+    border-radius: 2px;
+}
+
+/* =========================
+   モバイルメニュー
+========================= */
+#mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.05);
+    z-index: 100;
+    padding: 1rem 0;
+}
+
+#mobile-menu ul {
+    list-style: none;
+}
+
+#mobile-menu li {
+    margin: 0.5rem 0;
+}
+
+/* =========================
+   見出し
+========================= */
 h1 {
     font-size: clamp(1.6rem, 4vw, 2.2rem);
     margin: 1rem auto;
     line-height: 1.2;
+}
+
+section h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 1rem;
 }
 
 /* =========================
@@ -84,22 +126,12 @@ section {
     border-radius: 12px;
     background: rgba(255,255,255,0.05);
     color: inherit;
-}
-
-section h2 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    margin-bottom: 1rem;
-    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 /* =========================
    自己紹介
 ========================= */
-#profile {
-    background-color: transparent;
-    padding: 0;
-}
-
 #profile .profile p {
     text-align: center;
     max-width: 700px;
@@ -122,6 +154,12 @@ section h2 {
     text-align: center;
     border-radius: 12px;
     background: rgba(255,255,255,0.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.2s;
+}
+
+.work-card:hover {
+    transform: translateY(-4px);
 }
 
 .work-card img {
@@ -131,12 +169,21 @@ section h2 {
     border-radius: 8px;
 }
 
+.work-card h3 {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    margin-bottom: 0.5rem;
+}
+
+.work-card p {
+    font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+}
+
 .work-card a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     padding: 0.6rem 1.2rem;
     border-radius: 12px;
     background-color: rgba(0,188,212,0.1);
@@ -199,49 +246,19 @@ footer {
     font-weight: 600;
 }
 
-#cookie-banner button#minimal-cookie {
-    background: #555;
-    color: #fff;
-}
-
-#cookie-banner button#accept-all-cookie {
-    background: #2a9d8f;
-    color: #fff;
-}
-
-#cookie-banner button#reject-cookie {
-    background: #d62828;
-    color: #fff;
-}
+#cookie-banner button#minimal-cookie { background: #555; color: #fff; }
+#cookie-banner button#accept-all-cookie { background: #2a9d8f; color: #fff; }
+#cookie-banner button#reject-cookie { background: #d62828; color: #fff; }
 
 /* =========================
-   レスポンシブ補助
+   レスポンシブ
 ========================= */
 @media (max-width: 480px) {
-
-    .work-card img {
-        width: 64px;
-        height: 64px;
-    }
-
-    h1 {
-        font-size: clamp(1.4rem, 6vw, 1.8rem);
-    }
-
-    section h2 {
-        font-size: clamp(1.2rem, 5vw, 1.6rem);
-    }
-
-    #profile .profile p {
-        font-size: clamp(0.85rem, 2vw, 0.95rem);
-    }
-
-    #cookie-banner {
-        font-size: 13px;
-    }
-
-    #cookie-banner button {
-        padding: 5px 10px;
-        font-size: 0.85rem;
-    }
+    .work-card img { width: 64px; height: 64px; }
+    h1 { font-size: clamp(1.4rem, 6vw, 1.8rem); }
+    section h2 { font-size: clamp(1.2rem, 5vw, 1.6rem); }
+    #profile .profile p { font-size: clamp(0.85rem, 2vw, 0.95rem); }
+    #cookie-banner { font-size: 13px; }
+    #cookie-banner button { padding: 5px 10px; font-size: 0.85rem; }
+    #mobile-menu { display: block; }
 }
