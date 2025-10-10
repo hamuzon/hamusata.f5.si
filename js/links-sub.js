@@ -3,10 +3,13 @@
 // ============================================
 
 async function loadLinks() {
-  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
-  const sheetName = "sub";
+  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
+  const sheetName = "sub"; // シート名
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
+  // -----------------------------
+  // セクション初期値設定
+  // -----------------------------
   const sections = {
     portfolio: { container: document.getElementById("portfolioLinks"), name: "ポートフォリオ", default: "読み込み中..." },
     random: { container: document.getElementById("randomLinks"), name: "ランダム作品", default: "読み込み中..." },
@@ -15,6 +18,7 @@ async function loadLinks() {
     sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
   };
 
+  // 初期表示
   for (const key in sections) {
     if (sections[key].container) {
       sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
@@ -22,43 +26,45 @@ async function loadLinks() {
   }
 
   try {
+    // -----------------------------
+    // スプレッドシート取得
+    // -----------------------------
     const res = await fetch(url);
     const text = await res.text();
-    const json = JSON.parse(
-      text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]
-    );
+    const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
+    // セクション初期化
     for (const key in sections) {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
 
+    // -----------------------------
+    // 季節リンク定義
+    // -----------------------------
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
       summer: "https://home.hamusata.f5.si/summer",
       autumn: "https://home.hamusata.f5.si/autumn",
       winter: "https://home.hamusata.f5.si/winter"
     };
-
     const month = new Date().getMonth() + 1;
-    const season =
-      month >= 3 && month <= 5
-        ? "spring"
-        : month >= 6 && month <= 8
-        ? "summer"
-        : month >= 9 && month <= 11
-        ? "autumn"
-        : "winter";
+    const season = month >= 3 && month <= 5 ? "spring" :
+                   month >= 6 && month <= 8 ? "summer" :
+                   month >= 9 && month <= 11 ? "autumn" : "winter";
 
+    // -----------------------------
+    // リンクカード生成
+    // -----------------------------
     rows.slice(1).forEach(row => {
       const [title, description, image, link, section, internalLinkFlag] = row;
-
       if (!section || !sections[section] || !sections[section].container) return;
 
       const container = sections[section].container;
       const card = document.createElement("div");
       card.className = "work-card";
 
+      // 画像
       if (image) {
         const img = document.createElement("img");
         img.src = image;
@@ -68,29 +74,30 @@ async function loadLinks() {
         card.appendChild(img);
       }
 
+      // タイトル
       const h3 = document.createElement("h3");
       h3.textContent = title;
       card.appendChild(h3);
 
+      // 説明文
       if (description) {
         const p = document.createElement("p");
         p.innerHTML = description;
         card.appendChild(p);
       }
 
+      // リンク
       if (link) {
         const a = document.createElement("a");
 
-        const isInternal = ["on", "1", "true"].includes(
-          String(internalLinkFlag).toLowerCase()
-        );
-
+        // 内部リンク判定 (ON/1/true)
+        const isInternal = ["on","1","true"].includes(String(internalLinkFlag).toLowerCase());
         if (isInternal) {
-          a.href = link + "?internal=1";
+          a.href = link + "?internal=1"; // 内部リンク向けURL
         } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
-          a.href = seasonLinks[season] || link;
+          a.href = seasonLinks[season] || link; // 季節リンク
         } else {
-          a.href = link;
+          a.href = link; // 通常リンク
         }
 
         a.target = "_blank";
@@ -102,12 +109,15 @@ async function loadLinks() {
       container.appendChild(card);
     });
 
+    // データがない場合の表示
     for (const key in sections) {
       if (sections[key].container && sections[key].container.children.length === 0) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
       }
     }
+
   } catch (e) {
+    // 全セクション読み込み失敗
     for (const key in sections) {
       if (sections[key].container) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
@@ -117,17 +127,24 @@ async function loadLinks() {
   }
 }
 
+// ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", loadLinks);
 
-(function () {
+// ============================================
+// 内部リンクURLパラメータ維持
+// ============================================
+(function() {
   const currentParams = window.location.search;
   if (!currentParams) return;
 
-  const links = document.querySelectorAll("a[href]");
+  const links = document.querySelectorAll('a[href]');
   links.forEach(link => {
     const url = new URL(link.href, window.location.origin);
 
+    // 外部リンクを除外
     if (url.origin !== window.location.origin) return;
+
+    // すでにクエリがある場合は追加せず
     if (url.search) return;
 
     url.search = currentParams;
