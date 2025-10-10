@@ -91,9 +91,9 @@ async function loadLinks() {
         const a = document.createElement("a");
 
         // 内部リンク判定 (ON/1/true)
-        const isInternal = ["on","1","true"].includes(String(internalLinkFlag).toLowerCase());
+        const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
         if (isInternal) {
-          a.href = link + "?internal=1"; // 内部リンク向けURL
+          a.href = link + "?internal=1"; // 内部リンク向け
         } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
           a.href = seasonLinks[season] || link; // 季節リンク
         } else {
@@ -109,7 +109,7 @@ async function loadLinks() {
       container.appendChild(card);
     });
 
-    // データがない場合の表示
+    // データがない場合
     for (const key in sections) {
       if (sections[key].container && sections[key].container.children.length === 0) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
