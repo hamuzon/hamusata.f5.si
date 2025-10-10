@@ -22,8 +22,6 @@
 
 <!-- Base Style -->
 <link rel="stylesheet" href="css/style-lite.css">
-
-<!-- Mobile Menu CSS -->
 <link rel="stylesheet" href="css/mobile-menu.css">
 
 <!-- テーマCSS -->
@@ -50,12 +48,163 @@ themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`
 <meta name="twitter:title" content="HAMUSATA – ホームページ">
 <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
 <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp">
+
+<style>
+/* =========================
+   Cookieバナー
+========================= */
+#cookie-banner {
+  display: none;
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  background: #fff;
+  color: #000;
+  padding: 12px 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  z-index: 9999; /* オーバーレイより前面 */
+  font-family: 'Potta One', cursive;
+}
+
+#cookie-banner p {
+  margin: 4px 0;
+}
+
+#cookie-banner button {
+  margin-right: 8px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #00bcd4;
+  color: #fff;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+#cookie-banner button:hover {
+  background-color: #0097a7;
+}
+
+/* =========================
+   ハンバーガーメニュー
+========================= */
+#menu-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: transform 0.4s ease;
+}
+
+#menu-toggle span {
+  display: block;
+  height: 4px;
+  background-color: #000;
+  border-radius: 2px;
+  transition: all 0.4s ease;
+}
+
+body.dark #menu-toggle span {
+  background-color: #fff;
+}
+
+#menu-toggle.active span:nth-child(1) {
+  transform: rotate(-45deg) translate(-6px, 6px);
+}
+#menu-toggle.active span:nth-child(2) { opacity: 0; }
+#menu-toggle.active span:nth-child(3) {
+  transform: rotate(45deg) translate(-6px, -6px);
+}
+
+/* =========================
+   モバイルメニュー
+========================= */
+#mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 75%;
+  max-width: 320px;
+  height: 100vh;
+  padding-top: 80px;
+  border-radius: 16px 0 0 16px;
+  overflow-y: auto;
+  z-index: 1000;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(28px) saturate(120%);
+  box-shadow: -8px 0 24px rgba(0,0,0,0.25);
+  transition: right 0.4s ease, background 0.3s;
+}
+
+body.dark #mobile-menu {
+  background: rgba(10,10,10,0.6);
+}
+
+#mobile-menu.open { right: 0; }
+#mobile-menu ul { list-style: none; padding: 0; margin: 0; }
+#mobile-menu li { margin: 0; }
+#mobile-menu a {
+  display: block;
+  padding: 18px 24px;
+  font-size: 18px;
+  color: var(--md-sys-color-on-surface, #000);
+  text-decoration: none;
+  border-radius: 12px;
+  margin: 6px 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(22px);
+  transition: background 0.3s, color 0.3s, transform 0.3s;
+}
+
+body.dark #mobile-menu a { color: #fff; border-bottom: 1px solid rgba(255,255,255,0.05); }
+#mobile-menu a:hover { background-color: rgba(0,188,212,0.2); color: #00bcd4; transform: translateX(4px); }
+
+/* =========================
+   オーバーレイ
+========================= */
+#menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease;
+  z-index: 900;
+}
+#menu-overlay.active { opacity: 1; visibility: visible; }
+
+/* =========================
+   レスポンシブ
+========================= */
+@media (max-width: 480px) {
+  #mobile-menu { width: 85%; padding-top: 70px; }
+  #mobile-menu a { font-size: 16px; padding: 14px 20px; }
+}
+</style>
+
 </head>
 
 <body class="light">
 
 <!-- Cookieバナー -->
-<div id="cookie-banner" style="display:none; position:fixed; bottom:10px; left:10px; right:10px; background:#fff; color:#000; padding:12px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.3); z-index:2000;">
+<div id="cookie-banner">
   <p>このサイトではCookieを使用します。</p>
   <p>
     <button id="minimal-cookie">必要最低限のみ</button>
@@ -64,7 +213,6 @@ themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`
   </p>
 </div>
 
-<!-- ヘッダー -->
 <header>
   <a href="index.html" id="home" class="banner-link">
     <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
@@ -92,7 +240,6 @@ themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`
       </li>
     </ul>
   </nav>
-
   <div id="menu-overlay"></div>
 
   <!-- 広告スクリプト -->
@@ -113,43 +260,17 @@ themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`
     </div>
   </section>
 
-  <!-- ポートフォリオリンク -->
-  <section id="portfolio">
-    <h2>ポートフォリオリンク集</h2>
-    <div class="works" id="portfolioLinks"></div>
-  </section>
-
-  <!-- ランダム作品 -->
-  <section id="random">
-    <h2>ランダム作品</h2>
-    <div class="works" id="randomLinks"></div>
-  </section>
-
-  <!-- サービス稼働状況 -->
-  <section id="status">
-    <h2>サービス稼働状況</h2>
-    <div class="works" id="statusLinks"></div>
-  </section>
-
-  <!-- 相互リンク -->
-  <section id="mutual-links">
-    <h2>相互リンク</h2>
-    <div class="works" id="mutualLinks"></div>
-  </section>
-
-  <!-- SNSリンク -->
-  <section id="sns">
-    <h2>SNSリンク</h2>
-    <div class="works" id="snsLinks"></div>
-  </section>
+  <section id="portfolio"><h2>ポートフォリオリンク集</h2><div class="works" id="portfolioLinks"></div></section>
+  <section id="random"><h2>ランダム作品</h2><div class="works" id="randomLinks"></div></section>
+  <section id="status"><h2>サービス稼働状況</h2><div class="works" id="statusLinks"></div></section>
+  <section id="mutual-links"><h2>相互リンク</h2><div class="works" id="mutualLinks"></div></section>
+  <section id="sns"><h2>SNSリンク</h2><div class="works" id="snsLinks"></div></section>
 </main>
 
-<!-- フッター -->
 <footer>
   &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved.
 </footer>
 
-<!-- JS -->
 <script src="js/script-sub.js"></script>
 <script src="js/links-sub.js"></script>
 
@@ -188,7 +309,7 @@ document.querySelectorAll("#mobile-menu a").forEach(link => {
   });
 });
 
-// リロード時にハッシュ(#profileなど)を削除
+// リロード時にハッシュ削除
 window.addEventListener('load', () => {
   if(location.hash){
     history.replaceState(null, '', location.pathname + location.search);
@@ -196,12 +317,8 @@ window.addEventListener('load', () => {
   }
 });
 
-// Cookieバナー制御（簡易例）
-function showCookieBanner() {
-  const banner = document.getElementById('cookie-banner');
-  banner.style.display = 'block';
-}
-showCookieBanner();
+// Cookieバナー表示
+document.getElementById('cookie-banner').style.display = 'block';
 </script>
 
 </body>
