@@ -142,7 +142,11 @@ document.addEventListener("DOMContentLoaded", loadLinks);
     const url = new URL(link.href, window.location.origin);
 
     // 外部リンクを除外
-    if (url.origin !== window.location.origin) return;
+    if (url.hostname !== "hamusata.f5.si") return;
+
+    // ルート直下やindex.htmlはパラメータ付与しない
+    const path = url.pathname.replace(/\/+$/, '');
+    if (path === "" || path === "/index.html") return;
 
     // すでにクエリがある場合は追加せず
     if (url.search) return;
