@@ -142,6 +142,18 @@
       #mobile-menu a{font-size:16px; padding:14px 20px;}
     }
   </style>
+  
+    <script>
+    const themeCSS = [
+      "css/dark.css",
+      "css/dark-hc.css",
+      "css/dark-mc.css",
+      "css/light.css",
+      "css/light-hc.css",
+      "css/light-mc.css"
+    ];
+    themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
+  </script>
 </head>
 
 <body class="light">
