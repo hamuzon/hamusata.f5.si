@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
+  <!-- CSS -->
   <link rel="stylesheet" href="css/style-lite.css">
   <link rel="stylesheet" href="css/mobile-menu.css">
 
@@ -36,7 +36,6 @@
     ];
     themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
   </script>
-
 
   <!-- SEO -->
   <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
@@ -69,7 +68,7 @@
       <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
     </a>
 
-    <button id="menu-toggle" aria-label="メニューを開く">
+    <button id="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
 
@@ -92,10 +91,9 @@
       </ul>
     </nav>
     <div id="menu-overlay"></div>
-    
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7413522404678991"
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7413522404678991"
      crossorigin="anonymous"></script>
-    
   </header>
 
   <main>
@@ -114,41 +112,31 @@
     <!-- ポートフォリオリンク -->
     <section id="portfolio">
       <h2>ポートフォリオリンク集</h2>
-      <div class="works" id="portfolioLinks">
-        <!-- js/links-sub.js で動的読み込み -->
-      </div>
+      <div class="works" id="portfolioLinks"></div>
     </section>
 
     <!-- ランダム作品 -->
     <section id="random">
       <h2>ランダム作品</h2>
-      <div class="works" id="randomLinks">
-        <!-- js/links-sub.js で動的読み込み -->
-      </div>
+      <div class="works" id="randomLinks"></div>
     </section>
 
     <!-- サービス稼働状況 -->
     <section id="status">
       <h2>サービス稼働状況</h2>
-      <div class="works" id="statusLinks">
-        <!-- js/links-sub.js で動的読み込み -->
-      </div>
+      <div class="works" id="statusLinks"></div>
     </section>
 
     <!-- 相互リンク -->
     <section id="mutual-links">
       <h2>相互リンク</h2>
-      <div class="works" id="mutualLinks">
-        <!-- js/links-sub.js で動的読み込み -->
-      </div>
+      <div class="works" id="mutualLinks"></div>
     </section>
 
     <!-- SNSリンク -->
     <section id="sns">
       <h2>SNSリンク</h2>
-      <div class="works" id="snsLinks">
-        <!-- js/links-sub.js で動的読み込み -->
-      </div>
+      <div class="works" id="snsLinks"></div>
     </section>
   </main>
 
@@ -161,16 +149,44 @@
   <script src="js/script-sub.js"></script>
   <script src="js/links-sub.js"></script>
 
-<script>
-  // リロード時にハッシュ(#profile など)を削除してトップに戻す
-  window.addEventListener('load', () => {
-    if (location.hash) {
-      // ハッシュを削除してページをトップへスクロール
-      history.replaceState(null, '', location.pathname + location.search);
-      window.scrollTo({ top: 0 });
-    }
-  });
-</script>
+  <script>
+    // ページロード時にハッシュ削除
+    window.addEventListener('load', () => {
+      if (location.hash) {
+        history.replaceState(null, '', location.pathname + location.search);
+        window.scrollTo({ top: 0 });
+      }
+    });
 
- </body>
+    // メニュー開閉スクリプト
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuOverlay = document.getElementById("menu-overlay");
+
+    menuToggle.addEventListener("click", () => {
+      const expanded = menuToggle.getAttribute("aria-expanded") === "true" || false;
+      menuToggle.setAttribute("aria-expanded", !expanded);
+      mobileMenu.classList.toggle("open");
+      menuOverlay.classList.toggle("active");
+      menuToggle.classList.toggle("active");
+    });
+
+    menuOverlay.addEventListener("click", () => {
+      mobileMenu.classList.remove("open");
+      menuOverlay.classList.remove("active");
+      menuToggle.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", false);
+    });
+
+    document.querySelectorAll("#mobile-menu a").forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+        menuOverlay.classList.remove("active");
+        menuToggle.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", false);
+      });
+    });
+  </script>
+
+</body>
 </html>
