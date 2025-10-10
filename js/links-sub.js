@@ -31,7 +31,8 @@ async function loadLinks() {
     // -----------------------------
     const res = await fetch(url);
     const text = await res.text();
-    const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
+    const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([
+\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
     // セクション初期化
@@ -93,11 +94,13 @@ async function loadLinks() {
         // 内部リンク判定 (ON/1/true)
         const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
         if (isInternal) {
-          a.href = link + "?internal=1"; // 内部リンク向け
+          a.href = link;
+          a.setAttribute("data-inside", "1");
         } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
-          a.href = seasonLinks[season] || link; // 季節リンク
+          a.href = seasonLinks[season] || link;
         } else {
-          a.href = link; // 通常リンク
+          a.href = link;
+          a.setAttribute("data-inside", "0");
         }
 
         a.target = "_blank";
@@ -137,21 +140,14 @@ document.addEventListener("DOMContentLoaded", loadLinks);
   const currentParams = window.location.search;
   if (!currentParams) return;
 
-  const links = document.querySelectorAll('a[href]');
+  const theme = new URLSearchParams(currentParams).get('theme');
+  if (!theme) return;
+
+  const links = document.querySelectorAll('a[data-inside="1"]');
   links.forEach(link => {
     const url = new URL(link.href, window.location.origin);
-
-    // 外部リンクを除外
-    if (url.hostname !== "hamusata.f5.si") return;
-
-    // ルート直下やindex.htmlはパラメータ付与しない
-    const path = url.pathname.replace(/\/+$/, '');
-    if (path === "" || path === "/index.html") return;
-
-    // すでにクエリがある場合は追加せず
-    if (url.search) return;
-
-    url.search = currentParams;
+    if (url.searchParams.get('theme')) return;
+    url.searchParams.set('theme', theme);
     link.href = url.pathname + url.search + url.hash;
   });
 })();
