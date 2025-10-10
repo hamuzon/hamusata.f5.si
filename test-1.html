@@ -1,396 +1,305 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HAMUSATA – ホームページ</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAMUSATA – ホームページ</title>
 
-  <!-- Favicon -->
-  <link rel="icon" href="https://hamusata.f5.si/favicon.ico" type="image/x-icon">
-  <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png" sizes="32x32">
-  <link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp" sizes="32x32">
-  <link rel="icon" type="image/svg+xml" href="https://hamusata.f5.si/icon.svg">
-  <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
+<!-- Favicon -->
+<link rel="icon" href="https://hamusata.f5.si/favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png" sizes="32x32">
+<link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="https://hamusata.f5.si/icon.svg">
+<link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
 
-  <!-- PWA manifest -->
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#000000">
+<!-- PWA manifest -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#000000">
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
-  <!-- メインCSS（統合版） -->
-  <style>
-    :root {
-      --bg: #f8f8f8;
-      --fg: #222;
-      --accent: #0077cc;
-      --border: #ddd;
-      --shadow: rgba(0, 0, 0, 0.15);
-    }
+<!-- Base Style -->
+<link rel="stylesheet" href="css/style-lite.css">
 
-    body {
-      font-family: "Noto Sans JP", sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      margin: 0;
-      transition: background 0.3s, color 0.3s;
-    }
+<!-- モバイルメニュー CSS 統合 -->
+<style>
+/* ハンバーガーメニュー */
+#menu-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+    box-sizing: border-box;
+    transition: transform 0.4s ease;
+}
 
-    header {
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 16px;
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
+#menu-toggle span {
+    display: block;
+    height: 4px;
+    background-color: #000;
+    border-radius: 2px;
+    transition: all 0.4s ease;
+}
 
-    header img {
-      max-height: 60px;
-    }
+body.dark #menu-toggle span {
+    background-color: #fff;
+}
 
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+#menu-toggle.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-6px, 6px);
+}
 
-    h1, h2 {
-      font-family: "Potta One", cursive;
-      color: var(--fg);
-    }
+#menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
 
-    section {
-      margin-bottom: 40px;
-    }
+#menu-toggle.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-6px, -6px);
+}
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
+/* モバイルメニュー */
+#mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 75%;
+    max-width: 320px;
+    height: 100vh;
+    padding-top: 80px;
+    border-radius: 16px 0 0 16px;
+    overflow-y: auto;
+    z-index: 1000;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(28px) saturate(120%);
+    box-shadow: -8px 0 24px rgba(0,0,0,0.25);
+    transition: right 0.4s ease, background 0.3s;
+}
 
-    a:hover {
-      text-decoration: underline;
-    }
+body.dark #mobile-menu {
+    background: rgba(10,10,10,0.6);
+}
 
-    footer {
-      background: #fff;
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      border-top: 1px solid var(--border);
-      color: #555;
-    }
+#mobile-menu.open {
+    right: 0;
+}
 
-    /* ====== メニュー・ボタン ====== */
-    #menu-toggle {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      width: 28px;
-      height: 24px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      z-index: 1001;
-      padding: 0;
-    }
+#mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
-    #menu-toggle span {
-      display: block;
-      width: 100%;
-      height: 3px;
-      background: var(--fg);
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
+#mobile-menu li {
+    margin: 0;
+}
 
-    #menu-toggle.active span:nth-child(1) {
-      transform: translateY(9px) rotate(45deg);
-    }
-    #menu-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-    #menu-toggle.active span:nth-child(3) {
-      transform: translateY(-9px) rotate(-45deg);
-    }
+#mobile-menu a {
+    display: block;
+    padding: 18px 24px;
+    font-size: 18px;
+    color: var(--md-sys-color-on-surface, #000);
+    text-decoration: none;
+    border-radius: 12px;
+    margin: 6px 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(22px);
+    transition: background 0.3s, color 0.3s, transform 0.3s;
+}
 
-    /* ====== モバイルメニュー ====== */
+body.dark #mobile-menu a {
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+#mobile-menu a:hover {
+    background-color: rgba(0,188,212,0.2);
+    color: #00bcd4;
+    transform: translateX(4px);
+}
+
+/* オーバーレイ */
+#menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    z-index: 900;
+}
+
+#menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* レスポンシブ */
+@media (max-width: 480px) {
     #mobile-menu {
-      position: fixed;
-      top: 0;
-      right: -260px;
-      width: 260px;
-      height: 100%;
-      background: #fff;
-      box-shadow: -2px 0 8px var(--shadow);
-      transition: right 0.3s ease;
-      z-index: 1000;
-      padding-top: 80px;
-      overflow-y: auto;
-    }
-
-    #mobile-menu.open {
-      right: 0;
-    }
-
-    #mobile-menu ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    #mobile-menu li {
-      border-bottom: 1px solid var(--border);
+        width: 85%;
+        padding-top: 70px;
     }
 
     #mobile-menu a {
-      display: block;
-      padding: 14px 20px;
-      color: var(--fg);
-      font-weight: 500;
-      transition: background 0.2s;
+        font-size: 16px;
+        padding: 14px 20px;
     }
+}
 
-    #mobile-menu a:hover {
-      background: #f0f0f0;
-    }
-
-    /* ====== オーバーレイ ====== */
-    #menu-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.4);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s;
-      z-index: 999;
-    }
-
-    #menu-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* ====== グリッド作品表示 ====== */
-    .works {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 16px;
-    }
-
-    .works div {
-      background: #fff;
-      border-radius: 10px;
-      padding: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      text-align: center;
-      font-size: 15px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .works div:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-    }
-
-    /* ====== Cookieバナー ====== */
-    #cookie-banner {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: #fff;
-      border-top: 1px solid var(--border);
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
-      text-align: center;
-      padding: 12px;
-      z-index: 1500;
-      display: none;
-    }
-
-    #cookie-banner p {
-      margin: 6px 0;
-    }
-
-    #cookie-banner button {
-      margin: 5px;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      background: var(--accent);
-      color: #fff;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
-
-    #cookie-banner button:hover {
-      background: #005fa3;
-    }
-
-    /* ====== PC時レイアウト ====== */
-    @media (min-width: 800px) {
-      #menu-toggle {
-        display: none;
-      }
-
-      #mobile-menu {
+/* PC表示 横並び */
+@media (min-width: 800px) {
+    #menu-toggle { display: none; }
+    #mobile-menu {
         position: static;
         height: auto;
         width: auto;
         box-shadow: none;
         padding: 0;
-      }
-
-      #mobile-menu ul {
+        display: flex;
+    }
+    #mobile-menu ul {
         display: flex;
         gap: 20px;
         align-items: center;
-      }
-
-      #mobile-menu li {
-        border: none;
-      }
-
-      #menu-overlay {
-        display: none;
-      }
-
-      header {
-        padding: 14px 30px;
-      }
     }
-  </style>
+    #mobile-menu li {
+        border: none;
+    }
+    #mobile-menu a {
+        margin: 0;
+        padding: 8px 12px;
+        background: none;
+        border-radius: 0;
+        font-size: 16px;
+    }
+    #menu-overlay { display: none; }
+}
+</style>
 </head>
 
 <body class="light">
 
-  <!-- Cookieバナー -->
-  <div id="cookie-banner" style="display:none;">
-    <p>このサイトではCookieを使用します。</p>
-    <p>
-      <button id="minimal-cookie">必要最低限のみ</button>
-      <button id="accept-all-cookie">全て許可</button>
-      <button id="reject-cookie">拒否</button>
-    </p>
-  </div>
-
-  <!-- ヘッダー -->
-  <header>
-    <a href="index.html" id="home" class="banner-link">
-      <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
+<header>
+    <a href="index.html" class="banner-link">
+        <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
     </a>
 
     <button id="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
-      <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
     </button>
 
     <nav id="mobile-menu">
-      <ul>
-        <li><a href="#home" class="nav-home">ホーム</a></li>
-        <li><a href="#profile">自己紹介</a></li>
-        <li><a href="#portfolio">ポートフォリオ</a></li>
-        <li><a href="#random">ランダム作品</a></li>
-        <li><a href="#status">サービス稼働状況</a></li>
-        <li><a href="#mutual-links">相互リンク</a></li>
-        <li><a href="#sns">SNSリンク</a></li>
-        <li><a href="terms.html">利用規約・プライバシーポリシー</a></li>
-        <li>
-          <a href="https://github.com/hamuzon/hamusata.f5.si" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:6px;">
-            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width:20px; height:20px; background-color:#222; border-radius:50%; padding:2px;">
-            site-Code-GitHub
-          </a>
-        </li>
-      </ul>
+        <ul>
+            <li><a href="#home">ホーム</a></li>
+            <li><a href="#profile">自己紹介</a></li>
+            <li><a href="#portfolio">ポートフォリオ</a></li>
+            <li><a href="#random">ランダム作品</a></li>
+            <li><a href="#status">サービス稼働状況</a></li>
+            <li><a href="#mutual-links">相互リンク</a></li>
+            <li><a href="#sns">SNSリンク</a></li>
+            <li><a href="terms.html">利用規約・プライバシーポリシー</a></li>
+            <li>
+                <a href="https://github.com/hamuzon/hamusata.f5.si" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:6px;">
+                    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width:20px; height:20px; background-color:#222; border-radius:50%; padding:2px;">
+                    site-Code-GitHub
+                </a>
+            </li>
+        </ul>
     </nav>
-    <div id="menu-overlay"></div>
-  </header>
 
-  <main>
+    <div id="menu-overlay"></div>
+</header>
+
+<main>
     <h1>HAMUSATA ホームページ</h1>
 
     <section id="profile">
-      <h2>自己紹介</h2>
-      <p>こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。</p>
-      <p>ハムスターを飼っています。</p>
-      <p>ネットの海でプログラミングしたりネットしたりして過ごしてます。</p>
+        <h2>自己紹介</h2>
+        <p>こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。</p>
+        <p>ハムスターを飼っています。</p>
+        <p>ネットの海でプログラミングしたりネットしたりして過ごしてます。</p>
     </section>
 
     <section id="portfolio">
-      <h2>ポートフォリオリンク集</h2>
-      <div class="works" id="portfolioLinks"></div>
+        <h2>ポートフォリオ</h2>
+        <div class="works" id="portfolioLinks"></div>
     </section>
 
     <section id="random">
-      <h2>ランダム作品</h2>
-      <div class="works" id="randomLinks"></div>
+        <h2>ランダム作品</h2>
+        <div class="works" id="randomLinks"></div>
     </section>
 
     <section id="status">
-      <h2>サービス稼働状況</h2>
-      <div class="works" id="statusLinks"></div>
+        <h2>サービス稼働状況</h2>
+        <div class="works" id="statusLinks"></div>
     </section>
 
     <section id="mutual-links">
-      <h2>相互リンク</h2>
-      <div class="works" id="mutualLinks"></div>
+        <h2>相互リンク</h2>
+        <div class="works" id="mutualLinks"></div>
     </section>
 
     <section id="sns">
-      <h2>SNSリンク</h2>
-      <div class="works" id="snsLinks"></div>
+        <h2>SNSリンク</h2>
+        <div class="works" id="snsLinks"></div>
     </section>
-  </main>
+</main>
 
-  <footer>
+<footer>
     &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved.
-  </footer>
+</footer>
 
-  <script>
-    // ハッシュ削除
-    window.addEventListener('load', () => {
-      if (location.hash) {
-        history.replaceState(null, '', location.pathname + location.search);
-        window.scrollTo({ top: 0 });
-      }
-    });
+<script>
+// 年更新
+document.getElementById("year").textContent = new Date().getFullYear();
 
-    // メニュー開閉
-    const menuToggle = document.getElementById("menu-toggle");
-    const mobileMenu = document.getElementById("mobile-menu");
-    const menuOverlay = document.getElementById("menu-overlay");
+// メニュー制御
+const menuToggle = document.getElementById("menu-toggle");
+const mobileMenu = document.getElementById("mobile-menu");
+const overlay = document.getElementById("menu-overlay");
 
-    menuToggle.addEventListener("click", () => {
-      const expanded = menuToggle.getAttribute("aria-expanded") === "true" || false;
-      menuToggle.setAttribute("aria-expanded", !expanded);
-      mobileMenu.classList.toggle("open");
-      menuOverlay.classList.toggle("active");
-      menuToggle.classList.toggle("active");
-    });
+menuToggle.addEventListener("click", () => {
+    const expanded = menuToggle.classList.toggle("active");
+    mobileMenu.classList.toggle("open");
+    overlay.classList.toggle("active");
+    document.body.classList.toggle("menu-open");
+    menuToggle.setAttribute("aria-expanded", expanded);
+});
 
-    menuOverlay.addEventListener("click", () => {
-      mobileMenu.classList.remove("open");
-      menuOverlay.classList.remove("active");
-      menuToggle.classList.remove("active");
-      menuToggle.setAttribute("aria-expanded", false);
-    });
+overlay.addEventListener("click", () => {
+    mobileMenu.classList.remove("open");
+    overlay.classList.remove("active");
+    menuToggle.classList.remove("active");
+    document.body.classList.remove("menu-open");
+    menuToggle.setAttribute("aria-expanded", false);
+});
 
-    document.querySelectorAll("#mobile-menu a").forEach(link => {
-      link.addEventListener("click", () => {
+document.querySelectorAll("#mobile-menu a").forEach(link => {
+    link.addEventListener("click", () => {
         mobileMenu.classList.remove("open");
-        menuOverlay.classList.remove("active");
+        overlay.classList.remove("active");
         menuToggle.classList.remove("active");
+        document.body.classList.remove("menu-open");
         menuToggle.setAttribute("aria-expanded", false);
-      });
     });
+});
+</script>
 
-    // 年自動更新
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
