@@ -1,283 +1,283 @@
 /* =========================
 リセット & 基本スタイル
 ========================= */
-
-{
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: 'Potta One', 'Arial', 'Helvetica', sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Potta One', 'Arial', 'Helvetica', sans-serif;
 }
 
-
 body {
-min-height: 100vh;
-line-height: 1.6;
-scroll-behavior: smooth;
-text-align: center;
-position: relative;
-overflow-x: hidden;
-transition: background-color 0.3s, color 0.3s;
-font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  min-height: 100vh;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  text-align: center;
+  position: relative;
+  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-weight: 500;
 }
 
 /* =========================
 ライト・ダーク背景
 ========================= */
 body.light {
-background:
-radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175,109,255,0.85), transparent 68%),
-radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,100,180,0.75), transparent 68%),
-radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,235,170,0.98), transparent 68%),
-radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120,190,255,0.3), transparent 68%),
-linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
-color: #000;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175,109,255,0.85), transparent 68%),
+    radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,100,180,0.75), transparent 68%),
+    radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,235,170,0.98), transparent 68%),
+    radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120,190,255,0.3), transparent 68%),
+    linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
+  color: #000;
 }
 
 body.dark {
-background-color: #0a0a0a;
-background-image:
-radial-gradient(ellipse at 20% 30%, rgba(56,189,248,0.4) 0%, transparent 60%),
-radial-gradient(ellipse at 80% 70%, rgba(139,92,246,0.3) 0%, transparent 70%),
-radial-gradient(ellipse at 60% 20%, rgba(236,72,153,0.25) 0%, transparent 50%),
-radial-gradient(ellipse at 40% 80%, rgba(34,197,94,0.2) 0%, transparent 65%);
-color: #fff;
+  background-color: #0a0a0a;
+  background-image:
+    radial-gradient(ellipse at 20% 30%, rgba(56,189,248,0.4) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(139,92,246,0.3) 0%, transparent 70%),
+    radial-gradient(ellipse at 60% 20%, rgba(236,72,153,0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 40% 80%, rgba(34,197,94,0.2) 0%, transparent 65%);
+  color: #fff;
 }
 
 /* =========================
 リンク色
 ========================= */
 a {
-color: inherit;
-text-decoration: underline;
-transition: color 0.3s;
+  color: inherit;
+  text-decoration: underline;
+  transition: color 0.3s;
 }
 
 /* =========================
 ヘッダー
 ========================= */
 header {
-width: 100%;
-max-width: 1000px;
-margin: 0 auto;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-padding: 1rem 0;
-background: transparent;
-position: relative;
-z-index: 10;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+  background: transparent;
+  position: relative;
+  z-index: 10;
 }
 
 .banner-link {
-display: block;
-margin-bottom: 1rem;
+  display: block;
+  margin-bottom: 1rem;
 }
 
 .banner-link img {
-display: block;
-width: min(100%, 512px);
-height: auto;
-max-height: 120px;
-object-fit: contain;
-border-radius: 14px;
-box-shadow: 0 12px 28px rgba(0,0,0,0.2);
-background: rgba(255,255,255,0.15);
-backdrop-filter: blur(24px);
-transition: background-color 0.3s;
+  display: block;
+  width: min(100%, 512px);
+  height: auto;
+  max-height: 120px;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(24px);
+  transition: background-color 0.3s;
 }
 
 h1 {
-font-size: clamp(1.6rem, 4vw, 2.2rem);
-margin: 1rem auto;
-line-height: 1.2;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  margin: 1rem auto;
+  line-height: 1.2;
+  font-weight: 600;
 }
 
 /* =========================
 セクション共通
 ========================= */
 section {
-max-width: 1000px;
-margin: 3rem auto;
-padding: 2rem;
-border-radius: 20px;
-background: rgba(255,255,255,0.1);
-backdrop-filter: blur(28px);
-box-shadow: 0 12px 40px rgba(0,0,0,0.25);
-color: inherit;
-transition: background-color 0.3s, color 0.3s;
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 2rem;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(28px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  color: inherit;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 section h2 {
-font-size: clamp(1.5rem, 3vw, 2rem);
-margin-bottom: 1rem;
-text-align: center;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 600;
 }
 
 /* =========================
 自己紹介
 ========================= */
 #profile {
-background-color: transparent;
-box-shadow: none;
-padding: 0;
+  background-color: transparent;
+  box-shadow: none;
+  padding: 0;
 }
 
 #profile .profile p {
-text-align: center;
-max-width: 700px;
-margin: 0.5rem auto;
-font-size: clamp(0.9rem, 1.2vw, 1rem);
+  text-align: center;
+  max-width: 700px;
+  margin: 0.5rem auto;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  font-weight: 500;
 }
 
 /* =========================
 ポートフォリオカード
 ========================= */
 .works {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
 }
 
 .work-card {
-display: block;
-padding: 1.5rem;
-text-align: center;
-border-radius: 20px;
-background: rgba(255,255,255,0.12);
-backdrop-filter: blur(28px);
-box-shadow: 0 12px 40px rgba(0,0,0,0.25);
-transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+  display: block;
+  padding: 1.5rem;
+  text-align: center;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(28px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
 
 .work-card img {
-width: 80px;
-height: 80px;
-margin-bottom: 1rem;
-border-radius: 50%;
-border: 2px solid rgba(255,255,255,0.3);
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3);
 }
 
 .work-card:hover {
-transform: translateY(-6px);
-box-shadow: 0 16px 45px rgba(0,0,0,0.35);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 45px rgba(0,0,0,0.35);
 }
 
 .work-card a {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 0.5rem;
-margin-top: 1rem;
-padding: 0.8rem 1.8rem;
-border-radius: 18px;
-background-color: rgba(0,188,212,0.15);
-color: inherit;
-font-weight: 600;
-text-decoration: none;
-transition: background-color 0.3s, color 0.3s;
-font-size: clamp(0.9rem, 1.2vw, 1rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.8rem 1.8rem;
+  border-radius: 18px;
+  background-color: rgba(0,188,212,0.15);
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
 }
 
 .work-card a:hover {
-background-color: #00bcd4;
-color: #fff;
+  background-color: #00bcd4;
+  color: #fff;
 }
 
 .work-card p.note {
-margin-top: 0.5rem;
-font-size: clamp(0.8rem, 1vw, 0.9rem);
+  margin-top: 0.5rem;
+  font-size: clamp(0.8rem, 1vw, 0.9rem);
 }
 
 /* =========================
 フッター
 ========================= */
 footer {
-text-align: center;
-padding: 2rem 1rem;
-font-size: clamp(0.8rem, 1vw, 0.9rem);
-color: inherit;
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: clamp(0.8rem, 1vw, 0.9rem);
+  color: inherit;
 }
 
 /* =========================
 Cookieバナー
 ========================= */
 #cookie-banner {
-position: fixed;
-bottom: 0;
-left: 0;
-right: 0;
-background: rgba(0,0,0,0.85);
-color: #fff;
-padding: 12px;
-text-align: center;
-font-size: 14px;
-z-index: 99999;
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-gap: 6px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
+  z-index: 99999;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
 }
 
 #cookie-banner p {
-flex-basis: 100%;
-margin-bottom: 6px;
+  flex-basis: 100%;
+  margin-bottom: 6px;
 }
 
 #cookie-banner button {
-padding: 6px 12px;
-cursor: pointer;
-border: none;
-border-radius: 6px;
-font-weight: 600;
-transition: background-color 0.3s, color 0.3s;
+  padding: 6px 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 #cookie-banner button#minimal-cookie {
-background: #555;
-color: #fff;
+  background: #555;
+  color: #fff;
 }
 
 #cookie-banner button#accept-all-cookie {
-background: #2a9d8f;
-color: #fff;
+  background: #2a9d8f;
+  color: #fff;
 }
 
 #cookie-banner button#reject-cookie {
-background: #d62828;
-color: #fff;
+  background: #d62828;
+  color: #fff;
 }
 
 /* =========================
 レスポンシブ補助
 ========================= */
 @media (max-width: 480px) {
+  .work-card img {  
+      width: 64px;  
+      height: 64px;  
+  }  
 
-.work-card img {  
-    width: 64px;  
-    height: 64px;  
-}  
+  h1 {  
+      font-size: clamp(1.4rem, 6vw, 1.8rem);  
+  }  
 
-h1 {  
-    font-size: clamp(1.4rem, 6vw, 1.8rem);  
-}  
+  section h2 {  
+      font-size: clamp(1.2rem, 5vw, 1.6rem);  
+  }  
 
-section h2 {  
-    font-size: clamp(1.2rem, 5vw, 1.6rem);  
-}  
+  #profile .profile p {  
+      font-size: clamp(0.85rem, 2vw, 0.95rem);  
+  }  
 
-#profile .profile p {  
-    font-size: clamp(0.85rem, 2vw, 0.95rem);  
-}  
+  #cookie-banner {  
+      font-size: 13px;  
+  }  
 
-#cookie-banner {  
-    font-size: 13px;  
-}  
-
-#cookie-banner button {  
-    padding: 5px 10px;  
-    font-size: 0.85rem;  
-}
-
+  #cookie-banner button {  
+      padding: 5px 10px;  
+      font-size: 0.85rem;  
+  }
 }
