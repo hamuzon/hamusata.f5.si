@@ -25,35 +25,6 @@
 
   <!-- モバイルメニュー & Cookieバナー CSS -->
   <style>
-    /* Cookieバナー */
-    #cookie-banner {
-      display: none;
-      position: fixed;
-      bottom: 16px;
-      left: 16px;
-      right: 16px;
-      background: #fff;
-      color: #000;
-      padding: 12px 16px;
-      border-radius: 10px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
-      z-index: 9999;
-      font-family: 'Potta One', cursive;
-    }
-    #cookie-banner p { margin:4px 0; }
-    #cookie-banner button {
-      margin-right: 8px;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      background-color: #00bcd4;
-      color: #fff;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
-    #cookie-banner button:hover { background-color: #0097a7; }
-
     /* ハンバーガーメニュー */
     #menu-toggle {
       position: fixed;
@@ -142,18 +113,6 @@
       #mobile-menu a{font-size:16px; padding:14px 20px;}
     }
   </style>
-  
-    <script>
-    const themeCSS = [
-      "css/dark.css",
-      "css/dark-hc.css",
-      "css/dark-mc.css",
-      "css/light.css",
-      "css/light-hc.css",
-      "css/light-mc.css"
-    ];
-    themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
-  </script>
 </head>
 
 <body class="light">
@@ -284,7 +243,7 @@
               function gtag(){dataLayer.push(arguments);}
               window.gtag = gtag;
               gtag('js', new Date());
-              gtag('config','G-E3VWGLZJ27',{
+              gtag('config','G-E3VWGLZJ27',{ 
                 anonymize_ip: minimal,
                 allow_google_signals: !minimal,
                 allow_ad_personalization_signals: !minimal
@@ -366,29 +325,26 @@
         window.scrollTo({top:0});
       }
 
-// ----------------------
-// 内部リンクのURLパラメータ維持（hamusata.f5.si専用）
-// ----------------------
-// 現在のページに ? 付きの検索パラメータがある場合
-// 同じドメイン内のリンクに自動で追加する処理
-if (location.search) {
-  document.querySelectorAll('a[href]').forEach(link => {
-    // 絶対URLに変換
-    const url = new URL(link.href, window.location.origin);
+    document.addEventListener('DOMContentLoaded', function() {
+      // 今のURLにthemeパラメータがあるか
+      const params = new URLSearchParams(window.location.search);
+      const theme = params.get('theme');
+      if (!theme) return;
 
-    // ドメインが hamusata.f5.si 以外なら無視
-    if (url.hostname !== "hamusata.f5.si") return;
+      document.querySelectorAll('a[data-inside]').forEach(function(a) {
+        // Inside値が1のリンクだけ適用
+        if (a.dataset.inside !== "1") return;
 
-    // すでに検索パラメータがあるリンクは無視
-    if (url.search) return;
+        // 既にthemeパラメータがついている場合は付加しない
+        const linkUrl = new URL(a.getAttribute('href'), window.location.origin);
+        if (linkUrl.searchParams.get('theme')) return;
 
-    // 現在ページの検索パラメータをリンクに追加
-    url.search = location.search;
-
-    // hrefを書き換え
-    link.href = url.pathname + url.search + url.hash;
-  });
-}
+        // 元のクエリも維持してthemeを追加
+        linkUrl.searchParams.set('theme', theme);
+        a.setAttribute('href', linkUrl.pathname + linkUrl.search + linkUrl.hash);
+      });
+    });
+      
   </script>
-</body>
+ </body>
 </html>
