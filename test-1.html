@@ -354,20 +354,29 @@
         window.scrollTo({top:0});
       }
 
-      // ----------------------
-      // 内部リンクURLパラメータ維持
-      // ----------------------
-      if(location.search){
-        document.querySelectorAll('a[href]').forEach(link=>{
-          const url = new URL(link.href, window.location.origin);
-          if(url.origin!==window.location.origin) return;
-          if(url.search) return;
-          url.search = location.search;
-          link.href = url.pathname + url.search + url.hash;
-        });
-      }
+// ----------------------
+// 内部リンクのURLパラメータ維持（hamusata.f5.si専用）
+// ----------------------
+// 現在のページに ? 付きの検索パラメータがある場合
+// 同じドメイン内のリンクに自動で追加する処理
+if (location.search) {
+  document.querySelectorAll('a[href]').forEach(link => {
+    // 絶対URLに変換
+    const url = new URL(link.href, window.location.origin);
 
-    });
+    // ドメインが hamusata.f5.si 以外なら無視
+    if (url.hostname !== "hamusata.f5.si") return;
+
+    // すでに検索パラメータがあるリンクは無視
+    if (url.search) return;
+
+    // 現在ページの検索パラメータをリンクに追加
+    url.search = location.search;
+
+    // hrefを書き換え
+    link.href = url.pathname + url.search + url.hash;
+  });
+}
   </script>
 </body>
 </html>
