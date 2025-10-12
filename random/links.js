@@ -86,7 +86,7 @@ const links = [
 "https://hamuzon-jp.f5.si/fraction/",
 "https://hamuzon-jp.f5.si/pixel-art/",
 "https://hamuzon-jp.f5.si/editor/",
-"world.hamuzon-jp.f5.si",
+"https://world.hamuzon-jp.f5.si/",
 ];
 
 function openRandomLink() {
