@@ -19,6 +19,7 @@ const links = [
 "https://dice.hamusata.f5.si",
 "https://pixel-art.hamusata.f5.si/",
 "https://editor.hamusata.f5.si/",
+"https://world.hamusata.f5.si/",
 
 "https://hamuzon.github.io/Time-Zone_app/",
 "https://hamuzon.github.io/expo2025-counter/",
@@ -83,9 +84,9 @@ const links = [
 "https://hamuzon-jp.f5.si/passapi/",
 "https://hamuzon-jp.f5.si/discord/",
 "https://hamuzon-jp.f5.si/fraction/",
-"https://hamuzon-jp.f5.si/pixel-art/"
-"https://hamuzon-jp.f5.si/editor/"
-
+"https://hamuzon-jp.f5.si/pixel-art/",
+"https://hamuzon-jp.f5.si/editor/",
+"world.hamuzon-jp.f5.si",
 ];
 
 function openRandomLink() {
