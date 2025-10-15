@@ -274,6 +274,66 @@
   </footer>
 
 <script src="js/script.js"></script>
+  
+<script>
+function setCookie(name,value,days=365){
+  const d=new Date(); d.setTime(d.getTime()+(days*24*60*60*1000));
+  document.cookie=name+"="+encodeURIComponent(value)+"; path=/; expires="+d.toUTCString();
+}
+function getCookie(name){
+  const v=document.cookie.match('(^|;)\\s*'+name+'\\s*=\\s*([^;]+)');
+  return v ? decodeURIComponent(v.pop()) : null;
+}
+
+function loadRecaptcha(){
+  const SITE_KEY = 'YOUR_SITE_KEY_HERE'; // ←ここにサイトキーを置く
+  if(document.getElementById('recaptcha-script')) return;
+  const s=document.createElement('script');
+  s.src='https://www.google.com/recaptcha/api.js?render='+SITE_KEY;
+  s.id='recaptcha-script';
+  s.async=true;
+  s.defer=true;
+  document.head.appendChild(s);
+
+  s.onload = ()=>{
+    grecaptcha.ready(()=>{
+      const form=document.getElementById('contact-form');
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        grecaptcha.execute(SITE_KEY,{action:'submit'}).then(token=>{
+          document.getElementById('g-recaptcha-response').value=token;
+          form.submit();
+        });
+      });
+    });
+  };
+}
+
+// ページロード時にCookie同意をチェック
+const consent = getCookie('cookie_consent');
+if(consent==='granted') loadRecaptcha();
+
+// Cookieバナーのボタン
+document.getElementById('accept-all-cookie').addEventListener('click',()=>{
+  setCookie('cookie_consent','granted',365);
+  document.getElementById('cookie-banner').style.display='none';
+  loadRecaptcha();
+});
+document.getElementById('minimal-cookie').addEventListener('click',()=>{
+  setCookie('cookie_consent','minimal',365);
+  document.getElementById('cookie-banner').style.display='none';
+});
+document.getElementById('reject-cookie').addEventListener('click',()=>{
+  setCookie('cookie_consent','denied',365);
+  document.getElementById('cookie-banner').style.display='none';
+});
+
+// ページロード時にバナー表示
+window.addEventListener('DOMContentLoaded',()=>{
+  if(!getCookie('cookie_consent')) document.getElementById('cookie-banner').style.display='flex';
+  document.getElementById('year').textContent = new Date().getFullYear();
+});
+</script>
 
 </body>
 </html>
