@@ -27,58 +27,138 @@
   <style>
     /* ハンバーガーメニュー */
     #menu-toggle {
-      position:fixed; top:16px; right:16px; width:48px; height:48px;
-      background:transparent; border:none; cursor:pointer;
-      z-index:1001; display:flex; flex-direction:column; justify-content:space-around;
-      padding:10px; box-sizing:border-box; transition: transform 0.4s ease;
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      width: 48px;
+      height: 48px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 10px;
+      box-sizing: border-box;
+      transition: transform 0.4s ease;
     }
     #menu-toggle span {
-      display:block; height:4px; background-color:#000; border-radius:2px; transition: all 0.4s ease;
+      display: block;
+      height: 4px;
+      background-color: #000;
+      border-radius: 2px;
+      transition: all 0.4s ease;
     }
-    body.dark #menu-toggle span { background-color:#fff; }
-    #menu-toggle.active span:nth-child(1) { transform: rotate(-45deg) translate(-6px,6px); }
-    #menu-toggle.active span:nth-child(2) { opacity:0; }
-    #menu-toggle.active span:nth-child(3) { transform: rotate(45deg) translate(-6px,-6px); }
+    body.dark #menu-toggle span { background-color: #fff; }
+    #menu-toggle.active span:nth-child(1) { transform: rotate(-45deg) translate(-6px, 6px); }
+    #menu-toggle.active span:nth-child(2) { opacity: 0; }
+    #menu-toggle.active span:nth-child(3) { transform: rotate(45deg) translate(-6px, -6px); }
 
     /* モバイルメニュー */
     #mobile-menu {
-      position:fixed; top:0; right:-100%; width:75%; max-width:320px; height:100vh;
-      padding-top:80px; border-radius:16px 0 0 16px;
-      overflow-y:auto; z-index:1000;
-      background: rgba(255,255,255,0.12); backdrop-filter: blur(28px) saturate(120%);
-      box-shadow:-8px 0 24px rgba(0,0,0,0.25); transition:right 0.4s ease, background 0.3s;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 75%;
+      max-width: 320px;
+      height: 100vh;
+      padding-top: 80px;
+      border-radius: 16px 0 0 16px;
+      overflow-y: auto;
+      z-index: 1000;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(28px) saturate(120%);
+      box-shadow: -8px 0 24px rgba(0,0,0,0.25);
+      transition: right 0.4s ease, background 0.3s;
     }
     body.dark #mobile-menu { background: rgba(10,10,10,0.6); }
-    #mobile-menu.open { right:0; }
-    #mobile-menu ul { list-style:none; padding:0; margin:0; }
-    #mobile-menu li { margin:0; }
+    #mobile-menu.open { right: 0; }
+    #mobile-menu ul { list-style: none; padding: 0; margin: 0; }
+    #mobile-menu li { margin: 0; }
     #mobile-menu a {
-      display:block; padding:18px 24px; font-size:18px;
-      color:var(--md-sys-color-on-surface,#000); text-decoration:none;
-      border-radius:12px; margin:6px 12px; border-bottom:1px solid rgba(0,0,0,0.05);
-      background: rgba(255,255,255,0.08); backdrop-filter: blur(22px);
+      display: block;
+      padding: 18px 24px;
+      font-size: 18px;
+      color: var(--md-sys-color-on-surface,#000);
+      text-decoration: none;
+      border-radius: 12px;
+      margin: 6px 12px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(22px);
       transition: background 0.3s, color 0.3s, transform 0.3s;
     }
-    body.dark #mobile-menu a { color:#fff; border-bottom:1px solid rgba(255,255,255,0.05); }
-    #mobile-menu a:hover { background-color: rgba(0,188,212,0.2); color:#00bcd4; transform: translateX(4px); }
+    body.dark #mobile-menu a { color: #fff; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    #mobile-menu a:hover {
+      background-color: rgba(0,188,212,0.2);
+      color: #00bcd4;
+      transform: translateX(4px);
+    }
 
     /* メニューオーバーレイ */
     #menu-overlay {
-      position:fixed; top:0; left:0; width:100%; height:100vh;
-      background-color: rgba(0,0,0,0.5); opacity:0; visibility:hidden;
-      transition: opacity 0.4s ease; z-index:900;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease;
+      z-index: 900;
     }
-    #menu-overlay.active { opacity:1; visibility:visible; }
+    #menu-overlay.active { opacity: 1; visibility: visible; }
+
+    /* 広告コンテナ */
+    .ad-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 8px 0 0;
+      padding: 8px 0;
+    }
+    .ad-container ins {
+      display: block !important;
+      max-width: 100%;
+      height: auto !important;
+    }
+
+    /* Cookieバナー */
+    #cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      padding: 12px;
+      text-align: center;
+      z-index: 1200;
+      display: none;
+    }
+    #cookie-banner button {
+      margin: 4px;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #cookie-banner button:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
 
     /* レスポンシブ */
-    @media(max-width:480px){
-      #mobile-menu{width:85%; padding-top:70px;}
-      #mobile-menu a{font-size:16px; padding:14px 20px;}
+    @media (max-width:480px) {
+      #mobile-menu { width: 85%; padding-top: 70px; }
+      #mobile-menu a { font-size: 16px; padding: 14px 20px; }
     }
   </style>
 </head>
-<body class="light">
 
+<body class="light">
   <!-- Cookieバナー -->
   <div id="cookie-banner">
     <p>このサイトではCookieを使用します。</p>
@@ -119,8 +199,17 @@
     </nav>
     <div id="menu-overlay"></div>
 
-    <!-- 広告 -->
+    <!-- 広告（中央揃え配置） -->
+    <div class="ad-container">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-7413522404678991"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7413522404678991" crossorigin="anonymous"></script>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </header>
 
   <main>
@@ -168,7 +257,6 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-
       // 年自動更新
       document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -194,7 +282,7 @@
               function gtag(){dataLayer.push(arguments);}
               window.gtag = gtag;
               gtag('js', new Date());
-              gtag('config','G-E3VWGLZJ27',{
+              gtag('config', 'G-E3VWGLZJ27', {
                 anonymize_ip: minimal,
                 allow_google_signals: !minimal,
                 allow_ad_personalization_signals: !minimal
@@ -208,9 +296,9 @@
       document.getElementById("accept-all-cookie").addEventListener("click", ()=>hideCookieBanner("all"));
       document.getElementById("reject-cookie").addEventListener("click", ()=>hideCookieBanner("reject"));
       const consent = localStorage.getItem("cookieConsent");
-      if(consent === "minimal") hideCookieBanner("minimal");
-      else if(consent === "all") hideCookieBanner("all");
-      else if(consent === "reject") cookieBanner.style.display = "none";
+      if (consent === "minimal") hideCookieBanner("minimal");
+      else if (consent === "all") hideCookieBanner("all");
+      else if (consent === "reject") cookieBanner.style.display = "none";
       else showCookieBanner();
 
       // ===== テーマ切替 =====
