@@ -1,15 +1,8 @@
-// ============================================
-// js/links-sub.js
-// ============================================
-
 async function loadLinks() {
-  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
-  const sheetName = "sub"; // シート名
+  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
+  const sheetName = "sub";
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
-  // -----------------------------
-  // セクション初期値設定
-  // -----------------------------
   const sections = {
     portfolio: { container: document.getElementById("portfolioLinks"), name: "ポートフォリオ", default: "読み込み中..." },
     random: { container: document.getElementById("randomLinks"), name: "ランダム作品", default: "読み込み中..." },
@@ -18,30 +11,20 @@ async function loadLinks() {
     sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
   };
 
-  // 初期表示
   for (const key in sections) {
-    if (sections[key].container) {
-      sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
-    }
+    if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
   }
 
   try {
-    // -----------------------------
-    // スプレッドシート取得
-    // -----------------------------
     const res = await fetch(url);
     const text = await res.text();
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
-    // セクション初期化
     for (const key in sections) {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
 
-    // -----------------------------
-    // 季節リンク定義
-    // -----------------------------
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
       summer: "https://home.hamusata.f5.si/summer",
@@ -53,9 +36,6 @@ async function loadLinks() {
                    month >= 6 && month <= 8 ? "summer" :
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
-    // -----------------------------
-    // リンクカード生成
-    // -----------------------------
     rows.slice(1).forEach(row => {
       const [title, description, image, link, section, internalLinkFlag] = row;
       if (!section || !sections[section] || !sections[section].container) return;
@@ -64,7 +44,6 @@ async function loadLinks() {
       const card = document.createElement("div");
       card.className = "work-card";
 
-      // 画像
       if (image) {
         const img = document.createElement("img");
         img.src = image;
@@ -74,32 +53,22 @@ async function loadLinks() {
         card.appendChild(img);
       }
 
-      // タイトル
       const h3 = document.createElement("h3");
       h3.textContent = title;
       card.appendChild(h3);
 
-      // 説明文
       if (description) {
         const p = document.createElement("p");
         p.innerHTML = description;
         card.appendChild(p);
       }
 
-      // リンク
       if (link) {
         const a = document.createElement("a");
-
-        // 内部リンク判定 (ON/1/true)
         const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
-        if (isInternal) {
-          a.href = link + "?internal=1"; // 内部リンク向け
-        } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
-          a.href = seasonLinks[season] || link; // 季節リンク
-        } else {
-          a.href = link; // 通常リンク
-        }
-
+        if (isInternal) a.href = link + "?internal=1";
+        else if (title === "HAMUSATA – ホームページ" && section === "portfolio") a.href = seasonLinks[season] || link;
+        else a.href = link;
         a.target = "_blank";
         a.rel = "noopener noreferrer";
         a.textContent = "見る / View";
@@ -109,7 +78,6 @@ async function loadLinks() {
       container.appendChild(card);
     });
 
-    // データがない場合
     for (const key in sections) {
       if (sections[key].container && sections[key].container.children.length === 0) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
@@ -117,7 +85,6 @@ async function loadLinks() {
     }
 
   } catch (e) {
-    // 全セクション読み込み失敗
     for (const key in sections) {
       if (sections[key].container) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
@@ -127,31 +94,25 @@ async function loadLinks() {
   }
 }
 
-// ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", loadLinks);
 
-// ============================================
-// 内部リンクURLパラメータ維持
-// ============================================
+// 内部リンクURLパラメータ維持（例外処理追加）
 (function() {
   const currentParams = window.location.search;
   if (!currentParams) return;
 
   const links = document.querySelectorAll('a[href]');
   links.forEach(link => {
-    const url = new URL(link.href, window.location.origin);
-
-    // 外部リンクを除外
-    if (url.hostname !== "hamusata.f5.si") return;
-
-    // ルート直下やindex.htmlはパラメータ付与しない
-    const path = url.pathname.replace(/\/+$/, '');
-    if (path === "" || path === "/index.html") return;
-
-    // すでにクエリがある場合は追加せず
-    if (url.search) return;
-
-    url.search = currentParams;
-    link.href = url.pathname + url.search + url.hash;
+    try {
+      const url = new URL(link.href, window.location.origin);
+      if (url.hostname !== "hamusata.f5.si") return;
+      const path = url.pathname.replace(/\/+$/, '');
+      if (path === "" || path === "/index.html") return;
+      if (url.search) return;
+      url.search = currentParams;
+      link.href = url.pathname + url.search + url.hash;
+    } catch(e) {
+      console.warn("リンクURL処理失敗:", link.href, e);
+    }
   });
 })();
