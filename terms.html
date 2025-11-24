@@ -16,105 +16,43 @@
   <link rel="stylesheet" href="css/style.css">
 
   <!-- テーマCSS -->
-  <script>
-    const themeCSS = [
-      "css/dark.css",
-      "css/dark-hc.css",
-      "css/dark-mc.css",
-      "css/light.css",
-      "css/light-hc.css",
-      "css/light-mc.css"
-    ];
-    themeCSS.forEach(href => {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = href;
-      document.head.appendChild(link);
-    });
-  </script>
+<style>
+  :root { --terms-timestamp: 1763880300; /* 指定日 */ }
 
-  <style>
-    :root { --terms-timestamp: 1763880300; /* 指定日 */ }
+  /* 言語切替ボタン 固定 */
+  #lang-switch {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(16px);
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.3s ease;
+  }
+  body.dark #lang-switch {
+    background: rgba(0,0,0,0.35);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  #lang-switch:hover {
+    background: rgba(0,188,212,0.25);
+    transform: scale(1.05);
+  }
 
-    /* 全体 */
-    body {
-      font-family: 'Inter', 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
-    body.light { background: #fafafa; color: #222; }
-    body.dark { background: #121212; color: #f0f0f0; }
+  /* 言語切替表示 */
+  .lang-ja .en { display: none; }
+  .lang-en .ja { display: none; }
 
-    /* メイン */
-    main {
-      padding: 1rem;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    /* 見出し */
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-    h2 {
-      font-size: 1.4rem;
-      margin-top: 1.5rem;
-    }
-
-    /* 段落・リスト */
-    p, li { margin-bottom: 0.8rem; }
-    ul { padding-left: 1.5rem; }
-
-    /* フッター */
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      border-top: 1px solid #ccc;
-    }
-    footer a {
-      color: inherit;
-      text-decoration: none;
-      margin: 0 0.3rem;
-    }
-
-    /* 言語切替ボタン 固定 */
-    #lang-switch {
-      position: fixed;
-      top: 16px;
-      right: 16px;
-      padding: 0.5rem 1rem;
-      font-size: 0.95rem;
-      border-radius: 12px;
-      border: 1px solid rgba(0,0,0,0.2);
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(16px);
-      cursor: pointer;
-      z-index: 1001;
-      transition: all 0.3s ease;
-    }
-    body.dark #lang-switch {
-      background: rgba(0,0,0,0.35);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-    #lang-switch:hover {
-      background: rgba(0,188,212,0.25);
-      transform: scale(1.05);
-    }
-
-    /* 言語切替表示 */
-    .lang-ja .en { display: none; }
-    .lang-en .ja { display: none; }
-
-    header {
-      position: relative;
-      text-align: center;
-    }
-  </style>
+  header {
+    position: relative;
+    text-align: center;
+  }
+</style>
 
 </head>
 <body class="light lang-ja">
