@@ -86,7 +86,7 @@ self.addEventListener('fetch', event => {
             return networkResponse;
           });
         })
-
+        
         // オフライン時のフォールバック
         .catch(() => {
           if (event.request.destination === 'image') {
