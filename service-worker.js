@@ -37,15 +37,10 @@ const urlsToCache = [
 // インストール：キャッシュ登録
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(async cache => {
-      for (const url of urlsToCache) {
-        try {
-          await cache.add(url);   
-        } catch (e) {
-          console.warn('[ServiceWorker] Failed to cache:', url, e);
-        }
-      }
-    }).then(() => self.skipWaiting())
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
+      .catch(err => console.warn('[SW] addAll failed:', err))
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -62,36 +57,42 @@ self.addEventListener('activate', event => {
   );
 });
 
-// フェッチ：キャッシュ優先
+// フェッチ：キャッシュ優先 + ネット取得 + fallback
 self.addEventListener('fetch', event => {
 
   if (event.request.method !== 'GET') return;
 
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
+
+      // キャッシュに存在 → 即返す
       if (cachedResponse) return cachedResponse;
 
-      // キャッシュになければネットワークへ
+      // ネットワークへ
       return fetch(event.request)
         .then(networkResponse => {
-          if (!networkResponse || networkResponse.status !== 200) return networkResponse;
 
-          // 成功したものだけキャッシュに保存
+          // 正常レスポンスのみキャッシュ
+          if (!networkResponse || networkResponse.status !== 200) {
+            return networkResponse;
+          }
+
+          // キャッシュ保存
           return caches.open(CACHE_NAME).then(cache => {
-            try {
-              cache.put(event.request, networkResponse.clone());
-            } catch (e) {
-              console.warn('[ServiceWorker] cache.put failed:', event.request.url, e);
-            }
+            cache.put(event.request, networkResponse.clone())
+              .catch(e =>
+                console.warn('[SW] cache.put failed:', event.request.url, e)
+              );
             return networkResponse;
           });
         })
-        
-        // オフライン時のフォールバック
+
+        // オフライン fallback
         .catch(() => {
           if (event.request.destination === 'image') {
             return caches.match('/icon.webp');
-          } else if (event.request.destination === 'document') {
+          }
+          if (event.request.destination === 'document') {
             return caches.match('/index.html');
           }
         });
