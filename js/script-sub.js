@@ -1,8 +1,7 @@
 // ============================================
-// js/script-sub.js
+// js/script-sub.js 
 // ============================================
 
-// ページ読み込み後に処理
 document.addEventListener('DOMContentLoaded', () => {
 
   // 年自動更新
@@ -29,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
-  // ハンバーガーメニュー開閉処理（aria更新）
+  // ハンバーガーメニュー開閉処理
   (function () {
     const menuToggle = document.getElementById('menu-toggle');
     const menuOverlay = document.getElementById('menu-overlay');
@@ -50,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
-  // メニュー内 #home 用（スクロール＆ハッシュ削除）
+  // メニュー内 #home 用
   (function () {
     function menuScrollToHome(event) {
       event.preventDefault();
@@ -61,65 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (toggle) toggle.setAttribute('aria-expanded', 'false');
     }
     document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
-  })();
-
-  // Cookieバナー制御 & GA
-  (function () {
-    const cookieBanner = document.getElementById('cookie-banner');
-    if (!cookieBanner) return;
-
-    function showCookieBanner() {
-      const consent = localStorage.getItem('cookieConsent');
-      if (!consent) cookieBanner.style.display = 'block';
-    }
-
-    function loadGA(minimal) {
-      if (window.__GA_LOADED__) return;
-      const gtagScript = document.createElement('script');
-      gtagScript.async = true;
-      gtagScript.setAttribute('data-cfasync', 'false');
-      gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27';
-      document.head.appendChild(gtagScript);
-
-      gtagScript.onload = () => {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        window.gtag = gtag;
-        gtag('js', new Date());
-        if (minimal) {
-          gtag('config', 'G-E3VWGLZJ27', {
-            anonymize_ip: true,
-            allow_google_signals: false,
-            allow_ad_personalization_signals: false
-          });
-        } else {
-          gtag('config', 'G-E3VWGLZJ27');
-        }
-        window.__GA_LOADED__ = true;
-      };
-    }
-
-    function acceptCookies(type) {
-      localStorage.setItem('cookieConsent', type);
-      cookieBanner.style.display = 'none';
-      if (type === 'all') loadGA(false);
-      else if (type === 'minimal') loadGA(true);
-    }
-
-    const btnMinimal = document.getElementById('minimal-cookie');
-    const btnAll = document.getElementById('accept-all-cookie');
-    const btnReject = document.getElementById('reject-cookie');
-
-    if (btnMinimal) btnMinimal.addEventListener('click', () => acceptCookies('minimal'));
-    if (btnAll) btnAll.addEventListener('click', () => acceptCookies('all'));
-    if (btnReject) btnReject.addEventListener('click', () => acceptCookies('reject'));
-
-    // 初期表示
-    const consent = localStorage.getItem('cookieConsent');
-    if (consent === 'minimal') loadGA(true);
-    else if (consent === 'all') loadGA(false);
-    else if (consent === 'reject') cookieBanner.style.display = 'none';
-    else showCookieBanner();
   })();
 
   // PWA: Service Worker 登録
