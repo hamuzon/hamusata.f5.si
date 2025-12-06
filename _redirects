@@ -32,3 +32,6 @@
 /d-1         https://device-info.hamusata.f5.si/   301
 /device      https://device-info.hamusata.f5.si/   301
 /device-info https://device-info.hamusata.f5.si/   301
+
+#  ===== internal link =====
+/index.html / 301
