@@ -51,65 +51,6 @@ document.querySelectorAll('.nav-home')
         .forEach(el => el.addEventListener('click', menuScrollToHome));
 
 
-// ===== Cookieバナー =====
-const cookieBanner = document.getElementById('cookie-banner');
-
-function showCookieBanner() {
-  const consent = localStorage.getItem('cookieConsent');
-  if (!consent) cookieBanner.style.display = 'block';
-}
-
-function loadGA(minimal) {
-  const gtagScript = document.createElement('script');
-  gtagScript.async = true;
-  gtagScript.setAttribute('data-cfasync', 'false');
-  gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-E3VWGLZJ27';
-  document.head.appendChild(gtagScript);
-
-  gtagScript.onload = () => {
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() { dataLayer.push(arguments); }
-
-    window.gtag = gtag;
-    gtag('js', new Date());
-
-    if (minimal) {
-      gtag('config', 'G-E3VWGLZJ27', {
-        anonymize_ip: true,
-        allow_google_signals: false,
-        allow_ad_personalization_signals: false
-      });
-    } else {
-      gtag('config', 'G-E3VWGLZJ27');
-    }
-  };
-}
-
-function acceptCookies(type) {
-  localStorage.setItem('cookieConsent', type);
-  cookieBanner.style.display = 'none';
-
-  if (type === 'all') loadGA(false);
-  else if (type === 'minimal') loadGA(true);
-}
-
-document.getElementById('minimal-cookie')
-        .addEventListener('click', () => acceptCookies('minimal'));
-
-document.getElementById('accept-all-cookie')
-        .addEventListener('click', () => acceptCookies('all'));
-
-document.getElementById('reject-cookie')
-        .addEventListener('click', () => acceptCookies('reject'));
-
-const consent = localStorage.getItem('cookieConsent');
-
-if (consent === 'minimal') loadGA(true);
-else if (consent === 'all') loadGA(false);
-else if (!consent) showCookieBanner();
-
-
 // ===== PWA Service Worker =====
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
