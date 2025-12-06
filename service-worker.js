@@ -1,7 +1,6 @@
-
 const CACHE_NAME = 'hamusata-v1.0';
 
-// キャッシュ対象のすべてのファイル
+// キャッシュするファイル一覧
 const urlsToCache = [
   '/', '/index.html', '/404.html', '/manifest.json',
 
@@ -35,50 +34,61 @@ const urlsToCache = [
   '/random/index.html'
 ];
 
-// インストール時にすべてキャッシュ
+// インストール：キャッシュ登録
 self.addEventListener('install', event => {
-  console.log('[ServiceWorker] Install');
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('[ServiceWorker] Caching all files');
-        return cache.addAll(urlsToCache);
-      })
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then(async cache => {
+      for (const url of urlsToCache) {
+        try {
+          await cache.add(url);   
+        } catch (e) {
+          console.warn('[ServiceWorker] Failed to cache:', url, e);
+        }
+      }
+    }).then(() => self.skipWaiting())
   );
 });
 
-// アクティベート時に古いキャッシュ削除
+// アクティベート：古いキャッシュ削除
 self.addEventListener('activate', event => {
-  console.log('[ServiceWorker] Activate');
   event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.map(key => {
-        if (key !== CACHE_NAME) {
-          console.log('[ServiceWorker] Removing old cache:', key);
-          return caches.delete(key);
-        }
-      }))
+      Promise.all(
+        keys.map(key => {
+          if (key !== CACHE_NAME) return caches.delete(key);
+        })
+      )
     ).then(() => self.clients.claim())
   );
 });
 
-// フェッチ時にキャッシュ優先
+// フェッチ：キャッシュ優先
 self.addEventListener('fetch', event => {
+
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
       if (cachedResponse) return cachedResponse;
 
+      // キャッシュになければネットワークへ
       return fetch(event.request)
         .then(networkResponse => {
-          // 新規ファイルはキャッシュに追加
+          if (!networkResponse || networkResponse.status !== 200) return networkResponse;
+
+          // 成功したものだけキャッシュに保存
           return caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, networkResponse.clone());
+            try {
+              cache.put(event.request, networkResponse.clone());
+            } catch (e) {
+              console.warn('[ServiceWorker] cache.put failed:', event.request.url, e);
+            }
             return networkResponse;
           });
         })
+
+        // オフライン時のフォールバック
         .catch(() => {
-          // オフライン時フォールバック
           if (event.request.destination === 'image') {
             return caches.match('/icon.webp');
           } else if (event.request.destination === 'document') {
