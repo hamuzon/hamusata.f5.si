@@ -2,7 +2,9 @@ const CACHE_NAME = 'hamusata-v1.0';
 
 // キャッシュするファイル一覧
 const urlsToCache = [
-  '/', '/index.html', '/404.html', '/manifest.json',
+  '/',              
+  '/404.html',
+  '/manifest.json',
 
   // CSS
   '/css/style.css',
@@ -37,10 +39,15 @@ const urlsToCache = [
 // インストール：キャッシュ登録
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-      .catch(err => console.warn('[SW] addAll failed:', err))
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then(async cache => {
+      for (const url of urlsToCache) {
+        try {
+          await cache.add(url);
+        } catch (e) {
+          console.warn('[ServiceWorker] Failed to cache:', url, e);
+        }
+      }
+    }).then(() => self.skipWaiting())
   );
 });
 
@@ -57,43 +64,48 @@ self.addEventListener('activate', event => {
   );
 });
 
-// フェッチ：キャッシュ優先 + ネット取得 + fallback
+// フェッチ：キャッシュ優先
 self.addEventListener('fetch', event => {
 
   if (event.request.method !== 'GET') return;
 
+  const url = new URL(event.request.url);
+
+  // index.html を / に置き換える
+  if (url.pathname === '/index.html') {
+    event.respondWith(
+      caches.match('/').then(r => r || fetch('/'))
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
-
-      // キャッシュに存在 → 即返す
       if (cachedResponse) return cachedResponse;
 
-      // ネットワークへ
+      // キャッシュにない → ネットワーク
       return fetch(event.request)
         .then(networkResponse => {
-
-          // 正常レスポンスのみキャッシュ
-          if (!networkResponse || networkResponse.status !== 200) {
+          if (!networkResponse || networkResponse.status !== 200)
             return networkResponse;
-          }
 
-          // キャッシュ保存
+          // 成功したリソースだけキャッシュへ保存
           return caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, networkResponse.clone())
-              .catch(e =>
-                console.warn('[SW] cache.put failed:', event.request.url, e)
-              );
+            try {
+              cache.put(event.request, networkResponse.clone());
+            } catch (e) {
+              console.warn('[ServiceWorker] cache.put failed:', event.request.url, e);
+            }
             return networkResponse;
           });
         })
 
-        // オフライン fallback
+        // オフライン時の fallback
         .catch(() => {
           if (event.request.destination === 'image') {
             return caches.match('/icon.webp');
-          }
-          if (event.request.destination === 'document') {
-            return caches.match('/index.html');
+          } else if (event.request.destination === 'document') {
+            return caches.match('/');
           }
         });
     })
