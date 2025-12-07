@@ -36,10 +36,6 @@ async function loadLinks() {
                    month >= 6 && month <= 8 ? "summer" :
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
-    const langDataRes = await fetch("lang/sub-lang.json");
-    const langData = await langDataRes.json();
-    const lang = localStorage.getItem("lang") || (navigator.language.startsWith("en") ? "en" : "ja");
-
     rows.slice(1).forEach(row => {
       const [title, description, image, link, section, internalLinkFlag] = row;
       if (!section || !sections[section] || !sections[section].container) return;
@@ -62,8 +58,7 @@ async function loadLinks() {
       const h3 = document.createElement("h3");
       let keyTitle = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_title";
       h3.dataset.langKey = keyTitle;
-      // まずデフォルト文字を入れる
-      h3.innerHTML = langData[lang][keyTitle] || title;
+      h3.innerHTML = title; // ← デフォルト文字だけ
       card.appendChild(h3);
 
       // 説明
@@ -71,7 +66,7 @@ async function loadLinks() {
         const p = document.createElement("p");
         let keyDesc = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_desc";
         p.dataset.langKey = keyDesc;
-        p.innerHTML = langData[lang][keyDesc] || description; // まずデフォルト
+        p.innerHTML = description; // ← デフォルト文字だけ
         card.appendChild(p);
       }
 
@@ -79,7 +74,6 @@ async function loadLinks() {
       if (link) {
         const a = document.createElement("a");
         a.dataset.langKey = "link_view";
-
         const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
         if (isInternal) {
           const currentParams = new URLSearchParams(window.location.search);
@@ -94,24 +88,15 @@ async function loadLinks() {
         }
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.innerHTML = langData[lang]["link_view"] || "View"; // デフォルト文字
+        a.innerHTML = "View"; // ← デフォルト文字
         card.appendChild(a);
       }
 
       container.appendChild(card);
     });
 
-    // データなし対応
-    for (const key in sections) {
-      if (sections[key].container && sections[key].container.children.length === 0) {
-        sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
-      }
-    }
-
   } catch (e) {
-    for (const key in sections) {
-      if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
-    }
+    for (const key in sections) if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
     console.error("スプレッドシート読み込み失敗:", e);
   }
 }
