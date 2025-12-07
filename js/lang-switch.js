@@ -1,10 +1,12 @@
-// 言語ファイル読み込み
+// js/lang-switch.js
+
 async function loadLang(lang) {
   try {
-    const res = await fetch("./lang.json");
+    // lang.json を取得
+    const res = await fetch("lang/lang.json");
     const data = await res.json();
 
-    // 対象言語
+    // 指定言語がなければ日本語にフォールバック
     const text = data[lang] || data["ja"];
 
     // data-lang 属性の要素を書き換え
@@ -15,34 +17,33 @@ async function loadLang(lang) {
       }
     });
 
-    // HTMLのlang属性更新
+    // HTML lang 属性更新
     document.documentElement.lang = lang;
 
-    // localStorage 保存
-    localStorage.setItem("lang", lang);
-
-    // ボタンの表示切り替え
+    // ボタン切替表示
     const btn = document.getElementById("lang-switch");
     if (btn) {
       btn.textContent = lang === "ja" ? "🌐 English" : "🌐 日本語";
     }
+
+    // 現在の言語を記憶
+    localStorage.setItem("lang", lang);
 
   } catch (e) {
     console.error("言語ファイル読み込みエラー:", e);
   }
 }
 
-// 言語初期設定
+// 初期化
 function initLang() {
   const saved = localStorage.getItem("lang");
-
-  // ブラウザ言語
+  // ブラウザ言語が英語なら "en", それ以外は "ja"
   const browserLang = navigator.language.startsWith("en") ? "en" : "ja";
-
   const lang = saved || browserLang;
+
   loadLang(lang);
 
-  // ボタンクリックで切替
+  // ボタンで切替
   const btn = document.getElementById("lang-switch");
   if (btn) {
     btn.addEventListener("click", () => {
@@ -52,5 +53,5 @@ function initLang() {
   }
 }
 
-// 実行
+// ページ読み込み時に実行
 initLang();
