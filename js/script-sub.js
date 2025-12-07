@@ -1,13 +1,10 @@
 // ============================================
-// js/script-sub.js
+// script-sub.js 
 // ============================================
 
 let currentLang = localStorage.getItem("lang") || "ja";
 let langSub = {};
 
-// ============================================
-// DOMContentLoaded
-// ============================================
 document.addEventListener('DOMContentLoaded', () => {
 
   // 年自動更新
@@ -34,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
-  // ハンバーガーメニュー開閉処理
+  // ハンバーガーメニュー開閉
   (function () {
     const menuToggle = document.getElementById('menu-toggle');
     const menuOverlay = document.getElementById('menu-overlay');
