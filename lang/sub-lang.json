@@ -18,9 +18,6 @@
     "APIなし版": "APIなし版",
     "www.link-s.f5.si": "www.link-s.f5.si",
     "リンクのメイン機能はショートカットリンクサービスのlink-s.f5.si 系列作品集一覧。": "リンクのメイン機能はショートカットリンクサービスのlink-s.f5.si 系列作品集一覧。",
-    "見る": "見る",
-    "開く": "開く",
-    "確認する": "確認する",
     "ランダム作品": "ランダム作品",
     "作品をランダムに開くボタンです。": "作品をランダムに開くボタンです。",
     "サービス稼働状況": "サービス稼働状況",
@@ -35,7 +32,7 @@
     "Blueskyアカウント": "Blueskyアカウント",
     "Twitter (X)": "Twitter (X)",
     "@hamu_sata アカウント": "@hamu_sata アカウント",
-    "view": "見る / View"
+    "見る / View": "見る / View"
   },
   "en": {
     "HAMUSATA – ホームページ": "HAMUSATA – Homepage",
@@ -56,9 +53,6 @@
     "APIなし版": "Non-API version",
     "www.link-s.f5.si": "www.link-s.f5.si",
     "リンクのメイン機能はショートカットリンクサービスのlink-s.f5.si 系列作品集一覧。": "Main link for shortcut services — link-s.f5.si related works.",
-    "見る": "View",
-    "開く": "Open",
-    "確認する": "Check",
     "ランダム作品": "Random Works",
     "作品をランダムに開くボタンです。": "Opens a random work.",
     "サービス稼働状況": "Service Status",
@@ -73,6 +67,6 @@
     "Blueskyアカウント": "Bluesky account",
     "Twitter (X)": "Twitter (X)",
     "@hamu_sata アカウント": "@hamu_sata account",
-    "view": "View"
+    "見る / View": "View"
   }
 }
