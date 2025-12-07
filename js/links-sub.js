@@ -4,9 +4,6 @@
 
 let subLangData = {};
 
-// ============================================
-// スプレッドシート読み込み
-// ============================================
 async function loadLinks() {
   const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
   const sheetName = "sub";
@@ -31,6 +28,10 @@ async function loadLinks() {
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
     Object.values(sections).forEach(sec => { if (sec.container) sec.container.innerHTML = ""; });
 
+    const seasonLinks = { spring: "https://home.hamusata.f5.si/spring", summer: "https://home.hamusata.f5.si/summer", autumn: "https://home.hamusata.f5.si/autumn", winter: "https://home.hamusata.f5.si/winter" };
+    const month = new Date().getMonth() + 1;
+    const season = month >= 3 && month <= 5 ? "spring" : month >= 6 && month <= 8 ? "summer" : month >= 9 && month <= 11 ? "autumn" : "winter";
+
     const currentLang = document.documentElement.lang || "ja";
 
     // サブ言語JSONを読み込む
@@ -44,53 +45,64 @@ async function loadLinks() {
       const container = sections[section].container;
       const card = document.createElement("div");
       card.className = "work-card";
+      card.dataset.langKey = title;
 
-      // pwカード専用処理
-      if (title === "pw.link-s.f5.si – パスワード生成サービス") {
-        card.dataset.langKey = title;
-        card.innerHTML = subLangData[currentLang]["pw_html"];
-      } else {
-        // 画像
-        if (image) {
-          const img = document.createElement("img");
-          img.src = image;
-          img.alt = subLangData[currentLang][title] || title;
-          img.loading = "lazy";
-          img.decoding = "async";
-          card.appendChild(img);
-        }
+      // 画像
+      if (image) {
+        const img = document.createElement("img");
+        img.src = image;
+        img.alt = subLangData[currentLang][title] || title;
+        img.loading = "lazy";
+        img.decoding = "async";
+        card.appendChild(img);
+      }
 
-        // タイトル
-        const h3 = document.createElement("h3");
-        h3.dataset.langKey = title;
-        h3.textContent = subLangData[currentLang][title] || title;
-        card.appendChild(h3);
+      // タイトル
+      const h3 = document.createElement("h3");
+      h3.textContent = subLangData[currentLang][title] || title;
+      card.appendChild(h3);
 
-        // 説明
-        if (description) {
-          const descDiv = document.createElement("div");
-          descDiv.className = "work-description";
-          descDiv.dataset.langKey = title + "_desc";
-          descDiv.innerHTML = subLangData[currentLang][title + "_desc"] || description;
-          card.appendChild(descDiv);
-        }
+      // 説明
+      if (description) {
+        const descDiv = document.createElement("div");
+        descDiv.className = "work-description";
+        descDiv.dataset.langKey = title + "_desc";
+        descDiv.innerHTML = subLangData[currentLang][title + "_desc"] || description;
+        card.appendChild(descDiv);
+      }
 
-        // リンク
-        if (link) {
-          const a = document.createElement("a");
-          a.dataset.langKey = "link_view";
+      // リンク
+      if (link) {
+        const a = document.createElement("a");
+        a.dataset.langKey = "link_view";
+
+        if (title === "pw.link-s.f5.si – パスワード生成サービス") {
+          // pwカード専用
+          a.href = link;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.textContent = currentLang === "ja" ? "見る / View" : "View";
+          card.appendChild(a);
+
+          // noteリンクや APIなし版は p+ a を追加
+          if (subLangData[currentLang]["pw_html_note"]) {
+            const noteDiv = document.createElement("div");
+            noteDiv.innerHTML = subLangData[currentLang]["pw_html_note"];
+            card.appendChild(noteDiv);
+          }
+        } else {
           const isInternal = ["on","1","true"].includes(String(internalLinkFlag).toLowerCase());
-
           if (isInternal) {
             const currentParams = new URLSearchParams(window.location.search);
             const themeParam = currentParams.get("theme");
             const newParams = new URLSearchParams();
             if (themeParam) newParams.set("theme", themeParam);
             a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
+          } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
+            a.href = seasonLinks[season] || link;
           } else {
             a.href = link;
           }
-
           a.target = "_blank";
           a.rel = "noopener noreferrer";
           a.textContent = subLangData[currentLang]["link_view"] || "View";
@@ -99,12 +111,6 @@ async function loadLinks() {
       }
 
       container.appendChild(card);
-    });
-
-    Object.values(sections).forEach(sec => {
-      if (sec.container && sec.container.children.length === 0) {
-        sec.container.innerHTML = `<p>${sec.name}の読み込みに失敗</p>`;
-      }
     });
 
   } catch (e) {
@@ -122,24 +128,31 @@ function switchSubLang(lang) {
   if (!subLangData[lang]) return;
 
   document.querySelectorAll(".work-card").forEach(card => {
-    const key = card.dataset.langKey;
+    const title = card.dataset.langKey;
 
-    // pwカードの場合はHTML入れ替え
-    if (key === "pw.link-s.f5.si – パスワード生成サービス" && subLangData[lang]["pw_html"]) {
-      card.innerHTML = subLangData[lang]["pw_html"];
+    // pwカードは innerHTML を差し替えずテキストのみ差し替え
+    if (title === "pw.link-s.f5.si – パスワード生成サービス") {
+      const h3 = card.querySelector("h3");
+      if (h3) h3.textContent = subLangData[lang][title] || title;
+
+      const a = card.querySelector("a");
+      if (a) a.textContent = lang === "ja" ? "見る / View" : "View";
+
+      const noteDiv = card.querySelector(".note");
+      if (noteDiv && subLangData[lang]["pw_html_note"]) {
+        noteDiv.innerHTML = subLangData[lang]["pw_html_note"];
+      }
+
     } else {
-      card.querySelectorAll("[data-lang-key]").forEach(el => {
-        const elKey = el.dataset.langKey;
-        if (subLangData[lang][elKey]) {
-          if (el.tagName === "IMG") {
-            el.alt = subLangData[lang][elKey];
-          } else if (el.classList.contains("work-description")) {
-            el.innerHTML = subLangData[lang][elKey];
-          } else {
-            el.textContent = subLangData[lang][elKey];
-          }
-        }
-      });
+      // その他カードは textContent と innerHTML を差し替え
+      const h3 = card.querySelector("h3");
+      if (h3 && subLangData[lang][title]) h3.textContent = subLangData[lang][title];
+
+      const desc = card.querySelector(".work-description");
+      if (desc && subLangData[lang][title + "_desc"]) desc.innerHTML = subLangData[lang][title + "_desc"];
+
+      const a = card.querySelector("a");
+      if (a) a.textContent = subLangData[lang]["link_view"] || "View";
     }
   });
 }
