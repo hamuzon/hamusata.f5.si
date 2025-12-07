@@ -1,22 +1,10 @@
 // ============================================
-// js/links-sub.js
+// js/links-sub.js 
 // ============================================
 
-let currentLang = localStorage.getItem("lang") || "ja";
-let langSub = {};
-
-// 言語JSON読み込み
-fetch("lang/sub-lang.json")
-  .then(res => res.json())
-  .then(json => {
-    langSub = json;
-    loadLinks();
-  })
-  .catch(e => console.error("言語JSON読み込み失敗:", e));
-
 async function loadLinks() {
-  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
-  const sheetName = "sub";
+  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
+  const sheetName = "sub"; // シート名
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
   const sections = {
@@ -29,7 +17,9 @@ async function loadLinks() {
 
   // 初期表示
   for (const key in sections) {
-    if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
+    if (sections[key].container) {
+      sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
+    }
   }
 
   try {
@@ -55,20 +45,18 @@ async function loadLinks() {
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
     rows.slice(1).forEach(row => {
-      const [titleKey, descriptionHTML, image, link, section, internalFlag] = row;
+      const [title, description, image, link, section, internalLinkFlag] = row;
       if (!section || !sections[section] || !sections[section].container) return;
 
       const container = sections[section].container;
       const card = document.createElement("div");
       card.className = "work-card";
 
-      const titleText = langSub[currentLang]?.[titleKey] || titleKey;
-
       // 画像
       if (image) {
         const img = document.createElement("img");
         img.src = image;
-        img.alt = titleText;
+        img.alt = title;
         img.loading = "lazy";
         img.decoding = "async";
         card.appendChild(img);
@@ -76,21 +64,22 @@ async function loadLinks() {
 
       // タイトル
       const h3 = document.createElement("h3");
-      h3.textContent = titleText;
+      h3.textContent = title;
       card.appendChild(h3);
 
-      // 説明文（HTMLとしてレンダリング）
-      if (descriptionHTML) {
-        const p = document.createElement("div");
-        p.className = "description";
-        p.innerHTML = langSub[currentLang]?.[descriptionHTML] || descriptionHTML;
-        card.appendChild(p);
+      // 説明文
+      if (description) {
+        const descDiv = document.createElement("div");
+        descDiv.className = "work-description";
+        descDiv.innerHTML = description;
+        card.appendChild(descDiv);
       }
 
-      // リンク（スプレッドシートHTMLと重複しない場合のみ追加）
-      if (link && !descriptionHTML.includes(`<a`) ) {
+      
+      const hasLinkInDescription = description && /<a\s/i.test(description);
+      if (link && !hasLinkInDescription) {
         const a = document.createElement("a");
-        const isInternal = ["on", "1", "true"].includes(String(internalFlag).toLowerCase());
+        const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
 
         if (isInternal) {
           const currentParams = new URLSearchParams(window.location.search);
@@ -98,7 +87,7 @@ async function loadLinks() {
           const newParams = new URLSearchParams();
           if (themeParam) newParams.set("theme", themeParam);
           a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
-        } else if (titleKey === "HAMUSATA – ホームページ" && section === "portfolio") {
+        } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
           a.href = seasonLinks[season] || link;
         } else {
           a.href = link;
@@ -106,14 +95,14 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.textContent = langSub[currentLang]?.view || "見る / View";
+        a.textContent = "見る / View";
         card.appendChild(a);
       }
 
       container.appendChild(card);
     });
 
-    // データなしチェック
+    // データがない場合
     for (const key in sections) {
       if (sections[key].container && sections[key].container.children.length === 0) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
@@ -128,13 +117,6 @@ async function loadLinks() {
     }
     console.error("スプレッドシート読み込み失敗:", e);
   }
-}
-
-// 言語切替時再描画
-function updateCardsLang(lang) {
-  currentLang = lang;
-  localStorage.setItem("lang", lang);
-  loadLinks();
 }
 
 document.addEventListener("DOMContentLoaded", loadLinks);
