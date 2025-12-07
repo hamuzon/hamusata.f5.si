@@ -1,142 +1,163 @@
 {
   "ja": {
-    "HAMUSATA – ホームページ": {
-      "title": "HAMUSATA – ホームページ",
-      "desc": "メインのポータルリンク。色々なものをまとめています。"
-    },
-    "GitHub版 – ホームページ": {
-      "title": "GitHub版 – ホームページ",
-      "desc": "GitHub Pages 版ホームページ。"
-    },
-    "hamuzon – ホームページ": {
-      "title": "hamuzon – ホームページ",
-      "desc": "hamuzon-jp.f5.si のホームページ・リンクポータル版（FC2の一部コピーサイト）"
-    },
-    "hamuzon (FC2)系 – ホームページ": {
-      "title": "hamuzon (FC2)系 – ホームページ",
-      "desc": "FC2版ホームページ。いろんなコードやコンテンツがあります。"
-    },
-    "link-s.f5.si – ショートカットリンクサービス": {
-      "title": "link-s.f5.si – ショートカットリンクサービス",
-      "desc": "短縮URL・ショートカットリンクサービス。"
-    },
-    "go.link-s.f5.si – カスタムパス対応版": {
-      "title": "go.link-s.f5.si – カスタムパス対応版",
-      "desc": "任意のパスで短縮リンクを作れるカスタムリンクサービス。"
-    },
-    "pw.link-s.f5.si – パスワード生成サービス": {
-      "title": "pw.link-s.f5.si – パスワード生成サービス",
-      "desc": "APIベースのパスワード生成サービス。ログ保存等は一切ありません。"
-    },
-    "www.link-s.f5.si - ホームページ": {
-      "title": "www.link-s.f5.si - ホームページ",
-      "desc": "link-s.f5.si 系列作品集一覧ページ。"
-    },
-    "利用規約・プライバシーポリシー": {
-      "title": "利用規約・プライバシーポリシー",
-      "desc": "サイト利用規約とプライバシーポリシーの確認はこちら。"
-    },
-    "ランダム作品": {
-      "title": "ランダム作品",
-      "desc": "作品をランダムに開くボタンです。"
-    },
-    "サービス稼働状況": {
-      "title": "サービス稼働状況",
-      "desc": "※本サービスは一部 PCサーバー + Cloudflare Tunnel を利用しています。"
-    },
-    "相互リンクページ": {
-      "title": "相互リンクページ",
-      "desc": "こちらをクリックすると相互リンクページに移動します。"
-    },
-    "Scratch (hamusata)": {
-      "title": "Scratch (hamusata)",
-      "desc": "hamusataアカウント"
-    },
-    "Scratch (hamuzon)": {
-      "title": "Scratch (hamuzon)",
-      "desc": "hamuzonアカウント"
-    },
-    "GitHub": {
-      "title": "GitHub",
-      "desc": "GitHubアカウント"
-    },
-    "Bluesky": {
-      "title": "Bluesky",
-      "desc": "Blueskyアカウント"
-    },
-    "Twitter (X)": {
-      "title": "Twitter (X)",
-      "desc": "@hamu_sata - Xアカウント"
-    }
+    "title": "HAMUSATA – ホームページ",
+
+    "nav_home": "ホーム",
+    "nav_profile": "自己紹介",
+    "nav_portfolio": "ポートフォリオ",
+    "nav_random": "ランダム作品",
+    "nav_status": "サービス稼働状況",
+    "nav_links": "相互リンク",
+    "nav_sns": "SNSリンク",
+    "nav_terms": "利用規約・プライバシーポリシー",
+    "nav_github": "site-Code-GitHub",
+
+    "page_title": "HAMUSATA ホームページ",
+
+    "profile_title": "自己紹介",
+    "profile_p1": "こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。",
+    "profile_p2": "ハムスターを飼っています。",
+    "profile_p3": "ネットの海でプログラミングしたりネットしたりして過ごしてます。",
+
+    "portfolio_title": "ポートフォリオリンク集",
+
+    "w_main_title": "HAMUSATA – ホームページ",
+    "w_main_desc": "メインのポータルリンク。色々なものをまとめています。",
+
+    "w_github_pages_title": "GitHub版 – ホームページ",
+    "w_github_pages_desc": "GitHub Pages 版ホームページ。",
+
+    "w_hamuzon_title": "hamuzon – ホームページ",
+    "w_hamuzon_desc": "hamuzon-jp.f5.si のホームページ・リンクポータル版 (fc2の一部コピーサイト)",
+
+    "w_fc2_title": "hamuzon (FC2)系 – ホームページ",
+    "w_fc2_desc": "FC2版ホームページ。いろんなコードやコンテンツがあります。",
+
+    "w_link_s_title": "link-s.f5.si – ショートカットリンクサービス",
+    "w_link_s_desc": "短縮URL・ショートカットリンクサービス。",
+
+    "w_go_link_title": "go.link-s.f5.si – カスタムパス対応版",
+    "w_go_link_desc": "任意のパスで短縮リンクを作れるカスタムリンクサービス。",
+
+    "w_pw_title": "pw.link-s.f5.si – パスワード生成サービス",
+    "w_pw_desc": "APIベースのパスワード生成サービス。ログ保存等は一切ありません。",
+    "pw_note": "※リダイレクトがうまくできない場合はこちらを利用してください。",
+    "link_noapi": "APIなし版",
+
+    "w_www_title": "www.link-s.f5.si",
+    "w_www_desc": "リンクのメイン機能はショートカットリンクサービスのlink-s.f5.si 系列作品集一覧。",
+
+    "w_terms_title": "利用規約・プライバシーポリシー",
+    "w_terms_desc": "サイト利用規約とプライバシーポリシーの確認はこちら。",
+
+    "link_view": "見る",
+    "link_open": "開く",
+    "link_confirm": "確認する",
+
+    "random_title": "ランダム作品",
+    "random_card_title": "ランダム作品",
+    "random_card_desc": "作品をランダムに開くボタンです。",
+
+    "status_title": "サービス稼働状況 / Status Page",
+    "status_card_title": "サービス稼働状況",
+
+    "mutual_title": "相互リンク / Mutual Links",
+    "mutual_card_title": "相互リンクページ",
+    "mutual_card_desc": "こちらをクリックすると相互リンクページに移動します。",
+
+    "sns_title": "SNSリンク",
+    "sns_scratch1_title": "Scratch",
+    "sns_scratch1_desc": "hamusataアカウント",
+    "sns_scratch2_title": "Scratch",
+    "sns_scratch2_desc": "hamuzonアカウント",
+    "sns_github_title": "GitHub",
+    "sns_github_desc": "GitHubアカウント",
+    "sns_bsky_title": "Bluesky",
+    "sns_bsky_desc": "Blueskyアカウント",
+    "sns_x_title": "Twitter (X)",
+    "sns_x_desc": "@hamu_sata アカウント",
+
+    "footer_reserved": "All rights reserved."
   },
+
   "en": {
-    "HAMUSATA – ホームページ": {
-      "title": "HAMUSATA – Homepage",
-      "desc": "Main portal page with various links."
-    },
-    "GitHub版 – ホームページ": {
-      "title": "GitHub Pages – Homepage",
-      "desc": "GitHub Pages version of the homepage."
-    },
-    "hamuzon – ホームページ": {
-      "title": "hamuzon – Homepage",
-      "desc": "Homepage & link portal for hamuzon-jp.f5.si (partial FC2 mirror)."
-    },
-    "hamuzon (FC2)系 – ホームページ": {
-      "title": "hamuzon (FC2) – Homepage",
-      "desc": "FC2 version homepage with various content and code."
-    },
-    "link-s.f5.si – ショートカットリンクサービス": {
-      "title": "link-s.f5.si – Shortcut Link Service",
-      "desc": "Short URL / shortcut link service."
-    },
-    "go.link-s.f5.si – カスタムパス対応版": {
-      "title": "go.link-s.f5.si – Custom Path Version",
-      "desc": "Create short links with any custom path."
-    },
-    "pw.link-s.f5.si – パスワード生成サービス": {
-      "title": "pw.link-s.f5.si – Password Generator",
-      "desc": "API-based password generator. No logs are saved."
-    },
-    "www.link-s.f5.si - ホームページ": {
-      "title": "www.link-s.f5.si - Homepage",
-      "desc": "Main link for shortcut services — link-s.f5.si related works."
-    },
-    "利用規約・プライバシーポリシー": {
-      "title": "Terms & Privacy Policy",
-      "desc": "Check terms of use and privacy policy here."
-    },
-    "ランダム作品": {
-      "title": "Random Works",
-      "desc": "Opens a random work."
-    },
-    "サービス稼働状況": {
-      "title": "Service Status",
-      "desc": "This service partly uses a PC server + Cloudflare Tunnel."
-    },
-    "相互リンクページ": {
-      "title": "Mutual Links Page",
-      "desc": "Click here to open the Mutual Links page."
-    },
-    "Scratch (hamusata)": {
-      "title": "Scratch (hamusata)",
-      "desc": "hamusata account"
-    },
-    "Scratch (hamuzon)": {
-      "title": "Scratch (hamuzon)",
-      "desc": "hamuzon account"
-    },
-    "GitHub": {
-      "title": "GitHub",
-      "desc": "GitHub account"
-    },
-    "Bluesky": {
-      "title": "Bluesky",
-      "desc": "Bluesky account"
-    },
-    "Twitter (X)": {
-      "title": "Twitter (X)",
-      "desc": "@hamu_sata account"
-    }
+    "title": "HAMUSATA – Homepage",
+
+    "nav_home": "Home",
+    "nav_profile": "Profile",
+    "nav_portfolio": "Portfolio",
+    "nav_random": "Random Works",
+    "nav_status": "Service Status",
+    "nav_links": "Mutual Links",
+    "nav_sns": "SNS Links",
+    "nav_terms": "Terms & Privacy Policy",
+    "nav_github": "site-Code-GitHub",
+
+    "page_title": "HAMUSATA Homepage",
+
+    "profile_title": "Profile",
+    "profile_p1": "Hello, I'm hamusata. I create websites and wander around the sea of the internet.",
+    "profile_p2": "I have a pet hamster.",
+    "profile_p3": "I spend my time programming and exploring the web.",
+
+    "portfolio_title": "Portfolio Links",
+
+    "w_main_title": "HAMUSATA – Homepage",
+    "w_main_desc": "Main portal page with various links.",
+
+    "w_github_pages_title": "GitHub Pages – Homepage",
+    "w_github_pages_desc": "GitHub Pages version of the homepage.",
+
+    "w_hamuzon_title": "hamuzon – Homepage",
+    "w_hamuzon_desc": "Homepage & link portal for hamuzon-jp.f5.si (partial FC2 mirror).",
+
+    "w_fc2_title": "hamuzon (FC2) – Homepage",
+    "w_fc2_desc": "FC2 version homepage with various content and code.",
+
+    "w_link_s_title": "link-s.f5.si – Shortcut Link Service",
+    "w_link_s_desc": "Short URL / shortcut link service.",
+
+    "w_go_link_title": "go.link-s.f5.si – Custom Path Version",
+    "w_go_link_desc": "Create short links with any custom path.",
+
+    "w_pw_title": "pw.link-s.f5.si – Password Generator",
+    "w_pw_desc": "API-based password generator. No logs are saved.",
+    "pw_note": "If redirect does not work well, use this version.",
+    "link_noapi": "Non-API version",
+
+    "w_www_title": "www.link-s.f5.si",
+    "w_www_desc": "Main link for shortcut services — link-s.f5.si related works.",
+
+    "w_terms_title": "Terms & Privacy Policy",
+    "w_terms_desc": "Check terms of use and privacy policy here.",
+
+    "link_view": "View",
+    "link_open": "Open",
+    "link_confirm": "Check",
+
+    "random_title": "Random Works",
+    "random_card_title": "Random Works",
+    "random_card_desc": "Opens a random work.",
+
+    "status_title": "Service Status / Status Page",
+    "status_card_title": "Service Status",
+
+    "mutual_title": "Mutual Links",
+    "mutual_card_title": "Mutual Links Page",
+    "mutual_card_desc": "Click here to open the Mutual Links page.",
+
+    "sns_title": "SNS Links",
+    "sns_scratch1_title": "Scratch",
+    "sns_scratch1_desc": "hamusata account",
+    "sns_scratch2_title": "Scratch",
+    "sns_scratch2_desc": "hamuzon account",
+    "sns_github_title": "GitHub",
+    "sns_github_desc": "GitHub account",
+    "sns_bsky_title": "Bluesky",
+    "sns_bsky_desc": "Bluesky account",
+    "sns_x_title": "Twitter (X)",
+    "sns_x_desc": "@hamu_sata account",
+
+    "footer_reserved": "All rights reserved."
   }
 }
