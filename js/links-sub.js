@@ -1,7 +1,12 @@
 // ============================================
-// js/links-sub.js 
+// js/links-sub.js
 // ============================================
 
+let subLangData = {};
+
+// ============================================
+// リンク読み込み関数
+// ============================================
 async function loadLinks() {
   const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
   const sheetName = "sub"; // シート名
@@ -15,6 +20,7 @@ async function loadLinks() {
     sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
   };
 
+  // 読み込み中表示
   for (const key in sections) {
     if (sections[key].container) {
       sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
@@ -22,15 +28,18 @@ async function loadLinks() {
   }
 
   try {
+    // スプレッドシート取得
     const res = await fetch(url);
     const text = await res.text();
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
+    // 各セクション初期化
     for (const key in sections) {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
 
+    // 季節リンク
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
       summer: "https://home.hamusata.f5.si/summer",
@@ -42,16 +51,28 @@ async function loadLinks() {
                    month >= 6 && month <= 8 ? "summer" :
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
-    // JSONのlangキー取得
-    const langDataRes = await fetch("lang/sub-lang.json");
-    const langData = await langDataRes.json();
+    // 言語データ取得
+    const langRes = await fetch("lang/sub-lang.json");
+    subLangData = await langRes.json();
     const lang = localStorage.getItem("lang") || (navigator.language.startsWith("en") ? "en" : "ja");
 
+    // 各行処理
     rows.slice(1).forEach(row => {
       const [title, description, image, link, section, internalLinkFlag] = row;
       if (!section || !sections[section] || !sections[section].container) return;
 
       const container = sections[section].container;
+
+      // pwカード特殊処理
+      if (title === "pw.link-s.f5.si – パスワード生成サービス") {
+        const pwHTML = subLangData[lang]["pw_html"] || "";
+        const div = document.createElement("div");
+        div.innerHTML = pwHTML;
+        container.appendChild(div.firstElementChild); // 1枚のカードだけ追加
+        return;
+      }
+
+      // 通常カード
       const card = document.createElement("div");
       card.className = "work-card";
 
@@ -67,20 +88,15 @@ async function loadLinks() {
 
       // タイトル
       const h3 = document.createElement("h3");
-      // lang/sub-lang.json からキーを推測
-      let keyTitle = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_title";
-      if (!langData[lang][keyTitle]) keyTitle = title; // キーがなければそのまま
-      h3.textContent = langData[lang][keyTitle] || title;
-      h3.dataset.langKey = keyTitle;
+      h3.innerHTML = langDataOrDefault(title, lang, subLangData);
+      h3.dataset.langKey = title;
       card.appendChild(h3);
 
       // 説明
       if (description) {
         const p = document.createElement("p");
-        let keyDesc = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_desc";
-        if (!langData[lang][keyDesc]) keyDesc = description;
-        p.textContent = langData[lang][keyDesc] || description;
-        p.dataset.langKey = keyDesc;
+        p.innerHTML = langDataOrDefault(title + "_desc", lang, subLangData, description);
+        p.dataset.langKey = title + "_desc";
         card.appendChild(p);
       }
 
@@ -94,7 +110,6 @@ async function loadLinks() {
           const themeParam = currentParams.get("theme");
           const newParams = new URLSearchParams();
           if (themeParam) newParams.set("theme", themeParam);
-
           a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
         } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
           a.href = seasonLinks[season] || link;
@@ -104,8 +119,7 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-
-        a.textContent = langData[lang]["link_view"] || "View";
+        a.innerHTML = langDataOrDefault("link_view", lang, subLangData, "View");
         a.dataset.langKey = "link_view";
         card.appendChild(a);
       }
@@ -130,4 +144,15 @@ async function loadLinks() {
   }
 }
 
+// ============================================
+// 言語切替用ヘルパー
+// ============================================
+function langDataOrDefault(key, lang, data, defaultText) {
+  if (!data[lang]) return defaultText || key;
+  return data[lang][key] || defaultText || key;
+}
+
+// ============================================
+// 初期ロード
+// ============================================
 document.addEventListener("DOMContentLoaded", loadLinks);
