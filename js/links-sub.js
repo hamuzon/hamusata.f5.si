@@ -1,5 +1,5 @@
 // ============================================
-// links-sub.js
+// js/links-sub.js
 // ============================================
 
 let subLangData = {}; 
@@ -49,58 +49,58 @@ async function loadLinks() {
       const card = document.createElement("div");
       card.className = "work-card";
 
-      // 画像
-      if (image) {
-        const img = document.createElement("img");
-        img.src = image;
-        img.alt = subLangData[currentLang][title] || title;
-        img.loading = "lazy";
-        img.decoding = "async";
-        card.appendChild(img);
-      }
-
-      // タイトル
-      const h3 = document.createElement("h3");
-      h3.dataset.langKey = title;
-      h3.textContent = subLangData[currentLang][title] || title;
-      card.appendChild(h3);
-
-      // 説明
-      if (description) {
-        const descDiv = document.createElement("div");
-        descDiv.className = "work-description";
-        descDiv.dataset.langKey = description;
-        descDiv.innerHTML = subLangData[currentLang][description] || description;
-        card.appendChild(descDiv);
-      }
-
-      // リンクボタン
-      if (link) {
-        const a = document.createElement("a");
-        a.dataset.langKey = "link_view";
-        const isInternal = ["on","1","true"].includes(String(internalLinkFlag).toLowerCase());
-
-        if (isInternal) {
-          const currentParams = new URLSearchParams(window.location.search);
-          const themeParam = currentParams.get("theme");
-          const newParams = new URLSearchParams();
-          if (themeParam) newParams.set("theme", themeParam);
-          a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
-        } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
-          a.href = seasonLinks[season] || link;
-        } else {
-          a.href = link;
+      // pwカード用HTMLを優先
+      if (title === "pw.link-s.f5.si – パスワード生成サービス" && subLangData[currentLang]["pw_html"]) {
+        card.innerHTML = subLangData[currentLang]["pw_html"];
+      } else {
+        // 画像
+        if (image) {
+          const img = document.createElement("img");
+          img.src = image;
+          img.alt = subLangData[currentLang][title] || title;
+          img.loading = "lazy";
+          img.decoding = "async";
+          card.appendChild(img);
         }
 
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.textContent = subLangData[currentLang]["link_view"] || "View";
-        card.appendChild(a);
-      }
+        // タイトル
+        const h3 = document.createElement("h3");
+        h3.dataset.langKey = title;
+        h3.textContent = subLangData[currentLang][title] || title;
+        card.appendChild(h3);
 
-      // パスワード生成サービスHTML挿入
-      if (title === "pw.link-s.f5.si – パスワード生成サービス") {
-        card.innerHTML = subLangData[currentLang]["pw_html"] || card.innerHTML;
+        // 説明
+        if (description) {
+          const descDiv = document.createElement("div");
+          descDiv.className = "work-description";
+          descDiv.dataset.langKey = description;
+          descDiv.innerHTML = subLangData[currentLang][description] || description;
+          card.appendChild(descDiv);
+        }
+
+        // リンクボタン
+        if (link) {
+          const a = document.createElement("a");
+          a.dataset.langKey = "link_view";
+          const isInternal = ["on","1","true"].includes(String(internalLinkFlag).toLowerCase());
+
+          if (isInternal) {
+            const currentParams = new URLSearchParams(window.location.search);
+            const themeParam = currentParams.get("theme");
+            const newParams = new URLSearchParams();
+            if (themeParam) newParams.set("theme", themeParam);
+            a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
+          } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
+            a.href = seasonLinks[season] || link;
+          } else {
+            a.href = link;
+          }
+
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.textContent = subLangData[currentLang]["link_view"] || "View";
+          card.appendChild(a);
+        }
       }
 
       container.appendChild(card);
@@ -141,7 +141,7 @@ function switchSubLang(lang) {
   // パスワード生成サービスHTML翻訳
   document.querySelectorAll(".work-card").forEach(card => {
     const h3 = card.querySelector("h3");
-    if (h3 && (h3.textContent.includes("pw.link-s.f5.si") || h3.dataset.langKey === "pw.link-s.f5.si – パスワード生成サービス")) {
+    if (h3 && h3.dataset.langKey === "pw.link-s.f5.si – パスワード生成サービス") {
       card.innerHTML = subLangData[lang]["pw_html"] || card.innerHTML;
     }
   });
