@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>作品ランダムリンク</title>
+  <title>作品ランダムリンク / Random Work Link</title>
 
   <link rel="icon" href="../icon.svg" type="image/svg+xml" />
   <link rel="icon" href="../icon.png" type="image/png" />
@@ -100,34 +100,38 @@
 
 <body>
 
-  <h1>作品ランダムリンク</h1>
+  <h1>
+    作品ランダムリンク <br />
+    Random Work Link
+  </h1>
 
-  <button id="randomBtn">ランダムで開く</button>
+  <button id="randomBtn">
+    ランダムで開く / Open Randomly
+  </button>
 
   <footer>
+    <span id="year"></span> &copy;
     <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved. |
-    <a href="../index.html">ホームページに戻る</a>
+    <a href="../index.html">ホームページに戻る / Back to Home</a>
   </footer>
 
   <script src="links.js"></script>
 
   <script>
+    // ランダムリンク機能
     const btn = document.getElementById("randomBtn");
-
     btn.addEventListener("click", () => {
       const randomIndex = Math.floor(Math.random() * links.length);
       window.open(links[randomIndex], "_blank");
     });
 
+    // 著作年表示
     const baseYear = 2025;
     const currentYear = new Date().getFullYear();
-    const footer = document.querySelector('footer');
-    const yearSpan = document.createElement('span');
-    yearSpan.id = 'year';
+    const yearSpan = document.getElementById('year');
     yearSpan.textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
-    footer.insertAdjacentHTML('afterbegin', '&copy; ');
-    footer.insertBefore(yearSpan, footer.childNodes[1]);
 
+    // テーマ切替（light/dark）
     const urlParams = new URLSearchParams(window.location.search);
     const themeParam = urlParams.get('theme');
 
@@ -143,12 +147,13 @@
             .addEventListener('change', applyTheme);
     }
 
+    // リンクにクエリパラメータを継承
     (function() {
       const currentParams = window.location.search;
       if (!currentParams) return;
 
-      const links = document.querySelectorAll('a[href]');
-      links.forEach(link => {
+      const linksElements = document.querySelectorAll('a[href]');
+      linksElements.forEach(link => {
         const url = new URL(link.href, window.location.origin);
         if (url.origin !== window.location.origin) return;
         if (url.search) return;
@@ -157,6 +162,7 @@
       });
     })();
 
+    // Service Worker 登録
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')
