@@ -1,7 +1,8 @@
 // ============================================
-// links-sub.js
+// links-sub.js 
 // ============================================
 
+let subLangData = {}; 
 async function loadLinks() {
   const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
   const sheetName = "sub";
@@ -45,7 +46,7 @@ async function loadLinks() {
 
     // サブ言語JSONを読み込む
     const langRes = await fetch("/lang/sub-lang.json");
-    const langData = await langRes.json();
+    subLangData = await langRes.json();
 
     rows.slice(1).forEach(row => {
       const [title, description, image, link, section, internalLinkFlag] = row;
@@ -59,7 +60,7 @@ async function loadLinks() {
       if (image) {
         const img = document.createElement("img");
         img.src = image;
-        img.alt = langData[currentLang][title] || title;
+        img.alt = subLangData[currentLang][title] || title;
         img.loading = "lazy";
         img.decoding = "async";
         card.appendChild(img);
@@ -67,20 +68,23 @@ async function loadLinks() {
 
       // タイトル
       const h3 = document.createElement("h3");
-      h3.textContent = langData[currentLang][title] || title;
+      h3.dataset.langKey = title;
+      h3.textContent = subLangData[currentLang][title] || title;
       card.appendChild(h3);
 
       // 説明
       if (description) {
         const descDiv = document.createElement("div");
         descDiv.className = "work-description";
-        descDiv.innerHTML = langData[currentLang][description] || description;
+        descDiv.dataset.langKey = description;
+        descDiv.innerHTML = subLangData[currentLang][description] || description;
         card.appendChild(descDiv);
       }
 
       // リンクボタン
       if (link) {
         const a = document.createElement("a");
+        a.dataset.langKey = "link_view";
         const isInternal = ["on","1","true"].includes(String(internalLinkFlag).toLowerCase());
 
         if (isInternal) {
@@ -97,7 +101,7 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.textContent = langData[currentLang]["link_view"] || "View";
+        a.textContent = subLangData[currentLang]["link_view"] || "View";
         card.appendChild(a);
       }
 
@@ -119,4 +123,24 @@ async function loadLinks() {
   }
 }
 
+// ============================================
+// 言語切替関数
+// ============================================
+function switchSubLang(lang) {
+  if (!subLangData[lang]) return;
+  document.querySelectorAll(".work-card [data-lang-key]").forEach(el => {
+    const key = el.dataset.langKey;
+    if (subLangData[lang][key]) {
+      if (el.tagName === "IMG") {
+        el.alt = subLangData[lang][key];
+      } else {
+        el.textContent = subLangData[lang][key];
+      }
+    }
+  });
+}
+
+// ============================================
+// 初期ロード
+// ============================================
 document.addEventListener("DOMContentLoaded", loadLinks);
