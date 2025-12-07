@@ -1,13 +1,109 @@
 // ============================================
-// js/links-sub.js
+// js/script-sub.js
 // ============================================
 
+let currentLang = localStorage.getItem("lang") || "ja";
+let langSub = {};
+
+// ============================================
+// DOMContentLoaded
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+
+  // 年自動更新
+  (function () {
+    const baseYear = 2025;
+    const now = new Date().getFullYear();
+    const el = document.getElementById("year");
+    if (el) el.textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
+  })();
+
+  // テーマ自動切替
+  (function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const themeParam = urlParams.get('theme');
+    if (themeParam === 'dark' || themeParam === 'light') {
+      document.body.className = themeParam;
+    } else {
+      function applyTheme() {
+        document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      applyTheme();
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+    }
+  })();
+
+  // ハンバーガーメニュー
+  (function () {
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const body = document.body;
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', () => {
+        const open = body.classList.toggle('menu-open');
+        menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
+
+    if (menuOverlay) {
+      menuOverlay.addEventListener('click', () => {
+        body.classList.remove('menu-open');
+        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    }
+  })();
+
+  // メニュー内 #home スクロール
+  (function () {
+    function menuScrollToHome(event) {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      history.replaceState(null, '', location.pathname + location.search);
+      document.body.classList.remove('menu-open');
+      const toggle = document.getElementById('menu-toggle');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    }
+    document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
+  })();
+
+  // PWA: Service Worker
+  (function () {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(reg => console.log('Service Worker registered with scope:', reg.scope))
+        .catch(err => console.error('Service Worker registration failed:', err));
+    }
+  })();
+
+  // 言語切替ボタン同期
+  const langBtn = document.getElementById("lang-switch");
+  if (langBtn) {
+    langBtn.addEventListener("click", () => {
+      const newLang = currentLang === "ja" ? "en" : "ja";
+      updateCardsLang(newLang);
+      langBtn.textContent = newLang === "ja" ? "🌐 English" : "🌐 日本語";
+    });
+  }
+
+  // ページ読み込み時にリンク生成
+  fetch("lang/sub-lang.json")
+    .then(res => res.json())
+    .then(json => {
+      langSub = json;
+      loadLinks();
+    });
+
+});
+
+// ============================================
+// Googleスプレッドシートからリンクを生成
+// ============================================
 async function loadLinks() {
-  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
-  const sheetName = "sub"; // シート名
+  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
+  const sheetName = "sub";
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
-  // セクション初期値設定
   const sections = {
     portfolio: { container: document.getElementById("portfolioLinks"), name: "ポートフォリオ", default: "読み込み中..." },
     random: { container: document.getElementById("randomLinks"), name: "ランダム作品", default: "読み込み中..." },
@@ -16,26 +112,20 @@ async function loadLinks() {
     sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
   };
 
-  // 初期表示
   for (const key in sections) {
-    if (sections[key].container) {
-      sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
-    }
+    if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
   }
 
   try {
-    // スプレッドシート取得
     const res = await fetch(url);
     const text = await res.text();
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
-    // セクション初期化
     for (const key in sections) {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
 
-    // 季節リンク定義
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
       summer: "https://home.hamusata.f5.si/summer",
@@ -47,16 +137,14 @@ async function loadLinks() {
                    month >= 6 && month <= 8 ? "summer" :
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
-    // リンクカード生成
     rows.slice(1).forEach(row => {
-      const [title, description, image, link, section, internalLinkFlag] = row;
+      let [title, description, image, link, section, internalFlag] = row;
       if (!section || !sections[section] || !sections[section].container) return;
 
       const container = sections[section].container;
       const card = document.createElement("div");
       card.className = "work-card";
 
-      // 画像
       if (image) {
         const img = document.createElement("img");
         img.src = image;
@@ -66,32 +154,27 @@ async function loadLinks() {
         card.appendChild(img);
       }
 
-      // タイトル
       const h3 = document.createElement("h3");
       h3.textContent = title;
       card.appendChild(h3);
 
-      // 説明文
       if (description) {
         const p = document.createElement("p");
         p.innerHTML = description;
         card.appendChild(p);
       }
 
-      // リンク
       if (link) {
         const a = document.createElement("a");
-        const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
+        const isInternal = ["on","1","true"].includes(String(internalFlag).toLowerCase());
 
         if (isInternal) {
-          // 内部リンクは ?theme= を保持
           const currentParams = new URLSearchParams(window.location.search);
           const themeParam = currentParams.get("theme");
           const newParams = new URLSearchParams();
           if (themeParam) newParams.set("theme", themeParam);
-
           a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
-        } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
+        } else if (title.includes("HAMUSATA – ホームページ") && section === "portfolio") {
           a.href = seasonLinks[season] || link;
         } else {
           a.href = link;
@@ -99,14 +182,13 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.textContent = "見る / View";
+        a.textContent = langSub[currentLang]?.view || "View";
         card.appendChild(a);
       }
 
       container.appendChild(card);
     });
 
-    // データがない場合
     for (const key in sections) {
       if (sections[key].container && sections[key].container.children.length === 0) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
@@ -115,13 +197,15 @@ async function loadLinks() {
 
   } catch (e) {
     for (const key in sections) {
-      if (sections[key].container) {
-        sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
-      }
+      if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
     }
     console.error("スプレッドシート読み込み失敗:", e);
   }
 }
 
-// ページ読み込み時に実行
-document.addEventListener("DOMContentLoaded", loadLinks);
+// 言語切替時に再レンダリング
+function updateCardsLang(lang){
+  currentLang = lang;
+  localStorage.setItem("lang", lang);
+  loadLinks();
+}
