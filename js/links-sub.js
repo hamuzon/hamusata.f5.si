@@ -1,5 +1,5 @@
 // ============================================
-// js/links-sub.js 
+// js/links-sub.js
 // ============================================
 
 async function loadLinks() {
@@ -15,6 +15,7 @@ async function loadLinks() {
     sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
   };
 
+  // 初期表示
   for (const key in sections) {
     if (sections[key].container) {
       sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
@@ -27,6 +28,7 @@ async function loadLinks() {
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
+    // セクション初期化
     for (const key in sections) {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
@@ -42,10 +44,7 @@ async function loadLinks() {
                    month >= 6 && month <= 8 ? "summer" :
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
-    // JSONのlangキー取得
-    const langDataRes = await fetch("lang/sub-lang.json");
-    const langData = await langDataRes.json();
-    const lang = localStorage.getItem("lang") || (navigator.language.startsWith("en") ? "en" : "ja");
+    const currentLang = document.documentElement.lang || "ja";
 
     rows.slice(1).forEach(row => {
       const [title, description, image, link, section, internalLinkFlag] = row;
@@ -65,26 +64,27 @@ async function loadLinks() {
         card.appendChild(img);
       }
 
+      // 翻訳キー生成（JSONのキーに合わせる）
+      const keyTitle = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_title";
+      const keyDesc = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_desc";
+
       // タイトル
       const h3 = document.createElement("h3");
-      // lang/sub-lang.json からキーを推測
-      let keyTitle = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_title";
-      if (!langData[lang][keyTitle]) keyTitle = title; // キーがなければそのまま
-      h3.textContent = langData[lang][keyTitle] || title;
+      h3.textContent = (window.langData && window.langData[currentLang] && window.langData[currentLang][keyTitle])
+                       || title;
       h3.dataset.langKey = keyTitle;
       card.appendChild(h3);
 
-      // 説明
+      // 説明文
       if (description) {
         const p = document.createElement("p");
-        let keyDesc = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_desc";
-        if (!langData[lang][keyDesc]) keyDesc = description;
-        p.textContent = langData[lang][keyDesc] || description;
+        p.innerHTML = (window.langData && window.langData[currentLang] && window.langData[currentLang][keyDesc])
+                      || description;
         p.dataset.langKey = keyDesc;
         card.appendChild(p);
       }
 
-      // リンク
+      // リンクボタン
       if (link) {
         const a = document.createElement("a");
         const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
@@ -94,7 +94,6 @@ async function loadLinks() {
           const themeParam = currentParams.get("theme");
           const newParams = new URLSearchParams();
           if (themeParam) newParams.set("theme", themeParam);
-
           a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
         } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
           a.href = seasonLinks[season] || link;
@@ -104,16 +103,16 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-
-        a.textContent = langData[lang]["link_view"] || "View";
         a.dataset.langKey = "link_view";
+        a.textContent = (window.langData && window.langData[currentLang] && window.langData[currentLang]["link_view"])
+                        || (currentLang === "en" ? "View" : "見る / View");
         card.appendChild(a);
       }
 
       container.appendChild(card);
     });
 
-    // データなし対応
+    // データがない場合
     for (const key in sections) {
       if (sections[key].container && sections[key].container.children.length === 0) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
@@ -130,4 +129,5 @@ async function loadLinks() {
   }
 }
 
+// ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", loadLinks);
