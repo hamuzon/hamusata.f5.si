@@ -1,5 +1,5 @@
 // ============================================
-// js/links-sub.js
+// js/links-sub.js 
 // ============================================
 
 async function loadLinks() {
@@ -7,7 +7,6 @@ async function loadLinks() {
   const sheetName = "sub"; // シート名
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
-  // セクション初期値設定
   const sections = {
     portfolio: { container: document.getElementById("portfolioLinks"), name: "ポートフォリオ", default: "読み込み中..." },
     random: { container: document.getElementById("randomLinks"), name: "ランダム作品", default: "読み込み中..." },
@@ -24,7 +23,6 @@ async function loadLinks() {
   }
 
   try {
-    // スプレッドシート取得
     const res = await fetch(url);
     const text = await res.text();
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
@@ -35,7 +33,7 @@ async function loadLinks() {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
 
-    // 季節リンク定義
+    // 季節リンク
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
       summer: "https://home.hamusata.f5.si/summer",
@@ -46,6 +44,11 @@ async function loadLinks() {
     const season = month >= 3 && month <= 5 ? "spring" :
                    month >= 6 && month <= 8 ? "summer" :
                    month >= 9 && month <= 11 ? "autumn" : "winter";
+
+    // lang.json 読み込み
+    const langRes = await fetch("lang/lang.json");
+    const langData = await langRes.json();
+    const lang = document.documentElement.lang || "ja";
 
     // リンクカード生成
     rows.slice(1).forEach(row => {
@@ -81,15 +84,13 @@ async function loadLinks() {
       // リンク
       if (link) {
         const a = document.createElement("a");
-        const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
+        const isInternal = ["on","1","true"].includes(String(internalLinkFlag).toLowerCase());
 
         if (isInternal) {
-          // 内部リンクは ?theme= を保持
           const currentParams = new URLSearchParams(window.location.search);
           const themeParam = currentParams.get("theme");
           const newParams = new URLSearchParams();
           if (themeParam) newParams.set("theme", themeParam);
-
           a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
         } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
           a.href = seasonLinks[season] || link;
@@ -99,7 +100,10 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.textContent = "見る / View";
+
+        // lang.json による切替対応
+        const viewText = langData[lang]?.link_view || { jp: "見る", en: "View" };
+        a.innerHTML = `<span>${viewText.jp}</span> / <span>${viewText.en}</span>`;
         card.appendChild(a);
       }
 
@@ -113,7 +117,7 @@ async function loadLinks() {
       }
     }
 
-  } catch (e) {
+  } catch(e) {
     for (const key in sections) {
       if (sections[key].container) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
@@ -123,5 +127,4 @@ async function loadLinks() {
   }
 }
 
-// ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", loadLinks);
