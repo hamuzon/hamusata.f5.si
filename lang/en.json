@@ -1,0 +1,71 @@
+{
+  "site_title": "HAMUSATA – Homepage",
+
+  "nav_home": "Home",
+  "nav_profile": "Profile",
+  "nav_portfolio": "Portfolio",
+  "nav_random": "Random",
+  "nav_status": "Service Status",
+  "nav_links": "Mutual Links",
+  "nav_sns": "SNS Links",
+  "nav_terms": "Terms & Privacy",
+
+  "main_title": "HAMUSATA Homepage",
+
+  "profile_title": "Profile",
+  "profile_1": "Hi, I'm hamusata — a web creator exploring the sea of the Internet.",
+  "profile_2": "I have a pet hamster.",
+  "profile_3": "I spend time programming and exploring the web.",
+
+  "portfolio_title": "Portfolio Links",
+
+  "p1_title": "HAMUSATA – Homepage",
+  "p1_desc": "Main portal site with many links.",
+  "p2_title": "GitHub Edition – Homepage",
+  "p2_desc": "GitHub Pages version of the homepage.",
+  "p3_title": "hamuzon – Homepage",
+  "p3_desc": "Homepage of hamuzon-jp.f5.si.",
+  "p4_title": "hamuzon (FC2) – Homepage",
+  "p4_desc": "FC2-based homepage with various content.",
+  "p5_title": "link-s.f5.si – Shortcut Links",
+  "p5_desc": "Short URL / shortcut link service.",
+  "p6_title": "go.link-s – Custom Path",
+  "p6_desc": "Customizable short link with free path.",
+  "p7_title": "pw.link-s – Password Generator",
+  "p7_desc": "API-based password generation service.",
+  "p7_note": "If redirect does not work, click here",
+  "p8_title": "www.link-s.f5.si",
+  "p8_desc": "Collection of link-s projects.",
+  "p9_title": "Terms & Privacy",
+  "p9_desc": "Terms of Use & Privacy Policy.",
+
+  "random_title": "Random Project",
+  "random_h3": "Random Project",
+  "random_desc": "Button that opens random content.",
+
+  "status_title": "Service Status",
+  "status_h3": "Service Status",
+
+  "mutual_title": "Mutual Links",
+  "mutual_h3": "Mutual Links Page",
+  "mutual_desc": "Click to open the mutual links page.",
+
+  "sns_title": "SNS Links",
+  "sns_scratch1": "Scratch",
+  "sns_scratch1_desc": "hamusata Account",
+  "sns_scratch2": "Scratch",
+  "sns_scratch2_desc": "hamuzon Account",
+  "sns_github": "GitHub",
+  "sns_github_desc": "GitHub Account",
+  "sns_bluesky": "Bluesky",
+  "sns_bluesky_desc": "Bluesky Account",
+  "sns_twitter": "Twitter (X)",
+  "sns_twitter_desc": "@hamu_sata Account",
+
+  "btn_view": "View",
+  "btn_open": "Open",
+  "btn_status": "View Status",
+  "btn_noapi": "No-API Version",
+
+  "rights": "All rights reserved."
+}
