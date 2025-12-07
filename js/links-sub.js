@@ -2,9 +2,13 @@
 // js/links-sub.js 
 // ============================================
 
+// 現在の言語 (初期値: ja)
+let lang = 'ja';
+
+
 async function loadLinks() {
-  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
-  const sheetName = "sub"; // シート名
+  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; 
+  const sheetName = "sub"; 
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
   const sections = {
@@ -15,7 +19,6 @@ async function loadLinks() {
     sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
   };
 
-  // 初期表示
   for (const key in sections) {
     if (sections[key].container) {
       sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
@@ -28,12 +31,10 @@ async function loadLinks() {
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
-    // セクション初期化
     for (const key in sections) {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
 
-    // 季節リンク
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
       summer: "https://home.hamusata.f5.si/summer",
@@ -45,12 +46,6 @@ async function loadLinks() {
                    month >= 6 && month <= 8 ? "summer" :
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
-    // lang.json 読み込み
-    const langRes = await fetch("lang/lang.json");
-    const langData = await langRes.json();
-    const lang = document.documentElement.lang || "ja";
-
-    // リンクカード生成
     rows.slice(1).forEach(row => {
       const [title, description, image, link, section, internalLinkFlag] = row;
       if (!section || !sections[section] || !sections[section].container) return;
@@ -71,20 +66,22 @@ async function loadLinks() {
 
       // タイトル
       const h3 = document.createElement("h3");
-      h3.textContent = title;
+      const titleKey = mapTitleToKey(title); // lang.json のキーに変換
+      h3.textContent = (window.langData && window.langData[lang][titleKey]) || title;
       card.appendChild(h3);
 
       // 説明文
       if (description) {
         const p = document.createElement("p");
-        p.innerHTML = description;
+        const descKey = mapDescToKey(titleKey); // desc キーは titleKey + "_desc"
+        p.innerHTML = (window.langData && window.langData[lang][descKey]) || description;
         card.appendChild(p);
       }
 
       // リンク
       if (link) {
         const a = document.createElement("a");
-        const isInternal = ["on","1","true"].includes(String(internalLinkFlag).toLowerCase());
+        const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
 
         if (isInternal) {
           const currentParams = new URLSearchParams(window.location.search);
@@ -100,24 +97,20 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-
-        // lang.json による切替対応
-        const viewText = langData[lang]?.link_view || { jp: "見る", en: "View" };
-        a.innerHTML = `<span>${viewText.jp}</span> / <span>${viewText.en}</span>`;
+        a.textContent = (window.langData && window.langData[lang]["link_view"]) || "見る";
         card.appendChild(a);
       }
 
       container.appendChild(card);
     });
 
-    // データがない場合
     for (const key in sections) {
       if (sections[key].container && sections[key].container.children.length === 0) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
       }
     }
 
-  } catch(e) {
+  } catch (e) {
     for (const key in sections) {
       if (sections[key].container) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
@@ -127,4 +120,34 @@ async function loadLinks() {
   }
 }
 
+// CSVタイトル → lang.json キーに変換
+function mapTitleToKey(title) {
+  const map = {
+    "HAMUSATA – ホームページ": "w_main_title",
+    "GitHub版 – ホームページ": "w_github_pages_title",
+    "hamuzon – ホームページ": "w_hamuzon_title",
+    "hamuzon (FC2)系 – ホームページ": "w_fc2_title",
+    "link-s.f5.si – ショートカットリンクサービス": "w_link_s_title",
+    "go.link-s.f5.si – カスタムパス対応版": "w_go_link_title",
+    "pw.link-s.f5.si – パスワード生成サービス": "w_pw_title",
+    "www.link-s.f5.si - ホームページ": "w_www_title",
+    "利用規約・プライバシーポリシー": "w_terms_title",
+    "ランダム作品": "random_card_title",
+    "サービス稼働状況": "status_card_title",
+    "相互リンクページ": "mutual_card_title",
+    "Scratch (hamusata)": "sns_scratch1_title",
+    "Scratch (hamuzon)": "sns_scratch2_title",
+    "GitHub": "sns_github_title",
+    "Bluesky": "sns_bsky_title",
+    "Twitter (X)": "sns_x_title"
+  };
+  return map[title] || title;
+}
+
+// lang.json では説明文は titleKey + "_desc"
+function mapDescToKey(titleKey) {
+  return titleKey + "_desc";
+}
+
+// ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", loadLinks);
