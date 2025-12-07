@@ -31,16 +31,9 @@ async function loadLinks() {
 
     Object.values(sections).forEach(sec => { if (sec.container) sec.container.innerHTML = ""; });
 
-    const seasonLinks = {
-      spring: "https://home.hamusata.f5.si/spring",
-      summer: "https://home.hamusata.f5.si/summer",
-      autumn: "https://home.hamusata.f5.si/autumn",
-      winter: "https://home.hamusata.f5.si/winter"
-    };
+    const seasonLinks = { spring: "https://home.hamusata.f5.si/spring", summer: "https://home.hamusata.f5.si/summer", autumn: "https://home.hamusata.f5.si/autumn", winter: "https://home.hamusata.f5.si/winter" };
     const month = new Date().getMonth() + 1;
-    const season = month >= 3 && month <= 5 ? "spring" :
-                   month >= 6 && month <= 8 ? "summer" :
-                   month >= 9 && month <= 11 ? "autumn" : "winter";
+    const season = month >= 3 && month <= 5 ? "spring" : month >= 6 && month <= 8 ? "summer" : month >= 9 && month <= 11 ? "autumn" : "winter";
 
     const currentLang = document.documentElement.lang || "ja";
 
@@ -105,6 +98,11 @@ async function loadLinks() {
         card.appendChild(a);
       }
 
+      // パスワード生成サービスHTML挿入
+      if (title === "pw.link-s.f5.si – パスワード生成サービス") {
+        card.innerHTML = subLangData[currentLang]["pw_html"] || card.innerHTML;
+      }
+
       container.appendChild(card);
     });
 
@@ -137,6 +135,14 @@ function switchSubLang(lang) {
       } else {
         el.textContent = subLangData[lang][key];
       }
+    }
+  });
+
+  // パスワード生成サービスHTML翻訳
+  document.querySelectorAll(".work-card").forEach(card => {
+    const h3 = card.querySelector("h3");
+    if (h3 && (h3.textContent.includes("pw.link-s.f5.si") || h3.dataset.langKey === "pw.link-s.f5.si – パスワード生成サービス")) {
+      card.innerHTML = subLangData[lang]["pw_html"] || card.innerHTML;
     }
   });
 }
