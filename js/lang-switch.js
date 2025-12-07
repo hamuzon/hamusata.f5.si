@@ -1,10 +1,13 @@
 // js/lang-switch.js
 
+let langData = {}; 
+
 async function loadLang(lang) {
   try {
-    const res = await fetch("lang/lang.json");
-    const data = await res.json();
-    const text = data[lang] || data["ja"];
+    // 言語ファイルを取得
+    const res = await fetch("lang/sub-lang.json");
+    langData = await res.json();
+    const text = langData[lang] || langData["ja"];
 
     // data-lang 属性の要素を書き換え
     document.querySelectorAll("[data-lang]").forEach(el => {
@@ -15,18 +18,23 @@ async function loadLang(lang) {
     // カード内 data-lang-key を書き換え
     document.querySelectorAll("[data-lang-key]").forEach(el => {
       const key = el.dataset.langKey;
-      if (key === "view") {
-        el.textContent = lang === "en" ? "View" : "見る / View";
+
+      // "view" は汎用ボタン対応
+      if (key === "link_view" || key === "view") {
+        el.textContent = text["link_view"] || (lang === "en" ? "View" : "見る / View");
       } else if (text[key]) {
         el.textContent = text[key];
       }
     });
 
+    // HTML lang 属性更新
     document.documentElement.lang = lang;
 
+    // ボタン切替表示
     const btn = document.getElementById("lang-switch");
     if (btn) btn.textContent = lang === "ja" ? "🌐 English" : "🌐 日本語";
 
+    // 現在の言語を記憶
     localStorage.setItem("lang", lang);
 
   } catch (e) {
@@ -41,6 +49,7 @@ function initLang() {
 
   loadLang(lang);
 
+  // ボタンで切替
   const btn = document.getElementById("lang-switch");
   if (btn) {
     btn.addEventListener("click", () => {
@@ -50,4 +59,5 @@ function initLang() {
   }
 }
 
+// ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", initLang);
