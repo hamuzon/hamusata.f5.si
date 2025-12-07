@@ -1,5 +1,5 @@
 // ============================================
-// js/links-sub.js - 日本語/英語対応
+// js/links-sub.js
 // ============================================
 
 let langSub = {};
@@ -15,7 +15,6 @@ async function loadLinks() {
   const sheetName = "sub";
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
-  // 現在言語を localStorage から取得、デフォルトは ja
   const currentLang = localStorage.getItem("lang") || "ja";
 
   const sections = {
@@ -49,7 +48,6 @@ async function loadLinks() {
       const card = document.createElement("div");
       card.className = "work-card";
 
-      // IDを作る（例: portfolio_HAMUSATA）
       const id = section + "_" + title.replace(/\s|\(|\)|–/g,"_").replace(/_+/g,"");
 
       // 翻訳対応
