@@ -1,54 +1,68 @@
 // ============================================
-// links-sub.js 
+// js/links-sub.js - 日本語/英語対応
 // ============================================
 
-let subLangData = {}; 
+let langSub = {};
+
+// 言語JSON読み込み
+fetch("lang/lang-sub.json")
+  .then(res => res.json())
+  .then(json => langSub = json)
+  .catch(e => console.error("lang-sub.json 読み込み失敗", e));
 
 async function loadLinks() {
   const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
   const sheetName = "sub";
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
+  // 現在言語を localStorage から取得、デフォルトは ja
+  const currentLang = localStorage.getItem("lang") || "ja";
+
   const sections = {
-    portfolio: { container: document.getElementById("portfolioLinks"), name: "ポートフォリオ", default: "読み込み中..." },
-    random: { container: document.getElementById("randomLinks"), name: "ランダム作品", default: "読み込み中..." },
-    status: { container: document.getElementById("statusLinks"), name: "サービス稼働状況", default: "読み込み中..." },
-    "mutual-links": { container: document.getElementById("mutualLinks"), name: "相互リンク", default: "読み込み中..." },
-    sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
+    portfolio: document.getElementById("portfolioLinks"),
+    random: document.getElementById("randomLinks"),
+    status: document.getElementById("statusLinks"),
+    "mutual-links": document.getElementById("mutualLinks"),
+    sns: document.getElementById("snsLinks")
   };
 
-  Object.values(sections).forEach(sec => {
-    if (sec.container) sec.container.innerHTML = `<p>${sec.default}</p>`;
-  });
+  // 読み込み中メッセージ
+  for(const key in sections){
+    if(sections[key]) sections[key].innerHTML = "<p>読み込み中...</p>";
+  }
 
   try {
     const res = await fetch(url);
     const text = await res.text();
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
-    const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
-    Object.values(sections).forEach(sec => { if (sec.container) sec.container.innerHTML = ""; });
+    const rows = json.table.rows.map(r => r.c.map(c => (c?c.v:"")));
 
-    const currentLang = document.documentElement.lang || "ja";
-
-    // サブ言語JSON読み込み
-    const langRes = await fetch("/lang/sub-lang.json");
-    subLangData = await langRes.json();
+    for(const key in sections){
+      if(sections[key]) sections[key].innerHTML = "";
+    }
 
     rows.slice(1).forEach(row => {
-      const [title, description, image, link, section, internalLinkFlag] = row;
-      if (!section || !sections[section] || !sections[section].container) return;
+      let [title, description, image, link, section, inside] = row;
+      if(!section || !sections[section]) return;
 
-      const container = sections[section].container;
+      const container = sections[section];
       const card = document.createElement("div");
       card.className = "work-card";
 
-      card.dataset.langKey = title; // 言語切替用キー
+      // IDを作る（例: portfolio_HAMUSATA）
+      const id = section + "_" + title.replace(/\s|\(|\)|–/g,"_").replace(/_+/g,"");
+
+      // 翻訳対応
+      if(langSub[currentLang] && langSub[currentLang][id]){
+        title = langSub[currentLang][id].title || title;
+        description = langSub[currentLang][id].desc || description;
+      }
 
       // 画像
-      if (image) {
+      if(image){
         const img = document.createElement("img");
         img.src = image;
-        img.alt = subLangData[currentLang][title] || title;
+        img.alt = title;
         img.loading = "lazy";
         img.decoding = "async";
         card.appendChild(img);
@@ -56,84 +70,36 @@ async function loadLinks() {
 
       // タイトル
       const h3 = document.createElement("h3");
-      h3.dataset.langKey = title;
-      h3.textContent = subLangData[currentLang][title] || title;
+      h3.textContent = title;
       card.appendChild(h3);
 
       // 説明
-      if (description) {
-        const descDiv = document.createElement("div");
-        descDiv.className = "work-description";
-        descDiv.dataset.langKey = title + "_desc"; // 固有キー
-        descDiv.innerHTML = subLangData[currentLang][title + "_desc"] || description;
-        card.appendChild(descDiv);
+      if(description){
+        const p = document.createElement("p");
+        p.innerHTML = description;
+        card.appendChild(p);
       }
 
       // リンクボタン
-      if (link) {
+      if(link){
         const a = document.createElement("a");
-        a.dataset.langKey = "link_view";
-        const isInternal = ["on","1","true"].includes(String(internalLinkFlag).toLowerCase());
-        if (isInternal) {
-          const currentParams = new URLSearchParams(window.location.search);
-          const themeParam = currentParams.get("theme");
-          const newParams = new URLSearchParams();
-          if (themeParam) newParams.set("theme", themeParam);
-          a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
-        } else {
-          a.href = link;
-        }
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.textContent = subLangData[currentLang]["link_view"] || "View";
+        a.href = link;
+        a.target="_blank";
+        a.rel="noopener noreferrer";
+        a.textContent = currentLang==="ja"?"見る / View":"View";
         card.appendChild(a);
       }
 
       container.appendChild(card);
     });
 
-    Object.values(sections).forEach(sec => {
-      if (sec.container && sec.container.children.length === 0) {
-        sec.container.innerHTML = `<p>${sec.name}の読み込みに失敗</p>`;
-      }
-    });
-
-  } catch (e) {
-    Object.values(sections).forEach(sec => {
-      if (sec.container) sec.container.innerHTML = `<p>${sec.name}の読み込みに失敗</p>`;
-    });
-    console.error("スプレッドシート読み込み失敗:", e);
+  } catch(e){
+    console.error("スプレッドシート読み込み失敗", e);
+    for(const key in sections){
+      if(sections[key]) sections[key].innerHTML = `<p>${currentLang==="ja"?"読み込みに失敗":"Failed to load"}</p>`;
+    }
   }
 }
 
-// ============================================
-// 言語切替関数
-// ============================================
-function switchSubLang(lang) {
-  if (!subLangData[lang]) return;
-
-  document.querySelectorAll(".work-card").forEach(card => {
-    const key = card.dataset.langKey;
-
-    // タイトル
-    const h3 = card.querySelector("h3");
-    if (h3 && subLangData[lang][key]) h3.textContent = subLangData[lang][key];
-
-    // 説明
-    const desc = card.querySelector(".work-description");
-    if (desc && subLangData[lang][key + "_desc"]) desc.innerHTML = subLangData[lang][key + "_desc"];
-
-    // 画像 alt
-    const img = card.querySelector("img");
-    if (img && subLangData[lang][key]) img.alt = subLangData[lang][key];
-
-    // リンク
-    const a = card.querySelector("a[data-lang-key='link_view']");
-    if (a && subLangData[lang]["link_view"]) a.textContent = subLangData[lang]["link_view"];
-  });
-}
-
-// ============================================
-// 初期ロード
-// ============================================
+// ページ読み込み時
 document.addEventListener("DOMContentLoaded", loadLinks);
