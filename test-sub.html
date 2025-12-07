@@ -63,11 +63,13 @@
   }
 </style>
 </head>
+
 <body class="light">
 
 <!-- Language switch button -->
 <button id="lang-switch">🌐 English</button>
 
+<!-- Header -->
 <header>
   <a href="index.html" id="home" class="banner-link">
     <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
@@ -139,45 +141,11 @@
 </footer>
 
 <!-- JS -->
+<script src="js/script-sub.js"></script>
 <script src="js/links-sub.js"></script>
+<script src="js/lang-switch.js"></script>
 
 <script>
-let currentLang = localStorage.getItem("lang") || "ja";
-let langData = {};
-
-// 固定テキスト用
-fetch("lang/lang.json").then(res=>res.json()).then(json=>{
-  langData.fixed = json;
-  setLang(currentLang);
-});
-
-// リンク用
-let subLangData = {};
-fetch("lang/sub-lang.json").then(res=>res.json()).then(json=>{
-  subLangData = json;
-  loadLinks();
-});
-
-// 言語切替ボタン
-const langBtn = document.getElementById("lang-switch");
-langBtn.addEventListener("click", ()=>{
-  currentLang = currentLang==="ja"?"en":"ja";
-  localStorage.setItem("lang", currentLang);
-  setLang(currentLang);
-  loadLinks(); // 言語切替でリンク再描画
-});
-
-function setLang(lang){
-  // 固定テキスト置換
-  document.querySelectorAll("[data-lang]").forEach(el=>{
-    const key = el.getAttribute("data-lang");
-    if(langData.fixed[lang] && langData.fixed[lang][key]){
-      el.textContent = langData.fixed[lang][key];
-    }
-  });
-  langBtn.textContent = lang==="ja"?"🌐 English":"🌐 日本語";
-}
-
 // 年表示
 document.getElementById("year").textContent = new Date().getFullYear();
 </script>
