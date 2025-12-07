@@ -56,17 +56,17 @@ async function loadLinks() {
 
       // タイトル
       const h3 = document.createElement("h3");
-      let keyTitle = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_title";
+      let keyTitle = title; // lang key はタイトルそのまま
       h3.dataset.langKey = keyTitle;
-      h3.innerHTML = title; // ← デフォルト文字だけ
+      h3.innerHTML = title; // デフォルト文字（翻訳はlang-switchで）
       card.appendChild(h3);
 
       // 説明
       if (description) {
         const p = document.createElement("p");
-        let keyDesc = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_desc";
+        let keyDesc = description; // lang key は説明そのまま
         p.dataset.langKey = keyDesc;
-        p.innerHTML = description; // ← デフォルト文字だけ
+        p.innerHTML = description; // デフォルト文字（翻訳はlang-switchで）
         card.appendChild(p);
       }
 
@@ -88,7 +88,7 @@ async function loadLinks() {
         }
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.innerHTML = "View"; // ← デフォルト文字
+        a.innerHTML = "View"; // デフォルト文字
         card.appendChild(a);
       }
 
@@ -101,5 +101,4 @@ async function loadLinks() {
   }
 }
 
-// ページ読み込み時に呼ぶ
 document.addEventListener("DOMContentLoaded", loadLinks);
