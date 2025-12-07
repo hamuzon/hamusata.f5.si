@@ -1,5 +1,5 @@
 // ============================================
-// js/links-sub.js 
+// js/links-sub.js
 // ============================================
 
 async function loadLinks() {
@@ -7,15 +7,12 @@ async function loadLinks() {
   const sheetName = "sub"; // シート名
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
-  // 言語判定
-  const lang = document.body.classList.contains("en") ? "en" : "ja";
-
   // セクション初期値設定
   const sections = {
-    portfolio: { container: document.getElementById("portfolioLinks"), name: lang === "ja" ? "ポートフォリオ" : "Portfolio", default: "読み込み中..." },
-    random: { container: document.getElementById("randomLinks"), name: lang === "ja" ? "ランダム作品" : "Random", default: "読み込み中..." },
-    status: { container: document.getElementById("statusLinks"), name: lang === "ja" ? "サービス稼働状況" : "Status", default: "読み込み中..." },
-    "mutual-links": { container: document.getElementById("mutualLinks"), name: lang === "ja" ? "相互リンク" : "Mutual Links", default: "読み込み中..." },
+    portfolio: { container: document.getElementById("portfolioLinks"), name: "ポートフォリオ", default: "読み込み中..." },
+    random: { container: document.getElementById("randomLinks"), name: "ランダム作品", default: "読み込み中..." },
+    status: { container: document.getElementById("statusLinks"), name: "サービス稼働状況", default: "読み込み中..." },
+    "mutual-links": { container: document.getElementById("mutualLinks"), name: "相互リンク", default: "読み込み中..." },
     sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
   };
 
@@ -38,7 +35,7 @@ async function loadLinks() {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
 
-    // 季節リンク定義（季節リンクが必要な場合）
+    // 季節リンク定義
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
       summer: "https://home.hamusata.f5.si/summer",
@@ -52,13 +49,7 @@ async function loadLinks() {
 
     // リンクカード生成
     rows.slice(1).forEach(row => {
-      const title = lang === "ja" ? row[0] : row[2];
-      const description = lang === "ja" ? row[1] : row[3];
-      const image = row[4];
-      const link = row[5];
-      const section = row[6];
-      const internalLinkFlag = row[7];
-
+      const [title, description, image, link, section, internalLinkFlag] = row;
       if (!section || !sections[section] || !sections[section].container) return;
 
       const container = sections[section].container;
@@ -93,12 +84,14 @@ async function loadLinks() {
         const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
 
         if (isInternal) {
+          // 内部リンクは ?theme= を保持
           const currentParams = new URLSearchParams(window.location.search);
           const themeParam = currentParams.get("theme");
           const newParams = new URLSearchParams();
           if (themeParam) newParams.set("theme", themeParam);
+
           a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
-        } else if (title.includes("HAMUSATA – ホームページ") && section === "portfolio") {
+        } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
           a.href = seasonLinks[season] || link;
         } else {
           a.href = link;
@@ -106,7 +99,7 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.textContent = lang === "ja" ? "見る" : "View";
+        a.textContent = "見る / View";
         card.appendChild(a);
       }
 
