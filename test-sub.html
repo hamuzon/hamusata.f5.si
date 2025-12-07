@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HAMUSATA – ホームページ</title>
+<title data-lang="title">HAMUSATA – ホームページ</title>
 
 <!-- Favicon -->
 <link rel="icon" href="https://hamusata.f5.si/favicon.ico" type="image/x-icon">
@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/mobile-menu.css">
 
-<!-- テーマCSS -->
+<!-- Theme CSS -->
 <script>
   const themeCSS = [
     "css/dark.css",
@@ -35,30 +35,41 @@
 
 <!-- SEO -->
 <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
-<meta property="og:title" content="HAMUSATA – ホームページ">
-<meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://hamusata.f5.si">
-<meta property="og:image" content="https://hamusata.f5.si/icon_500_500.webp">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="HAMUSATA – ホームページ">
-<meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
-<meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp">
 
+<!-- language switch button style -->
+<style>
+  #lang-switch {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(16px);
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.2s ease;
+  }
+  body.dark #lang-switch {
+    background: rgba(0,0,0,0.35);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  #lang-switch:hover {
+    transform: scale(1.05);
+    background: rgba(0,188,212,0.2);
+  }
+</style>
 </head>
+
 <body class="light">
 
-<!-- Cookieバナー -->
-<div id="cookie-banner" style="display:none;">
-  <p>このサイトではCookieを使用します。</p>
-  <p>
-    <button id="minimal-cookie">必要最低限のみ</button>
-    <button id="accept-all-cookie">全て許可</button>
-    <button id="reject-cookie">拒否</button>
-  </p>
-</div>
+<!-- language switch button -->
+<button id="lang-switch">🌐 English</button>
 
-<!-- ヘッダー -->
+<!-- Header -->
 <header>
   <a href="index.html" id="home" class="banner-link">
     <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
@@ -70,18 +81,18 @@
 
   <nav id="mobile-menu">
     <ul>
-      <li><a href="#home" class="nav-home">ホーム</a></li>
-      <li><a href="#profile">自己紹介</a></li>
-      <li><a href="#portfolio">ポートフォリオ</a></li>
-      <li><a href="#random">ランダム作品</a></li>
-      <li><a href="#status">サービス稼働状況</a></li>
-      <li><a href="#mutual-links">相互リンク</a></li>
-      <li><a href="#sns">SNSリンク</a></li>
-      <li><a href="terms.html">利用規約・プライバシーポリシー</a></li>
+      <li><a href="#home" data-lang="nav_home">ホーム</a></li>
+      <li><a href="#profile" data-lang="nav_profile">自己紹介</a></li>
+      <li><a href="#portfolio" data-lang="nav_portfolio">ポートフォリオ</a></li>
+      <li><a href="#random" data-lang="nav_random">ランダム作品</a></li>
+      <li><a href="#status" data-lang="nav_status">サービス稼働状況</a></li>
+      <li><a href="#mutual-links" data-lang="nav_links">相互リンク</a></li>
+      <li><a href="#sns" data-lang="nav_sns">SNSリンク</a></li>
+      <li><a href="terms.html" data-lang="nav_terms">利用規約・プライバシーポリシー</a></li>
       <li>
         <a href="https://github.com/hamuzon/hamusata.f5.si" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:6px;">
           <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width:20px; height:20px; background-color:#222; border-radius:50%; padding:2px;">
-          site-Code-GitHub
+          <span data-lang="nav_github">site-Code-GitHub</span>
         </a>
       </li>
     </ul>
@@ -90,48 +101,53 @@
 </header>
 
 <main>
-  <h1>HAMUSATA ホームページ</h1>
+  <h1 data-lang="page_title">HAMUSATA ホームページ</h1>
 
   <section id="profile">
-    <h2>自己紹介</h2>
-    <p>こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。</p>
-    <p>ハムスターを飼っています。</p>
-    <p>ネットの海でプログラミングしたりネットしたりして過ごしてます。</p>
+    <h2 data-lang="profile_title">自己紹介</h2>
+    <p data-lang="profile_p1">こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。</p>
+    <p data-lang="profile_p2">ハムスターを飼っています。</p>
+    <p data-lang="profile_p3">ネットの海でプログラミングしたりネットしたりして過ごしてます。</p>
   </section>
 
   <section id="portfolio">
-    <h2>ポートフォリオリンク集</h2>
+    <h2 data-lang="portfolio_title">ポートフォリオリンク集</h2>
     <div class="works" id="portfolioLinks"></div>
   </section>
 
   <section id="random">
-    <h2>ランダム作品</h2>
+    <h2 data-lang="random_title">ランダム作品</h2>
     <div class="works" id="randomLinks"></div>
   </section>
 
   <section id="status">
-    <h2>サービス稼働状況</h2>
+    <h2 data-lang="status_title">サービス稼働状況</h2>
     <div class="works" id="statusLinks"></div>
   </section>
 
   <section id="mutual-links">
-    <h2>相互リンク</h2>
+    <h2 data-lang="mutual_title">相互リンク</h2>
     <div class="works" id="mutualLinks"></div>
   </section>
 
   <section id="sns">
-    <h2>SNSリンク</h2>
+    <h2 data-lang="sns_title">SNSリンク</h2>
     <div class="works" id="snsLinks"></div>
   </section>
 </main>
 
 <footer>
-  &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved.
+  &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – <span data-lang="footer_reserved">All rights reserved.</span>
 </footer>
 
 <!-- JS -->
 <script src="js/script-sub.js"></script>
 <script src="js/links-sub.js"></script>
+<script src="js/lang-switch.js"></script>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
