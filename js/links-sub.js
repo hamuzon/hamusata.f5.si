@@ -31,10 +31,16 @@ async function loadLinks() {
 
     Object.values(sections).forEach(sec => { if (sec.container) sec.container.innerHTML = ""; });
 
-    // 季節リンク
-    const seasonLinks = { spring: "https://home.hamusata.f5.si/spring", summer: "https://home.hamusata.f5.si/summer", autumn: "https://home.hamusata.f5.si/autumn", winter: "https://home.hamusata.f5.si/winter" };
+    const seasonLinks = {
+      spring: "https://home.hamusata.f5.si/spring",
+      summer: "https://home.hamusata.f5.si/summer",
+      autumn: "https://home.hamusata.f5.si/autumn",
+      winter: "https://home.hamusata.f5.si/winter"
+    };
     const month = new Date().getMonth() + 1;
-    const season = month >= 3 && month <= 5 ? "spring" : month >= 6 && month <= 8 ? "summer" : month >= 9 && month <= 11 ? "autumn" : "winter";
+    const season = month >= 3 && month <= 5 ? "spring" :
+                   month >= 6 && month <= 8 ? "summer" :
+                   month >= 9 && month <= 11 ? "autumn" : "winter";
 
     const currentLang = document.documentElement.lang || "ja";
 
@@ -102,16 +108,6 @@ async function loadLinks() {
       container.appendChild(card);
     });
 
-    // パスワード生成サービス専用翻訳
-    const pwDesc = document.getElementById("pwDescription");
-    if (pwDesc) pwDesc.textContent = subLangData[currentLang]["APIベースのパスワード生成サービス。ログ保存等は一切ありません。"];
-
-    const pwNote = document.getElementById("pwNote");
-    if (pwNote) pwNote.innerHTML = subLangData[currentLang]["pw_note"];
-
-    const pwNoAPI = document.getElementById("pwNoAPI");
-    if (pwNoAPI) pwNoAPI.textContent = subLangData[currentLang]["APIなし版"] || "APIなし版";
-
     // データなしの場合
     Object.values(sections).forEach(sec => {
       if (sec.container && sec.container.children.length === 0) {
@@ -143,16 +139,6 @@ function switchSubLang(lang) {
       }
     }
   });
-
-  // パスワード生成サービス翻訳
-  const pwDesc = document.getElementById("pwDescription");
-  if (pwDesc) pwDesc.textContent = subLangData[lang]["APIベースのパスワード生成サービス。ログ保存等は一切ありません。"];
-
-  const pwNote = document.getElementById("pwNote");
-  if (pwNote) pwNote.innerHTML = subLangData[lang]["pw_note"];
-
-  const pwNoAPI = document.getElementById("pwNoAPI");
-  if (pwNoAPI) pwNoAPI.textContent = subLangData[lang]["APIなし版"] || "APIなし版";
 }
 
 // ============================================
