@@ -26,11 +26,16 @@ async function loadLinks() {
     const text = await res.text();
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
+
     Object.values(sections).forEach(sec => { if (sec.container) sec.container.innerHTML = ""; });
+
+    const seasonLinks = { spring: "https://home.hamusata.f5.si/spring", summer: "https://home.hamusata.f5.si/summer", autumn: "https://home.hamusata.f5.si/autumn", winter: "https://home.hamusata.f5.si/winter" };
+    const month = new Date().getMonth() + 1;
+    const season = month >= 3 && month <= 5 ? "spring" : month >= 6 && month <= 8 ? "summer" : month >= 9 && month <= 11 ? "autumn" : "winter";
 
     const currentLang = document.documentElement.lang || "ja";
 
-    // サブ言語JSON読み込み
+    // サブ言語JSONを読み込む
     const langRes = await fetch("/lang/sub-lang.json");
     subLangData = await langRes.json();
 
@@ -42,57 +47,53 @@ async function loadLinks() {
       const card = document.createElement("div");
       card.className = "work-card";
 
-      // pwカードはHTML直接挿入
-      if (title === "pw.link-s.f5.si – パスワード生成サービス") {
-        card.dataset.langKey = title; // 言語切替用にkeyを保持
-        card.innerHTML = subLangData[currentLang]["pw_html"];
-      } else {
-        // 画像
-        if (image) {
-          const img = document.createElement("img");
-          img.src = image;
-          img.alt = subLangData[currentLang][title] || title;
-          img.loading = "lazy";
-          img.decoding = "async";
-          card.appendChild(img);
+      // 画像
+      if (image) {
+        const img = document.createElement("img");
+        img.src = image;
+        img.alt = subLangData[currentLang][title] || title;
+        img.loading = "lazy";
+        img.decoding = "async";
+        card.appendChild(img);
+      }
+
+      // タイトル
+      const h3 = document.createElement("h3");
+      h3.dataset.langKey = title;
+      h3.textContent = subLangData[currentLang][title] || title;
+      card.appendChild(h3);
+
+      // 説明
+      if (description) {
+        const descDiv = document.createElement("div");
+        descDiv.className = "work-description";
+        descDiv.dataset.langKey = title + "_desc";
+        descDiv.innerHTML = subLangData[currentLang][title + "_desc"] || description;
+        card.appendChild(descDiv);
+      }
+
+      // リンクボタン
+      if (link) {
+        const a = document.createElement("a");
+        a.dataset.langKey = "link_view";
+        const isInternal = ["on","1","true"].includes(String(internalLinkFlag).toLowerCase());
+
+        if (isInternal) {
+          const currentParams = new URLSearchParams(window.location.search);
+          const themeParam = currentParams.get("theme");
+          const newParams = new URLSearchParams();
+          if (themeParam) newParams.set("theme", themeParam);
+          a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
+        } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
+          a.href = seasonLinks[season] || link;
+        } else {
+          a.href = link;
         }
 
-        // タイトル
-        const h3 = document.createElement("h3");
-        h3.dataset.langKey = title;
-        h3.textContent = subLangData[currentLang][title] || title;
-        card.appendChild(h3);
-
-        // 説明
-        if (description) {
-          const descDiv = document.createElement("div");
-          descDiv.className = "work-description";
-          descDiv.dataset.langKey = description;
-          descDiv.innerHTML = subLangData[currentLang][description] || description;
-          card.appendChild(descDiv);
-        }
-
-        // リンクボタン
-        if (link) {
-          const a = document.createElement("a");
-          a.dataset.langKey = "link_view";
-          const isInternal = ["on","1","true"].includes(String(internalLinkFlag).toLowerCase());
-
-          if (isInternal) {
-            const currentParams = new URLSearchParams(window.location.search);
-            const themeParam = currentParams.get("theme");
-            const newParams = new URLSearchParams();
-            if (themeParam) newParams.set("theme", themeParam);
-            a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
-          } else {
-            a.href = link;
-          }
-
-          a.target = "_blank";
-          a.rel = "noopener noreferrer";
-          a.textContent = subLangData[currentLang]["link_view"] || "View";
-          card.appendChild(a);
-        }
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = subLangData[currentLang]["link_view"] || "View";
+        card.appendChild(a);
       }
 
       container.appendChild(card);
@@ -118,23 +119,16 @@ async function loadLinks() {
 function switchSubLang(lang) {
   if (!subLangData[lang]) return;
 
-  document.querySelectorAll(".work-card").forEach(card => {
-    const key = card.dataset.langKey;
-
-    // pwカードの場合はHTML入れ替え
-    if (key === "pw.link-s.f5.si – パスワード生成サービス" && subLangData[lang]["pw_html"]) {
-      card.innerHTML = subLangData[lang]["pw_html"];
-    } else {
-      card.querySelectorAll("[data-lang-key]").forEach(el => {
-        const elKey = el.dataset.langKey;
-        if (subLangData[lang][elKey]) {
-          if (el.tagName === "IMG") {
-            el.alt = subLangData[lang][elKey];
-          } else {
-            el.textContent = subLangData[lang][elKey];
-          }
-        }
-      });
+  document.querySelectorAll(".work-card [data-lang-key]").forEach(el => {
+    const key = el.dataset.langKey;
+    if (subLangData[lang][key]) {
+      if (el.tagName === "IMG") {
+        el.alt = subLangData[lang][key];
+      } else if (el.classList.contains("work-description")) {
+        el.innerHTML = subLangData[lang][key]; 
+      } else {
+        el.textContent = subLangData[lang][key];
+      }
     }
   });
 }
