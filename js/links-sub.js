@@ -1,5 +1,5 @@
 // ============================================
-// js/links-sub.js
+// js/links-sub.js 
 // ============================================
 
 async function loadLinks() {
@@ -23,7 +23,6 @@ async function loadLinks() {
   }
 
   try {
-    // スプレッドシート取得
     const res = await fetch(url);
     const text = await res.text();
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
@@ -33,7 +32,6 @@ async function loadLinks() {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
 
-    // 季節リンク
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
       summer: "https://home.hamusata.f5.si/summer",
@@ -45,7 +43,7 @@ async function loadLinks() {
                    month >= 6 && month <= 8 ? "summer" :
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
-    // 言語取得
+    // 言語データ取得
     const langDataRes = await fetch("lang/sub-lang.json");
     const langData = await langDataRes.json();
     const lang = localStorage.getItem("lang") || (navigator.language.startsWith("en") ? "en" : "ja");
@@ -71,19 +69,17 @@ async function loadLinks() {
       // タイトル
       const h3 = document.createElement("h3");
       let keyTitle = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_title";
-      if (!langData[lang][keyTitle]) keyTitle = title; // キーがなければそのまま
-      h3.textContent = langData[lang][keyTitle] || title;
+      if (!langData[lang][keyTitle]) keyTitle = title;
+      h3.innerHTML = langData[lang][keyTitle] || title; // innerHTMLでHTMLタグ対応
       h3.dataset.langKey = keyTitle;
       card.appendChild(h3);
 
-      // 説明（タグ付き対応）
+      // 説明
       if (description) {
         const p = document.createElement("p");
         let keyDesc = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_desc";
         if (!langData[lang][keyDesc]) keyDesc = description;
-
-        // innerHTMLでタグ付き翻訳に対応
-        p.innerHTML = langData[lang][keyDesc] || description;
+        p.innerHTML = langData[lang][keyDesc] || description; // innerHTMLでHTMLタグ対応
         p.dataset.langKey = keyDesc;
         card.appendChild(p);
       }
@@ -98,7 +94,6 @@ async function loadLinks() {
           const themeParam = currentParams.get("theme");
           const newParams = new URLSearchParams();
           if (themeParam) newParams.set("theme", themeParam);
-
           a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
         } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
           a.href = seasonLinks[season] || link;
@@ -109,8 +104,7 @@ async function loadLinks() {
         a.target = "_blank";
         a.rel = "noopener noreferrer";
 
-        // innerHTMLでタグ付き翻訳対応
-        a.innerHTML = langData[lang]["link_view"] || "View";
+        a.innerHTML = langData[lang]["link_view"] || "View"; // innerHTMLでHTMLタグ対応
         a.dataset.langKey = "link_view";
         card.appendChild(a);
       }
