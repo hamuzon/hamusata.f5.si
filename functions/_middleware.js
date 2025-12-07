@@ -2,20 +2,23 @@
 export async function onRequest(context) {
   const { request } = context;
   const url = new URL(request.url);
+  const hostname = url.hostname;
 
   const ua = request.headers.get("user-agent") || "";
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
 
-  
-  if (isMobile && url.hostname !== "m.hamusata.f5.si") {
+  // モバイルは m.hamusata.f5.si へ
+  if (isMobile && !hostname.startsWith("m.")) {
     url.hostname = "m.hamusata.f5.si";
     return Response.redirect(url.toString(), 302);
   }
 
-  if (!isMobile && url.hostname !== "hamusata.f5.si") {
+  // PCは hamusata.f5.si へ
+  if (!isMobile && hostname.startsWith("m.")) {
     url.hostname = "hamusata.f5.si";
     return Response.redirect(url.toString(), 302);
   }
 
+  // それ以外はそのまま
   return context.next();
 }
