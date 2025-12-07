@@ -1,39 +1,34 @@
 // ============================================
-// js/links-sub.js 
+// js/links-sub.js
 // ============================================
 
 async function loadLinks() {
-  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
-  const sheetName = "sub";
+  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
+  const sheetName = "sub"; // シート名
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
   const sections = {
-    portfolio: document.getElementById("portfolioLinks"),
-    random: document.getElementById("randomLinks"),
-    status: document.getElementById("statusLinks"),
-    "mutual-links": document.getElementById("mutualLinks"),
-    sns: document.getElementById("snsLinks")
+    portfolio: { container: document.getElementById("portfolioLinks"), name: "ポートフォリオ", default: "読み込み中..." },
+    random: { container: document.getElementById("randomLinks"), name: "ランダム作品", default: "読み込み中..." },
+    status: { container: document.getElementById("statusLinks"), name: "サービス稼働状況", default: "読み込み中..." },
+    "mutual-links": { container: document.getElementById("mutualLinks"), name: "相互リンク", default: "読み込み中..." },
+    sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
   };
 
-  // 読み込み中表示
+  // ローディング表示
   for (const key in sections) {
-    if (sections[key]) sections[key].innerHTML = "<p>読み込み中...</p>";
+    if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
   }
 
   try {
     const res = await fetch(url);
     const text = await res.text();
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
-    const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : ""))).slice(1);
+    const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
-    const langDataRes = await fetch("lang/sub-lang.json");
-    const langData = await langDataRes.json();
-    const lang = localStorage.getItem("lang") || (navigator.language.startsWith("en") ? "en" : "ja");
+    // 空にする
+    for (const key in sections) if (sections[key].container) sections[key].container.innerHTML = "";
 
-    // 空にしてカード生成
-    for (const key in sections) if (sections[key]) sections[key].innerHTML = "";
-
-    // 季節リンク
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
       summer: "https://home.hamusata.f5.si/summer",
@@ -45,11 +40,17 @@ async function loadLinks() {
                    month >= 6 && month <= 8 ? "summer" :
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
-    rows.forEach(row => {
-      const [title, description, image, link, section, internalLinkFlag] = row;
-      if (!section || !sections[section]) return;
+    // 言語JSON取得
+    const langDataRes = await fetch("lang/sub-lang.json");
+    const langData = await langDataRes.json();
+    const lang = localStorage.getItem("lang") || (navigator.language.startsWith("en") ? "en" : "ja");
 
-      const container = sections[section];
+    // カード生成
+    rows.slice(1).forEach(row => {
+      const [title, description, image, link, section, internalLinkFlag] = row;
+      if (!section || !sections[section] || !sections[section].container) return;
+
+      const container = sections[section].container;
       const card = document.createElement("div");
       card.className = "work-card";
 
@@ -67,7 +68,6 @@ async function loadLinks() {
       const h3 = document.createElement("h3");
       let keyTitle = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_title";
       h3.dataset.langKey = keyTitle;
-      h3.innerHTML = langData[lang][keyTitle] || title;
       card.appendChild(h3);
 
       // 説明
@@ -75,15 +75,15 @@ async function loadLinks() {
         const p = document.createElement("p");
         let keyDesc = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_desc";
         p.dataset.langKey = keyDesc;
-        p.innerHTML = langData[lang][keyDesc] || description;
         card.appendChild(p);
       }
 
       // リンク
       if (link) {
         const a = document.createElement("a");
-        const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
+        a.dataset.langKey = "link_view";
 
+        const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
         if (isInternal) {
           const currentParams = new URLSearchParams(window.location.search);
           const themeParam = currentParams.get("theme");
@@ -95,30 +95,38 @@ async function loadLinks() {
         } else {
           a.href = link;
         }
-
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.dataset.langKey = "link_view";
-        a.innerHTML = langData[lang]["link_view"] || "View";
         card.appendChild(a);
       }
 
       container.appendChild(card);
     });
 
+    // カード翻訳用
+    translateCards(lang, langData);
+
     // データなし対応
     for (const key in sections) {
-      if (sections[key] && sections[key].children.length === 0) {
-        sections[key].innerHTML = `<p>${key}の読み込みに失敗</p>`;
+      if (sections[key].container && sections[key].container.children.length === 0) {
+        sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
       }
     }
 
   } catch (e) {
-    console.error("スプレッドシート読み込み失敗:", e);
     for (const key in sections) {
-      if (sections[key]) sections[key].innerHTML = `<p>${key}の読み込みに失敗</p>`;
+      if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
     }
+    console.error("スプレッドシート読み込み失敗:", e);
   }
+}
+
+// カード翻訳用
+function translateCards(lang, langData) {
+  document.querySelectorAll(".work-card [data-lang-key]").forEach(el => {
+    const key = el.dataset.langKey;
+    if (key && langData[lang][key]) el.innerHTML = langData[lang][key];
+  });
 }
 
 document.addEventListener("DOMContentLoaded", loadLinks);
