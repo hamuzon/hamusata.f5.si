@@ -15,6 +15,7 @@ async function loadLinks() {
     sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
   };
 
+  // 初期メッセージ
   for (const key in sections) {
     if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
   }
@@ -25,9 +26,7 @@ async function loadLinks() {
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
-    for (const key in sections) {
-      if (sections[key].container) sections[key].container.innerHTML = "";
-    }
+    for (const key in sections) if (sections[key].container) sections[key].container.innerHTML = "";
 
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
