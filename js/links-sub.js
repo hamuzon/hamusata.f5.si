@@ -2,10 +2,11 @@
 // js/links-sub.js
 // ============================================
 
-let sheetRows = [];     // スプレッドシートのデータ格納
-let langData = {};      // 言語データ
 let currentLang = localStorage.getItem("lang") || "ja";
+let sheetRows = [];
+let langData = {};
 
+// 各セクション DOM
 const sections = {
   portfolio: { container: document.getElementById("portfolioLinks"), default: "読み込み中..." },
   random: { container: document.getElementById("randomLinks"), default: "読み込み中..." },
@@ -19,25 +20,30 @@ for (const key in sections) {
   if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
 }
 
-// 言語JSON読み込み & スプレッドシート取得
+// スプレッドシート読み込み
 async function loadSheet() {
   try {
-    langData = await fetch("lang/sub-lang.json").then(res => res.json());
-
     const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
     const sheetName = "sub";
     const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
+    // 言語JSON取得
+    langData = await fetch("lang/sub-lang.json").then(res => res.json());
+
     const res = await fetch(sheetUrl);
     const text = await res.text();
-    const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
 
+    // JSONP → JSON 変換
+    const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     sheetRows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
-    renderLinks(); // 初期描画
+    renderLinks();
+
   } catch (e) {
     for (const key in sections) {
-      if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].default}の読み込みに失敗</p>`;
+      if (sections[key].container) {
+        sections[key].container.innerHTML = `<p>${sections[key].default}の読み込みに失敗</p>`;
+      }
     }
     console.error("スプレッドシート読み込み失敗:", e);
   }
@@ -47,6 +53,7 @@ async function loadSheet() {
 function renderLinks() {
   if (!sheetRows.length) return;
 
+  // セクション初期化
   for (const key in sections) {
     if (sections[key].container) sections[key].container.innerHTML = "";
   }
@@ -112,6 +119,7 @@ function renderLinks() {
       a.target = "_blank";
       a.rel = "noopener noreferrer";
       a.textContent = langData[currentLang]["link_view"] || "View";
+
       card.appendChild(a);
 
       // pw.link-s.f5.si 特殊処理
@@ -134,12 +142,12 @@ function renderLinks() {
   });
 }
 
-// 言語切替時のカード再描画
+// 言語切替時に再レンダリング
 function updateCardsLang(lang){
   currentLang = lang;
   localStorage.setItem("lang", lang);
   renderLinks();
 }
 
-// ページ読み込み時に実行
+// ページ読み込み時にスプレッドシート読み込み
 document.addEventListener("DOMContentLoaded", loadSheet);
