@@ -17,31 +17,27 @@ async function loadLinks() {
 
   // ローディング表示
   for (const key in sections) {
-    if (sections[key].container) {
-      sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
-    }
+    if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
   }
 
   try {
-    // --- スプレッドシート読み込み ---
+    // スプレッドシート読み込み
     const res = await fetch(url);
-    if (!res.ok) throw new Error(`スプレッドシート取得失敗: ${res.status}`);
     const text = await res.text();
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
-    // --- 言語JSON読み込み ---
+    // 言語JSON読み込み
     const langDataRes = await fetch("lang/sub-lang.json");
-    if (!langDataRes.ok) throw new Error(`lang JSON取得失敗: ${langDataRes.status}`);
     const langData = await langDataRes.json();
     const lang = localStorage.getItem("lang") || (navigator.language.startsWith("en") ? "en" : "ja");
 
-    // --- セクション初期化 ---
+    // セクション初期化
     for (const key in sections) {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
 
-    // --- 季節リンク設定 ---
+    // 季節リンク
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
       summer: "https://home.hamusata.f5.si/summer",
@@ -53,7 +49,6 @@ async function loadLinks() {
                    month >= 6 && month <= 8 ? "summer" :
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
-    // --- カード作成 ---
     rows.slice(1).forEach(row => {
       const [title, description, image, link, section, internalLinkFlag] = row;
       if (!section || !sections[section] || !sections[section].container) return;
@@ -72,47 +67,27 @@ async function loadLinks() {
         card.appendChild(img);
       }
 
-      // タイトル（翻訳対応）
+      // タイトル
       const h3 = document.createElement("h3");
       const keyTitle = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_title";
       h3.innerHTML = langData[lang][keyTitle] || langData[lang][title] || title;
       h3.dataset.langKey = keyTitle;
       card.appendChild(h3);
 
-      // 説明（タグ対応 & 翻訳）
+      // 説明（タグ付きHTML対応）
       if (description) {
         const p = document.createElement("p");
         const keyDesc = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_desc";
-        const descText = langData[lang][keyDesc] || langData[lang][description] || description;
-        p.innerHTML = descText; // innerHTMLでタグ対応
+        p.innerHTML = langData[lang][keyDesc] || langData[lang][description] || description;
         p.dataset.langKey = keyDesc;
         card.appendChild(p);
       }
 
-      // リンク（タグ対応 & 翻訳）
+      // リンク（タグ付きHTML対応）
       if (link) {
-        const a = document.createElement("a");
-        const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
-
-        if (isInternal) {
-          const currentParams = new URLSearchParams(window.location.search);
-          const themeParam = currentParams.get("theme");
-          const newParams = new URLSearchParams();
-          if (themeParam) newParams.set("theme", themeParam);
-
-          a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
-        } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
-          a.href = seasonLinks[season] || link;
-        } else {
-          a.href = link;
-        }
-
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-
-        // 翻訳対応
-        a.innerHTML = langData[lang]["link_view"] || "View";
-        a.dataset.langKey = "link_view";
+        const a = document.createElement("div"); // <a> 内に複数のタグがある場合、divでまとめてinnerHTML
+        const keyLink = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_link";
+        a.innerHTML = langData[lang][keyLink] || langData[lang][link] || `<a href="${link}" target="_blank" rel="noopener noreferrer">${langData[lang]["link_view"] || "View"}</a>`;
         card.appendChild(a);
       }
 
