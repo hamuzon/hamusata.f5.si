@@ -1,5 +1,5 @@
 // ============================================
-// lang-switch-sub.js
+// lang-switch-sub.js :
 // ============================================
 
 async function loadSubLang(lang) {
@@ -9,15 +9,14 @@ async function loadSubLang(lang) {
     const data = await res.json();
     const text = data[lang] || data["ja"];
 
-    // data-lang 属性の要素を書き換え
-    document.querySelectorAll("[data-lang]").forEach(el => {
-      const key = el.dataset.lang;
-      if (text[key]) el.textContent = text[key];
-    });
+    if (!text) {
+      console.warn(`No translation found for language: ${lang}`);
+      return;
+    }
 
-    // カード内 data-lang-key を書き換え
-    document.querySelectorAll("[data-lang-key]").forEach(el => {
-      const key = el.dataset.langKey;
+    // data-lang / data-lang-key の要素を書き換え
+    document.querySelectorAll("[data-lang], [data-lang-key]").forEach(el => {
+      const key = el.dataset.lang || el.dataset.langKey;
       if (key && text[key]) {
         el.textContent = text[key];
       }
@@ -49,7 +48,8 @@ function initSubLang() {
   const btn = document.getElementById("lang-switch");
   if (btn) {
     btn.addEventListener("click", () => {
-      const next = (localStorage.getItem("lang") === "ja") ? "en" : "ja";
+      const current = localStorage.getItem("lang") || lang;
+      const next = current === "ja" ? "en" : "ja";
       loadSubLang(next);
     });
   }
