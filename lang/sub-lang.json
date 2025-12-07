@@ -1,142 +1,142 @@
 {
   "ja": {
     "HAMUSATA – ホームページ": {
-      "title": "w_main_title",
-      "desc": "w_main_desc"
+      "title": "HAMUSATA – ホームページ",
+      "desc": "メインのポータルリンク。色々なものをまとめています。"
     },
     "GitHub版 – ホームページ": {
-      "title": "w_github_pages_title",
-      "desc": "w_github_pages_desc"
+      "title": "GitHub版 – ホームページ",
+      "desc": "GitHub Pages 版ホームページ。"
     },
     "hamuzon – ホームページ": {
-      "title": "w_hamuzon_title",
-      "desc": "w_hamuzon_desc"
+      "title": "hamuzon – ホームページ",
+      "desc": "hamuzon-jp.f5.si のホームページ・リンクポータル版（FC2の一部コピーサイト）"
     },
     "hamuzon (FC2)系 – ホームページ": {
-      "title": "w_fc2_title",
-      "desc": "w_fc2_desc"
+      "title": "hamuzon (FC2)系 – ホームページ",
+      "desc": "FC2版ホームページ。いろんなコードやコンテンツがあります。"
     },
     "link-s.f5.si – ショートカットリンクサービス": {
-      "title": "w_link_s_title",
-      "desc": "w_link_s_desc"
+      "title": "link-s.f5.si – ショートカットリンクサービス",
+      "desc": "短縮URL・ショートカットリンクサービス。"
     },
     "go.link-s.f5.si – カスタムパス対応版": {
-      "title": "w_go_link_title",
-      "desc": "w_go_link_desc"
+      "title": "go.link-s.f5.si – カスタムパス対応版",
+      "desc": "任意のパスで短縮リンクを作れるカスタムリンクサービス。"
     },
     "pw.link-s.f5.si – パスワード生成サービス": {
-      "title": "w_pw_title",
-      "desc": "w_pw_desc"
+      "title": "pw.link-s.f5.si – パスワード生成サービス",
+      "desc": "APIベースのパスワード生成サービス。ログ保存等は一切ありません。"
     },
     "www.link-s.f5.si - ホームページ": {
-      "title": "w_www_title",
-      "desc": "w_www_desc"
+      "title": "www.link-s.f5.si - ホームページ",
+      "desc": "link-s.f5.si 系列作品集一覧ページ。"
     },
     "利用規約・プライバシーポリシー": {
-      "title": "w_terms_title",
-      "desc": "w_terms_desc"
+      "title": "利用規約・プライバシーポリシー",
+      "desc": "サイト利用規約とプライバシーポリシーの確認はこちら。"
     },
     "ランダム作品": {
-      "title": "random_card_title",
-      "desc": "random_card_desc"
+      "title": "ランダム作品",
+      "desc": "作品をランダムに開くボタンです。"
     },
     "サービス稼働状況": {
-      "title": "status_card_title",
-      "desc": ""
+      "title": "サービス稼働状況",
+      "desc": "※本サービスは一部 PCサーバー + Cloudflare Tunnel を利用しています。"
     },
     "相互リンクページ": {
-      "title": "mutual_card_title",
-      "desc": "mutual_card_desc"
+      "title": "相互リンクページ",
+      "desc": "こちらをクリックすると相互リンクページに移動します。"
     },
     "Scratch (hamusata)": {
-      "title": "sns_scratch1_title",
-      "desc": "sns_scratch1_desc"
+      "title": "Scratch (hamusata)",
+      "desc": "hamusataアカウント"
     },
     "Scratch (hamuzon)": {
-      "title": "sns_scratch2_title",
-      "desc": "sns_scratch2_desc"
+      "title": "Scratch (hamuzon)",
+      "desc": "hamuzonアカウント"
     },
     "GitHub": {
-      "title": "sns_github_title",
-      "desc": "sns_github_desc"
+      "title": "GitHub",
+      "desc": "GitHubアカウント"
     },
     "Bluesky": {
-      "title": "sns_bsky_title",
-      "desc": "sns_bsky_desc"
+      "title": "Bluesky",
+      "desc": "Blueskyアカウント"
     },
     "Twitter (X)": {
-      "title": "sns_x_title",
-      "desc": "sns_x_desc"
+      "title": "Twitter (X)",
+      "desc": "@hamu_sata - Xアカウント"
     }
   },
   "en": {
     "HAMUSATA – ホームページ": {
-      "title": "w_main_title",
-      "desc": "w_main_desc"
+      "title": "HAMUSATA – Homepage",
+      "desc": "Main portal page with various links."
     },
     "GitHub版 – ホームページ": {
-      "title": "w_github_pages_title",
-      "desc": "w_github_pages_desc"
+      "title": "GitHub Pages – Homepage",
+      "desc": "GitHub Pages version of the homepage."
     },
     "hamuzon – ホームページ": {
-      "title": "w_hamuzon_title",
-      "desc": "w_hamuzon_desc"
+      "title": "hamuzon – Homepage",
+      "desc": "Homepage & link portal for hamuzon-jp.f5.si (partial FC2 mirror)."
     },
     "hamuzon (FC2)系 – ホームページ": {
-      "title": "w_fc2_title",
-      "desc": "w_fc2_desc"
+      "title": "hamuzon (FC2) – Homepage",
+      "desc": "FC2 version homepage with various content and code."
     },
     "link-s.f5.si – ショートカットリンクサービス": {
-      "title": "w_link_s_title",
-      "desc": "w_link_s_desc"
+      "title": "link-s.f5.si – Shortcut Link Service",
+      "desc": "Short URL / shortcut link service."
     },
     "go.link-s.f5.si – カスタムパス対応版": {
-      "title": "w_go_link_title",
-      "desc": "w_go_link_desc"
+      "title": "go.link-s.f5.si – Custom Path Version",
+      "desc": "Create short links with any custom path."
     },
     "pw.link-s.f5.si – パスワード生成サービス": {
-      "title": "w_pw_title",
-      "desc": "w_pw_desc"
+      "title": "pw.link-s.f5.si – Password Generator",
+      "desc": "API-based password generator. No logs are saved."
     },
     "www.link-s.f5.si - ホームページ": {
-      "title": "w_www_title",
-      "desc": "w_www_desc"
+      "title": "www.link-s.f5.si - Homepage",
+      "desc": "Main link for shortcut services — link-s.f5.si related works."
     },
     "利用規約・プライバシーポリシー": {
-      "title": "w_terms_title",
-      "desc": "w_terms_desc"
+      "title": "Terms & Privacy Policy",
+      "desc": "Check terms of use and privacy policy here."
     },
     "ランダム作品": {
-      "title": "random_card_title",
-      "desc": "random_card_desc"
+      "title": "Random Works",
+      "desc": "Opens a random work."
     },
     "サービス稼働状況": {
-      "title": "status_card_title",
-      "desc": ""
+      "title": "Service Status",
+      "desc": "This service partly uses a PC server + Cloudflare Tunnel."
     },
     "相互リンクページ": {
-      "title": "mutual_card_title",
-      "desc": "mutual_card_desc"
+      "title": "Mutual Links Page",
+      "desc": "Click here to open the Mutual Links page."
     },
     "Scratch (hamusata)": {
-      "title": "sns_scratch1_title",
-      "desc": "sns_scratch1_desc"
+      "title": "Scratch (hamusata)",
+      "desc": "hamusata account"
     },
     "Scratch (hamuzon)": {
-      "title": "sns_scratch2_title",
-      "desc": "sns_scratch2_desc"
+      "title": "Scratch (hamuzon)",
+      "desc": "hamuzon account"
     },
     "GitHub": {
-      "title": "sns_github_title",
-      "desc": "sns_github_desc"
+      "title": "GitHub",
+      "desc": "GitHub account"
     },
     "Bluesky": {
-      "title": "sns_bsky_title",
-      "desc": "sns_bsky_desc"
+      "title": "Bluesky",
+      "desc": "Bluesky account"
     },
     "Twitter (X)": {
-      "title": "sns_x_title",
-      "desc": "sns_x_desc"
+      "title": "Twitter (X)",
+      "desc": "@hamu_sata account"
     }
   }
 }
