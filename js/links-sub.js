@@ -2,9 +2,26 @@
 // js/links-sub.js
 // ============================================
 
+let currentLang = localStorage.getItem("lang") || "ja"; // 現在の言語
+let langSub = {}; // 言語データ
+
+// =============================
+// 言語JSON読み込み
+// =============================
+fetch("lang/sub-lang.json")
+  .then(res => res.json())
+  .then(json => {
+    langSub = json;
+    loadLinks(); // 言語読み込み後にリンク生成
+  })
+  .catch(e => console.error("言語JSON読み込み失敗:", e));
+
+// =============================
+// Googleスプレッドシート読み込み＆カード生成
+// =============================
 async function loadLinks() {
-  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; 
-  const sheetName = "sub"; 
+  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
+  const sheetName = "sub";
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
   const sections = {
@@ -26,10 +43,12 @@ async function loadLinks() {
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
+    // セクション初期化
     for (const key in sections) {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
 
+    // 季節リンク
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
       summer: "https://home.hamusata.f5.si/summer",
@@ -42,18 +61,22 @@ async function loadLinks() {
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
     rows.slice(1).forEach(row => {
-      const [title, description, image, link, section, internalFlag] = row;
+      let [titleKey, descriptionKey, image, link, section, internalFlag] = row;
       if (!section || !sections[section] || !sections[section].container) return;
 
       const container = sections[section].container;
       const card = document.createElement("div");
       card.className = "work-card";
 
+      // タイトル・説明文は言語JSONから取得
+      const titleText = langSub[currentLang]?.[titleKey] || titleKey;
+      const descText = langSub[currentLang]?.[descriptionKey] || descriptionKey;
+
       // 画像
       if (image) {
         const img = document.createElement("img");
         img.src = image;
-        img.alt = title;
+        img.alt = titleText;
         img.loading = "lazy";
         img.decoding = "async";
         card.appendChild(img);
@@ -61,13 +84,13 @@ async function loadLinks() {
 
       // タイトル
       const h3 = document.createElement("h3");
-      h3.textContent = title;
+      h3.textContent = titleText;
       card.appendChild(h3);
 
       // 説明文
-      if (description) {
+      if (descText) {
         const p = document.createElement("p");
-        p.innerHTML = description;
+        p.innerHTML = descText;
         card.appendChild(p);
       }
 
@@ -82,7 +105,7 @@ async function loadLinks() {
           const newParams = new URLSearchParams();
           if (themeParam) newParams.set("theme", themeParam);
           a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
-        } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
+        } else if (titleKey === "HAMUSATA – ホームページ" && section === "portfolio") {
           a.href = seasonLinks[season] || link;
         } else {
           a.href = link;
@@ -90,19 +113,19 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.textContent = "見る / View";
+        a.textContent = langSub[currentLang]?.view || "見る / View";
         card.appendChild(a);
 
         // pw.link-s.f5.si 特殊処理
-        if (title.includes("pw.link-s.f5.si")) {
+        if (titleKey.includes("pw.link-s.f5.si")) {
           const note = document.createElement("p");
           note.className = "note";
-          note.innerHTML = '※リダイレクトがうまくできない場合は <a href="https://password.link-s.f5.si">こちら</a> を利用してください。';
+          note.innerHTML = langSub[currentLang]?.pw_note || '※リダイレクトがうまくできない場合は <a href="https://password.link-s.f5.si">こちら</a> を利用してください。';
           card.appendChild(note);
 
           const apiLink = document.createElement("a");
           apiLink.href = "https://password-create.link-s.f5.si/";
-          apiLink.textContent = "APIなし版 / No-API";
+          apiLink.textContent = langSub[currentLang]?.no_api || "APIなし版 / No-API";
           apiLink.target = "_blank";
           apiLink.rel = "noopener noreferrer";
           card.appendChild(apiLink);
@@ -127,6 +150,15 @@ async function loadLinks() {
     }
     console.error("スプレッドシート読み込み失敗:", e);
   }
+}
+
+// =============================
+// 言語切替時に再レンダリング
+// =============================
+function updateCardsLang(lang) {
+  currentLang = lang;
+  localStorage.setItem("lang", lang);
+  loadLinks();
 }
 
 // ページ読み込み時に実行
