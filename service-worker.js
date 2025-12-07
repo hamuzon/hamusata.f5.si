@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hamusata-v1.0';
+const CACHE_NAME = 'hamusata-v2.0';
 
 // キャッシュするファイル一覧
 const urlsToCache = [
@@ -15,6 +15,10 @@ const urlsToCache = [
   '/css/light.css',
   '/css/light-hc.css',
   '/css/light-mc.css',
+
+  // JS / 言語ファイル
+  '/js/lang-switch.js',
+  '/lang.json',
 
   // 画像 / アイコン
   '/hamusata_399-120.webp',
@@ -36,7 +40,7 @@ const urlsToCache = [
   '/random/index.html'
 ];
 
-// インストール：キャッシュ登録
+// 以下は既存の install / activate / fetch イベントはそのまま
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(async cache => {
@@ -51,7 +55,6 @@ self.addEventListener('install', event => {
   );
 });
 
-// アクティベート：古いキャッシュ削除
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -64,14 +67,12 @@ self.addEventListener('activate', event => {
   );
 });
 
-// フェッチ：キャッシュ優先
 self.addEventListener('fetch', event => {
 
   if (event.request.method !== 'GET') return;
 
   const url = new URL(event.request.url);
 
-  // index.html を / に置き換える
   if (url.pathname === '/index.html') {
     event.respondWith(
       caches.match('/').then(r => r || fetch('/'))
@@ -83,13 +84,11 @@ self.addEventListener('fetch', event => {
     caches.match(event.request).then(cachedResponse => {
       if (cachedResponse) return cachedResponse;
 
-      // キャッシュにない → ネットワーク
       return fetch(event.request)
         .then(networkResponse => {
           if (!networkResponse || networkResponse.status !== 200)
             return networkResponse;
 
-          // 成功したリソースだけキャッシュへ保存
           return caches.open(CACHE_NAME).then(cache => {
             try {
               cache.put(event.request, networkResponse.clone());
@@ -99,8 +98,6 @@ self.addEventListener('fetch', event => {
             return networkResponse;
           });
         })
-
-        // オフライン時の fallback
         .catch(() => {
           if (event.request.destination === 'image') {
             return caches.match('/icon.webp');
