@@ -1,5 +1,5 @@
 // ============================================
-// links-sub.js 
+// links-sub.js
 // ============================================
 
 async function loadLinks() {
@@ -43,6 +43,10 @@ async function loadLinks() {
 
     const currentLang = document.documentElement.lang || "ja";
 
+    // サブ言語JSONを読み込む
+    const langRes = await fetch("/lang/sub-lang.json");
+    const langData = await langRes.json();
+
     rows.slice(1).forEach(row => {
       const [title, description, image, link, section, internalLinkFlag] = row;
       if (!section || !sections[section] || !sections[section].container) return;
@@ -51,11 +55,11 @@ async function loadLinks() {
       const card = document.createElement("div");
       card.className = "work-card";
 
-      // 画像（Sprite対応可）
+      // 画像
       if (image) {
         const img = document.createElement("img");
         img.src = image;
-        img.alt = title;
+        img.alt = langData[currentLang][title] || title;
         img.loading = "lazy";
         img.decoding = "async";
         card.appendChild(img);
@@ -63,16 +67,14 @@ async function loadLinks() {
 
       // タイトル
       const h3 = document.createElement("h3");
-      h3.textContent = title;
-      h3.dataset.langKey = title;
+      h3.textContent = langData[currentLang][title] || title;
       card.appendChild(h3);
 
       // 説明
       if (description) {
         const descDiv = document.createElement("div");
         descDiv.className = "work-description";
-        descDiv.innerHTML = description;
-        descDiv.dataset.langKey = description;
+        descDiv.innerHTML = langData[currentLang][description] || description;
         card.appendChild(descDiv);
       }
 
@@ -95,18 +97,12 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.dataset.langKey = "link_view";
-        a.textContent = currentLang === "en" ? "View" : "見る / View";
+        a.textContent = langData[currentLang]["link_view"] || "View";
         card.appendChild(a);
       }
 
       container.appendChild(card);
     });
-
-    // 翻訳再反映
-    if (typeof loadSubLang === "function") {
-      loadSubLang(document.documentElement.lang || "ja");
-    }
 
     // データなしの場合
     Object.values(sections).forEach(sec => {
