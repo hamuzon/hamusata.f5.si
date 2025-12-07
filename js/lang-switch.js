@@ -1,27 +1,26 @@
-<!-- js/lang-switch.js -->
-document.addEventListener("DOMContentLoaded", () => {
-  const langButtons = document.querySelectorAll("[data-lang]");
-  const elements = document.querySelectorAll("[data-i18n]");
+// js/lang-switch.js
+const langSwitchButtons = document.querySelectorAll("#lang-switch button");
+let currentLang = localStorage.getItem("lang") || "ja";
 
-  fetch("/lang/lang.json")
-    .then(res => res.json())
-    .then(data => {
-      function switchLang(lang) {
-        elements.forEach(el => {
-          const key = el.getAttribute("data-i18n");
-          if (data[lang] && data[lang][key]) {
-            el.textContent = data[lang][key];
-          }
-        });
-      }
+async function loadLang(lang) {
+    const res = await fetch(`/lang/${lang}.json`);
+    const data = await res.json();
 
-      langButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-          const lang = btn.dataset.lang;
-          switchLang(lang);
-        });
-      });
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (data[key]) el.textContent = data[key];
+    });
 
-      switchLang("ja");
+    document.documentElement.lang = lang;
+    localStorage.setItem("lang", lang);
+    currentLang = lang;
+}
+
+langSwitchButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        loadLang(btn.dataset.lang);
     });
 });
+
+// 初期読み込み
+loadLang(currentLang);
