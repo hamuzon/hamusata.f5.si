@@ -51,7 +51,6 @@ async function loadLinks() {
       const card = document.createElement("div");
       card.className = "work-card";
 
-      // IDを作る（例: portfolio_HAMUSATA）
       const id = section + "_" + title.replace(/\s|\(|\)|–/g, "_").replace(/_+/g, "");
 
       // 翻訳対応
