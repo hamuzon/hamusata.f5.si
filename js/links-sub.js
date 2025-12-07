@@ -15,9 +15,11 @@ async function loadLinks() {
     sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
   };
 
-  // 読み込み中表示
+  // 読み込み中メッセージ
   for (const key in sections) {
-    if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
+    if (sections[key].container) {
+      sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
+    }
   }
 
   try {
@@ -26,6 +28,7 @@ async function loadLinks() {
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
+    // 初期化
     for (const key in sections) {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
@@ -41,6 +44,7 @@ async function loadLinks() {
                    month >= 6 && month <= 8 ? "summer" :
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
+    // 言語データ
     const langDataRes = await fetch("lang/sub-lang.json");
     const langData = await langDataRes.json();
     const lang = localStorage.getItem("lang") || (navigator.language.startsWith("en") ? "en" : "ja");
@@ -50,17 +54,11 @@ async function loadLinks() {
       if (!section || !sections[section] || !sections[section].container) return;
 
       const container = sections[section].container;
-
-      // pwカード専用HTMLがある場合はそれをそのまま反映
-      if (langData[lang][title] && title.includes("pw.link-s.f5.si")) {
-        const div = document.createElement("div");
-        div.innerHTML = langData[lang][title];
-        container.appendChild(div.firstElementChild);
-        return;
-      }
-
       const card = document.createElement("div");
       card.className = "work-card";
+
+      // data-lang-key でカード全体を管理
+      const langKeyBase = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_");
 
       // 画像
       if (image) {
@@ -74,19 +72,15 @@ async function loadLinks() {
 
       // タイトル
       const h3 = document.createElement("h3");
-      let keyTitle = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_title";
-      if (!langData[lang][keyTitle]) keyTitle = title;
-      h3.innerHTML = langData[lang][keyTitle] || title;
-      h3.dataset.langKey = keyTitle;
+      h3.dataset.langKey = langKeyBase + "_title";
+      h3.innerHTML = (langData[lang][h3.dataset.langKey] || title);
       card.appendChild(h3);
 
       // 説明
       if (description) {
         const p = document.createElement("p");
-        let keyDesc = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_desc";
-        if (!langData[lang][keyDesc]) keyDesc = description;
-        p.innerHTML = langData[lang][keyDesc] || description;
-        p.dataset.langKey = keyDesc;
+        p.dataset.langKey = langKeyBase + "_desc";
+        p.innerHTML = (langData[lang][p.dataset.langKey] || description);
         card.appendChild(p);
       }
 
@@ -109,8 +103,10 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.innerHTML = langData[lang]["link_view"] || "View";
+
+        // data-lang-key でリンクテキストも切替
         a.dataset.langKey = "link_view";
+        a.innerHTML = langData[lang]["link_view"] || "View";
         card.appendChild(a);
       }
 
@@ -134,4 +130,5 @@ async function loadLinks() {
   }
 }
 
+// ページ読み込み時にリンク生成
 document.addEventListener("DOMContentLoaded", loadLinks);
