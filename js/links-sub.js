@@ -69,8 +69,7 @@ async function loadLinks() {
       // タイトル
       const h3 = document.createElement("h3");
       let keyTitle = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_title";
-      if (!langData[lang][keyTitle]) keyTitle = title;
-      h3.innerHTML = langData[lang][keyTitle] || title; // innerHTMLでHTMLタグ対応
+      h3.innerHTML = langData[lang][keyTitle] || title;
       h3.dataset.langKey = keyTitle;
       card.appendChild(h3);
 
@@ -78,8 +77,7 @@ async function loadLinks() {
       if (description) {
         const p = document.createElement("p");
         let keyDesc = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_desc";
-        if (!langData[lang][keyDesc]) keyDesc = description;
-        p.innerHTML = langData[lang][keyDesc] || description; // innerHTMLでHTMLタグ対応
+        p.innerHTML = langData[lang][keyDesc] || description;
         p.dataset.langKey = keyDesc;
         card.appendChild(p);
       }
@@ -104,7 +102,7 @@ async function loadLinks() {
         a.target = "_blank";
         a.rel = "noopener noreferrer";
 
-        a.innerHTML = langData[lang]["link_view"] || "View"; // innerHTMLでHTMLタグ対応
+        a.innerHTML = langData[lang]["link_view"] || "View";
         a.dataset.langKey = "link_view";
         card.appendChild(a);
       }
