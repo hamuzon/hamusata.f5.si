@@ -23,7 +23,7 @@
     "link_view": "見る / View",
     "pw.link-s.f5.si – パスワード生成サービス": "pw.link-s.f5.si – パスワード生成サービス",
     
-    // ここからタグ付きHTMLの翻訳ルール
+   
     "w_pw_link_s_f5_si_パスワード生成サービス_desc": "<p>APIベースのパスワード生成サービス。ログ保存等は一切ありません。</p>\n<a href=\"https://pw.link-s.f5.si\" target=\"_blank\" rel=\"noopener noreferrer\"><span>見る</span> / <span>View</span></a>\n<p class=\"note\">※リダイレクトがうまくできない場合は <a href=\"https://password.link-s.f5.si\" target=\"_blank\" rel=\"noopener noreferrer\">こちら</a> を利用してください。</p>\n<a href=\"https://password-create.link-s.f5.si/\" target=\"_blank\" rel=\"noopener noreferrer\"><span>APIなし版</span> / <span>No-API</span></a>"
   },
   "en": {
@@ -50,7 +50,7 @@
     "link_view": "View",
     "pw.link-s.f5.si – パスワード生成サービス": "pw.link-s.f5.si – Password Generator Service",
 
-    // タグ付きHTML翻訳ルール
+   
     "w_pw_link_s_f5_si_パスワード生成サービス_desc": "<p>API-based password generator service. No logs are saved.</p>\n<a href=\"https://pw.link-s.f5.si\" target=\"_blank\" rel=\"noopener noreferrer\">View</a>\n<p class=\"note\">If redirection does not work correctly, please use <a href=\"https://password.link-s.f5.si\" target=\"_blank\" rel=\"noopener noreferrer\">this version</a>.</p>\n<a href=\"https://password-create.link-s.f5.si/\" target=\"_blank\" rel=\"noopener noreferrer\">No-API version</a>"
   }
 }
