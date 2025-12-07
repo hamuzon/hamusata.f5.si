@@ -40,7 +40,6 @@ const urlsToCache = [
   '/random/index.html'
 ];
 
-// 以下は既存の install / activate / fetch イベントはそのまま
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(async cache => {
