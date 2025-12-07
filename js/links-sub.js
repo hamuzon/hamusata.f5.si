@@ -1,10 +1,10 @@
 // ============================================
-// ｊｓ/links-sub.js
+// links-sub.js 
 // ============================================
 
 async function loadLinks() {
-  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
-  const sheetName = "sub"; // シート名
+  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
+  const sheetName = "sub";
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
   const sections = {
@@ -16,11 +16,9 @@ async function loadLinks() {
   };
 
   // 初期表示
-  for (const key in sections) {
-    if (sections[key].container) {
-      sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
-    }
-  }
+  Object.values(sections).forEach(sec => {
+    if (sec.container) sec.container.innerHTML = `<p>${sec.default}</p>`;
+  });
 
   try {
     const res = await fetch(url);
@@ -28,9 +26,9 @@ async function loadLinks() {
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
-    for (const key in sections) {
-      if (sections[key].container) sections[key].container.innerHTML = "";
-    }
+    Object.values(sections).forEach(sec => {
+      if (sec.container) sec.container.innerHTML = "";
+    });
 
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
@@ -53,7 +51,7 @@ async function loadLinks() {
       const card = document.createElement("div");
       card.className = "work-card";
 
-      // 画像
+      // 画像（Sprite対応可）
       if (image) {
         const img = document.createElement("img");
         img.src = image;
@@ -66,22 +64,22 @@ async function loadLinks() {
       // タイトル
       const h3 = document.createElement("h3");
       h3.textContent = title;
-      h3.dataset.langKey = title; // 翻訳キーにセット
+      h3.dataset.langKey = title;
       card.appendChild(h3);
 
-      // 説明文
+      // 説明
       if (description) {
         const descDiv = document.createElement("div");
         descDiv.className = "work-description";
         descDiv.innerHTML = description;
-        descDiv.dataset.langKey = description; // 翻訳キーにセット
+        descDiv.dataset.langKey = description;
         card.appendChild(descDiv);
       }
 
       // リンクボタン
       if (link) {
         const a = document.createElement("a");
-        const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
+        const isInternal = ["on","1","true"].includes(String(internalLinkFlag).toLowerCase());
 
         if (isInternal) {
           const currentParams = new URLSearchParams(window.location.search);
@@ -97,7 +95,7 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.dataset.langKey = "link_view"; // 翻訳用
+        a.dataset.langKey = "link_view";
         a.textContent = currentLang === "en" ? "View" : "見る / View";
         card.appendChild(a);
       }
@@ -105,28 +103,24 @@ async function loadLinks() {
       container.appendChild(card);
     });
 
-    // カード生成後に翻訳を反映
+    // 翻訳再反映
     if (typeof loadSubLang === "function") {
-      const lang = document.documentElement.lang || "ja";
-      loadSubLang(lang);
+      loadSubLang(document.documentElement.lang || "ja");
     }
 
-    // データがない場合
-    for (const key in sections) {
-      if (sections[key].container && sections[key].container.children.length === 0) {
-        sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
+    // データなしの場合
+    Object.values(sections).forEach(sec => {
+      if (sec.container && sec.container.children.length === 0) {
+        sec.container.innerHTML = `<p>${sec.name}の読み込みに失敗</p>`;
       }
-    }
+    });
 
   } catch (e) {
-    for (const key in sections) {
-      if (sections[key].container) {
-        sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
-      }
-    }
+    Object.values(sections).forEach(sec => {
+      if (sec.container) sec.container.innerHTML = `<p>${sec.name}の読み込みに失敗</p>`;
+    });
     console.error("スプレッドシート読み込み失敗:", e);
   }
 }
 
-// ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", loadLinks);
