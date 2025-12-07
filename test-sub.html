@@ -21,12 +21,16 @@
 <link rel="stylesheet" href="css/mobile-menu.css">
 
 <!-- JS -->
-<script src="js/lang-switch.js" defer></script>
 <script src="js/script-sub.js" defer></script>
 <script src="js/links-sub.js" defer></script>
-
 </head>
 <body class="light">
+
+<!-- 言語切替ボタン -->
+<div id="lang-switcher" style="position:fixed; top:10px; right:10px; z-index:999;">
+  <button id="btn-ja">日本語</button>
+  <button id="btn-en">English</button>
+</div>
 
 <!-- ヘッダー -->
 <header>
@@ -98,41 +102,56 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
-  const lang = document.documentElement.lang || "ja";
   const res = await fetch("lang/lang.json");
   const data = await res.json();
-  const t = data[lang];
 
-  // ナビゲーション
-  document.getElementById("nav-home").textContent = t.nav_home;
-  document.getElementById("nav-profile").textContent = t.nav_profile;
-  document.getElementById("nav-portfolio").textContent = t.nav_portfolio;
-  document.getElementById("nav-random").textContent = t.nav_random;
-  document.getElementById("nav-status").textContent = t.nav_status;
-  document.getElementById("nav-links").textContent = t.nav_links;
-  document.getElementById("nav-sns").textContent = t.nav_sns;
-  document.getElementById("nav-terms").textContent = t.nav_terms;
-  document.getElementById("nav-github").textContent = t.nav_github;
+  // 現在の言語設定
+  let currentLang = localStorage.getItem("lang") || document.documentElement.lang || "ja";
 
-  // ページタイトル
-  document.getElementById("page-title").textContent = t.page_title;
-  document.getElementById("main-title").textContent = t.page_title;
+  // 言語切替関数
+  function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem("lang", lang);
+    const t = data[lang];
 
-  // プロフィール
-  document.getElementById("profile-title").textContent = t.profile_title;
-  document.getElementById("profile-p1").textContent = t.profile_p1;
-  document.getElementById("profile-p2").textContent = t.profile_p2;
-  document.getElementById("profile-p3").textContent = t.profile_p3;
+    // ナビゲーション
+    document.getElementById("nav-home").textContent = t.nav_home;
+    document.getElementById("nav-profile").textContent = t.nav_profile;
+    document.getElementById("nav-portfolio").textContent = t.nav_portfolio;
+    document.getElementById("nav-random").textContent = t.nav_random;
+    document.getElementById("nav-status").textContent = t.nav_status;
+    document.getElementById("nav-links").textContent = t.nav_links;
+    document.getElementById("nav-sns").textContent = t.nav_sns;
+    document.getElementById("nav-terms").textContent = t.nav_terms;
+    document.getElementById("nav-github").textContent = t.nav_github;
 
-  // 各セクションタイトル
-  document.getElementById("portfolio-title").textContent = t.portfolio_title;
-  document.getElementById("random-title").textContent = t.random_title;
-  document.getElementById("status-title").textContent = t.status_title;
-  document.getElementById("mutual-title").textContent = t.mutual_title;
-  document.getElementById("sns-title").textContent = t.sns_title;
+    // ページタイトル
+    document.getElementById("page-title").textContent = t.page_title;
+    document.getElementById("main-title").textContent = t.page_title;
 
-  // フッター
-  document.getElementById("footer-reserved").textContent = t.footer_reserved;
+    // プロフィール
+    document.getElementById("profile-title").textContent = t.profile_title;
+    document.getElementById("profile-p1").textContent = t.profile_p1;
+    document.getElementById("profile-p2").textContent = t.profile_p2;
+    document.getElementById("profile-p3").textContent = t.profile_p3;
+
+    // 各セクションタイトル
+    document.getElementById("portfolio-title").textContent = t.portfolio_title;
+    document.getElementById("random-title").textContent = t.random_title;
+    document.getElementById("status-title").textContent = t.status_title;
+    document.getElementById("mutual-title").textContent = t.mutual_title;
+    document.getElementById("sns-title").textContent = t.sns_title;
+
+    // フッター
+    document.getElementById("footer-reserved").textContent = t.footer_reserved;
+  }
+
+  // 初期表示
+  setLang(currentLang);
+
+  // 言語ボタン
+  document.getElementById("btn-ja").addEventListener("click", () => setLang("ja"));
+  document.getElementById("btn-en").addEventListener("click", () => setLang("en"));
 
   // 年
   document.getElementById("year").textContent = new Date().getFullYear();
