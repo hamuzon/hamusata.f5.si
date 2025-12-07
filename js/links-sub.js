@@ -1,9 +1,12 @@
 // ============================================
-// links-sub.js
+// js/links-sub.js
 // ============================================
 
-let subLangData = {}; 
+let subLangData = {};
 
+// ============================================
+// スプレッドシート読み込み
+// ============================================
 async function loadLinks() {
   const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
   const sheetName = "sub";
@@ -26,18 +29,7 @@ async function loadLinks() {
     const text = await res.text();
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
-
     Object.values(sections).forEach(sec => { if (sec.container) sec.container.innerHTML = ""; });
-
-    // 季節リンク設定
-    const seasonLinks = { 
-      spring: "https://home.hamusata.f5.si/spring", 
-      summer: "https://home.hamusata.f5.si/summer", 
-      autumn: "https://home.hamusata.f5.si/autumn", 
-      winter: "https://home.hamusata.f5.si/winter" 
-    };
-    const month = new Date().getMonth() + 1;
-    const season = month >= 3 && month <= 5 ? "spring" : month >= 6 && month <= 8 ? "summer" : month >= 9 && month <= 11 ? "autumn" : "winter";
 
     const currentLang = document.documentElement.lang || "ja";
 
@@ -53,8 +45,8 @@ async function loadLinks() {
       const card = document.createElement("div");
       card.className = "work-card";
 
-      // pwカードはHTML直接挿入（翻訳対応）
-      if (title === "pw.link-s.f5.si – パスワード生成サービス" && subLangData[currentLang]["pw_html"]) {
+      // pwカード専用処理
+      if (title === "pw.link-s.f5.si – パスワード生成サービス") {
         card.dataset.langKey = title;
         card.innerHTML = subLangData[currentLang]["pw_html"];
       } else {
@@ -83,25 +75,19 @@ async function loadLinks() {
           card.appendChild(descDiv);
         }
 
-        // リンクボタン
+        // リンク
         if (link) {
           const a = document.createElement("a");
           a.dataset.langKey = "link_view";
-
-          // 内部リンクかどうか
           const isInternal = ["on","1","true"].includes(String(internalLinkFlag).toLowerCase());
+
           if (isInternal) {
             const currentParams = new URLSearchParams(window.location.search);
             const themeParam = currentParams.get("theme");
             const newParams = new URLSearchParams();
             if (themeParam) newParams.set("theme", themeParam);
             a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
-          } 
-          // 季節リンクを適用（特定のカードのみ）
-          else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
-            a.href = seasonLinks[season] || link;
-          } 
-          else {
+          } else {
             a.href = link;
           }
 
@@ -115,7 +101,6 @@ async function loadLinks() {
       container.appendChild(card);
     });
 
-    // 読み込み失敗 fallback
     Object.values(sections).forEach(sec => {
       if (sec.container && sec.container.children.length === 0) {
         sec.container.innerHTML = `<p>${sec.name}の読み込みに失敗</p>`;
@@ -139,7 +124,7 @@ function switchSubLang(lang) {
   document.querySelectorAll(".work-card").forEach(card => {
     const key = card.dataset.langKey;
 
-    // pwカードの場合
+    // pwカードの場合はHTML入れ替え
     if (key === "pw.link-s.f5.si – パスワード生成サービス" && subLangData[lang]["pw_html"]) {
       card.innerHTML = subLangData[lang]["pw_html"];
     } else {
@@ -149,7 +134,7 @@ function switchSubLang(lang) {
           if (el.tagName === "IMG") {
             el.alt = subLangData[lang][elKey];
           } else if (el.classList.contains("work-description")) {
-            el.innerHTML = subLangData[lang][elKey]; 
+            el.innerHTML = subLangData[lang][elKey];
           } else {
             el.textContent = subLangData[lang][elKey];
           }
