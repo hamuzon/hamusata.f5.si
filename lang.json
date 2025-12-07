@@ -1,0 +1,41 @@
+{
+  "ja": {
+    "title": "利用規約・プライバシーポリシー",
+    "back": "ホームページに戻る",
+    "effective": "制定日:",
+    "service_title": "1. サービス内容",
+    "service_text": "当サイトは、HAMUSATA関連の情報提供およびリンク集、コンテンツ閲覧サービスを提供します。利用者は自己の責任でご利用ください。",
+    "prohibit_title": "2. 禁止事項",
+    "prohibit_text": "当サイトの利用にあたり、以下の行為を禁止します：",
+    "disclaimer_title": "3. 免責事項",
+    "disclaimer_text": "当サイトに掲載される情報は正確性に努めていますが、内容の完全性・正確性を保証するものではありません。当サイトの利用により生じた損害について、一切責任を負いません。",
+    "copyright":
+      "当サイト内のコンテンツ（文章・画像・プログラムなど）の著作権は当サイト運営者または各権利者に帰属します。無断使用・転載は禁止します。",
+    "cookie_title": "5. クッキー・アクセス解析",
+    "cookie_text": "当サイトでは、サービス向上のためアクセス解析（Google Analytics 等）を利用する場合があります。収集されるデータは匿名化されており、個人を特定する情報は含まれません。",
+    "privacy_title": "6. プライバシーポリシー",
+    "privacy_text": "当サイトでは、ユーザーの個人情報（名前・メールアドレス等）は一切取得していません。",
+    "change_title": "7. 規約の変更",
+    "change_text": "当サイトは本規約を予告なく変更することがあります。最新の内容は当ページにてご確認ください。"
+  },
+
+  "en": {
+    "title": "Terms of Service & Privacy Policy",
+    "back": "Back to Home",
+    "effective": "Effective Date:",
+    "service_title": "1. Description of Service",
+    "service_text": "The Site provides information and content browsing related to HAMUSATA. Users agree to use the Site responsibly.",
+    "prohibit_title": "2. Prohibited Activities",
+    "prohibit_text": "The following actions are prohibited when using this Site:",
+    "disclaimer_title": "3. Disclaimer",
+    "disclaimer_text": "The Site does not guarantee completeness or accuracy of the information. The operator is not responsible for any damages resulting from use.",
+    "copyright":
+      "All content on this Site is owned by the operator or respective holders. Unauthorized copying or reproduction is prohibited.",
+    "cookie_title": "5. Cookies & Analytics",
+    "cookie_text": "The Site may use analytics tools such as Google Analytics. Data collected is anonymized and does not include personal identifiers.",
+    "privacy_title": "6. Privacy Policy",
+    "privacy_text": "The Site does not collect personal information such as name or email.",
+    "change_title": "7. Changes to the Terms",
+    "change_text": "The Site may modify these terms without prior notice. Check this page for updates."
+  }
+}
