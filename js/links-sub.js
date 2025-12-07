@@ -1,5 +1,5 @@
 // ============================================
-// js/links-sub.js 
+// js/links-sub.js
 // ============================================
 
 async function loadLinks() {
@@ -28,7 +28,6 @@ async function loadLinks() {
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
-    // セクション初期化
     for (const key in sections) {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
@@ -43,6 +42,8 @@ async function loadLinks() {
     const season = month >= 3 && month <= 5 ? "spring" :
                    month >= 6 && month <= 8 ? "summer" :
                    month >= 9 && month <= 11 ? "autumn" : "winter";
+
+    const currentLang = document.documentElement.lang || "ja";
 
     rows.slice(1).forEach(row => {
       const [title, description, image, link, section, internalLinkFlag] = row;
@@ -65,6 +66,7 @@ async function loadLinks() {
       // タイトル
       const h3 = document.createElement("h3");
       h3.textContent = title;
+      h3.dataset.langKey = title;
       card.appendChild(h3);
 
       // 説明文
@@ -72,12 +74,12 @@ async function loadLinks() {
         const descDiv = document.createElement("div");
         descDiv.className = "work-description";
         descDiv.innerHTML = description;
+        descDiv.dataset.langKey = description;
         card.appendChild(descDiv);
       }
 
-      
-      const hasLinkInDescription = description && /<a\s/i.test(description);
-      if (link && !hasLinkInDescription) {
+      // リンクボタン
+      if (link) {
         const a = document.createElement("a");
         const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
 
@@ -95,7 +97,8 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.textContent = "見る / View";
+        a.dataset.langKey = "view";
+        a.textContent = currentLang === "en" ? "View" : "見る / View";
         card.appendChild(a);
       }
 
@@ -119,4 +122,5 @@ async function loadLinks() {
   }
 }
 
+// ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", loadLinks);
