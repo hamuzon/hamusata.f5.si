@@ -1,5 +1,5 @@
 // ============================================
-// script-sub.js 
+// js/script-sub.js 
 // ============================================
 
 let currentLang = localStorage.getItem("lang") || "ja";
