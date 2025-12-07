@@ -1,10 +1,10 @@
 // ============================================
-// js/links-sub.js
+// links-sub.js
 // ============================================
 
 async function loadLinks() {
-  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; 
-  const sheetName = "sub"; 
+  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; // スプレッドシートID
+  const sheetName = "sub"; // シート名
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
   const sections = {
@@ -15,8 +15,11 @@ async function loadLinks() {
     sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
   };
 
+  // 初期表示
   for (const key in sections) {
-    if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
+    if (sections[key].container) {
+      sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
+    }
   }
 
   try {
@@ -50,6 +53,7 @@ async function loadLinks() {
       const card = document.createElement("div");
       card.className = "work-card";
 
+      // 画像
       if (image) {
         const img = document.createElement("img");
         img.src = image;
@@ -59,19 +63,22 @@ async function loadLinks() {
         card.appendChild(img);
       }
 
+      // タイトル
       const h3 = document.createElement("h3");
       h3.textContent = title;
-      h3.dataset.langKey = title; // 翻訳キー
+      h3.dataset.langKey = title; // 翻訳キーにセット
       card.appendChild(h3);
 
+      // 説明文
       if (description) {
         const descDiv = document.createElement("div");
         descDiv.className = "work-description";
         descDiv.innerHTML = description;
-        descDiv.dataset.langKey = description; // 翻訳キー
+        descDiv.dataset.langKey = description; // 翻訳キーにセット
         card.appendChild(descDiv);
       }
 
+      // リンクボタン
       if (link) {
         const a = document.createElement("a");
         const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
@@ -90,7 +97,7 @@ async function loadLinks() {
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.dataset.langKey = "view";
+        a.dataset.langKey = "link_view"; // 翻訳用
         a.textContent = currentLang === "en" ? "View" : "見る / View";
         card.appendChild(a);
       }
@@ -98,6 +105,13 @@ async function loadLinks() {
       container.appendChild(card);
     });
 
+    // カード生成後に翻訳を反映
+    if (typeof loadSubLang === "function") {
+      const lang = document.documentElement.lang || "ja";
+      loadSubLang(lang);
+    }
+
+    // データがない場合
     for (const key in sections) {
       if (sections[key].container && sections[key].container.children.length === 0) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
@@ -114,4 +128,5 @@ async function loadLinks() {
   }
 }
 
+// ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", loadLinks);
