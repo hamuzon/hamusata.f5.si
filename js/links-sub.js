@@ -3,28 +3,40 @@
 // ============================================
 
 async function loadLinks() {
-  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg"; 
-  const sheetName = "sub"; 
+  const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
+  const sheetName = "sub";
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
   const sections = {
-    portfolio: { container: document.getElementById("portfolioLinks"), name: "ポートフォリオ", default: "読み込み中..." },
-    random: { container: document.getElementById("randomLinks"), name: "ランダム作品", default: "読み込み中..." },
-    status: { container: document.getElementById("statusLinks"), name: "サービス稼働状況", default: "読み込み中..." },
-    "mutual-links": { container: document.getElementById("mutualLinks"), name: "相互リンク", default: "読み込み中..." },
-    sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
+    portfolio:      { container: document.getElementById("portfolioLinks"),      name: "ポートフォリオ",      default: "読み込み中..." },
+    random:         { container: document.getElementById("randomLinks"),         name: "ランダム作品",        default: "読み込み中..." },
+    status:         { container: document.getElementById("statusLinks"),         name: "サービス稼働状況",    default: "読み込み中..." },
+    "mutual-links": { container: document.getElementById("mutualLinks"),         name: "相互リンク",          default: "読み込み中..." },
+    sns:            { container: document.getElementById("snsLinks"),            name: "SNS",                default: "読み込み中..." }
   };
 
-  for (const key in sections) if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
+  // 各セクションに「読み込み中」を表示
+  for (const key in sections) {
+    if (sections[key].container) {
+      sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
+    }
+  }
 
   try {
+    // スプレッドシートデータ取得
     const res = await fetch(url);
     const text = await res.text();
-    const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]);
+    const json = JSON.parse(
+      text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\)/)[1]
+    );
     const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : "")));
 
-    for (const key in sections) if (sections[key].container) sections[key].container.innerHTML = "";
+    // 既存の読み込み中表示をクリア
+    for (const key in sections) {
+      if (sections[key].container) sections[key].container.innerHTML = "";
+    }
 
+    // 季節リンク設定
     const seasonLinks = {
       spring: "https://home.hamusata.f5.si/spring",
       summer: "https://home.hamusata.f5.si/summer",
@@ -32,15 +44,20 @@ async function loadLinks() {
       winter: "https://home.hamusata.f5.si/winter"
     };
     const month = new Date().getMonth() + 1;
-    const season = month >= 3 && month <= 5 ? "spring" :
-                   month >= 6 && month <= 8 ? "summer" :
-                   month >= 9 && month <= 11 ? "autumn" : "winter";
+    const season =
+      month >= 3 && month <= 5 ? "spring" :
+      month >= 6 && month <= 8 ? "summer" :
+      month >= 9 && month <= 11 ? "autumn" :
+      "winter";
 
+    // カード生成
     rows.slice(1).forEach(row => {
       const [title, description, image, link, section, internalLinkFlag] = row;
+
       if (!section || !sections[section] || !sections[section].container) return;
 
       const container = sections[section].container;
+
       const card = document.createElement("div");
       card.className = "work-card";
 
@@ -56,25 +73,24 @@ async function loadLinks() {
 
       // タイトル
       const h3 = document.createElement("h3");
-      let keyTitle = title; // lang key はタイトルそのまま
-      h3.dataset.langKey = keyTitle;
-      h3.innerHTML = title; // デフォルト文字（翻訳はlang-switchで）
+      h3.dataset.langKey = title;    // 翻訳キーとしてタイトルをセット
+      h3.innerHTML = title;          // 初期表示はスプレッドシートの文字
       card.appendChild(h3);
 
       // 説明
       if (description) {
         const p = document.createElement("p");
-        let keyDesc = description; // lang key は説明そのまま
-        p.dataset.langKey = keyDesc;
-        p.innerHTML = description; // デフォルト文字（翻訳はlang-switchで）
+        p.dataset.langKey = description;  // 翻訳キーとして説明をセット
+        p.innerHTML = description;        // 初期表示
         card.appendChild(p);
       }
 
       // リンク
       if (link) {
         const a = document.createElement("a");
-        a.dataset.langKey = "link_view";
+        a.dataset.langKey = "link_view"; // 翻訳キー
         const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
+
         if (isInternal) {
           const currentParams = new URLSearchParams(window.location.search);
           const themeParam = currentParams.get("theme");
@@ -86,9 +102,10 @@ async function loadLinks() {
         } else {
           a.href = link;
         }
+
         a.target = "_blank";
         a.rel = "noopener noreferrer";
-        a.innerHTML = "View"; // デフォルト文字
+        a.innerHTML = "View"; // 初期表示
         card.appendChild(a);
       }
 
@@ -96,9 +113,15 @@ async function loadLinks() {
     });
 
   } catch (e) {
-    for (const key in sections) if (sections[key].container) sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
+    // 読み込み失敗時
+    for (const key in sections) {
+      if (sections[key].container) {
+        sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;
+      }
+    }
     console.error("スプレッドシート読み込み失敗:", e);
   }
 }
 
+// DOMContentLoadedで実行
 document.addEventListener("DOMContentLoaded", loadLinks);
