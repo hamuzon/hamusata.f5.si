@@ -33,11 +33,41 @@
   themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
 </script>
 
+<!-- 言語切替ボタンスタイル -->
+<style>
+  #lang-switch {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(16px);
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.18s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    line-height: 1;
+  }
+  body.dark #lang-switch {
+    background: rgba(0,0,0,0.35);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 4px 12px rgba(255,255,255,0.06);
+  }
+  #lang-switch:hover {
+    transform: scale(1.05);
+    background: rgba(0,188,212,0.18);
+  }
+</style>
+
 </head>
 <body class="light">
 
 <!-- Language switch button -->
-<button id="lang-switch" style="position:fixed; top:16px; left:16px; z-index:1000; padding:0.5rem 1rem; border-radius:12px; cursor:pointer;">🌐 English</button>
+<button id="lang-switch">🌐 English</button>
 
 <!-- Header -->
 <header>
@@ -82,9 +112,7 @@
 
   <section id="portfolio">
     <h2 data-lang="portfolio_title">ポートフォリオリンク集</h2>
-    <div class="works" id="portfolioLinks">
-      <!-- Work cards here (data-lang on titles, descs, buttons) -->
-    </div>
+    <div class="works" id="portfolioLinks"></div>
   </section>
 
   <section id="random">
@@ -121,7 +149,6 @@
 const langBtn = document.getElementById("lang-switch");
 let currentLang = localStorage.getItem("lang") || "ja";
 
-// 言語切替用JSON読み込み
 let langData = {};
 fetch("lang/lang.json")
   .then(res => res.json())
@@ -139,7 +166,6 @@ function setLang(lang){
       el.textContent = langData[lang][key];
     }
   });
-  // ボタン表示切替
   langBtn.textContent = lang==="ja"?"🌐 English":"🌐 日本語";
 }
 
@@ -147,7 +173,7 @@ langBtn.addEventListener("click", ()=>{
   setLang(currentLang==="ja"?"en":"ja");
 });
 
-// 年
+// 年表示
 document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
