@@ -1,5 +1,5 @@
 // ============================================
-// lang-switch-sub.js
+// lang-switch-sub.js 
 // ============================================
 
 async function loadSubLang(lang) {
@@ -18,7 +18,8 @@ async function loadSubLang(lang) {
     document.querySelectorAll("[data-lang], [data-lang-key]").forEach(el => {
       const key = el.dataset.lang || el.dataset.langKey;
       if (key && text[key]) {
-        el.textContent = text[key];
+        // HTMLタグも含む場合は innerHTML に置き換え
+        el.innerHTML = text[key];
       }
     });
 
@@ -42,7 +43,8 @@ function initSubLang() {
   const browserLang = navigator.language.startsWith("en") ? "en" : "ja";
   const lang = saved || browserLang;
 
-  loadSubLang(lang);
+  // ページ内カードが生成される前に遅延ロード
+  document.addEventListener("DOMContentLoaded", () => loadSubLang(lang));
 
   // ボタンクリックで切替
   const btn = document.getElementById("lang-switch");
@@ -56,4 +58,4 @@ function initSubLang() {
 }
 
 // ページ読み込み時に初期化
-document.addEventListener("DOMContentLoaded", initSubLang);
+initSubLang();
