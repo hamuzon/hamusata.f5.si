@@ -1,0 +1,71 @@
+{
+  "site_title": "HAMUSATA – ホームページ",
+
+  "nav_home": "ホーム",
+  "nav_profile": "自己紹介",
+  "nav_portfolio": "ポートフォリオ",
+  "nav_random": "ランダム作品",
+  "nav_status": "サービス稼働状況",
+  "nav_links": "相互リンク",
+  "nav_sns": "SNSリンク",
+  "nav_terms": "利用規約・プライバシーポリシー",
+
+  "main_title": "HAMUSATA ホームページ",
+
+  "profile_title": "自己紹介",
+  "profile_1": "こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。",
+  "profile_2": "ハムスターを飼っています。",
+  "profile_3": "ネットの海でプログラミングしたりネットしたりして過ごしてます。",
+
+  "portfolio_title": "ポートフォリオリンク集",
+
+  "p1_title": "HAMUSATA – ホームページ",
+  "p1_desc": "メインのポータルリンク。色々なものをまとめています。",
+  "p2_title": "GitHub版 – ホームページ",
+  "p2_desc": "GitHub Pages 版ホームページ。",
+  "p3_title": "hamuzon – ホームページ",
+  "p3_desc": "hamuzon-jp.f5.si のホームページ。",
+  "p4_title": "hamuzon (FC2)系 – ホームページ",
+  "p4_desc": "FC2版ホームページ。いろんなコードがあります。",
+  "p5_title": "link-s.f5.si – ショートカットリンク",
+  "p5_desc": "短縮URL・ショートカットリンクサービス。",
+  "p6_title": "go.link-s – カスタムパス",
+  "p6_desc": "任意のパスで短縮リンクを作れるカスタムリンクサービス。",
+  "p7_title": "pw.link-s – パスワード生成",
+  "p7_desc": "APIベースのパスワード生成サービス。",
+  "p7_note": "※リダイレクトがうまくできない場合はこちら",
+  "p8_title": "www.link-s.f5.si",
+  "p8_desc": "link-s 系列作品集一覧。",
+  "p9_title": "利用規約・プライバシーポリシー",
+  "p9_desc": "サイトの利用規約とプライバシーポリシー。",
+
+  "random_title": "ランダム作品",
+  "random_h3": "ランダム作品",
+  "random_desc": "作品をランダムに開くボタンです。",
+
+  "status_title": "サービス稼働状況",
+  "status_h3": "サービス稼働状況",
+
+  "mutual_title": "相互リンク",
+  "mutual_h3": "相互リンクページ",
+  "mutual_desc": "こちらをクリックすると相互リンクページに移動します。",
+
+  "sns_title": "SNSリンク",
+  "sns_scratch1": "Scratch",
+  "sns_scratch1_desc": "hamusataアカウント",
+  "sns_scratch2": "Scratch",
+  "sns_scratch2_desc": "hamuzonアカウント",
+  "sns_github": "GitHub",
+  "sns_github_desc": "GitHubアカウント",
+  "sns_bluesky": "Bluesky",
+  "sns_bluesky_desc": "Blueskyアカウント",
+  "sns_twitter": "Twitter (X)",
+  "sns_twitter_desc": "@hamu_sata アカウント",
+
+  "btn_view": "見る",
+  "btn_open": "開く",
+  "btn_status": "稼働状況を見る",
+  "btn_noapi": "APIなし版",
+
+  "rights": "All rights reserved."
+}
