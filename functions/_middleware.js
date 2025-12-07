@@ -3,33 +3,27 @@
 export async function onRequest(context) {
   const { request } = context;
   const url = new URL(request.url);
+  const hostname = url.hostname;
 
   const ua = request.headers.get("user-agent") || "";
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
-
-  // www を無視したホスト名で判定
-  const host = url.hostname.replace(/^www\./, "");
-
-  const PC_HOST = "hamusata.f5.si";
-  const MOBILE_HOST = "m.hamusata.f5.si";
-
-  // 対象外ドメインはそのまま
-  if (!host.endsWith("hamusata.f5.si")) {
+// hamusata.f5.si 系列以外はそのまま
+  if (!hostname.endsWith("hamusata.f5.si")) {
     return context.next();
   }
 
-  // モバイル端末で PC ホストにアクセスしている場合
-  if (isMobile && host === PC_HOST) {
-    url.hostname = MOBILE_HOST; // wwwなし統一
+  // Mobile redirect
+  if (isMobile && !hostname.startsWith("m.")) {
+    url.hostname = hostname.replace(/^www\./, '').replace(/^/, hostname.startsWith('www.') ? 'www.m.' : 'm.');
     return Response.redirect(url.toString(), 302);
   }
 
-  // PC端末でモバイルホストにアクセスしている場合
-  if (!isMobile && host === MOBILE_HOST) {
-    url.hostname = PC_HOST; // wwwなし統一
+  // PC redirect
+  if (!isMobile && hostname.startsWith("m.")) {
+    url.hostname = hostname.replace(/^m\./, '');
     return Response.redirect(url.toString(), 302);
   }
 
-  // それ以外はそのまま表示
+  // 正しいサブドメインの場合は通常通り表示
   return context.next();
 }
