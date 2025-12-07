@@ -1,0 +1,142 @@
+{
+  "ja": {
+    "HAMUSATA – ホームページ": {
+      "title": "w_main_title",
+      "desc": "w_main_desc"
+    },
+    "GitHub版 – ホームページ": {
+      "title": "w_github_pages_title",
+      "desc": "w_github_pages_desc"
+    },
+    "hamuzon – ホームページ": {
+      "title": "w_hamuzon_title",
+      "desc": "w_hamuzon_desc"
+    },
+    "hamuzon (FC2)系 – ホームページ": {
+      "title": "w_fc2_title",
+      "desc": "w_fc2_desc"
+    },
+    "link-s.f5.si – ショートカットリンクサービス": {
+      "title": "w_link_s_title",
+      "desc": "w_link_s_desc"
+    },
+    "go.link-s.f5.si – カスタムパス対応版": {
+      "title": "w_go_link_title",
+      "desc": "w_go_link_desc"
+    },
+    "pw.link-s.f5.si – パスワード生成サービス": {
+      "title": "w_pw_title",
+      "desc": "w_pw_desc"
+    },
+    "www.link-s.f5.si - ホームページ": {
+      "title": "w_www_title",
+      "desc": "w_www_desc"
+    },
+    "利用規約・プライバシーポリシー": {
+      "title": "w_terms_title",
+      "desc": "w_terms_desc"
+    },
+    "ランダム作品": {
+      "title": "random_card_title",
+      "desc": "random_card_desc"
+    },
+    "サービス稼働状況": {
+      "title": "status_card_title",
+      "desc": ""
+    },
+    "相互リンクページ": {
+      "title": "mutual_card_title",
+      "desc": "mutual_card_desc"
+    },
+    "Scratch (hamusata)": {
+      "title": "sns_scratch1_title",
+      "desc": "sns_scratch1_desc"
+    },
+    "Scratch (hamuzon)": {
+      "title": "sns_scratch2_title",
+      "desc": "sns_scratch2_desc"
+    },
+    "GitHub": {
+      "title": "sns_github_title",
+      "desc": "sns_github_desc"
+    },
+    "Bluesky": {
+      "title": "sns_bsky_title",
+      "desc": "sns_bsky_desc"
+    },
+    "Twitter (X)": {
+      "title": "sns_x_title",
+      "desc": "sns_x_desc"
+    }
+  },
+  "en": {
+    "HAMUSATA – ホームページ": {
+      "title": "w_main_title",
+      "desc": "w_main_desc"
+    },
+    "GitHub版 – ホームページ": {
+      "title": "w_github_pages_title",
+      "desc": "w_github_pages_desc"
+    },
+    "hamuzon – ホームページ": {
+      "title": "w_hamuzon_title",
+      "desc": "w_hamuzon_desc"
+    },
+    "hamuzon (FC2)系 – ホームページ": {
+      "title": "w_fc2_title",
+      "desc": "w_fc2_desc"
+    },
+    "link-s.f5.si – ショートカットリンクサービス": {
+      "title": "w_link_s_title",
+      "desc": "w_link_s_desc"
+    },
+    "go.link-s.f5.si – カスタムパス対応版": {
+      "title": "w_go_link_title",
+      "desc": "w_go_link_desc"
+    },
+    "pw.link-s.f5.si – パスワード生成サービス": {
+      "title": "w_pw_title",
+      "desc": "w_pw_desc"
+    },
+    "www.link-s.f5.si - ホームページ": {
+      "title": "w_www_title",
+      "desc": "w_www_desc"
+    },
+    "利用規約・プライバシーポリシー": {
+      "title": "w_terms_title",
+      "desc": "w_terms_desc"
+    },
+    "ランダム作品": {
+      "title": "random_card_title",
+      "desc": "random_card_desc"
+    },
+    "サービス稼働状況": {
+      "title": "status_card_title",
+      "desc": ""
+    },
+    "相互リンクページ": {
+      "title": "mutual_card_title",
+      "desc": "mutual_card_desc"
+    },
+    "Scratch (hamusata)": {
+      "title": "sns_scratch1_title",
+      "desc": "sns_scratch1_desc"
+    },
+    "Scratch (hamuzon)": {
+      "title": "sns_scratch2_title",
+      "desc": "sns_scratch2_desc"
+    },
+    "GitHub": {
+      "title": "sns_github_title",
+      "desc": "sns_github_desc"
+    },
+    "Bluesky": {
+      "title": "sns_bsky_title",
+      "desc": "sns_bsky_desc"
+    },
+    "Twitter (X)": {
+      "title": "sns_x_title",
+      "desc": "sns_x_desc"
+    }
+  }
+}
