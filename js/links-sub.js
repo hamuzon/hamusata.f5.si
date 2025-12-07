@@ -1,5 +1,5 @@
 // ============================================
-// js/links-sub.js - 言語対応版
+// js/links-sub.js 
 // ============================================
 
 let langSub = {};
@@ -11,6 +11,7 @@ fetch("lang/sub-lang.json")
   .then(res => res.json())
   .then(json => langSub = json);
 
+// Googleスプレッドシートからデータ読み込み
 async function loadLinks() {
   const sheetId = "1qmVe96zjuYFmwdvvdAaVTxcFdT7BfytFXSUM6SPb5Qg";
   const sheetName = "sub";
@@ -41,7 +42,7 @@ async function loadLinks() {
   }
 }
 
-// カード描画
+// カード描画関数
 function renderLinks(lang, sections) {
   if(!rowsData.length) return;
 
@@ -57,6 +58,7 @@ function renderLinks(lang, sections) {
     const card = document.createElement("div");
     card.className = "work-card";
 
+    // lang-sub.json にあれば翻訳
     if(langSub[lang] && langSub[lang][title]){
       title = langSub[lang][title].title;
       description = langSub[lang][title].desc;
@@ -94,7 +96,7 @@ function renderLinks(lang, sections) {
   });
 }
 
-// 言語切替用
+// 言語切替関数
 function switchLinksLang(lang){
   currentLang = lang;
   localStorage.setItem("lang", lang);
@@ -106,7 +108,22 @@ function switchLinksLang(lang){
     sns: document.getElementById("snsLinks")
   };
   renderLinks(currentLang, sections);
+
+  // ボタンの表示も切り替え
+  const langBtn = document.getElementById("lang-switch");
+  if(langBtn) langBtn.textContent = lang==="ja"?"🌐 English":"🌐 日本語";
 }
 
 // ページ読み込み時
-document.addEventListener("DOMContentLoaded", loadLinks);
+document.addEventListener("DOMContentLoaded", () => {
+  loadLinks();
+
+  // 言語切替ボタン
+  const langBtn = document.getElementById("lang-switch");
+  if(langBtn){
+    langBtn.textContent = currentLang==="ja"?"🌐 English":"🌐 日本語";
+    langBtn.addEventListener("click", () => {
+      switchLinksLang(currentLang==="ja"?"en":"ja");
+    });
+  }
+});
