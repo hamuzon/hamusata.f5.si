@@ -1,5 +1,5 @@
 // ============================================
-// lang-switch-sub.js :
+// lang-switch-sub.js
 // ============================================
 
 async function loadSubLang(lang) {
@@ -25,7 +25,7 @@ async function loadSubLang(lang) {
     // HTML lang 属性更新
     document.documentElement.lang = lang;
 
-    // ボタン切替表示
+    // 言語切替ボタン表示
     const btn = document.getElementById("lang-switch");
     if (btn) btn.textContent = lang === "ja" ? "🌐 English" : "🌐 日本語";
 
@@ -33,7 +33,7 @@ async function loadSubLang(lang) {
     localStorage.setItem("lang", lang);
 
   } catch (e) {
-    console.error("sub-langファイル読み込みエラー:", e);
+    console.error("sub-lang.json 読み込みエラー:", e);
   }
 }
 
