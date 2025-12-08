@@ -4,10 +4,41 @@
   <meta charset="UTF-8">
   <title>Hello World</title>
   <link rel="stylesheet" href="/css/globus.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      margin: 0;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    footer {
+      font-size: 0.8rem;
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+    }
+  </style>
+  <script>
+    // 年数を自動で取得して表示
+    window.onload = function() {
+      const year = new Date().getFullYear();
+      document.getElementById("year").textContent = year;
+    };
+  </script>
 </head>
 <body class="light">
 
 <h1>Hello World</h1>
+
+<footer>
+  <p>&#169; <span id="year"></span> hamusata</p>
+</footer>
 
 </body>
 </html>
