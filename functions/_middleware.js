@@ -9,7 +9,7 @@ export async function onRequest(context) {
   // 画像や動画など、リダイレクト処理をスキップしたいファイル拡張子のリスト
   const EXCLUDED_EXTENSIONS = [
     '.webp', '.png', '.ico', '.svg', '.jpg', '.jpeg', '.gif',
-    '.mp4', '.webm', '.ogg', '.mov', '.avi'
+    '.mp4', '.webm', '.ogg', '.mov', '.avi' 
   ];
   
   const pathname = url.pathname.toLowerCase();
@@ -30,9 +30,9 @@ export async function onRequest(context) {
 
   // ドメイン構造とユーザーエージェントの解析
   const hasWWW = hostname.startsWith("www.");
-  const currentBase = hostname.replace(/^www\./, "").replace(/^m\./, "");
+  // m. や www. を取り除いたベースドメインを取得
+  const currentBase = hostname.replace(/^www\./, "").replace(/^m\./, ""); 
   const hasM = hostname.replace(/^www\./, "").startsWith("m.");
-
 
   // ---- Mobile redirect ----
   // モバイルで m. が付いていなければ www.m. または m. へリダイレクト
