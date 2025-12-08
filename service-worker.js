@@ -1,14 +1,19 @@
-const CACHE_NAME = 'hamusata-v2.0';
+Const CACHE_NAME = 'hamusata-v10.01.00';
 
-// キャッシュするファイル一覧
 const urlsToCache = [
   '/',              
   '/404.html',
   '/manifest.json',
-
-  // CSS
+  
+  '/index.html',
+  '/sub.html', 
+  '/terms.html',
+  
   '/css/style.css',
   '/css/mobile-menu.css',
+  '/css/globus.css',
+  '/css/style-links.css',
+  '/css/style-lite.css',
   '/css/dark.css',
   '/css/dark-hc.css',
   '/css/dark-mc.css',
@@ -16,11 +21,17 @@ const urlsToCache = [
   '/css/light-hc.css',
   '/css/light-mc.css',
 
-  // JS / 言語ファイル
+  '/js/script.js',
+  '/js/script-sub.js',
   '/js/lang-switch.js',
-  '/lang.json',
+  '/js/lang-switch-sub.js',
+  '/js/links.js',
+  '/js/links-sub.js',
+  '/js/style-links.js',
+  
+  '/lang/lang.json',
+  '/lang/sub-lang.json',
 
-  // 画像 / アイコン
   '/hamusata_399-120.webp',
   '/banner_icon_hamusata.png',
   '/banner_icon_hamusata.webp',
@@ -34,7 +45,6 @@ const urlsToCache = [
   '/icon_500_500.png',
   '/icon_500_500.webp',
 
-  // サブページ
   '/links/index.html',
   '/mutual_Links/index.html',
   '/random/index.html'
@@ -71,13 +81,6 @@ self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
   const url = new URL(event.request.url);
-
-  if (url.pathname === '/index.html') {
-    event.respondWith(
-      caches.match('/').then(r => r || fetch('/'))
-    );
-    return;
-  }
 
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
