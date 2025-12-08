@@ -3,51 +3,47 @@
 export async function onRequest(context) {
   const { request } = context;
   const url = new URL(request.url);
-  const hostname = url.hostname;
+  const hostname = url.hostname.toLowerCase();
 
-  // --- ファイル拡張子の除外設定 ---
-  // 画像や動画など、リダイレクト処理をスキップしたいファイル拡張子のリスト
+  // --- 除外ファイル ---
   const EXCLUDED_EXTENSIONS = [
     '.webp', '.png', '.ico', '.svg', '.jpg', '.jpeg', '.gif',
-    '.mp4', '.webm', '.ogg', '.mov', '.avi' 
+    '.mp4', '.webm', '.ogg', '.mov', '.avi'
   ];
-  
   const pathname = url.pathname.toLowerCase();
-  
-  // 除外対象のファイルであれば、リダイレクト処理をスキップ
   if (EXCLUDED_EXTENSIONS.some(ext => pathname.endsWith(ext))) {
     return context.next();
   }
-  // ---------------------------------
-  
-  const ua = request.headers.get("user-agent") || "";
-  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
 
-  // 対象ドメインのみ処理
+  // --- 対象ドメインのみ ---
   if (!hostname.endsWith("hamusata.f5.si")) {
     return context.next();
   }
 
-  // ドメイン構造とユーザーエージェントの解析
-  const hasWWW = hostname.startsWith("www.");
-  // m. や www. を取り除いたベースドメインを取得
-  const currentBase = hostname.replace(/^www\./, "").replace(/^m\./, ""); 
-  const hasM = hostname.replace(/^www\./, "").startsWith("m.");
+  const ua = request.headers.get("user-agent") || "";
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
 
-  // ---- Mobile redirect ----
-  // モバイルで m. が付いていなければ www.m. または m. へリダイレクト
+  // m. と www. を分解
+  const baseWithoutWWW = hostname.replace(/^www\./, "");
+  const hasM = baseWithoutWWW.startsWith("m.");
+  const pureBase = baseWithoutWWW.replace(/^m\./, "");
+
+  // ============================
+  // モバイル → www.m. に統一
+  // ============================
   if (isMobile && !hasM) {
-    url.hostname = (hasWWW ? "www.m." : "m.") + currentBase;
+    url.hostname = "www.m." + pureBase;
     return Response.redirect(url.toString(), 302);
   }
 
-  // ---- PC redirect ----
-  // PCで m. が付いていれば m. を除去してリダイレクト
+  // ============================
+  // PC → www. に統一
+  // ============================
   if (!isMobile && hasM) {
-    url.hostname = (hasWWW ? "www." : "") + currentBase;
+    url.hostname = "www." + pureBase;
     return Response.redirect(url.toString(), 302);
   }
 
-  // その他はそのまま
+  // それ以外はそのまま
   return context.next();
 }
