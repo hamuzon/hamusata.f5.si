@@ -5,6 +5,21 @@ export async function onRequest(context) {
   const url = new URL(request.url);
   const hostname = url.hostname;
 
+  // --- ファイル拡張子の除外設定 ---
+  // 画像や動画など、リダイレクト処理をスキップしたいファイル拡張子のリスト
+  const EXCLUDED_EXTENSIONS = [
+    '.webp', '.png', '.ico', '.svg', '.jpg', '.jpeg', '.gif',
+    '.mp4', '.webm', '.ogg', '.mov', '.avi'
+  ];
+  
+  const pathname = url.pathname.toLowerCase();
+  
+  // 除外対象のファイルであれば、リダイレクト処理をスキップ
+  if (EXCLUDED_EXTENSIONS.some(ext => pathname.endsWith(ext))) {
+    return context.next();
+  }
+  // ---------------------------------
+  
   const ua = request.headers.get("user-agent") || "";
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
 
@@ -13,31 +28,23 @@ export async function onRequest(context) {
     return context.next();
   }
 
-  // ドメイン構造を解析
+  // ドメイン構造とユーザーエージェントの解析
   const hasWWW = hostname.startsWith("www.");
+  const currentBase = hostname.replace(/^www\./, "").replace(/^m\./, "");
   const hasM = hostname.replace(/^www\./, "").startsWith("m.");
 
-  // ---- Mobile redirect ----
-  // モバイルで m. が付いていなければ追加
-  if (isMobile && !hasM) {
-    let base = hostname.replace(/^www\./, ""); // www. を一旦除去
-    // base が m.hamusata でないことを保証
-    base = base.replace(/^m\./, ""); // 万が一 m. があっても削除
 
-    // www あり → www.m.hamusata.f5.si
-    // www なし → m.hamusata.f5.si
-    url.hostname = (hasWWW ? "www.m." : "m.") + base;
+  // ---- Mobile redirect ----
+  // モバイルで m. が付いていなければ www.m. または m. へリダイレクト
+  if (isMobile && !hasM) {
+    url.hostname = (hasWWW ? "www.m." : "m.") + currentBase;
     return Response.redirect(url.toString(), 302);
   }
 
   // ---- PC redirect ----
-  // PCで m. が付いていれば除去
+  // PCで m. が付いていれば m. を除去してリダイレクト
   if (!isMobile && hasM) {
-    let base = hostname.replace(/^www\./, ""); // www 除去
-    base = base.replace(/^m\./, "");           // m. 除去 → hamusata.f5.si
-
-    // www は元のまま維持
-    url.hostname = (hasWWW ? "www." : "") + base;
+    url.hostname = (hasWWW ? "www." : "") + currentBase;
     return Response.redirect(url.toString(), 302);
   }
 
