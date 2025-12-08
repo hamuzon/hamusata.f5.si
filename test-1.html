@@ -5,26 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="title">HAMUSATA – ホームページ</title>
 
-  <!-- Favicons -->
   <link rel="icon" href="https://hamusata.f5.si/favicon.ico" type="image/x-icon" />
   <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png" sizes="32x32" />
   <link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp" sizes="32x32" />
   <link rel="icon" type="image/svg+xml" href="https://hamusata.f5.si/icon.svg" />
   <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png" />
 
-  <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#000000" />
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" />
 
-  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/mobile-menu.css" />
 
-  <!-- Theme CSS loader (keeps existing behavior) -->
   <script>
     const themeCSS = [
       "css/dark.css",
@@ -37,7 +32,6 @@
     themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
   </script>
 
-  <!-- SEO / Social -->
   <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
   <meta property="og:title" content="HAMUSATA – ホームページ" />
   <meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
@@ -49,7 +43,6 @@
   <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
   <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp" />
 
-  <!-- Inline: language switch button style (left side as requested) -->
   <style>
     #lang-switch {
       position: fixed;
@@ -79,10 +72,8 @@
 
 <body class="light">
 
-  <!-- language switch button -->
   <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
 
-  <!-- Header -->
   <header>
     <a href="index.html" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
       <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
@@ -94,7 +85,7 @@
 
     <nav id="mobile-menu" aria-label="Main navigation">
       <ul>
-        <li><a href="#home" data-lang="nav_home">ホーム</a></li>
+        <li><a href="#home" data-lang="nav_home" class="nav-home">ホーム</a></li>
         <li><a href="#profile" data-lang="nav_profile">自己紹介</a></li>
         <li><a href="#portfolio" data-lang="nav_portfolio">ポートフォリオ</a></li>
         <li><a href="#random" data-lang="nav_random">ランダム作品</a></li>
@@ -114,10 +105,8 @@
     <div id="menu-overlay"></div>
   </header>
 
-  <!-- Page title -->
   <h1 data-lang="page_title">HAMUSATA ホームページ</h1>
 
-  <!-- Profile -->
   <section id="profile">
     <div class="profile">
       <h2 data-lang="profile_title">自己紹介</h2>
@@ -127,7 +116,6 @@
     </div>
   </section>
 
-  <!-- Portfolio -->
   <section id="portfolio">
     <h2 data-lang="portfolio_title">ポートフォリオリンク集</h2>
     <div class="works">
@@ -200,7 +188,6 @@
     </div>
   </section>
 
-  <!-- Random -->
   <section id="random">
     <h2 data-lang="random_title">ランダム作品</h2>
     <div class="works">
@@ -213,7 +200,6 @@
     </div>
   </section>
 
-  <!-- Status -->
   <section id="status">
     <h2 data-lang="status_title">サービス稼働状況 / Status Page</h2>
     <div class="works">
@@ -225,7 +211,6 @@
     </div>
   </section>
 
-  <!-- Mutual links -->
   <section id="mutual-links">
     <h2 data-lang="mutual_title">相互リンク / Mutual Links</h2>
     <div class="works">
@@ -238,7 +223,6 @@
     </div>
   </section>
 
-  <!-- SNS links -->
   <section id="sns">
     <h2 data-lang="sns_title">SNSリンク</h2>
     <div class="works">
@@ -281,16 +265,13 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – <span data-lang="footer_reserved">All rights reserved.</span>
   </footer>
 
-  <!-- scripts -->
   <script src="js/script.js"></script>
   <script src="js/lang-switch.js"></script>
 
-  <!-- year fill (simple) -->
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
