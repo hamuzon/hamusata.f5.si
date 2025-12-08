@@ -6,6 +6,7 @@ export async function onRequest(context) {
   const hostname = url.hostname.toLowerCase();
 
 
+  // 除外ファイル
   const EXCLUDED_EXTENSIONS = [
     '.webp', '.png', '.ico', '.svg', '.jpg', '.jpeg', '.gif',
     '.mp4', '.webm', '.ogg', '.mov', '.avi', '.mkv', '.flv',
@@ -15,12 +16,11 @@ export async function onRequest(context) {
   ];
 
   const pathname = url.pathname.toLowerCase();
-
-  if (EXCLUDED_EXTENSIONS.some(ext => pathname.endsWith(ext))) 
+  if (EXCLUDED_EXTENSIONS.some(ext => pathname.endsWith(ext)))
     return context.next();
 
 
-  if (!hostname.endsWith("hamusata.f5.si")) 
+  if (!hostname.endsWith("hamusata.f5.si"))
     return context.next();
 
 
@@ -34,14 +34,14 @@ export async function onRequest(context) {
 
   // ===== モバイル端末 / Mobile =====
   if (isMobile && !hasM) {
-    url.hostname = "www.m." + pureBase;
+    url.hostname = (hostname.startsWith("www.") ? "www.m." : "m.") + pureBase;
     return Response.redirect(url.toString(), 302);
   }
 
 
   // ===== PC端末 / PC =====
   if (!isMobile && hasM) {
-    url.hostname = "www." + pureBase;
+    url.hostname = (hostname.startsWith("www.") ? "www." : "") + pureBase;
     return Response.redirect(url.toString(), 302);
   }
 
