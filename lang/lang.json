@@ -60,6 +60,7 @@
 
     "status_title": "サービス稼働状況 / Status Page",
     "status_card_title": "サービス稼働状況",
+    "status_note": "セキュリティ設定変更などにより、監視ツールがサイトにアクセスできず落ちた判定となる場合があります。実際の状態と異なる可能性がありますので、参考としてご確認ください。",
 
     "mutual_title": "相互リンク / Mutual Links",
     "mutual_card_title": "相互リンクページ",
@@ -141,6 +142,7 @@
 
     "status_title": "Service Status / Status Page",
     "status_card_title": "Service Status",
+    "status_note": "Due to security settings changes, monitoring tools may fail to access the site and show it as down. The actual status may differ, so please use as a reference.",
 
     "mutual_title": "Mutual Links",
     "mutual_card_title": "Mutual Links Page",
