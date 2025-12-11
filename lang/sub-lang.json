@@ -10,10 +10,12 @@
     "nav_sns": "SNSリンク",
     "nav_terms": "利用規約・プライバシーポリシー",
     "nav_github": "site-Code-GitHub",
+
     "profile_title": "自己紹介",
     "profile_p1": "こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。",
     "profile_p2": "ハムスターを飼っています。",
     "profile_p3": "ネットの海でプログラミングしたりネットしたりして過ごしてます。",
+
     "portfolio_title": "ポートフォリオリンク集",
     "random_title": "ランダム作品",
     "status_title": "サービス稼働状況",
@@ -21,8 +23,10 @@
     "sns_title": "SNSリンク",
     "footer_reserved": "All rights reserved.",
     "link_view": "見る / View",
+
     "pw.link-s.f5.si – パスワード生成サービス": "pw.link-s.f5.si – パスワード生成サービス",
     "pw.link-s.f5.si – パスワード生成サービス_desc": "<p>APIベースのパスワード生成サービス。ログ保存等は一切ありません。</p>\n<a href=\"https://pw.link-s.f5.si\" target=\"_blank\" rel=\"noopener noreferrer\"><span>見る</span> / <span>View</span></a>\n<p class=\"note\">※リダイレクトがうまくできない場合は <a href=\"https://password.link-s.f5.si\" target=\"_blank\" rel=\"noopener noreferrer\">こちら</a> を利用してください。</p>\n<a href=\"https://password-create.link-s.f5.si/\" target=\"_blank\" rel=\"noopener noreferrer\"><span>APIなし版</span> / <span>No-API</span></a>",
+
     "HAMUSATA – ホームページ": "HAMUSATA – ホームページ",
     "メインのポータルリンク。色々なものをまとめています。": "メインのポータルリンク。色々なものをまとめています。",
     "GitHub版 – ホームページ": "GitHub版 – ホームページ",
@@ -31,19 +35,25 @@
     "hamuzon-jp.f5.si のホームページ・リンクポータル版（FC2の一部コピーサイト）": "hamuzon-jp.f5.si のホームページ・リンクポータル版（FC2の一部コピーサイト）",
     "hamuzon (FC2)系 – ホームページ": "hamuzon (FC2)系 – ホームページ",
     "FC2版ホームページ。いろんなコードやコンテンツがあります。": "FC2版ホームページ。いろんなコードやコンテンツがあります。",
+
     "link-s.f5.si – ショートカットリンクサービス": "link-s.f5.si – ショートカットリンクサービス",
     "短縮URL・ショートカットリンクサービス。": "短縮URL・ショートカットリンクサービス。",
     "go.link-s.f5.si – カスタムパス対応版": "go.link-s.f5.si – カスタムパス対応版",
     "任意のパスで短縮リンクを作れるカスタムリンクサービス。": "任意のパスで短縮リンクを作れるカスタムリンクサービス。",
     "www.link-s.f5.si - ホームページ": "www.link-s.f5.si - ホームページ",
     "link-s.f5.si 系列作品集一覧ページ。": "link-s.f5.si 系列作品集一覧ページ。",
+
     "利用規約・プライバシーポリシー": "利用規約・プライバシーポリシー",
     "サイト利用規約とプライバシーポリシーの確認はこちら。": "サイト利用規約とプライバシーポリシーの確認はこちら。",
     "ランダム作品": "ランダム作品",
     "作品をランダムに開くボタンです。": "作品をランダムに開くボタンです。",
+
     "サービス稼働状況": "サービス稼働状況",
+    "status_note": "セキュリティ設定変更などにより、監視ツールがサイトにアクセスできず落ちた判定となる場合があります。実際の状態と異なる可能性がありますので、参考としてご確認ください。",
+
     "相互リンクページ": "相互リンクページ",
     "こちらをクリックすると相互リンクページに移動します。": "こちらをクリックすると相互リンクページに移動します。",
+
     "Scratch (hamusata)": "Scratch (hamusata)",
     "hamusataアカウント": "hamusataアカウント",
     "Scratch (hamuzon)": "Scratch (hamuzon)",
@@ -55,6 +65,7 @@
     "Twitter (X)": "Twitter (X)",
     "@hamu_sata - Xアカウント": "@hamu_sata - Xアカウント"
   },
+
   "en": {
     "page_title": "HAMUSATA Homepage",
     "nav_home": "Home",
@@ -66,10 +77,12 @@
     "nav_sns": "SNS Links",
     "nav_terms": "Terms & Privacy Policy",
     "nav_github": "site-Code-GitHub",
+
     "profile_title": "Profile",
     "profile_p1": "Hello, I'm hamusata. I create websites and wander around the sea of the internet.",
     "profile_p2": "I have a pet hamster.",
     "profile_p3": "I spend my time programming and exploring the web.",
+
     "portfolio_title": "Portfolio Links",
     "random_title": "Random Works",
     "status_title": "Service Status",
@@ -77,8 +90,10 @@
     "sns_title": "SNS Links",
     "footer_reserved": "All rights reserved.",
     "link_view": "View",
+
     "pw.link-s.f5.si – パスワード生成サービス": "pw.link-s.f5.si – Password Generator Service",
     "pw.link-s.f5.si – パスワード生成サービス_desc": "<p>API-based password generator service. No logs are saved.</p>\n<a href=\"https://pw.link-s.f5.si\" target=\"_blank\" rel=\"noopener noreferrer\">View</a>\n<p class=\"note\">If redirection does not work correctly, please use <a href=\"https://password.link-s.f5.si\" target=\"_blank\" rel=\"noopener noreferrer\">this version</a>.</p>\n<a href=\"https://password-create.link-s.f5.si/\" target=\"_blank\" rel=\"noopener noreferrer\">No-API version</a>",
+
     "HAMUSATA – ホームページ": "HAMUSATA Homepage",
     "メインのポータルリンク。色々なものをまとめています。": "Main portal link. Various contents are collected.",
     "GitHub版 – ホームページ": "GitHub version – Homepage",
@@ -87,19 +102,25 @@
     "hamuzon-jp.f5.si のホームページ・リンクポータル版（FC2の一部コピーサイト）": "hamuzon-jp.f5.si homepage / partial copy of FC2 site",
     "hamuzon (FC2)系 – ホームページ": "hamuzon (FC2) Homepage",
     "FC2版ホームページ。いろんなコードやコンテンツがあります。": "FC2 version homepage. Various codes and contents.",
+
     "link-s.f5.si – ショートカットリンクサービス": "link-s.f5.si – Shortcut Link Service",
     "短縮URL・ショートカットリンクサービス。": "Short URL / shortcut link service.",
     "go.link-s.f5.si – カスタムパス対応版": "go.link-s.f5.si – Custom Path Version",
     "任意のパスで短縮リンクを作れるカスタムリンクサービス。": "Custom link service with arbitrary path.",
     "www.link-s.f5.si - ホームページ": "www.link-s.f5.si - Homepage",
     "link-s.f5.si 系列作品集一覧ページ。": "link-s.f5.si series collection page.",
+
     "利用規約・プライバシーポリシー": "Terms & Privacy Policy",
     "サイト利用規約とプライバシーポリシーの確認はこちら。": "Check site terms & privacy policy here.",
     "ランダム作品": "Random Works",
     "作品をランダムに開くボタンです。": "Button to open a random work.",
+
     "サービス稼働状況": "Service Status",
+    "status_note": "Due to security settings changes, monitoring tools may fail to access the site and show it as down. The actual status may differ, so please use as a reference.",
+
     "相互リンクページ": "Mutual Links Page",
     "こちらをクリックすると相互リンクページに移動します。": "Click here to go to the mutual links page.",
+
     "Scratch (hamusata)": "Scratch (hamusata)",
     "hamusataアカウント": "hamusata account",
     "Scratch (hamuzon)": "Scratch (hamuzon)",
