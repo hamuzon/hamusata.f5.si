@@ -3,7 +3,7 @@
 // ===== 年自動更新 =====
 const baseYear = 2025;
 const now = new Date().getFullYear();
-document.getElementById("year").textContent = 
+document.getElementById("year").textContent =
   now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
 
