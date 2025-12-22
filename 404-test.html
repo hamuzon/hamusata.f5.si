@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-lang="title">404 - ページが見つかりません</title>
+  <title>404 - ページが見つかりません / Not Found</title>
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
   <style>
@@ -132,7 +132,6 @@
       width: 100%;
       font-size: clamp(0.85rem, 1vw, 1rem);
       opacity: 0.8;
-      margin-top: auto;
     }
 
     footer a {
@@ -141,29 +140,16 @@
     }
 
     @media(max-width:480px){
-      body {
-        padding: 3rem 1rem;
-      }
-      h1 {
-        font-size: clamp(2rem, 12vw, 3rem);
-        margin-bottom: 1rem;
-      }
-      p {
-        font-size: clamp(0.9rem, 3vw, 1rem);
-        margin-bottom: 1rem;
-      }
-      .subtext {
-        margin-bottom: 1.5rem;
-      }
-      a.back {
-        padding: 0.8rem 2rem;
-      }
-      footer {
-        font-size: 0.8rem;
-      }
+      body { padding: 3rem 1rem; }
+      h1 { font-size: clamp(2rem, 12vw, 3rem); margin-bottom:1rem; }
+      p { font-size: clamp(0.9rem, 3vw, 1rem); margin-bottom:1rem; }
+      .subtext { margin-bottom:1.5rem; }
+      a.back { padding:0.8rem 2rem; }
+      footer { font-size:0.8rem; }
     }
   </style>
 </head>
+
 <body class="light">
 
   <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
@@ -182,7 +168,6 @@
   <script>
     const langData = {
       ja: {
-        title: "404 - ページが見つかりません",
         page_title: "404 - ページが見つかりません",
         page_p: "ページが存在しません",
         page_sub: "申し訳ありません",
@@ -190,7 +175,6 @@
         footer_reserved: "All rights reserved."
       },
       en: {
-        title: "404 - Not Found",
         page_title: "404 - Not Found",
         page_p: "Page Could Not Be Found",
         page_sub: "Sorry, Not Found",
@@ -205,12 +189,9 @@
         const key = el.dataset.lang;
         if (text[key]) el.textContent = text[key];
       });
-      document.title = text.title;
       document.documentElement.lang = lang;
-
       const btn = document.getElementById("lang-switch");
       if (btn) btn.textContent = (lang === "ja") ? "🌐 English" : "🌐 日本語";
-
       localStorage.setItem("lang", lang);
     }
 
@@ -218,7 +199,6 @@
       const saved = localStorage.getItem("lang");
       const browserLang = navigator.language.startsWith("en") ? "en" : "ja";
       const lang = saved || browserLang;
-
       loadLang(lang);
 
       const btn = document.getElementById("lang-switch");
@@ -238,7 +218,6 @@
     function applyTheme(theme) {
       document.body.className = theme;
       const backBtn = document.getElementById('back-btn');
-
       if (theme === 'dark') backBtn.href = '/?theme=dark';
       else if (theme === 'light') backBtn.href = '/?theme=light';
       else backBtn.href = '/';
