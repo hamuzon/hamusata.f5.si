@@ -1,3 +1,5 @@
+/* css/style.css */
+
 /* =========================
 リセット & 基本スタイル
 ========================= */
@@ -203,55 +205,6 @@ footer {
 }
 
 /* =========================
-Cookieバナー
-========================= */
-#cookie-banner {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0,0,0,0.85);
-  color: #fff;
-  padding: 12px;
-  text-align: center;
-  font-size: 14px;
-  z-index: 99999;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
-}
-
-#cookie-banner p {
-  flex-basis: 100%;
-  margin-bottom: 6px;
-}
-
-#cookie-banner button {
-  padding: 6px 12px;
-  cursor: pointer;
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-#cookie-banner button#minimal-cookie {
-  background: #555;
-  color: #fff;
-}
-
-#cookie-banner button#accept-all-cookie {
-  background: #2a9d8f;
-  color: #fff;
-}
-
-#cookie-banner button#reject-cookie {
-  background: #d62828;
-  color: #fff;
-}
-
-/* =========================
 レスポンシブ補助
 ========================= */
 @media (max-width: 480px) {
@@ -271,13 +224,4 @@ Cookieバナー
   #profile .profile p {  
       font-size: clamp(0.85rem, 2vw, 0.95rem);  
   }  
-
-  #cookie-banner {  
-      font-size: 13px;  
-  }  
-
-  #cookie-banner button {  
-      padding: 5px 10px;  
-      font-size: 0.85rem;  
-  }
 }
