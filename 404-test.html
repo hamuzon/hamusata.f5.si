@@ -1,41 +1,22 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>404 - ページが見つかりません / Not Found</title>
-  <link rel="icon" href="icon.svg" type="image/svg+xml" />
-
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Not Found / ページが見つかりません</title>
 
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Potta One', 'Arial', 'Helvetica', sans-serif;
-    }
-
-    html,
-    body {
-      height: 100%;
-    }
-
-    body {
+      font-family: 'Potta One', Arial, Helvetica, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 4rem 2rem;
-      line-height: 2;
-      font-size: clamp(1rem, 2vw, 1.3rem);
-      font-weight: 500;
       transition: background-color 0.3s, color 0.3s;
-      scroll-behavior: smooth;
     }
 
     body.light {
@@ -59,151 +40,92 @@
     }
 
     h1 {
-      font-size: clamp(3rem, 8vw, 5rem);
-      margin-bottom: 2rem;
-      letter-spacing: 0.15em;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      margin: 1rem auto;
+      line-height: 1.2;
     }
 
     p {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      margin-bottom: 1.5rem;
-      color: inherit;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      margin: 0.5rem auto;
+      max-width: 600px;
     }
 
-    .subtext {
-      font-size: clamp(0.9rem, 1.8vw, 1rem);
-      margin-bottom: 3rem;
+    a {
       color: inherit;
+      text-decoration: underline;
+      transition: color 0.3s;
     }
 
-    a.back {
-      padding: 1.2rem 3rem;
-      background-color: rgba(103, 80, 164, 0.8);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 14px;
-      font-weight: bold;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    #lang-switch {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(16px);
       cursor: pointer;
-      margin-bottom: 2rem;
+      z-index: 1001;
+      transition: all 0.18s ease;
     }
 
-    a.back:hover {
-      background-color: rgba(103, 80, 164, 1);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.7);
-      transform: translateY(-4px);
+    body.dark #lang-switch {
+      background: rgba(0,0,0,0.35);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
     }
 
-    footer {
-      text-align: center;
-      padding: 1.5rem 2rem;
-      font-size: clamp(0.85rem, 1vw, 1rem);
-      opacity: 0.8;
-    }
-
-    @media (max-width: 800px) {
-      body {
-        padding: 3rem 2rem;
-      }
-
-      h1 {
-        font-size: clamp(2.5rem, 10vw, 4rem);
-        margin-bottom: 1.5rem;
-      }
-
-      p {
-        font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-        margin-bottom: 1rem;
-      }
-
-      .subtext {
-        margin-bottom: 2rem;
-      }
-
-      a.back {
-        padding: 1rem 2.5rem;
-        font-size: 1rem;
-        margin-bottom: 1.5rem;
-      }
-
-      footer {
-        font-size: 0.9rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 2rem 1.5rem;
-      }
-
-      h1 {
-        font-size: clamp(2rem, 12vw, 3rem);
-        margin-bottom: 1.2rem;
-      }
-
-      p {
-        font-size: clamp(0.9rem, 3vw, 1rem);
-        margin-bottom: 0.8rem;
-      }
-
-      .subtext {
-        margin-bottom: 1.5rem;
-      }
-
-      a.back {
-        padding: 0.8rem 2rem;
-        font-size: 0.95rem;
-        margin-bottom: 1rem;
-      }
-
-      footer {
-        font-size: 0.85rem;
-      }
+    #lang-switch:hover {
+      transform: scale(1.05);
+      background: rgba(0,188,212,0.18);
     }
   </style>
 </head>
 
 <body class="light">
 
-  <h1>404 - ページが見つかりません / Not Found</h1>
-  <p>ページが存在しません / Page Could Not Be Found</p>
-  <p class="subtext">申し訳ありません / Sorry, Not Found</p>
-  <a id="back-btn" class="back" href="/">トップページへ戻る / Back to Top</a>
+  <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
 
-  <footer>
-    &copy; <span id="year"></span> <a href="/creative-path">@hamusata</a>
-  </footer>
+  <h1 data-lang="page_title">404 - ページが見つかりません</h1>
+  <p data-lang="page_desc">お探しのページは存在しません / The page you are looking for does not exist.</p>
+  <a href="index.html" data-lang="page_link">ホームへ戻る / Back to Home</a>
 
   <script>
-    const baseYear = 2025;
-    const now = new Date().getFullYear();
-    const yearEl = document.getElementById("year");
-    yearEl.textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
+    const langSwitchBtn = document.getElementById('lang-switch');
+    const pageH1 = document.querySelector('h1[data-lang="page_title"]');
+    const pageDesc = document.querySelector('p[data-lang="page_desc"]');
+    const pageLink = document.querySelector('a[data-lang="page_link"]');
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const themeParam = urlParams.get("theme");
+    let lang = 'ja';
 
-    function applyTheme(theme) {
-      document.body.className = theme;
-      const backBtn = document.getElementById("back-btn");
-      if (theme === "dark") backBtn.href = "/?theme=dark";
-      else if (theme === "light") backBtn.href = "/?theme=light";
-      else backBtn.href = "/";
+    function updateLanguage() {
+      if(lang === 'ja') {
+        pageH1.textContent = '404 - ページが見つかりません';
+        pageDesc.textContent = 'お探しのページは存在しません / The page you are looking for does not exist.';
+        pageLink.textContent = 'ホームへ戻る / Back to Home';
+        langSwitchBtn.textContent = '🌐 English';
+      } else {
+        pageH1.textContent = '404 - Not Found';
+        pageDesc.textContent = 'The page you are looking for does not exist / お探しのページは存在しません';
+        pageLink.textContent = 'Back to Home / ホームへ戻る';
+        langSwitchBtn.textContent = '🌐 日本語';
+      }
     }
 
-    if (themeParam === "dark" || themeParam === "light") {
-      applyTheme(themeParam);
-    } else {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      applyTheme(prefersDark ? "dark" : "light");
+    langSwitchBtn.addEventListener('click', () => {
+      lang = (lang === 'ja') ? 'en' : 'ja';
+      updateLanguage();
+    });
 
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-        applyTheme(e.matches ? "dark" : "light");
-      });
+    const params = new URLSearchParams(window.location.search);
+    const urlLang = params.get('lang');
+    if(urlLang === 'en' || urlLang === 'ja') {
+      lang = urlLang;
     }
+    updateLanguage();
   </script>
 
 </body>
-
 </html>
