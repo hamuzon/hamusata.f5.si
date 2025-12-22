@@ -2,12 +2,11 @@
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>404 - ページが見つかりません / Not Found</title>
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
-
+  <link rel="icon" href="https://hamusata.f5.si/favicon.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" />
   <style>
     * {
       margin: 0;
@@ -18,27 +17,20 @@
 
     html,
     body {
-      min-height: 100vh;
+      height: 100%;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      line-height: 2;
-      font-size: clamp(1rem, 2vw, 1.3rem);
-      font-weight: 500;
-      padding: 2rem;
-      transition: background-color 0.3s, color 0.3s;
+      line-height: 1.8;
       scroll-behavior: smooth;
-    }
-
-    body.light {
-      background:
-        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175,109,255,0.85), transparent 68%),
-        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,100,180,0.75), transparent 68%),
-        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,235,170,0.98), transparent 68%),
-        radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120,190,255,0.3), transparent 68%),
-        linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
+      background: linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
       color: #000;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      padding: 2rem;
+      transition: background 0.3s, color 0.3s;
     }
 
     body.dark {
@@ -58,34 +50,36 @@
       justify-content: center;
       align-items: center;
       padding: 2rem;
+      gap: 1.8rem;
     }
 
     h1 {
       font-size: clamp(3rem, 8vw, 5rem);
-      margin-bottom: 2.5rem;
-      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
     }
 
     p {
       font-size: clamp(1rem, 2vw, 1.2rem);
-      margin-bottom: 1.8rem;
+      margin-bottom: 1rem;
     }
 
     .subtext {
       font-size: clamp(0.9rem, 1.8vw, 1rem);
-      margin-bottom: 3.2rem;
+      margin-bottom: 2rem;
     }
 
     a.back {
-      padding: 1.4rem 3rem;
+      padding: 1.2rem 3rem;
       background-color: rgba(103,80,164,0.8);
       color: #fff;
       text-decoration: none;
       border-radius: 14px;
       font-weight: bold;
       box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-      margin-bottom: 2.5rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      margin-bottom: 2rem;
     }
 
     a.back:hover {
@@ -98,7 +92,7 @@
       flex-shrink: 0;
       font-size: clamp(0.85rem, 1vw, 1rem);
       opacity: 0.7;
-      margin-top: 2rem;
+      margin-top: 1rem;
       padding: 1rem 0;
     }
 
@@ -108,62 +102,40 @@
     }
 
     @media (max-width: 800px) {
-      body {
-        padding: 4rem 2rem;
-      }
-
       h1 {
         font-size: clamp(2.5rem, 10vw, 4rem);
-        margin-bottom: 2rem;
       }
 
       p {
         font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-        margin-bottom: 1.5rem;
       }
 
       .subtext {
-        margin-bottom: 2.5rem;
+        margin-bottom: 1.5rem;
       }
 
       a.back {
-        padding: 1.2rem 2.5rem;
+        padding: 1rem 2.5rem;
         font-size: 1rem;
-        margin-bottom: 2rem;
-      }
-
-      footer {
-        font-size: 0.9rem;
       }
     }
 
     @media (max-width: 480px) {
-      body {
-        padding: 3rem 1.5rem;
-      }
-
       h1 {
         font-size: clamp(2rem, 12vw, 3rem);
-        margin-bottom: 1.5rem;
       }
 
       p {
         font-size: clamp(0.9rem, 3vw, 1rem);
-        margin-bottom: 1rem;
       }
 
       .subtext {
-        margin-bottom: 1.8rem;
+        margin-bottom: 1rem;
       }
 
       a.back {
         padding: 0.8rem 2rem;
         font-size: 0.95rem;
-        margin-bottom: 1.5rem;
-      }
-
-      footer {
-        font-size: 0.85rem;
       }
     }
   </style>
@@ -179,7 +151,7 @@
   </main>
 
   <footer>
-    &copy; <span id="year"></span> <a href="./">@hamusata</a>
+    &copy; <span id="year"></span> <a href="/">@hamusata</a>
   </footer>
 
   <script>
