@@ -29,9 +29,9 @@ body {
     align-items: center;
     text-align: center;
     line-height: 2;
-    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-size: clamp(1rem,2vw,1.2rem);
     font-weight: 500;
-    padding: 3rem 2rem;
+    padding: 4rem 2rem;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -46,7 +46,7 @@ body.dark {
 }
 
 h1#page-title {
-    font-size: clamp(2rem, 6vw, 4rem);
+    font-size: clamp(2rem,6vw,4rem);
     margin-bottom: 3rem;
     line-height: 1.2;
     font-weight: 700;
@@ -58,32 +58,33 @@ p#page-desc {
 
 p.subtext {
     margin-bottom: 3rem;
-    color: inherit;
+    font-size: clamp(1rem,1.5vw,1.1rem);
+    font-weight: 500;
 }
 
 a.back {
     display: inline-block;
-    padding: 1rem 2.5rem;
-    border-radius: 28px;
+    padding: 1rem 3rem;
+    border-radius: 30px;
     font-weight: 700;
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-size: clamp(1rem,1.5vw,1.2rem);
     text-decoration: none;
     color: #fff;
-    background-color: #00bfff;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
-    margin-bottom: 3rem;
+    background-color: #87ceeb;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    margin-bottom: 4rem;
     transition: all 0.3s;
 }
 
 a.back:hover {
-    background-color: #1e90ff;
+    background-color: #00bfff;
     transform: translateY(-4px);
 }
 
 footer {
-    font-size: clamp(0.8rem, 1vw, 1rem);
+    font-size: clamp(0.8rem,1vw,1rem);
     line-height: 1.6;
-    margin-top: 2rem;
+    margin-top: 3rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -91,14 +92,14 @@ footer {
 }
 
 footer a#footer-link {
-    color: #ff77aa;
+    color: #ffb6c1;
     font-weight: 700;
     text-decoration: none;
     transition: color 0.3s;
 }
 
 footer a#footer-link:hover {
-    color: #ff3388;
+    color: #ff99aa;
 }
 
 #lang-switch {
@@ -107,9 +108,9 @@ footer a#footer-link:hover {
     left: 16px;
     padding: 0.5rem 1rem;
     font-size: 0.95rem;
-    border-radius: 14px;
-    border: 1px solid rgba(0,0,0,0.2);
-    background: #00bfff;
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.15);
+    background: #87ceeb;
     color: #fff;
     cursor: pointer;
     z-index: 1001;
@@ -118,18 +119,18 @@ footer a#footer-link:hover {
 
 #lang-switch:hover {
     transform: scale(1.05);
-    background: #1e90ff;
+    background: #00bfff;
 }
 
 body.dark #lang-switch {
-    background: #1e90ff;
+    background: #00bfff;
     color: #fff;
     border: 1px solid rgba(255,255,255,0.2);
 }
 
 @media (max-width:600px) {
     h1#page-title {
-        font-size: clamp(1.6rem, 10vw, 2.5rem);
+        font-size: clamp(1.6rem,10vw,2.5rem);
     }
     a.back {
         padding: 0.8rem 2rem;
@@ -157,34 +158,37 @@ body.dark #lang-switch {
 </footer>
 
 <script>
-const baseYear = 2025;
-const now = new Date().getFullYear();
-document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
+const baseYear=2025;
+const now=new Date().getFullYear();
+document.getElementById("year").textContent=now>baseYear?`${baseYear}~${now}`:baseYear;
 
-function appendParamsToLinks() {
-    const params = window.location.search;
+function appendParamsToLinks(){
+    const params=window.location.search;
     if(!params) return;
     document.querySelectorAll('a[href]').forEach(link=>{
-        const url = new URL(link.href, window.location.origin);
-        if(url.origin !== window.location.origin) return;
+        const url=new URL(link.href,window.location.origin);
+        if(url.origin!==window.location.origin) return;
         if(url.search) return;
-        url.search = params;
-        link.href = url.pathname + url.search + url.hash;
+        url.search=params;
+        link.href=url.pathname+url.search+url.hash;
     });
 }
 
-const urlParams = new URLSearchParams(window.location.search);
-const themeParam = urlParams.get('theme');
-function applyTheme(theme){ document.body.className = theme; }
-if(themeParam==='dark'||themeParam==='light'){ applyTheme(themeParam); }
-else{
+const urlParams=new URLSearchParams(window.location.search);
+const themeParam=urlParams.get('theme');
+
+function applyTheme(theme){document.body.className=theme;}
+
+if(themeParam==='dark'||themeParam==='light'){
+    applyTheme(themeParam);
+}else{
     applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e=>{
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',e=>{
         applyTheme(e.matches?'dark':'light');
     });
 }
 
-const langData = {
+const langData={
     "ja": {
         "page_title":"404 ページが見つかりません",
         "page_desc":"ページが存在しません",
@@ -201,30 +205,30 @@ const langData = {
     }
 };
 
-function loadLang(lang) {
-    const t = langData[lang] || langData["ja"];
-    document.getElementById("page-title").textContent = t.page_title;
-    document.getElementById("page-desc").textContent = t.page_desc;
-    document.getElementById("subtext").textContent = t.subtext;
-    document.getElementById("back-btn").textContent = t.back;
-    document.getElementById("footer-reserved").textContent = t.footer_reserved;
-    document.documentElement.lang = lang;
-    document.getElementById("lang-switch").textContent = lang==="ja"?"🌐 English":"🌐 日本語";
-    localStorage.setItem("lang", lang);
+function loadLang(lang){
+    const t=langData[lang]||langData["ja"];
+    document.getElementById("page-title").textContent=t.page_title;
+    document.getElementById("page-desc").textContent=t.page_desc;
+    document.getElementById("subtext").textContent=t.subtext;
+    document.getElementById("back-btn").textContent=t.back;
+    document.getElementById("footer-reserved").textContent=t.footer_reserved;
+    document.documentElement.lang=lang;
+    document.getElementById("lang-switch").textContent=lang==="ja"?"🌐 English":"🌐 日本語";
+    localStorage.setItem("lang",lang);
     appendParamsToLinks();
 }
 
-function initLang() {
-    const saved = localStorage.getItem("lang");
-    const browser = navigator.language.startsWith("en")?"en":"ja";
-    loadLang(saved || browser);
-    document.getElementById("lang-switch").addEventListener("click", ()=>{
-        const next = (localStorage.getItem("lang")==="ja")?"en":"ja";
+function initLang(){
+    const saved=localStorage.getItem("lang");
+    const browser=navigator.language.startsWith("en")?"en":"ja";
+    loadLang(saved||browser);
+    document.getElementById("lang-switch").addEventListener("click",()=>{
+        const next=localStorage.getItem("lang")==="ja"?"en":"ja";
         loadLang(next);
     });
 }
 
-document.addEventListener("DOMContentLoaded", initLang);
+document.addEventListener("DOMContentLoaded",initLang);
 </script>
 
 </body>
