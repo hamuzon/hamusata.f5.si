@@ -6,21 +6,10 @@
   <title data-lang="title">404 - ページが見つかりません / Not Found</title>
 
   <link rel="icon" href="https://hamusata.f5.si/favicon.ico" type="image/x-icon" />
-  <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png" sizes="32x32" />
-  <link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp" sizes="32x32" />
-  <link rel="icon" type="image/svg+xml" href="https://hamusata.f5.si/icon.svg" />
-  <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png" />
-
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" />
 
   <style>
-    * {
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Potta One','Arial','Helvetica',sans-serif;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Potta One','Arial','Helvetica',sans-serif; }
 
     body {
       min-height:100vh;
@@ -112,8 +101,8 @@
       cursor:pointer;
       z-index:1001;
       transition: all 0.18s ease;
-      box-shadow:0 4px 12px rgba(0,0,0,0.12);
       line-height:1;
+      box-shadow:0 4px 12px rgba(0,0,0,0.12);
     }
 
     body.dark #lang-switch {
@@ -128,23 +117,7 @@
       background: rgba(0,188,212,0.18);
     }
 
-    header {
-      width:100%;
-      position:fixed;
-      top:0;
-      left:0;
-      display:flex;
-      justify-content:flex-start;
-      align-items:center;
-      padding:0.5rem 1rem;
-      z-index:1000;
-    }
-
-    header img {
-      height:50px;
-    }
-
-    @media (max-width:800px){
+    @media(max-width:800px){
       body {padding:6rem 1rem;}
       h1 {font-size:clamp(2.5rem,10vw,4rem);}
       p {font-size:clamp(0.95rem,2.5vw,1.1rem);}
@@ -153,7 +126,7 @@
       footer {font-size:0.9rem;}
     }
 
-    @media (max-width:480px){
+    @media(max-width:480px){
       body {padding:6rem 0.5rem;}
       h1 {font-size:clamp(2rem,12vw,3rem);}
       p {font-size:clamp(0.9rem,3vw,1rem);}
@@ -168,13 +141,6 @@
 
   <!-- 言語切替ボタン -->
   <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
-
-  <!-- ヘッダー -->
-  <header>
-    <a href="/" aria-label="ホームへ戻る">
-      <img src="https://hamusata.f5.si/hamusata_399-120.webp" alt="HAMUSATA">
-    </a>
-  </header>
 
   <!-- メインコンテンツ -->
   <main>
@@ -191,7 +157,7 @@
 
   <!-- 言語切替スクリプト -->
   <script src="js/lang-switch.js"></script>
-  
+
   <!-- 年更新 & テーマ適用 -->
   <script>
     const baseYear = 2025;
