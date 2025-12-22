@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>404 エラーコード - Error</title>
+  <title>404 - ページが見つかりません / Not Found</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
 
   <style>
@@ -32,8 +32,10 @@
 
     body.light {
       background:
-        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175,109,255,0.2), transparent 68%),
-        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,100,180,0.2), transparent 68%),
+        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175,109,255,0.85), transparent 68%),
+        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,100,180,0.75), transparent 68%),
+        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,235,170,0.98), transparent 68%),
+        radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120,190,255,0.3), transparent 68%),
         linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
       color: #000;
     }
@@ -41,8 +43,10 @@
     body.dark {
       background-color: #0a0a0a;
       background-image:
-        radial-gradient(ellipse at 20% 30%, rgba(56,189,248,0.2) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 70%, rgba(139,92,246,0.15) 0%, transparent 70%);
+        radial-gradient(ellipse at 20% 30%, rgba(56,189,248,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 70%, rgba(139,92,246,0.3) 0%, transparent 70%),
+        radial-gradient(ellipse at 60% 20%, rgba(236,72,153,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 40% 80%, rgba(34,197,94,0.2) 0%, transparent 65%);
       color: #fff;
     }
 
@@ -74,6 +78,7 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.5);
       transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
       cursor: pointer;
+      margin-bottom: 2rem;
     }
 
     a.back:hover {
@@ -83,7 +88,6 @@
     }
 
     footer {
-      margin-top: 4rem;
       font-size: clamp(0.9rem, 1vw, 1rem);
       opacity: 0.7;
     }
@@ -110,6 +114,7 @@
       a.back {
         padding: 1rem 2.5rem;
         font-size: 1rem;
+        margin-bottom: 1.5rem;
       }
 
       footer {
@@ -139,6 +144,7 @@
       a.back {
         padding: 0.8rem 2rem;
         font-size: 0.95rem;
+        margin-bottom: 1rem;
       }
 
       footer {
@@ -150,13 +156,13 @@
 
 <body>
 
-  <h1>404 - Error</h1>
-  <p>エラーが発生しました: 見つかりません</p>
-  <p class="subtext">Sorry, Not Found.</p>
-  <a class="back" href="/">トップページへ戻る</a>
+  <h1>404 - ページが見つかりません / Not Found</h1>
+  <p>ページが存在しません / Page Could Not Be Found</p>
+  <p class="subtext">申し訳ありません / Sorry, Not Found</p>
+  <a id="back-btn" class="back" href="/">トップページへ戻る / Back to Top</a>
 
   <footer>
-    &copy; <span id="year"></span> <a href="https://hamusata.f5.si/">@hamusata</a>
+    &copy; <span id="year"></span> <a href="/">@hamusata</a>
   </footer>
 
   <script>
@@ -169,6 +175,11 @@
 
     function applyTheme(theme) {
       document.body.className = theme;
+      const backBtn = document.getElementById('back-btn');
+
+      if (theme === 'dark') backBtn.href = '/?theme=dark';
+      else if (theme === 'light') backBtn.href = '/?theme=light';
+      else backBtn.href = '/';
     }
 
     if (themeParam === 'dark' || themeParam === 'light') {
@@ -177,10 +188,9 @@
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       applyTheme(prefersDark ? 'dark' : 'light');
 
-      window.matchMedia('(prefers-color-scheme: dark)')
-        .addEventListener('change', e => {
-          applyTheme(e.matches ? 'dark' : 'light');
-        });
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        applyTheme(e.matches ? 'dark' : 'light');
+      });
     }
   </script>
 
