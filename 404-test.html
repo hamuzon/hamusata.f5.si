@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-lang="title">404 - ページが見つかりません / Not Found</title>
+  <title data-lang="title">404 - ページが見つかりません</title>
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
   <style>
@@ -15,19 +15,21 @@
       font-family: 'Potta One', 'Arial', 'Helvetica', sans-serif;
     }
 
+    html, body {
+      height: 100%;
+    }
+
     body {
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 6rem 2rem;
+      padding: 2rem;
       line-height: 2;
       font-size: clamp(1rem, 2vw, 1.3rem);
       font-weight: 500;
       transition: background-color 0.3s, color 0.3s;
-      scroll-behavior: smooth;
     }
 
     /* テーマ */
@@ -51,7 +53,6 @@
       color: #fff;
     }
 
-    /* 見出し・文章 */
     h1 {
       font-size: clamp(3rem, 8vw, 5rem);
       margin-bottom: 2rem;
@@ -70,7 +71,6 @@
       color: inherit;
     }
 
-    /* ボタン */
     a.back {
       padding: 1.2rem 3rem;
       background-color: rgba(103,80,164,0.8);
@@ -88,12 +88,6 @@
       background-color: rgba(103,80,164,1);
       box-shadow: 0 12px 28px rgba(0,0,0,0.7);
       transform: translateY(-4px);
-    }
-
-    /* フッター */
-    footer {
-      font-size: clamp(0.9rem, 1vw, 1rem);
-      opacity: 0.7;
     }
 
     /* 言語切替ボタン */
@@ -126,63 +120,63 @@
       background: rgba(0,188,212,0.18);
     }
 
-    /* レスポンシブ */
-    @media(max-width:800px){
-      body { padding: 6rem 1rem; }
-      h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
-      p { font-size: clamp(0.95rem, 2.5vw, 1.1rem); }
-      .subtext { margin-bottom: 2rem; }
-      a.back { padding: 1rem 2.5rem; }
-      footer { font-size: 0.9rem; }
+    /* フッター */
+    footer {
+      margin-top: auto;
+      padding: 1rem;
+      text-align: center;
+      font-size: clamp(0.85rem, 1vw, 1rem);
+      opacity: 0.8;
     }
 
+    footer a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* レスポンシブ */
     @media(max-width:480px){
-      body { padding: 6rem 0.5rem; }
+      body { padding: 3rem 1rem; }
       h1 { font-size: clamp(2rem, 12vw, 3rem); }
       p { font-size: clamp(0.9rem, 3vw, 1rem); }
       .subtext { margin-bottom: 1.5rem; }
       a.back { padding: 0.8rem 2rem; }
-      footer { font-size: 0.85rem; }
+      footer { font-size: 0.8rem; }
     }
   </style>
 </head>
 <body class="light">
 
-  <!-- 言語切替ボタン -->
   <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
 
-  <!-- メインコンテンツ -->
   <main>
-    <h1 data-lang="page_title">404 - ページが見つかりません / Not Found</h1>
-    <p data-lang="page_p">ページが存在しません / Page Could Not Be Found</p>
-    <p class="subtext" data-lang="page_sub">申し訳ありません / Sorry, Not Found</p>
-    <a id="back-btn" class="back" href="/" data-lang="back_btn">トップページへ戻る / Back to Top</a>
+    <h1 data-lang="page_title">404 - ページが見つかりません</h1>
+    <p data-lang="page_p">ページが存在しません</p>
+    <p class="subtext" data-lang="page_sub">申し訳ありません</p>
+    <a id="back-btn" class="back" href="/" data-lang="back_btn">トップページへ戻る</a>
   </main>
 
-  <!-- フッター -->
   <footer>
-    &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – 
-    <span data-lang="footer_reserved">All rights reserved.</span>
+    &copy; <span id="year"></span> <a href="/">@hamusata</a> – <span data-lang="footer_reserved">All rights reserved.</span>
   </footer>
 
-  <!-- 言語切替・テーマ・年表示スクリプト -->
   <script>
     // --- 言語データ ---
     const langData = {
       ja: {
-        title: "404 - ページが見つかりません / Not Found",
-        page_title: "404 - ページが見つかりません / Not Found",
-        page_p: "ページが存在しません / Page Could Not Be Found",
-        page_sub: "申し訳ありません / Sorry, Not Found",
-        back_btn: "トップページへ戻る / Back to Top",
+        title: "404 - ページが見つかりません",
+        page_title: "404 - ページが見つかりません",
+        page_p: "ページが存在しません",
+        page_sub: "申し訳ありません",
+        back_btn: "トップページへ戻る",
         footer_reserved: "All rights reserved."
       },
       en: {
-        title: "404 - Not Found / ページが見つかりません",
-        page_title: "404 - Not Found / ページが見つかりません",
-        page_p: "Page Could Not Be Found / ページが存在しません",
-        page_sub: "Sorry, Not Found / 申し訳ありません",
-        back_btn: "Back to Top / トップページへ戻る",
+        title: "404 - Not Found",
+        page_title: "404 - Not Found",
+        page_p: "Page Could Not Be Found",
+        page_sub: "Sorry, Not Found",
+        back_btn: "Back to Top",
         footer_reserved: "All rights reserved."
       }
     };
