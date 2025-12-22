@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>404 Not Found / ページが見つかりません</title>
 
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon.webp" type="image/webp">
+
+<link rel="icon" href="https://hamusata.f5.si/icon.svg" type="image/svg+xml">
+<link rel="icon" href="https://hamusata.f5.si/icon.webp" type="image/webp">
+
 <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
 <style>
@@ -25,7 +29,7 @@ body {
     align-items: center;
     text-align: center;
     line-height: 2;
-    font-size: clamp(1rem,2vw,1.2rem);
+    font-size: clamp(1rem, 2vw, 1.2rem);
     font-weight: 500;
     padding: 3rem 2rem;
     transition: background-color 0.3s, color 0.3s;
@@ -52,18 +56,18 @@ body.dark {
 }
 
 h1#page-title {
-    font-size: clamp(2rem,6vw,4rem);
-    margin-bottom: 2rem;
+    font-size: clamp(2rem, 6vw, 4rem);
+    margin-bottom: 3rem;
     line-height: 1.2;
     font-weight: 700;
 }
 
 p#page-desc {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 p.subtext {
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
     color: inherit;
 }
 
@@ -72,22 +76,22 @@ a.back {
     padding: 1rem 2.5rem;
     border-radius: 28px;
     font-weight: 700;
-    font-size: clamp(1rem,1.5vw,1.2rem);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
     text-decoration: none;
     color: #fff;
-    background-color: rgba(255,170,170,0.85);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    background-color: rgba(255,140,80,0.85);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
     margin-bottom: 3rem;
     transition: all 0.3s;
 }
 
 a.back:hover {
-    background-color: rgba(255,120,120,0.95);
+    background-color: rgba(255,120,60,0.85);
     transform: translateY(-4px);
 }
 
 footer {
-    font-size: clamp(0.8rem,1vw,1rem);
+    font-size: clamp(0.8rem, 1vw, 1rem);
     line-height: 1.6;
     margin-top: 2rem;
     display: flex;
@@ -113,32 +117,33 @@ footer a#footer-link:hover {
     left: 16px;
     padding: 0.5rem 1rem;
     font-size: 0.95rem;
-    border-radius: 12px;
+    border-radius: 14px;
     border: 1px solid rgba(0,0,0,0.2);
     background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(16px);
     cursor: pointer;
     z-index: 1001;
-    transition: all 0.18s ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    line-height:1;
+    transition: all 0.2s ease;
 }
 
 #lang-switch:hover {
     transform: scale(1.05);
-    background: rgba(255,120,120,0.18);
+    background: rgba(255,140,80,0.25);
 }
 
 body.dark #lang-switch {
     background: rgba(0,0,0,0.35);
     color: #fff;
-    border: 1px solid rgba(255,255,255,0.12);
-    box-shadow: 0 4px 12px rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 @media (max-width:600px) {
-    h1#page-title { font-size: clamp(1.6rem,10vw,2.5rem); }
-    a.back { padding:0.8rem 2rem; font-size:1rem; }
+    h1#page-title {
+        font-size: clamp(1.6rem, 10vw, 2.5rem);
+    }
+    a.back {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+    }
 }
 </style>
 </head>
@@ -151,13 +156,13 @@ body.dark #lang-switch {
 
 <p id="page-desc">ページが存在しません</p>
 
-<p class="subtext">申し訳ありません</p>
+<p class="subtext" id="subtext">申し訳ありません</p>
 
-<a class="back" href="/">トップページへ戻る</a>
+<a class="back" href="/" id="back-btn">トップページへ戻る</a>
 
 <footer>
     <span>&copy; <span id="year"></span> <a href="/" id="footer-link">＠hamusata</a></span>
-    <span>- All rights reserved</span>
+    <span>- <span id="footer-reserved">All rights reserved</span></span>
 </footer>
 
 <script>
@@ -165,42 +170,62 @@ const baseYear = 2025;
 const now = new Date().getFullYear();
 document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
+const urlParams = new URLSearchParams(window.location.search);
+const themeParam = urlParams.get('theme');
+
+function applyTheme(theme) {
+    document.body.className = theme;
+}
+
+if(themeParam==='dark'||themeParam==='light'){ 
+    applyTheme(themeParam); 
+} else {
+    applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e=>{
+        applyTheme(e.matches?'dark':'light');
+    });
+}
+
 const langData = {
     "ja": {
         "page_title":"404 ページが見つかりません",
         "page_desc":"ページが存在しません",
         "subtext":"申し訳ありません",
-        "back":"トップページへ戻る"
+        "back":"トップページへ戻る",
+        "footer_reserved":"All rights reserved"
     },
     "en": {
         "page_title":"404 Not Found",
         "page_desc":"Page Could Not Be Found",
         "subtext":"Sorry, Not Found",
-        "back":"Back to Top"
+        "back":"Back to Top",
+        "footer_reserved":"All rights reserved"
     }
 };
 
-function loadLang(lang){
-    const t = langData[lang]||langData["ja"];
+function loadLang(lang) {
+    const t = langData[lang] || langData["ja"];
     document.getElementById("page-title").textContent = t.page_title;
     document.getElementById("page-desc").textContent = t.page_desc;
-    document.querySelector(".subtext").textContent = t.subtext;
-    document.querySelector(".back").textContent = t.back;
+    document.getElementById("subtext").textContent = t.subtext;
+    document.getElementById("back-btn").textContent = t.back;
+    document.getElementById("footer-reserved").textContent = t.footer_reserved;
+    document.documentElement.lang = lang;
     document.getElementById("lang-switch").textContent = lang==="ja"?"🌐 English":"🌐 日本語";
-    localStorage.setItem("lang",lang);
+    localStorage.setItem("lang", lang);
 }
 
-function initLang(){
+function initLang() {
     const saved = localStorage.getItem("lang");
     const browser = navigator.language.startsWith("en")?"en":"ja";
-    loadLang(saved||browser);
-    document.getElementById("lang-switch").addEventListener("click",()=>{
-        const next = localStorage.getItem("lang")==="ja"?"en":"ja";
+    loadLang(saved || browser);
+    document.getElementById("lang-switch").addEventListener("click", ()=>{
+        const next = (localStorage.getItem("lang")==="ja")?"en":"ja";
         loadLang(next);
     });
 }
 
-document.addEventListener("DOMContentLoaded",initLang);
+document.addEventListener("DOMContentLoaded", initLang);
 </script>
 
 </body>
