@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-lang="title">404 - ページが見つかりません / Not Found</title>
+
+  <link rel="icon" href="https://hamusata.f5.si/favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png" sizes="32x32" />
+  <link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="https://hamusata.f5.si/icon.svg" />
+  <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Potta One','Arial','Helvetica',sans-serif;
+    }
+
+    body {
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:6rem 2rem;
+      line-height:2;
+      font-size:clamp(1rem,2vw,1.3rem);
+      font-weight:500;
+      transition:background-color 0.3s,color 0.3s;
+      scroll-behavior:smooth;
+    }
+
+    body.light {
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175,109,255,0.85), transparent 68%),
+        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,100,180,0.75), transparent 68%),
+        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,235,170,0.98), transparent 68%),
+        radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120,190,255,0.3), transparent 68%),
+        linear-gradient(180deg,#f7eaff 0%,#fde2ea 100%);
+      color:#000;
+    }
+
+    body.dark {
+      background-color:#0a0a0a;
+      background-image:
+        radial-gradient(ellipse at 20% 30%, rgba(56,189,248,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 70%, rgba(139,92,246,0.3) 0%, transparent 70%),
+        radial-gradient(ellipse at 60% 20%, rgba(236,72,153,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 40% 80%, rgba(34,197,94,0.2) 0%, transparent 65%);
+      color:#fff;
+    }
+
+    h1 {
+      font-size:clamp(3rem,8vw,5rem);
+      margin-bottom:2rem;
+      letter-spacing:0.15em;
+    }
+
+    p {
+      font-size:clamp(1rem,2vw,1.2rem);
+      margin-bottom:1.5rem;
+      color:inherit;
+    }
+
+    .subtext {
+      font-size:clamp(0.9rem,1.8vw,1rem);
+      margin-bottom:3rem;
+      color:inherit;
+    }
+
+    a.back {
+      padding:1.2rem 3rem;
+      background-color:rgba(103,80,164,0.8);
+      color:#fff;
+      text-decoration:none;
+      border-radius:14px;
+      font-weight:bold;
+      box-shadow:0 8px 20px rgba(0,0,0,0.5);
+      transition:background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      cursor:pointer;
+      margin-bottom:2rem;
+    }
+
+    a.back:hover {
+      background-color:rgba(103,80,164,1);
+      box-shadow:0 12px 28px rgba(0,0,0,0.7);
+      transform:translateY(-4px);
+    }
+
+    footer {
+      font-size:clamp(0.9rem,1vw,1rem);
+      opacity:0.7;
+    }
+
+    #lang-switch {
+      position: fixed;
+      top:16px;
+      left:16px;
+      padding:0.5rem 1rem;
+      font-size:0.95rem;
+      border-radius:12px;
+      border:1px solid rgba(0,0,0,0.2);
+      background:rgba(255,255,255,0.15);
+      backdrop-filter:blur(16px);
+      cursor:pointer;
+      z-index:1001;
+      transition: all 0.18s ease;
+      box-shadow:0 4px 12px rgba(0,0,0,0.12);
+      line-height:1;
+    }
+
+    body.dark #lang-switch {
+      background: rgba(0,0,0,0.35);
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.12);
+      box-shadow:0 4px 12px rgba(255,255,255,0.06);
+    }
+
+    #lang-switch:hover {
+      transform: scale(1.05);
+      background: rgba(0,188,212,0.18);
+    }
+
+    header {
+      width:100%;
+      position:fixed;
+      top:0;
+      left:0;
+      display:flex;
+      justify-content:flex-start;
+      align-items:center;
+      padding:0.5rem 1rem;
+      z-index:1000;
+    }
+
+    header img {
+      height:50px;
+    }
+
+    @media (max-width:800px){
+      body {padding:6rem 1rem;}
+      h1 {font-size:clamp(2.5rem,10vw,4rem);}
+      p {font-size:clamp(0.95rem,2.5vw,1.1rem);}
+      .subtext {margin-bottom:2rem;}
+      a.back {padding:1rem 2.5rem;}
+      footer {font-size:0.9rem;}
+    }
+
+    @media (max-width:480px){
+      body {padding:6rem 0.5rem;}
+      h1 {font-size:clamp(2rem,12vw,3rem);}
+      p {font-size:clamp(0.9rem,3vw,1rem);}
+      .subtext {margin-bottom:1.5rem;}
+      a.back {padding:0.8rem 2rem;}
+      footer {font-size:0.85rem;}
+    }
+  </style>
+</head>
+
+<body class="light">
+
+  <!-- 言語切替ボタン -->
+  <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
+
+  <!-- ヘッダー -->
+  <header>
+    <a href="/" aria-label="ホームへ戻る">
+      <img src="https://hamusata.f5.si/hamusata_399-120.webp" alt="HAMUSATA">
+    </a>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main>
+    <h1 data-lang="page_title">404 - ページが見つかりません / Not Found</h1>
+    <p data-lang="page_p">ページが存在しません / Page Could Not Be Found</p>
+    <p class="subtext" data-lang="page_sub">申し訳ありません / Sorry, Not Found</p>
+    <a id="back-btn" class="back" href="/" data-lang="back_btn">トップページへ戻る / Back to Top</a>
+  </main>
+
+  <!-- フッター -->
+  <footer>
+    &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – <span data-lang="footer_reserved">All rights reserved.</span>
+  </footer>
+
+  <!-- 言語切替スクリプト -->
+  <script src="js/lang-switch.js"></script>
+  
+  <!-- 年更新 & テーマ適用 -->
+  <script>
+    const baseYear = 2025;
+    const now = new Date().getFullYear();
+    document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const themeParam = urlParams.get('theme');
+
+    function applyTheme(theme){
+      document.body.className = theme;
+      const backBtn = document.getElementById('back-btn');
+      if(theme==='dark') backBtn.href='/?theme=dark';
+      else if(theme==='light') backBtn.href='/?theme=light';
+      else backBtn.href='/';
+    }
+
+    if(themeParam==='dark'||themeParam==='light'){
+      applyTheme(themeParam);
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(prefersDark ? 'dark' : 'light');
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        applyTheme(e.matches?'dark':'light');
+      });
+    }
+  </script>
+
+</body>
+</html>
