@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>404 エラーコード - Error</title>
-
-  <!-- ファビコン -->
   <link rel="icon" href="icon.svg" type="image/svg+xml">
 
   <style>
@@ -90,21 +89,61 @@
     }
 
     @media (max-width: 800px) {
-      body { padding: 4rem 2rem; }
-      h1 { font-size: clamp(2.5rem, 10vw, 4rem); margin-bottom: 1.5rem; }
-      p { font-size: clamp(0.95rem, 2.5vw, 1.1rem); margin-bottom: 1rem; }
-      .subtext { margin-bottom: 2rem; }
-      a.back { padding: 1rem 2.5rem; font-size: 1rem; }
-      footer { font-size: 0.9rem; }
+      body {
+        padding: 4rem 2rem;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+        margin-bottom: 1.5rem;
+      }
+
+      p {
+        font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+        margin-bottom: 1rem;
+      }
+
+      .subtext {
+        margin-bottom: 2rem;
+      }
+
+      a.back {
+        padding: 1rem 2.5rem;
+        font-size: 1rem;
+      }
+
+      footer {
+        font-size: 0.9rem;
+      }
     }
 
     @media (max-width: 480px) {
-      body { padding: 3rem 1.5rem; }
-      h1 { font-size: clamp(2rem, 12vw, 3rem); margin-bottom: 1.2rem; }
-      p { font-size: clamp(0.9rem, 3vw, 1rem); margin-bottom: 0.8rem; }
-      .subtext { margin-bottom: 1.5rem; }
-      a.back { padding: 0.8rem 2rem; font-size: 0.95rem; }
-      footer { font-size: 0.85rem; }
+      body {
+        padding: 3rem 1.5rem;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 12vw, 3rem);
+        margin-bottom: 1.2rem;
+      }
+
+      p {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+        margin-bottom: 0.8rem;
+      }
+
+      .subtext {
+        margin-bottom: 1.5rem;
+      }
+
+      a.back {
+        padding: 0.8rem 2rem;
+        font-size: 0.95rem;
+      }
+
+      footer {
+        font-size: 0.85rem;
+      }
     }
   </style>
 </head>
@@ -114,17 +153,16 @@
   <h1>404 - Error</h1>
   <p>エラーが発生しました: 見つかりません</p>
   <p class="subtext">Sorry, Not Found.</p>
-  <a class="back" href="https://hamusata.f5.si/">トップページへ戻る</a>
+  <a class="back" href="/">トップページへ戻る</a>
 
   <footer>
-    &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved.
+    &copy; <span id="year"></span> <a href="https://hamusata.f5.si/">@hamusata</a>
   </footer>
 
   <script>
     const baseYear = 2025;
     const now = new Date().getFullYear();
-    document.getElementById("year").textContent =
-      now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
+    document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
     const urlParams = new URLSearchParams(window.location.search);
     const themeParam = urlParams.get('theme');
@@ -140,9 +178,9 @@
       applyTheme(prefersDark ? 'dark' : 'light');
 
       window.matchMedia('(prefers-color-scheme: dark)')
-            .addEventListener('change', e => {
-              applyTheme(e.matches ? 'dark' : 'light');
-            });
+        .addEventListener('change', e => {
+          applyTheme(e.matches ? 'dark' : 'light');
+        });
     }
   </script>
 
