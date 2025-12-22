@@ -2,7 +2,6 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>404 Not Found / ページが見つかりません</title>
@@ -37,20 +36,13 @@ body {
 }
 
 body.light {
-    background:
-        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(255,200,220,0.25), transparent 68%),
-        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,230,240,0.2), transparent 68%),
-        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,240,220,0.2), transparent 68%),
-        linear-gradient(180deg,#ffe6f0 0%,#fff0f8 100%);
-    color: #000;
+    background: linear-gradient(180deg,#cce7ff 0%,#e6f7ff 100%);
+    color: #111;
 }
 
 body.dark {
-    background-color: #0a0a0a;
-    background-image:
-        radial-gradient(ellipse at 20% 30%, rgba(56,189,248,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 70%, rgba(139,92,246,0.1) 0%, transparent 70%);
-    color: #fff;
+    background: linear-gradient(180deg,#0a1c3d 0%,#1a2b4d 100%);
+    color: #eee;
 }
 
 h1#page-title {
@@ -66,25 +58,25 @@ p#page-desc {
 
 p.subtext {
     margin-bottom: 3rem;
-    color: rgba(100,100,100,0.85);
+    color: inherit;
 }
 
 a.back {
     display: inline-block;
     padding: 1rem 2.5rem;
-    border-radius: 22px;
-    font-weight: 600;
+    border-radius: 28px;
+    font-weight: 700;
     font-size: clamp(1rem, 1.5vw, 1.2rem);
     text-decoration: none;
     color: #fff;
-    background: linear-gradient(135deg, rgba(135,206,250,0.3), rgba(0,191,255,0.3));
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    background-color: #00bfff;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
     margin-bottom: 3rem;
     transition: all 0.3s;
 }
 
 a.back:hover {
-    background: linear-gradient(135deg, rgba(135,206,250,0.6), rgba(0,191,255,0.5));
+    background-color: #1e90ff;
     transform: translateY(-4px);
 }
 
@@ -99,14 +91,14 @@ footer {
 }
 
 footer a#footer-link {
-    color: rgba(0,102,204,0.8);
+    color: #ff77aa;
+    font-weight: 700;
     text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s;
+    transition: color 0.3s;
 }
 
 footer a#footer-link:hover {
-    color: rgba(0,102,204,1);
+    color: #ff3388;
 }
 
 #lang-switch {
@@ -115,24 +107,24 @@ footer a#footer-link:hover {
     left: 16px;
     padding: 0.5rem 1rem;
     font-size: 0.95rem;
-    border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.15);
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(16px);
+    border-radius: 14px;
+    border: 1px solid rgba(0,0,0,0.2);
+    background: #00bfff;
+    color: #fff;
     cursor: pointer;
     z-index: 1001;
     transition: all 0.2s ease;
 }
 
-body.dark #lang-switch {
-    background: rgba(0,0,0,0.25);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.12);
-}
-
 #lang-switch:hover {
     transform: scale(1.05);
-    background: rgba(0,191,255,0.18);
+    background: #1e90ff;
+}
+
+body.dark #lang-switch {
+    background: #1e90ff;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 @media (max-width:600px) {
@@ -166,15 +158,13 @@ body.dark #lang-switch {
 
 <script>
 const baseYear = 2025;
-
 const now = new Date().getFullYear();
-
 document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
 function appendParamsToLinks() {
     const params = window.location.search;
     if(!params) return;
-    document.querySelectorAll('a[href]').forEach(link => {
+    document.querySelectorAll('a[href]').forEach(link=>{
         const url = new URL(link.href, window.location.origin);
         if(url.origin !== window.location.origin) return;
         if(url.search) return;
@@ -185,16 +175,11 @@ function appendParamsToLinks() {
 
 const urlParams = new URLSearchParams(window.location.search);
 const themeParam = urlParams.get('theme');
-
-function applyTheme(theme) {
-    document.body.className = theme;
-}
-
-if(themeParam==='dark'||themeParam==='light') {
-    applyTheme(themeParam);
-} else {
+function applyTheme(theme){ document.body.className = theme; }
+if(themeParam==='dark'||themeParam==='light'){ applyTheme(themeParam); }
+else{
     applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e=>{
         applyTheme(e.matches?'dark':'light');
     });
 }
@@ -233,7 +218,7 @@ function initLang() {
     const saved = localStorage.getItem("lang");
     const browser = navigator.language.startsWith("en")?"en":"ja";
     loadLang(saved || browser);
-    document.getElementById("lang-switch").addEventListener("click", () => {
+    document.getElementById("lang-switch").addEventListener("click", ()=>{
         const next = (localStorage.getItem("lang")==="ja")?"en":"ja";
         loadLang(next);
     });
