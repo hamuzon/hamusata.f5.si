@@ -21,7 +21,8 @@
     body {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
+      align-items: center;
       min-height: 100vh;
       text-align: center;
       line-height: 2;
@@ -29,19 +30,18 @@
       font-weight: 500;
       transition: background-color 0.3s, color 0.3s;
       padding: 2rem;
+      margin: 0;
       background-repeat: no-repeat;
-      background-attachment: fixed;
       background-position: center;
       background-size: cover;
     }
 
     body.light {
-      background:
+      background-color: #fde2ea;
+      background-image:
         radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175,109,255,0.85), transparent 68%),
         radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,100,180,0.75), transparent 68%),
-        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,235,170,0.98), transparent 68%),
-        radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120,190,255,0.3), transparent 68%),
-        linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
+        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,235,170,0.98), transparent 68%);
       color: #000;
     }
 
@@ -85,26 +85,29 @@
     }
 
     main {
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       gap: 1.5rem;
       width: 100%;
-      flex: 1;
     }
 
     h1 {
       font-size: clamp(3rem, 8vw, 5rem);
       letter-spacing: 0.15em;
+      margin-bottom: 1rem;
     }
 
     p {
       font-size: clamp(1rem, 2vw, 1.2rem);
+      margin-bottom: 0.8rem;
     }
 
     .subtext {
       font-size: clamp(0.9rem, 1.8vw, 1rem);
+      margin-bottom: 1.5rem;
     }
 
     a.back {
@@ -117,7 +120,7 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.5);
       transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
       cursor: pointer;
-      margin-top: 1.5rem;
+      margin-top: 1rem;
     }
 
     a.back:hover {
@@ -141,9 +144,9 @@
 
     @media(max-width:480px){
       body { padding: 3rem 1rem; }
-      h1 { font-size: clamp(2rem, 12vw, 3rem); margin-bottom:1rem; }
-      p { font-size: clamp(0.9rem, 3vw, 1rem); margin-bottom:1rem; }
-      .subtext { margin-bottom:1.5rem; }
+      h1 { font-size: clamp(2rem, 12vw, 3rem); }
+      p { font-size: clamp(0.9rem, 3vw, 1rem); }
+      .subtext { margin-bottom: 1rem; }
       a.back { padding:0.8rem 2rem; }
       footer { font-size:0.8rem; }
     }
