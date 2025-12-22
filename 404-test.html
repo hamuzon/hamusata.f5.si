@@ -7,8 +7,6 @@
 <title>404 Not Found / ページが見つかりません</title>
 
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="icon" href="icon.webp" type="image/webp">
-
 <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
 <style>
@@ -29,7 +27,7 @@ body {
     line-height: 2;
     font-size: clamp(1rem,2vw,1.2rem);
     font-weight: 500;
-    padding: 4rem 2rem;
+    padding: 3rem 2rem;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -40,7 +38,7 @@ body.light {
         radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,235,170,0.98), transparent 68%),
         radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120,190,255,0.3), transparent 68%),
         linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
-    color: #111;
+    color: #000;
 }
 
 body.dark {
@@ -55,44 +53,43 @@ body.dark {
 
 h1#page-title {
     font-size: clamp(2rem,6vw,4rem);
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     line-height: 1.2;
     font-weight: 700;
 }
 
 p#page-desc {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 p.subtext {
-    margin-bottom: 3rem;
-    font-size: clamp(1rem,1.5vw,1.1rem);
-    font-weight: 500;
+    margin-bottom: 2.5rem;
+    color: inherit;
 }
 
 a.back {
     display: inline-block;
-    padding: 1rem 3rem;
+    padding: 1rem 2.5rem;
     border-radius: 28px;
     font-weight: 700;
     font-size: clamp(1rem,1.5vw,1.2rem);
     text-decoration: none;
     color: #fff;
-    background-color: #87ceeb;
+    background-color: rgba(255,170,170,0.85);
     box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
     transition: all 0.3s;
 }
 
 a.back:hover {
-    background-color: #00bfff;
+    background-color: rgba(255,120,120,0.95);
     transform: translateY(-4px);
 }
 
 footer {
     font-size: clamp(0.8rem,1vw,1rem);
     line-height: 1.6;
-    margin-top: 3rem;
+    margin-top: 2rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -100,14 +97,14 @@ footer {
 }
 
 footer a#footer-link {
-    color: #ffb6c1;
+    color: #ff77aa;
     font-weight: 700;
     text-decoration: none;
     transition: color 0.3s;
 }
 
 footer a#footer-link:hover {
-    color: #ff99aa;
+    color: #ff3388;
 }
 
 #lang-switch {
@@ -116,34 +113,32 @@ footer a#footer-link:hover {
     left: 16px;
     padding: 0.5rem 1rem;
     font-size: 0.95rem;
-    border-radius: 16px;
-    border: 1px solid rgba(0,0,0,0.15);
-    background: #87ceeb;
-    color: #fff;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(16px);
     cursor: pointer;
     z-index: 1001;
-    transition: all 0.2s ease;
+    transition: all 0.18s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    line-height:1;
 }
 
 #lang-switch:hover {
     transform: scale(1.05);
-    background: #00bfff;
+    background: rgba(255,120,120,0.18);
 }
 
 body.dark #lang-switch {
-    background: #00bfff;
+    background: rgba(0,0,0,0.35);
     color: #fff;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 4px 12px rgba(255,255,255,0.06);
 }
 
 @media (max-width:600px) {
-    h1#page-title {
-        font-size: clamp(1.6rem,10vw,2.5rem);
-    }
-    a.back {
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
-    }
+    h1#page-title { font-size: clamp(1.6rem,10vw,2.5rem); }
+    a.back { padding:0.8rem 2rem; font-size:1rem; }
 }
 </style>
 </head>
@@ -156,82 +151,51 @@ body.dark #lang-switch {
 
 <p id="page-desc">ページが存在しません</p>
 
-<p class="subtext" id="subtext">申し訳ありません</p>
+<p class="subtext">申し訳ありません</p>
 
-<a class="back" href="/" id="back-btn">トップページへ戻る</a>
+<a class="back" href="/">トップページへ戻る</a>
 
 <footer>
     <span>&copy; <span id="year"></span> <a href="/" id="footer-link">＠hamusata</a></span>
-    <span>- <span id="footer-reserved">All rights reserved</span></span>
+    <span>- All rights reserved</span>
 </footer>
 
 <script>
-const baseYear=2025;
-const now=new Date().getFullYear();
-document.getElementById("year").textContent=now>baseYear?`${baseYear}~${now}`:baseYear;
+const baseYear = 2025;
+const now = new Date().getFullYear();
+document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
-function appendParamsToLinks(){
-    const params=window.location.search;
-    if(!params) return;
-    document.querySelectorAll('a[href]').forEach(link=>{
-        const url=new URL(link.href,window.location.origin);
-        if(url.origin!==window.location.origin) return;
-        if(url.search) return;
-        url.search=params;
-        link.href=url.pathname+url.search+url.hash;
-    });
-}
-
-const urlParams=new URLSearchParams(window.location.search);
-const themeParam=urlParams.get('theme');
-
-function applyTheme(theme){document.body.className=theme;}
-
-if(themeParam==='dark'||themeParam==='light'){
-    applyTheme(themeParam);
-}else{
-    applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',e=>{
-        applyTheme(e.matches?'dark':'light');
-    });
-}
-
-const langData={
+const langData = {
     "ja": {
         "page_title":"404 ページが見つかりません",
         "page_desc":"ページが存在しません",
         "subtext":"申し訳ありません",
-        "back":"トップページへ戻る",
-        "footer_reserved":"All rights reserved"
+        "back":"トップページへ戻る"
     },
     "en": {
         "page_title":"404 Not Found",
         "page_desc":"Page Could Not Be Found",
         "subtext":"Sorry, Not Found",
-        "back":"Back to Top",
-        "footer_reserved":"All rights reserved"
+        "back":"Back to Top"
     }
 };
 
 function loadLang(lang){
-    const t=langData[lang]||langData["ja"];
-    document.getElementById("page-title").textContent=t.page_title;
-    document.getElementById("page-desc").textContent=t.page_desc;
-    document.getElementById("subtext").textContent=t.subtext;
-    document.getElementById("back-btn").textContent=t.back;
-    document.getElementById("footer-reserved").textContent=t.footer_reserved;
-    document.documentElement.lang=lang;
-    document.getElementById("lang-switch").textContent=lang==="ja"?"🌐 English":"🌐 日本語";
+    const t = langData[lang]||langData["ja"];
+    document.getElementById("page-title").textContent = t.page_title;
+    document.getElementById("page-desc").textContent = t.page_desc;
+    document.querySelector(".subtext").textContent = t.subtext;
+    document.querySelector(".back").textContent = t.back;
+    document.getElementById("lang-switch").textContent = lang==="ja"?"🌐 English":"🌐 日本語";
     localStorage.setItem("lang",lang);
-    appendParamsToLinks();
 }
 
 function initLang(){
-    const saved=localStorage.getItem("lang");
-    const browser=navigator.language.startsWith("en")?"en":"ja";
+    const saved = localStorage.getItem("lang");
+    const browser = navigator.language.startsWith("en")?"en":"ja";
     loadLang(saved||browser);
     document.getElementById("lang-switch").addEventListener("click",()=>{
-        const next=localStorage.getItem("lang")==="ja"?"en":"ja";
+        const next = localStorage.getItem("lang")==="ja"?"en":"ja";
         loadLang(next);
     });
 }
