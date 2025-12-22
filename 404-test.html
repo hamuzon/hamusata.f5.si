@@ -4,10 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>404 Not Found / ページが見つかりません</title>
+<title data-lang="title">404 Not Found / ページが見つかりません</title>
 
 <link id="favicon-svg" rel="icon" href="icon.svg" type="image/svg+xml">
 <link id="favicon-webp" rel="icon" href="icon.webp" type="image/webp">
+
+<link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -92,101 +94,101 @@ footer {
   margin-top: 2rem;
 }
 
-@media (max-width: 800px) {
-  h1 {
-    font-size: clamp(2.5rem, 10vw, 4rem);
-    margin-bottom: 1.5rem;
-  }
-  p {
-    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-    margin-bottom: 1rem;
-  }
-  .subtext {
-    margin-bottom: 2rem;
-  }
-  a.back {
-    padding: 1rem 2.5rem;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  footer {
-    font-size: 0.9rem;
-  }
+#lang-switch {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(16px);
+  cursor: pointer;
+  z-index: 1001;
+  transition: all 0.18s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  line-height:1;
+}
+body.dark #lang-switch {
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 4px 12px rgba(255,255,255,0.06);
+}
+#lang-switch:hover {
+  transform: scale(1.05);
+  background: rgba(0,188,212,0.18);
 }
 
-@media (max-width: 480px) {
-  h1 {
-    font-size: clamp(2rem, 12vw, 3rem);
-    margin-bottom: 1.2rem;
-  }
-  p {
-    font-size: clamp(0.9rem, 3vw, 1rem);
-    margin-bottom: 0.8rem;
-  }
-  .subtext {
-    margin-bottom: 1.5rem;
-  }
-  a.back {
-    padding: 0.8rem 2rem;
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-  }
-  footer {
-    font-size: 0.85rem;
-  }
-}
 </style>
 </head>
 
 <body class="light">
 
-<h1>404 Not Found / ページが見つかりません</h1>
+<button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
 
-<p>ページが存在しません / Page Could Not Be Found</p>
+<h1 data-lang="page_title">404 Not Found / ページが見つかりません</h1>
 
-<p class="subtext">申し訳ありません / Sorry, Not Found</p>
+<p data-lang="page_desc">ページが存在しません / Page Could Not Be Found</p>
 
-<a class="back" href="/">トップページへ戻る / Back to Top</a>
+<p class="subtext" data-lang="subtext">申し訳ありません / Sorry, Not Found</p>
+
+<a class="back" href="/" data-lang="back">トップページへ戻る / Back to Top</a>
 
 <footer>
-  &copy; <span id="year"></span> <a href="/">＠hamusata</a> All rights reserved
+&copy; <span id="year"></span> <a href="/">＠hamusata</a> <span data-lang="footer_reserved">All rights reserved</span>
 </footer>
 
 <script>
 const baseYear = 2025;
 const now = new Date().getFullYear();
-document.getElementById("year").textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
-
-function checkFavicon(linkElement, fallbackURL) {
-  const img = new Image();
-  img.onload = () => {};
-  img.onerror = () => { linkElement.href = fallbackURL; };
-  img.src = linkElement.href;
-}
-
-checkFavicon(document.getElementById('favicon-svg'), 'https://hamusata.f5.si/icon.svg');
-checkFavicon(document.getElementById('favicon-webp'), 'https://hamusata.f5.si/icon.webp');
+document.getElementById("year").textContent =
+  now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
 const urlParams = new URLSearchParams(window.location.search);
 const themeParam = urlParams.get('theme');
 
 function applyTheme(theme) {
   document.body.className = theme;
-  const backBtn = document.querySelector('a.back');
-  if (theme === 'dark') backBtn.href = '/?theme=dark';
-  else if (theme === 'light') backBtn.href = '/?theme=light';
-  else backBtn.href = '/';
 }
 
-if (themeParam === 'dark' || themeParam === 'light') {
+if(themeParam==='dark'||themeParam==='light'){
   applyTheme(themeParam);
-} else {
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  applyTheme(prefersDark ? 'dark' : 'light');
+}else{
+  applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    applyTheme(e.matches ? 'dark' : 'light');
+    applyTheme(e.matches?'dark':'light');
   });
 }
+
+// ===== 言語切替 =====
+async function loadLang(lang){
+  try{
+    const res = await fetch("lang/lang.json");
+    const langData = await res.json();
+    const text = langData[lang]||langData["ja"];
+    document.querySelectorAll("[data-lang]").forEach(el=>{
+      const key=el.dataset.lang;
+      if(text[key]) el.textContent=text[key];
+    });
+    document.documentElement.lang=lang;
+    document.getElementById("lang-switch").textContent=lang==="ja"?"🌐 English":"🌐 日本語";
+    localStorage.setItem("lang",lang);
+  }catch(e){console.error(e);}
+}
+
+function initLang(){
+  const saved=localStorage.getItem("lang");
+  const browserLang=navigator.language.startsWith("en")?"en":"ja";
+  loadLang(saved||browserLang);
+  document.getElementById("lang-switch").addEventListener("click",()=>{
+    const next=(localStorage.getItem("lang")==="ja")?"en":"ja";
+    loadLang(next);
+  });
+}
+
+document.addEventListener("DOMContentLoaded",initLang);
 </script>
 
 </body>
