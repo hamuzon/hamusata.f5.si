@@ -35,6 +35,14 @@ export async function onRequest(context) {
 
 
   const ua = request.headers.get("user-agent") || "";
+  
+  // --- BOT除外判定 ---
+  const isBot = /bot|googlebot|bingbot|yandex|baidu|duckduckbot|slurp|ia_archiver/i.test(ua);
+  if (isBot) {
+    return context.next();
+  }
+
+
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
 
   const baseWithoutWWW = hostname.replace(/^www\./, "");
@@ -44,15 +52,15 @@ export async function onRequest(context) {
 
   // ===== モバイル端末 / Mobile =====
   if (isMobile && !hasM) {
-    url.hostname = "www.m." + pureBase;
-    return Response.redirect(url.toString(), 301);
+    url.hostname = `www.m.${pureBase}`;
+    return fetch(new Request(url.toString(), request));
   }
 
 
   // ===== PC端末 / PC =====
   if (!isMobile && hasM) {
-    url.hostname = "www." + pureBase;
-    return Response.redirect(url.toString(), 301);
+    url.hostname = `www.${pureBase}`;
+    return fetch(new Request(url.toString(), request));
   }
 
 
