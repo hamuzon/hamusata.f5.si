@@ -23,7 +23,7 @@ export async function onRequest(context) {
     '.zip', '.rar', '.7z', '.tar', '.gz'
   ];
 
-  if (EXCLUDED_EXTENSIONS.some(ext => pathname.endsWith(ext))) {
+  if (pathname.includes('.') || EXCLUDED_EXTENSIONS.some(ext => pathname.endsWith(ext))) {
     return context.next();
   }
 
@@ -36,7 +36,7 @@ export async function onRequest(context) {
 
   const ua = request.headers.get("user-agent") || "";
 
-  // --- BOT除外判定 ---
+  // --- BOT除外判定  ---
   const isBot = /bot|googlebot|bingbot|yandex|baidu|duckduckbot|slurp|ia_archiver/i.test(ua);
   if (isBot) {
     return context.next();
@@ -44,7 +44,7 @@ export async function onRequest(context) {
 
 
   // モバイル判定
-  const isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(ua);
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
 
   const baseWithoutWWW = hostname.replace(/^www\./, "");
   const hasM = baseWithoutWWW.startsWith("m.");
