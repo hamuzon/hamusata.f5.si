@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="title">HAMUSATA – ホームページ</title>
 
-  <link rel="icon" href="https://hamusata.f5.si/favicon.ico" type="image/x-icon" />
-  <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png" sizes="32x32" />
-  <link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp" sizes="32x32" />
-  <link rel="icon" type="image/svg+xml" href="https://hamusata.f5.si/icon.svg" />
+  <link rel="icon" href="https://hamusata.f5.si/favicon.ico" sizes="any" />
+  <link rel="icon" href="https://hamusata.f5.si/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png" />
 
   <link rel="manifest" href="/manifest.json" />
@@ -22,14 +20,15 @@
 
   <script>
     const themeCSS = [
-      "css/dark.css",
-      "css/dark-hc.css",
-      "css/dark-mc.css",
-      "css/light.css",
-      "css/light-hc.css",
-      "css/light-mc.css"
+      "css/dark.css", "css/dark-hc.css", "css/dark-mc.css",
+      "css/light.css", "css/light-hc.css", "css/light-mc.css"
     ];
-    themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
+    themeCSS.forEach(href => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      document.head.appendChild(link);
+    });
   </script>
 
   <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
@@ -119,7 +118,6 @@
   <section id="portfolio">
     <h2 data-lang="portfolio_title">ポートフォリオリンク集</h2>
     <div class="works">
-
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="HAMUSATA icon" loading="lazy" decoding="async">
         <h3 data-lang="w_main_title">HAMUSATA – ホームページ</h3>
@@ -137,7 +135,7 @@
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="hamuzon icon" loading="lazy" decoding="async">
         <h3 data-lang="w_hamuzon_title">hamuzon – ホームページ</h3>
-        <p data-lang="w_hamuzon_desc">hamuzon-jp.f5.si のホームページ・リンクポータル版 (fc2の一部コピーサイト)</p>
+        <p data-lang="w_hamuzon_desc">hamuzon-jp.f5.si のホームページ・リンクポータル版</p>
         <a href="https://hamuzon-jp.f5.si/" data-lang="link_view">見る</a>
       </div>
 
@@ -184,7 +182,6 @@
         <p data-lang="w_terms_desc">サイト利用規約とプライバシーポリシーの確認はこちら。</p>
         <a href="terms.html" data-lang="link_view">確認する</a>
       </div>
-
     </div>
   </section>
 
@@ -206,7 +203,7 @@
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="Status icon" loading="lazy" decoding="async">
         <h3 data-lang="status_card_title">サービス稼働状況</h3>
-        <p data-lang="status_note">セキュリティ設定変更などにより、監視ツールがサイトにアクセスできず落ちた判定となる場合があります。実際の状態と異なる可能性がありますので、参考としてご確認ください。</p>
+        <p data-lang="status_note">監視ツールの判定と実際の状態が異なる場合がありますので、参考としてご確認ください。</p>
         <a href="https://stats.uptimerobot.com/tT7bs2uEHa" data-lang="link_view">稼働状況を見る</a>
       </div>
     </div>
@@ -227,42 +224,36 @@
   <section id="sns">
     <h2 data-lang="sns_title">SNSリンク</h2>
     <div class="works">
-
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="Scratch icon" loading="lazy" decoding="async">
         <h3 data-lang="sns_scratch1_title">Scratch</h3>
         <p data-lang="sns_scratch1_desc">hamusataアカウント</p>
         <a href="https://scratch.mit.edu/users/hamusata/" data-lang="link_view">見る</a>
       </div>
-
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="Scratch icon" loading="lazy" decoding="async">
         <h3 data-lang="sns_scratch2_title">Scratch</h3>
         <p data-lang="sns_scratch2_desc">hamuzonアカウント</p>
         <a href="https://scratch.mit.edu/users/hamuzon/" data-lang="link_view">見る</a>
       </div>
-
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="GitHub icon" loading="lazy" decoding="async">
         <h3 data-lang="sns_github_title">GitHub</h3>
         <p data-lang="sns_github_desc">GitHubアカウント</p>
         <a href="https://github.com/hamuzon" data-lang="link_view">見る</a>
       </div>
-
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="Bluesky icon" loading="lazy" decoding="async">
         <h3 data-lang="sns_bsky_title">Bluesky</h3>
         <p data-lang="sns_bsky_desc">Blueskyアカウント</p>
         <a href="https://bsky.app/profile/hamuzon-jp.f5.si" data-lang="link_view">見る</a>
       </div>
-
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="Twitter(X) icon" loading="lazy" decoding="async">
         <h3 data-lang="sns_x_title">Twitter (X)</h3>
         <p data-lang="sns_x_desc">@hamu_sata アカウント</p>
         <a href="https://x.com/hamu_sata" data-lang="link_view">見る</a>
       </div>
-
     </div>
   </section>
 
