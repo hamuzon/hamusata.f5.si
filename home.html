@@ -14,7 +14,6 @@
 
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#000000" />
-
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
@@ -79,15 +78,17 @@
   <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
 
   <header>
-    <a href="index.html" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
+    <a href="index.html" id="home" class="banner-link">
       <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
     </a>
 
     <button id="menu-toggle" aria-label="メニューを開く">
-      <span></span><span></span><span></span>
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
 
-    <nav id="mobile-menu" aria-label="Main navigation">
+    <nav id="mobile-menu">
       <ul>
         <li><a href="#home" data-lang="nav_home" class="nav-home">ホーム</a></li>
         <li><a href="#profile" data-lang="nav_profile">自己紹介</a></li>
@@ -123,70 +124,70 @@
     <section id="portfolio">
       <h2 data-lang="portfolio_title">ポートフォリオリンク集</h2>
       <div class="works">
+
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="HAMUSATA icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="HAMUSATA icon" loading="lazy">
           <h3 data-lang="w_main_title">HAMUSATA – ホームページ</h3>
           <p data-lang="w_main_desc">メインのポータルリンク。色々なものをまとめています。</p>
           <a href="https://home.hamusata.f5.si" data-lang="link_view">見る</a>
         </div>
 
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="GitHub Pages icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="GitHub Pages icon" loading="lazy">
           <h3 data-lang="w_github_pages_title">GitHub版 – ホームページ</h3>
           <p data-lang="w_github_pages_desc">GitHub Pages 版ホームページ。</p>
           <a href="https://hamuzon.github.io" data-lang="link_view">見る</a>
         </div>
 
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="hamuzon icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="hamuzon icon" loading="lazy">
           <h3 data-lang="w_hamuzon_title">hamuzon – ホームページ</h3>
-          <p data-lang="w_hamuzon_desc">hamuzon-jp.f5.si のホームページ・リンクポータル版 (fc2の一部コピーサイト)</p>
+          <p data-lang="w_hamuzon_desc">hamuzon-jp.f5.si のホームページ・リンクポータル版</p>
           <a href="https://hamuzon-jp.f5.si/" data-lang="link_view">見る</a>
         </div>
 
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="hamuzon FC2 icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="hamuzon FC2 icon" loading="lazy">
           <h3 data-lang="w_fc2_title">hamuzon (FC2)系 – ホームページ</h3>
           <p data-lang="w_fc2_desc">FC2版ホームページ。いろんなコードやコンテンツがあります。</p>
           <a href="https://hamuzon.web.fc2.com/" data-lang="link_view">見る</a>
         </div>
 
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="link-s icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="link-s icon" loading="lazy">
           <h3 data-lang="w_link_s_title">link-s.f5.si – ショートカットリンクサービス</h3>
           <p data-lang="w_link_s_desc">短縮URL・ショートカットリンクサービス。</p>
           <a href="https://link-s.f5.si" data-lang="link_view">見る</a>
         </div>
 
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="go.link-s icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="go.link-s icon" loading="lazy">
           <h3 data-lang="w_go_link_title">go.link-s.f5.si – カスタムパス対応版</h3>
           <p data-lang="w_go_link_desc">任意のパスで短縮リンクを作れるカスタムリンクサービス。</p>
           <a href="https://go.link-s.f5.si" data-lang="link_view">見る</a>
         </div>
 
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="pw.link-s icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="pw.link-s icon" loading="lazy">
           <h3 data-lang="w_pw_title">pw.link-s.f5.si – パスワード生成サービス</h3>
           <p data-lang="w_pw_desc">APIベースのパスワード生成サービス。ログ保存等は一切ありません。</p>
           <a href="https://pw.link-s.f5.si" data-lang="link_view">見る</a>
-          <p class="note" data-lang="pw_note">※リダイレクトがうまくできない場合はこちらを利用してください。</p>
-          <a href="https://password-create.link-s.f5.si/" data-lang="link_noapi">APIなし版</a>
         </div>
 
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="www.link-s icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="www.link-s icon" loading="lazy">
           <h3 data-lang="w_www_title">www.link-s.f5.si</h3>
-          <p data-lang="w_www_desc">リンクのメイン機能はショートカットリンクサービスのlink-s.f5.si 系列作品集一覧。</p>
+          <p data-lang="w_www_desc">link-s.f5.si 系列作品集一覧。</p>
           <a href="https://www.link-s.f5.si/" data-lang="link_view">見る</a>
         </div>
 
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="利用規約 icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="利用規約 icon" loading="lazy">
           <h3 data-lang="w_terms_title">利用規約・プライバシーポリシー</h3>
           <p data-lang="w_terms_desc">サイト利用規約とプライバシーポリシーの確認はこちら。</p>
           <a href="terms.html" data-lang="link_view">確認する</a>
         </div>
+
       </div>
     </section>
 
@@ -194,7 +195,7 @@
       <h2 data-lang="random_title">ランダム作品</h2>
       <div class="works">
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="ランダム作品 icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="ランダム作品 icon" loading="lazy">
           <h3 data-lang="random_card_title">ランダム作品</h3>
           <p data-lang="random_card_desc">作品をランダムに開くボタンです。</p>
           <a href="./random/" data-lang="link_open">開く</a>
@@ -206,9 +207,9 @@
       <h2 data-lang="status_title">サービス稼働状況 / Status Page</h2>
       <div class="works">
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="Status icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="Status icon" loading="lazy">
           <h3 data-lang="status_card_title">サービス稼働状況</h3>
-          <p data-lang="status_note">セキュリティ設定変更などにより、監視ツールがサイトにアクセスできず落ちた判定となる場合があります。実際の状態と異なる可能性がありますので、参考としてご確認ください。</p>
+          <p data-lang="status_note">各サービスが正常に動作しているか確認できます。</p>
           <a href="https://stats.uptimerobot.com/tT7bs2uEHa" data-lang="link_view">稼働状況を見る</a>
         </div>
       </div>
@@ -218,9 +219,9 @@
       <h2 data-lang="mutual_title">相互リンク / Mutual Links</h2>
       <div class="works">
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="Mutual Links icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="Mutual Links icon" loading="lazy">
           <h3 data-lang="mutual_card_title">相互リンクページ</h3>
-          <p data-lang="mutual_card_desc">こちらをクリックすると相互リンクページに移動します。</p>
+          <p data-lang="mutual_card_desc">相互リンク先の紹介ページです。</p>
           <a href="./links/" data-lang="link_open">開く</a>
         </div>
       </div>
@@ -229,40 +230,28 @@
     <section id="sns">
       <h2 data-lang="sns_title">SNSリンク</h2>
       <div class="works">
+
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="Scratch icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="Scratch icon" loading="lazy">
           <h3 data-lang="sns_scratch1_title">Scratch</h3>
           <p data-lang="sns_scratch1_desc">hamusataアカウント</p>
           <a href="https://scratch.mit.edu/users/hamusata/" data-lang="link_view">見る</a>
         </div>
 
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="Scratch icon" loading="lazy" decoding="async">
-          <h3 data-lang="sns_scratch2_title">Scratch</h3>
-          <p data-lang="sns_scratch2_desc">hamuzonアカウント</p>
-          <a href="https://scratch.mit.edu/users/hamuzon/" data-lang="link_view">見る</a>
-        </div>
-
-        <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="GitHub icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="GitHub icon" loading="lazy">
           <h3 data-lang="sns_github_title">GitHub</h3>
           <p data-lang="sns_github_desc">GitHubアカウント</p>
           <a href="https://github.com/hamuzon" data-lang="link_view">見る</a>
         </div>
 
         <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="Bluesky icon" loading="lazy" decoding="async">
-          <h3 data-lang="sns_bsky_title">Bluesky</h3>
-          <p data-lang="sns_bsky_desc">Blueskyアカウント</p>
-          <a href="https://bsky.app/profile/hamuzon-jp.f5.si" data-lang="link_view">見る</a>
-        </div>
-
-        <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="Twitter(X) icon" loading="lazy" decoding="async">
+          <img src="https://hamusata.f5.si/icon.webp" alt="Twitter(X) icon" loading="lazy">
           <h3 data-lang="sns_x_title">Twitter (X)</h3>
           <p data-lang="sns_x_desc">@hamu_sata アカウント</p>
           <a href="https://x.com/hamu_sata" data-lang="link_view">見る</a>
         </div>
+
       </div>
     </section>
   </main>
