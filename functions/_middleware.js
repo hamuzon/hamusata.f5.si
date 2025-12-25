@@ -14,11 +14,13 @@ export async function onRequest(context) {
 
 
   // --- 除外ファイル ---
+  // 画像・アイコン・アセット類はリダイレクトさせず、あれば200、なければ404を返す
   const EXCLUDED_EXTENSIONS = [
-    '.webp', '.png', '.ico', '.svg', '.jpg', '.jpeg', '.gif',
+    '.webp', '.png', '.ico', '.svg', '.jpg', '.jpeg', '.gif', '.avif',
     '.mp4', '.webm', '.ogg', '.mov', '.avi', '.mkv', '.flv',
-    '.mp3', '.wav', '.aac', '.ogg',
+    '.mp3', '.wav', '.aac',
     '.woff', '.woff2', '.ttf', '.eot',
+    '.css', '.js', '.json',
     '.zip', '.rar', '.7z', '.tar', '.gz'
   ];
 
