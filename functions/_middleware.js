@@ -36,7 +36,7 @@ export async function onRequest(context) {
 
   const ua = request.headers.get("user-agent") || "";
 
-  // --- BOT除外判定 (Botはリダイレクトさせない) ---
+  // --- BOT除外判定 ---
   const isBot = /bot|googlebot|bingbot|yandex|baidu|duckduckbot|slurp|ia_archiver/i.test(ua);
   if (isBot) {
     return context.next();
@@ -54,7 +54,6 @@ export async function onRequest(context) {
   // ===== モバイル端末 / Mobile =====
   if (isMobile && !hasM) {
     url.hostname = `www.m.${pureBase}`;
-    // リダイレクトを実行
     return Response.redirect(url.toString(), 302);
   }
 
@@ -62,7 +61,6 @@ export async function onRequest(context) {
   // ===== PC端末 / PC =====
   if (!isMobile && hasM) {
     url.hostname = `www.${pureBase}`;
-    // リダイレクトを実行
     return Response.redirect(url.toString(), 302);
   }
 
