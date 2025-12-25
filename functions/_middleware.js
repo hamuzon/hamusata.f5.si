@@ -8,7 +8,9 @@ export async function onRequest(context) {
 
 
   // --- favicon.ico ---
-  if (pathname === "/favicon.ico") return context.next();
+  if (pathname === "/favicon.ico") {
+    return context.next();
+  }
 
 
   // --- 除外ファイル ---
