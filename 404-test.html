@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404 Not Found / ページが見つかりません</title>
+  <title>404 Not Found / ページが見見つかりません</title>
 
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="icon" href="icon.webp" type="image/webp">
+  <link rel="icon" href="https://hamusata.f5.si/favicon.ico" sizes="any">
   <link rel="icon" href="https://hamusata.f5.si/icon.svg" type="image/svg+xml">
-  <link rel="icon" href="https://hamusata.f5.si/icon.webp" type="image/webp">
+  <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
 
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
@@ -36,10 +35,10 @@
 
     body.light {
       background:
-        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175,109,255,0.85), transparent 68%),
-        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,100,180,0.75), transparent 68%),
-        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,235,170,0.98), transparent 68%),
-        radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120,190,255,0.3), transparent 68%),
+        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175, 109, 255, 0.85), transparent 68%),
+        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255, 100, 180, 0.75), transparent 68%),
+        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255, 235, 170, 0.98), transparent 68%),
+        radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120, 190, 255, 0.3), transparent 68%),
         linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
       color: #000;
     }
@@ -47,10 +46,10 @@
     body.dark {
       background-color: #0a0a0a;
       background-image:
-        radial-gradient(ellipse at 20% 30%, rgba(56,189,248,0.4) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 70%, rgba(139,92,246,0.3) 0%, transparent 70%),
-        radial-gradient(ellipse at 60% 20%, rgba(236,72,153,0.25) 0%, transparent 50%),
-        radial-gradient(ellipse at 40% 80%, rgba(34,197,94,0.2) 0%, transparent 65%);
+        radial-gradient(ellipse at 20% 30%, rgba(56, 189, 248, 0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 70%, rgba(139, 92, 246, 0.3) 0%, transparent 70%),
+        radial-gradient(ellipse at 60% 20%, rgba(236, 72, 153, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 40% 80%, rgba(34, 197, 94, 0.2) 0%, transparent 65%);
       color: #fff;
     }
 
@@ -79,7 +78,7 @@
       text-decoration: none;
       color: #fff;
       background-color: #00bcd4;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
       margin-bottom: 3rem;
       transition: all 0.3s;
     }
@@ -117,8 +116,8 @@
       padding: 0.5rem 1rem;
       font-size: 0.95rem;
       border-radius: 14px;
-      border: 1px solid rgba(0,0,0,0.2);
-      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(16px);
       cursor: pointer;
       z-index: 1001;
@@ -127,13 +126,13 @@
 
     #lang-switch:hover {
       transform: scale(1.05);
-      background: rgba(0,188,212,0.18);
+      background: rgba(0, 188, 212, 0.18);
     }
 
     body.dark #lang-switch {
-      background: rgba(0,0,0,0.35);
+      background: rgba(0, 0, 0, 0.35);
       color: #fff;
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     @media (max-width:600px) {
@@ -147,7 +146,6 @@
     }
   </style>
 </head>
-
 <body class="light">
 
   <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
@@ -161,8 +159,13 @@
   <a class="back" href="/" id="back-btn">トップページへ戻る</a>
 
   <footer>
-    <span>&copy; <span id="year"></span> <a href="/" id="footer-link">＠hamusata</a></span>
-    <span>- <span id="footer-reserved">All rights reserved</span></span>
+    <span>
+      &copy; <span id="year"></span> 
+      <a href="/" id="footer-link">＠hamusata</a>
+    </span>
+    <span>
+      - <span id="footer-reserved">All rights reserved</span>
+    </span>
   </footer>
 
   <script>
@@ -174,10 +177,10 @@
     const urlParams = new URLSearchParams(window.location.search);
     const themeParam = urlParams.get('theme');
 
-    if(themeParam==='dark'||themeParam==='light'){
+    if (themeParam === 'dark' || themeParam === 'light') {
       document.body.className = themeParam;
     } else {
-      function applyTheme(){
+      function applyTheme() {
         document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
       applyTheme();
@@ -186,22 +189,22 @@
 
     const langData = {
       "ja": {
-        "page_title":"404 ページが見つかりません",
-        "page_desc":"ページが存在しません",
-        "subtext":"申し訳ありません",
-        "back":"トップページへ戻る",
-        "footer_reserved":"All rights reserved"
+        "page_title": "404 ページが見つかりません",
+        "page_desc": "ページが存在しません",
+        "subtext": "申し訳ありません",
+        "back": "トップページへ戻る",
+        "footer_reserved": "All rights reserved"
       },
       "en": {
-        "page_title":"404 Not Found",
-        "page_desc":"Page Could Not Be Found",
-        "subtext":"Sorry, Not Found",
-        "back":"Back to Top",
-        "footer_reserved":"All rights reserved"
+        "page_title": "404 Not Found",
+        "page_desc": "Page Could Not Be Found",
+        "subtext": "Sorry, Not Found",
+        "back": "Back to Top",
+        "footer_reserved": "All rights reserved"
       }
     };
 
-    function loadLang(lang){
+    function loadLang(lang) {
       const t = langData[lang] || langData["ja"];
       document.getElementById("page-title").textContent = t.page_title;
       document.getElementById("page-desc").textContent = t.page_desc;
@@ -209,28 +212,28 @@
       document.getElementById("back-btn").textContent = t.back;
       document.getElementById("footer-reserved").textContent = t.footer_reserved;
       document.documentElement.lang = lang;
-      document.getElementById("lang-switch").textContent = lang==="ja"?"🌐 English":"🌐 日本語";
+      document.getElementById("lang-switch").textContent = lang === "ja" ? "🌐 English" : "🌐 日本語";
       localStorage.setItem("lang", lang);
 
       const currentParams = window.location.search;
-      if(!currentParams) return;
+      if (!currentParams) return;
 
-      document.querySelectorAll('a[href]').forEach(link=>{
+      document.querySelectorAll('a[href]').forEach(link => {
         const url = new URL(link.href, window.location.origin);
-        if(url.origin !== window.location.origin) return;
-        if(url.search) return;
+        if (url.origin !== window.location.origin) return;
+        if (url.search) return;
         url.search = currentParams;
         link.href = url.pathname + url.search + url.hash;
       });
     }
 
-    function initLang(){
+    function initLang() {
       const saved = localStorage.getItem("lang");
       const browser = navigator.language.startsWith("en") ? "en" : "ja";
       loadLang(saved || browser);
 
-      document.getElementById("lang-switch").addEventListener("click", ()=>{
-        const next = (localStorage.getItem("lang")==="ja") ? "en" : "ja";
+      document.getElementById("lang-switch").addEventListener("click", () => {
+        const next = (localStorage.getItem("lang") === "ja") ? "en" : "ja";
         loadLang(next);
       });
     }
