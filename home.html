@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title data-lang="title">HAMUSATA – ホームページ</title>
 
-  <link rel="icon" href="https://hamusata.f5.si/favicon.ico" type="image/x-icon" />
-  <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png" sizes="32x32" />
-  <link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp" sizes="32x32" />
-  <link rel="icon" type="image/svg+xml" href="https://hamusata.f5.si/icon.svg" />
-  <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png" />
+  <link rel="shortcut icon" href="https://hamusata.f5.si/favicon.ico">
+  <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png" sizes="48x48">
+  <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png" sizes="192x192">
+  <link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="https://hamusata.f5.si/icon.svg">
+  <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png" sizes="180x180">
 
-  <link rel="manifest" href="/manifest.json" />
-  <meta name="theme-color" content="#000000" />
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#000000">
 
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/mobile-menu.css" />
+  <link rel="stylesheet" href="https://hamusata.f5.si/css/style.css">
+  <link rel="stylesheet" href="https://hamusata.f5.si/css/mobile-menu.css">
 
   <script>
     const themeCSS = [
@@ -29,19 +33,24 @@
       "css/light-hc.css",
       "css/light-mc.css"
     ];
-    themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
+    themeCSS.forEach(href => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      document.head.appendChild(link);
+    });
   </script>
 
-  <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
-  <meta property="og:title" content="HAMUSATA – ホームページ" />
-  <meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://hamusata.f5.si" />
-  <meta property="og:image" content="https://hamusata.f5.si/icon_500_500.webp" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="HAMUSATA – ホームページ" />
-  <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
-  <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp" />
+  <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
+  <meta property="og:title" content="HAMUSATA – ホームページ">
+  <meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hamusata.f5.si">
+  <meta property="og:image" content="https://hamusata.f5.si/icon_500_500.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HAMUSATA – ホームページ">
+  <meta name="twitter:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
+  <meta name="twitter:image" content="https://hamusata.f5.si/icon_500_500.webp">
 
   <style>
     #lang-switch {
@@ -58,7 +67,7 @@
       z-index: 1001;
       transition: all 0.18s ease;
       box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-      line-height:1;
+      line-height: 1;
     }
     body.dark #lang-switch {
       background: rgba(0,0,0,0.35);
@@ -66,7 +75,10 @@
       border: 1px solid rgba(255,255,255,0.12);
       box-shadow: 0 4px 12px rgba(255,255,255,0.06);
     }
-    #lang-switch:hover { transform: scale(1.05); background: rgba(0,188,212,0.18); }
+    #lang-switch:hover {
+      transform: scale(1.05);
+      background: rgba(0,188,212,0.18);
+    }
   </style>
 </head>
 
@@ -95,8 +107,7 @@
         <li><a href="terms.html" data-lang="nav_terms">利用規約・プライバシーポリシー</a></li>
         <li>
           <a href="https://github.com/hamuzon/hamusata.f5.si" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:6px;">
-            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-                 alt="GitHub" style="width:20px; height:20px; background-color:#222; border-radius:50%; padding:2px;">
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width:20px; height:20px; background-color:#222; border-radius:50%; padding:2px;">
             <span data-lang="nav_github">site-Code-GitHub</span>
           </a>
         </li>
@@ -119,7 +130,6 @@
   <section id="portfolio">
     <h2 data-lang="portfolio_title">ポートフォリオリンク集</h2>
     <div class="works">
-
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="HAMUSATA icon" loading="lazy" decoding="async">
         <h3 data-lang="w_main_title">HAMUSATA – ホームページ</h3>
@@ -184,7 +194,6 @@
         <p data-lang="w_terms_desc">サイト利用規約とプライバシーポリシーの確認はこちら。</p>
         <a href="terms.html" data-lang="link_view">確認する</a>
       </div>
-
     </div>
   </section>
 
@@ -206,7 +215,7 @@
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="Status icon" loading="lazy" decoding="async">
         <h3 data-lang="status_card_title">サービス稼働状況</h3>
-        <p data-lang="status_note">セキュリティ設定変更などにより、監視ツールがサイトにアクセスできず落ちた判定となる場合があります。実際の状態と異なる可能性がありますので、参考としてご確認ください。</p>
+        <p data-lang="status_note">セキュリティ設定変更などにより、監視ツールがサイトにアクセスできず落ちた判定となる場合があります。</p>
         <a href="https://stats.uptimerobot.com/tT7bs2uEHa" data-lang="link_view">稼働状況を見る</a>
       </div>
     </div>
@@ -227,7 +236,6 @@
   <section id="sns">
     <h2 data-lang="sns_title">SNSリンク</h2>
     <div class="works">
-
       <div class="work-card">
         <img src="https://hamusata.f5.si/icon.webp" alt="Scratch icon" loading="lazy" decoding="async">
         <h3 data-lang="sns_scratch1_title">Scratch</h3>
@@ -262,7 +270,6 @@
         <p data-lang="sns_x_desc">@hamu_sata アカウント</p>
         <a href="https://x.com/hamu_sata" data-lang="link_view">見る</a>
       </div>
-
     </div>
   </section>
 
