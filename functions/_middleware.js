@@ -24,6 +24,11 @@ export async function onRequest(context) {
   ];
 
   if (EXCLUDED_EXTENSIONS.some(ext => pathname.endsWith(ext))) {
+    // モバイル用ドメインで画像が呼ばれた場合、メインから取得して表示
+    if (hostname.startsWith("www.m.")) {
+      url.hostname = hostname.replace("www.m.", "www.");
+      return fetch(new Request(url.toString(), request));
+    }
     return context.next();
   }
 
