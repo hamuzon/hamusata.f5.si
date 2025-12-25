@@ -35,7 +35,7 @@ export async function onRequest(context) {
 
 
   const ua = request.headers.get("user-agent") || "";
-  
+
   // --- BOT除外判定 ---
   const isBot = /bot|googlebot|bingbot|yandex|baidu|duckduckbot|slurp|ia_archiver/i.test(ua);
   if (isBot) {
@@ -43,7 +43,8 @@ export async function onRequest(context) {
   }
 
 
-  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
+  // モバイル判定
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
 
   const baseWithoutWWW = hostname.replace(/^www\./, "");
   const hasM = baseWithoutWWW.startsWith("m.");
@@ -53,14 +54,24 @@ export async function onRequest(context) {
   // ===== モバイル端末 / Mobile =====
   if (isMobile && !hasM) {
     url.hostname = `www.m.${pureBase}`;
-    return fetch(new Request(url.toString(), request));
+    const newRequest = new Request(url.toString(), {
+      method: request.method,
+      headers: request.headers,
+      redirect: "follow"
+    });
+    return fetch(newRequest);
   }
 
 
   // ===== PC端末 / PC =====
   if (!isMobile && hasM) {
     url.hostname = `www.${pureBase}`;
-    return fetch(new Request(url.toString(), request));
+    const newRequest = new Request(url.toString(), {
+      method: request.method,
+      headers: request.headers,
+      redirect: "follow"
+    });
+    return fetch(newRequest);
   }
 
 
