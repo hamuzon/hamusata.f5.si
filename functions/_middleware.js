@@ -54,24 +54,14 @@ export async function onRequest(context) {
   // ===== モバイル端末 / Mobile =====
   if (isMobile && !hasM) {
     url.hostname = `www.m.${pureBase}`;
-    const newRequest = new Request(url.toString(), {
-      method: request.method,
-      headers: request.headers,
-      redirect: "follow"
-    });
-    return fetch(newRequest);
+    return fetch(new Request(url.toString(), request));
   }
 
 
   // ===== PC端末 / PC =====
   if (!isMobile && hasM) {
     url.hostname = `www.${pureBase}`;
-    const newRequest = new Request(url.toString(), {
-      method: request.method,
-      headers: request.headers,
-      redirect: "follow"
-    });
-    return fetch(newRequest);
+    return fetch(new Request(url.toString(), request));
   }
 
 
