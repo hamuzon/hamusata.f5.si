@@ -54,14 +54,14 @@ export async function onRequest(context) {
   // ===== モバイル端末 / Mobile =====
   if (isMobile && !hasM) {
     url.hostname = `www.m.${pureBase}`;
-    return fetch(new Request(url.toString(), request));
+    return Response.redirect(url.toString(), 302);
   }
 
 
   // ===== PC端末 / PC =====
   if (!isMobile && hasM) {
     url.hostname = `www.${pureBase}`;
-    return fetch(new Request(url.toString(), request));
+    return Response.redirect(url.toString(), 302);
   }
 
 
