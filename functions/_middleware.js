@@ -1,10 +1,19 @@
 // functions/_middleware.js
 
 export async function onRequest(context) {
+  // 機能操作: true 、false 
+  const ENABLED = true;
+
   const { request } = context;
   const url = new URL(request.url);
   const hostname = url.hostname.toLowerCase();
   const pathname = url.pathname.toLowerCase();
+
+
+  // --- スイッチ判定 ---
+  if (!ENABLED) {
+    return context.next();
+  }
 
 
   // --- favicon.ico ---
