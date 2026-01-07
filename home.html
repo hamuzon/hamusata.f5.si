@@ -161,15 +161,15 @@
     .works {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 50px;
+      gap: 60px;
     }
 
     .work-card {
       background: var(--glass);
       backdrop-filter: blur(30px);
       -webkit-backdrop-filter: blur(30px);
-      padding: 70px 40px;
-      border-radius: 60px;
+      padding: 80px 45px;
+      border-radius: 65px;
       border: 1px solid var(--border);
       transition: 0.8s cubic-bezier(0.1, 1, 0.2, 1);
       display: flex;
@@ -180,16 +180,16 @@
     }
 
     .work-card:hover {
-      transform: translateY(-20px) scale(1.03);
+      transform: translateY(-25px) scale(1.02);
       background: #fff;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.07);
+      box-shadow: 0 50px 100px rgba(0,0,0,0.06);
     }
 
-    .work-card img { width: 72px; height: 72px; border-radius: 20px; margin-bottom: 40px; }
+    .work-card img { width: 80px; height: 80px; border-radius: 22px; margin-bottom: 45px; }
 
-    .work-card h3 { font-size: 1.2rem; margin-bottom: 24px; font-weight: 500; }
+    .work-card h3 { font-size: 1.25rem; margin-bottom: 25px; font-weight: 500; }
 
-    .work-card p { font-size: 0.95rem; opacity: 0.7; margin-bottom: 40px; flex-grow: 1; line-height: 2; }
+    .work-card p { font-size: 0.95rem; opacity: 0.7; margin-bottom: 45px; flex-grow: 1; line-height: 2.2; }
 
     .work-card a {
       margin-top: auto;
@@ -199,18 +199,18 @@
       text-decoration: none;
       color: var(--text);
       border: 1px solid var(--text);
-      padding: 12px 30px;
-      border-radius: 50px;
+      padding: 14px 35px;
+      border-radius: 60px;
       letter-spacing: 0.2em;
       transition: 0.3s;
     }
 
     .work-card a:hover { background: var(--text); color: var(--bg); }
 
-    .note { font-size: 0.75rem; opacity: 0.5; margin-top: 15px; }
+    .note { font-size: 0.75rem; opacity: 0.5; margin-top: 18px; }
 
     footer {
-      padding: 200px 0 80px;
+      padding: 220px 0 100px;
       text-align: center;
       font-family: var(--font-en);
       font-size: 0.85rem;
@@ -218,11 +218,13 @@
       letter-spacing: 0.4em;
     }
 
-    footer a { color: inherit; text-decoration: none; }
+    footer a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
+    footer a:hover { border-bottom: 1px solid var(--text); }
 
     @media (max-width: 768px) {
-      section { padding: 140px 0; }
+      section { padding: 150px 0; }
       .works { grid-template-columns: 1fr; }
+      .container { padding: 0 25px; }
     }
   </style>
 </head>
@@ -245,6 +247,12 @@
       <li><a href="#mutual-links" data-lang="nav_links">相互リンク</a></li>
       <li><a href="#sns" data-lang="nav_sns">SNSリンク</a></li>
       <li><a href="terms.html" data-lang="nav_terms">利用規約</a></li>
+      <li>
+        <a href="https://github.com/hamuzon/hamusata.f5.si" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:8px; justify-content:center;">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width:18px; height:18px; filter: invert(0.3);">
+          <span data-lang="nav_github">site-Code-GitHub</span>
+        </a>
+      </li>
     </ul>
   </nav>
 
@@ -259,7 +267,7 @@
 
     <section id="profile">
       <h2 data-lang="profile_title">自己紹介</h2>
-      <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+      <div style="text-align: center; max-width: 750px; margin: 0 auto;">
         <p data-lang="profile_p1">こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。</p>
         <p data-lang="profile_p2">ハムスターを飼っています。</p>
         <p data-lang="profile_p3">ネットの海でプログラミングしたりネットしたりして過ごしてます。</p>
@@ -315,9 +323,9 @@
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
           <h3 data-lang="w_pw_title">pw.link-s.f5.si</h3>
-          <p data-lang="w_pw_desc">APIベースのパスワード生成サービス。</p>
+          <p data-lang="w_pw_desc">APIベースのパスワード生成サービス。ログ保存等は一切ありません。</p>
           <a href="https://pw.link-s.f5.si" data-lang="link_view">見る</a>
-          <p class="note" data-lang="pw_note">※エラー時は<a href="https://password-create.link-s.f5.si/">APIなし版</a>へ</p>
+          <p class="note" data-lang="pw_note">※エラー時は<a href="https://password-create.link-s.f5.si/">こちら</a></p>
         </div>
 
         <div class="work-card">
@@ -330,8 +338,8 @@
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
           <h3 data-lang="w_terms_title">利用規約</h3>
-          <p data-lang="w_terms_desc">サイト利用規約とプライバシーポリシーはこちら。</p>
-          <a href="terms.html" data-lang="link_view">見る</a>
+          <p data-lang="w_terms_desc">サイト利用規約とプライバシーポリシーの確認はこちら。</p>
+          <a href="terms.html" data-lang="link_view">確認する</a>
         </div>
 
       </div>
@@ -354,7 +362,7 @@
       <div class="works">
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
-          <h3 data-lang="status_card_title">Status Page</h3>
+          <h3 data-lang="status_card_title">Service Status</h3>
           <p data-lang="status_note">各サービスのリアルタイムな稼働状況を確認できます。</p>
           <a href="https://stats.uptimerobot.com/tT7bs2uEHa" data-lang="link_view">見る</a>
         </div>
@@ -399,7 +407,7 @@
         if (entry.isIntersecting) entry.target.classList.add('active');
         else entry.target.classList.remove('active');
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05 });
 
     document.querySelectorAll('section').forEach(s => observer.observe(s));
     document.getElementById('year').textContent = new Date().getFullYear();
