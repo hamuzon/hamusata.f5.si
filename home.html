@@ -15,18 +15,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;500&family=Plus+Jakarta+Sans:wght@200;700&display=swap" rel="stylesheet" />
 
-  <script>
-    const themeCSS = [
-      "css/dark.css", "css/dark-hc.css", "css/dark-mc.css",
-      "css/light.css", "css/light-hc.css", "css/light-mc.css"
-    ];
-    themeCSS.forEach(href => {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = href;
-      document.head.appendChild(link);
-    });
-  </script>
+  <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
+  <meta property="og:title" content="HAMUSATA – ホームページ" />
+  <meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hamusata.f5.si" />
+  <meta property="og:image" content="https://hamusata.f5.si/icon_500_500.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <style>
     :root {
@@ -81,6 +76,7 @@
       transition: 0.4s cubic-bezier(0.2, 1, 0.2, 1);
       box-shadow: 0 8px 20px rgba(0,0,0,0.04);
     }
+
     #lang-switch:hover { transform: scale(1.08) translateY(-2px); background: #fff; }
 
     #menu-toggle {
@@ -101,6 +97,7 @@
       gap: 6px;
       backdrop-filter: blur(20px);
     }
+
     #menu-toggle span { width: 24px; height: 1.5px; background: var(--text); transition: 0.3s; }
 
     .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
@@ -120,6 +117,7 @@
       margin-bottom: 60px;
       animation: heroFloat 10s infinite ease-in-out;
     }
+
     @keyframes heroFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
 
     h1.main-title {
@@ -136,6 +134,7 @@
       transform: translateY(100px);
       transition: 1.8s cubic-bezier(0.1, 1, 0.2, 1);
     }
+
     section.active { opacity: 1; transform: translateY(0); }
 
     h2 {
@@ -146,6 +145,7 @@
       font-size: 1.8rem;
       position: relative;
     }
+
     h2::after {
       content: '';
       position: absolute;
@@ -178,14 +178,19 @@
       text-align: center;
       height: 100%;
     }
+
     .work-card:hover {
       transform: translateY(-20px) scale(1.03);
       background: #fff;
       box-shadow: 0 40px 80px rgba(0,0,0,0.07);
     }
+
     .work-card img { width: 72px; height: 72px; border-radius: 20px; margin-bottom: 40px; }
+
     .work-card h3 { font-size: 1.2rem; margin-bottom: 24px; font-weight: 500; }
-    .work-card p { font-size: 0.95rem; opacity: 0.7; margin-bottom: 40px; flex-grow: 1; }
+
+    .work-card p { font-size: 0.95rem; opacity: 0.7; margin-bottom: 40px; flex-grow: 1; line-height: 2; }
+
     .work-card a {
       margin-top: auto;
       font-family: var(--font-en);
@@ -199,7 +204,9 @@
       letter-spacing: 0.2em;
       transition: 0.3s;
     }
+
     .work-card a:hover { background: var(--text); color: var(--bg); }
+
     .note { font-size: 0.75rem; opacity: 0.5; margin-top: 15px; }
 
     footer {
@@ -210,6 +217,7 @@
       opacity: 0.4;
       letter-spacing: 0.4em;
     }
+
     footer a { color: inherit; text-decoration: none; }
 
     @media (max-width: 768px) {
@@ -264,29 +272,29 @@
 
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
-          <h3 data-lang="w_main_title">HAMUSATA Portal</h3>
+          <h3 data-lang="w_main_title">HAMUSATA – ホームページ</h3>
           <p data-lang="w_main_desc">メインのポータルリンク。色々なものをまとめています。</p>
           <a href="https://home.hamusata.f5.si" data-lang="link_view">見る</a>
         </div>
 
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
-          <h3 data-lang="w_github_pages_title">GitHub版</h3>
+          <h3 data-lang="w_github_pages_title">GitHub版 – ホームページ</h3>
           <p data-lang="w_github_pages_desc">GitHub Pages 版ホームページ。</p>
           <a href="https://hamuzon.github.io" data-lang="link_view">見る</a>
         </div>
 
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
-          <h3 data-lang="w_hamuzon_title">hamuzon-jp</h3>
-          <p data-lang="w_hamuzon_desc">hamuzon-jp.f5.si のポータル版サイト。</p>
+          <h3 data-lang="w_hamuzon_title">hamuzon – ホームページ</h3>
+          <p data-lang="w_hamuzon_desc">hamuzon-jp.f5.si のホームページ・リンクポータル版</p>
           <a href="https://hamuzon-jp.f5.si/" data-lang="link_view">見る</a>
         </div>
 
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
-          <h3 data-lang="w_fc2_title">hamuzon (FC2)</h3>
-          <p data-lang="w_fc2_desc">FC2版ホームページ。いろんなコンテンツがあります。</p>
+          <h3 data-lang="w_fc2_title">hamuzon (FC2)系</h3>
+          <p data-lang="w_fc2_desc">FC2版ホームページ。いろんなコードやコンテンツがあります。</p>
           <a href="https://hamuzon.web.fc2.com/" data-lang="link_view">見る</a>
         </div>
 
@@ -299,10 +307,31 @@
 
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
+          <h3 data-lang="w_go_link_title">go.link-s.f5.si</h3>
+          <p data-lang="w_go_link_desc">任意のパスで短縮リンクを作れるカスタムリンクサービス。</p>
+          <a href="https://go.link-s.f5.si" data-lang="link_view">見る</a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
           <h3 data-lang="w_pw_title">pw.link-s.f5.si</h3>
           <p data-lang="w_pw_desc">APIベースのパスワード生成サービス。</p>
           <a href="https://pw.link-s.f5.si" data-lang="link_view">見る</a>
-          <p class="note" data-lang="pw_note">※エラー時は<a href="https://password-create.link-s.f5.si/">こちら</a></p>
+          <p class="note" data-lang="pw_note">※エラー時は<a href="https://password-create.link-s.f5.si/">APIなし版</a>へ</p>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
+          <h3 data-lang="w_www_title">www.link-s.f5.si</h3>
+          <p data-lang="w_www_desc">link-s.f5.si 系列作品集一覧ポータル。</p>
+          <a href="https://www.link-s.f5.si/" data-lang="link_view">見る</a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
+          <h3 data-lang="w_terms_title">利用規約</h3>
+          <p data-lang="w_terms_desc">サイト利用規約とプライバシーポリシーはこちら。</p>
+          <a href="terms.html" data-lang="link_view">見る</a>
         </div>
 
       </div>
@@ -313,7 +342,7 @@
       <div class="works">
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
-          <h3 data-lang="random_card_title">Random Box</h3>
+          <h3 data-lang="random_card_title">ランダム作品</h3>
           <p data-lang="random_card_desc">作品をランダムに開くボタンです。</p>
           <a href="./random/" data-lang="link_open">開く</a>
         </div>
@@ -325,7 +354,7 @@
       <div class="works">
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
-          <h3 data-lang="status_card_title">System Status</h3>
+          <h3 data-lang="status_card_title">Status Page</h3>
           <p data-lang="status_note">各サービスのリアルタイムな稼働状況を確認できます。</p>
           <a href="https://stats.uptimerobot.com/tT7bs2uEHa" data-lang="link_view">見る</a>
         </div>
@@ -347,22 +376,23 @@
     <section id="sns">
       <h2 data-lang="sns_title">SNSリンク</h2>
       <div class="works">
+        <div class="work-card"><h3>Scratch (hamusata)</h3><p>hamusataアカウント</p><a href="https://scratch.mit.edu/users/hamusata/">見る</a></div>
+        <div class="work-card"><h3>Scratch (hamuzon)</h3><p>hamuzonアカウント</p><a href="https://scratch.mit.edu/users/hamuzon/">見る</a></div>
         <div class="work-card"><h3>GitHub</h3><p>@hamuzon</p><a href="https://github.com/hamuzon">見る</a></div>
         <div class="work-card"><h3>Bluesky</h3><p>@hamuzon-jp.f5.si</p><a href="https://bsky.app/profile/hamuzon-jp.f5.si">見る</a></div>
         <div class="work-card"><h3>Twitter (X)</h3><p>@hamu_sata</p><a href="https://x.com/hamu_sata">見る</a></div>
-        <div class="work-card"><h3>Scratch</h3><p>hamusata アカウント</p><a href="https://scratch.mit.edu/users/hamusata/">見る</a></div>
       </div>
     </section>
 
     <footer>
-      &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a>
+      &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – <span data-lang="footer_reserved">All rights reserved.</span>
     </footer>
 
   </div>
 
   <script src="js/script.js"></script>
   <script src="js/lang-switch.js"></script>
-
+  
   <script>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
