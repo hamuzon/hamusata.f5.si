@@ -15,6 +15,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;500&family=Plus+Jakarta+Sans:wght@200;700&display=swap" rel="stylesheet" />
 
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style-home.css" />
+  <link rel="stylesheet" href="css/mobile-menu.css" />
+  
+  <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
+  <meta property="og:title" content="HAMUSATA – ホームページ" />
+  <meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hamusata.f5.si" />
+  <meta property="og:image" content="https://hamusata.f5.si/icon_500_500.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <style>
     :root {
       --bg: #fffbf8;
@@ -118,6 +130,7 @@
       font-weight: 200;
       letter-spacing: -0.02em;
       margin-bottom: 40px;
+      text-align: center;
     }
 
     section {
@@ -153,15 +166,15 @@
     .works {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 50px;
+      gap: 60px;
     }
 
     .work-card {
       background: var(--glass);
       backdrop-filter: blur(30px);
       -webkit-backdrop-filter: blur(30px);
-      padding: 70px 40px;
-      border-radius: 60px;
+      padding: 80px 45px;
+      border-radius: 65px;
       border: 1px solid var(--border);
       transition: 0.8s cubic-bezier(0.1, 1, 0.2, 1);
       display: flex;
@@ -172,16 +185,16 @@
     }
 
     .work-card:hover {
-      transform: translateY(-20px) scale(1.03);
+      transform: translateY(-25px) scale(1.02);
       background: #fff;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.07);
+      box-shadow: 0 50px 100px rgba(0,0,0,0.06);
     }
 
-    .work-card img { width: 72px; height: 72px; border-radius: 20px; margin-bottom: 40px; }
+    .work-card img { width: 80px; height: 80px; border-radius: 22px; margin-bottom: 45px; }
 
-    .work-card h3 { font-size: 1.2rem; margin-bottom: 24px; font-weight: 500; }
+    .work-card h3 { font-size: 1.25rem; margin-bottom: 25px; font-weight: 500; }
 
-    .work-card p { font-size: 0.95rem; opacity: 0.7; margin-bottom: 40px; flex-grow: 1; }
+    .work-card p { font-size: 0.95rem; opacity: 0.7; margin-bottom: 45px; flex-grow: 1; line-height: 2.2; }
 
     .work-card a {
       margin-top: auto;
@@ -191,18 +204,16 @@
       text-decoration: none;
       color: var(--text);
       border: 1px solid var(--text);
-      padding: 12px 30px;
-      border-radius: 50px;
+      padding: 14px 35px;
+      border-radius: 60px;
       letter-spacing: 0.2em;
       transition: 0.3s;
     }
 
     .work-card a:hover { background: var(--text); color: var(--bg); }
 
-    .note { font-size: 0.75rem; opacity: 0.5; margin-top: 15px; }
-
     footer {
-      padding: 200px 0 80px;
+      padding: 220px 0 100px;
       text-align: center;
       font-family: var(--font-en);
       font-size: 0.85rem;
@@ -213,8 +224,9 @@
     footer a { color: inherit; text-decoration: none; }
 
     @media (max-width: 768px) {
-      section { padding: 140px 0; }
+      section { padding: 150px 0; }
       .works { grid-template-columns: 1fr; }
+      .container { padding: 0 25px; }
     }
   </style>
 </head>
@@ -227,7 +239,7 @@
     <span></span><span></span><span></span>
   </button>
 
-  <nav id="mobile-menu" aria-label="Main navigation">
+  <nav id="mobile-menu">
     <ul>
       <li><a href="#home" data-lang="nav_home">ホーム</a></li>
       <li><a href="#profile" data-lang="nav_profile">自己紹介</a></li>
@@ -251,7 +263,7 @@
 
     <section id="profile">
       <h2 data-lang="profile_title">自己紹介</h2>
-      <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+      <div style="text-align: center; max-width: 750px; margin: 0 auto;">
         <p data-lang="profile_p1">こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。</p>
         <p data-lang="profile_p2">ハムスターを飼っています。</p>
         <p data-lang="profile_p3">ネットの海でプログラミングしたりネットしたりして過ごしてます。</p>
@@ -261,71 +273,48 @@
     <section id="portfolio">
       <h2 data-lang="portfolio_title">ポートフォリオリンク集</h2>
       <div class="works">
-
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
           <h3 data-lang="w_main_title">HAMUSATA – ホームページ</h3>
           <p data-lang="w_main_desc">メインのポータルリンク。色々なものをまとめています。</p>
           <a href="https://home.hamusata.f5.si" data-lang="link_view">見る</a>
         </div>
-
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
           <h3 data-lang="w_github_pages_title">GitHub版 – ホームページ</h3>
           <p data-lang="w_github_pages_desc">GitHub Pages 版ホームページ。</p>
           <a href="https://hamuzon.github.io" data-lang="link_view">見る</a>
         </div>
-
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
           <h3 data-lang="w_hamuzon_title">hamuzon – ホームページ</h3>
-          <p data-lang="w_hamuzon_desc">hamuzon-jp.f5.si のホームページ・リンクポータル版</p>
+          <p data-lang="w_hamuzon_desc">hamuzon-jp.f5.si のホームページ。</p>
           <a href="https://hamuzon-jp.f5.si/" data-lang="link_view">見る</a>
         </div>
-
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
           <h3 data-lang="w_fc2_title">hamuzon (FC2)系</h3>
-          <p data-lang="w_fc2_desc">FC2版ホームページ。いろんなコードやコンテンツがあります。</p>
+          <p data-lang="w_fc2_desc">FC2版ホームページ。いろんなコンテンツがあります。</p>
           <a href="https://hamuzon.web.fc2.com/" data-lang="link_view">見る</a>
         </div>
-
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
           <h3 data-lang="w_link_s_title">link-s.f5.si</h3>
           <p data-lang="w_link_s_desc">短縮URL・ショートカットリンクサービス。</p>
           <a href="https://link-s.f5.si" data-lang="link_view">見る</a>
         </div>
-
-        <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
-          <h3 data-lang="w_go_link_title">go.link-s.f5.si</h3>
-          <p data-lang="w_go_link_desc">任意のパスで短縮リンクを作れるカスタムリンクサービス。</p>
-          <a href="https://go.link-s.f5.si" data-lang="link_view">見る</a>
-        </div>
-
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
           <h3 data-lang="w_pw_title">pw.link-s.f5.si</h3>
           <p data-lang="w_pw_desc">APIベースのパスワード生成サービス。</p>
           <a href="https://pw.link-s.f5.si" data-lang="link_view">見る</a>
-          <p class="note" data-lang="pw_note">※エラー時は<a href="https://password-create.link-s.f5.si/">こちら</a></p>
         </div>
-
-        <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
-          <h3 data-lang="w_www_title">www.link-s.f5.si</h3>
-          <p data-lang="w_www_desc">link-s.f5.si 系列作品集一覧ポータル。</p>
-          <a href="https://www.link-s.f5.si/" data-lang="link_view">見る</a>
-        </div>
-
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
           <h3 data-lang="w_terms_title">利用規約</h3>
-          <p data-lang="w_terms_desc">サイト利用規約とプライバシーポリシーはこちら。</p>
-          <a href="terms.html" data-lang="link_view">見る</a>
+          <p data-lang="w_terms_desc">サイト利用規約とプライバシーポリシーの確認はこちら。</p>
+          <a href="terms.html" data-lang="link_view">確認する</a>
         </div>
-
       </div>
     </section>
 
@@ -341,35 +330,9 @@
       </div>
     </section>
 
-    <section id="status">
-      <h2 data-lang="status_title">サービス稼働状況</h2>
-      <div class="works">
-        <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
-          <h3 data-lang="status_card_title">System Status</h3>
-          <p data-lang="status_note">各サービスのリアルタイムな稼働状況を確認できます。</p>
-          <a href="https://stats.uptimerobot.com/tT7bs2uEHa" data-lang="link_view">見る</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="mutual-links">
-      <h2 data-lang="mutual_title">相互リンク</h2>
-      <div class="works">
-        <div class="work-card">
-          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
-          <h3 data-lang="mutual_card_title">Mutual Links</h3>
-          <p data-lang="mutual_card_desc">相互リンクページに移動します。</p>
-          <a href="./links/" data-lang="link_open">開く</a>
-        </div>
-      </div>
-    </section>
-
     <section id="sns">
       <h2 data-lang="sns_title">SNSリンク</h2>
       <div class="works">
-        <div class="work-card"><h3>Scratch (1)</h3><p>hamusataアカウント</p><a href="https://scratch.mit.edu/users/hamusata/">見る</a></div>
-        <div class="work-card"><h3>Scratch (2)</h3><p>hamuzonアカウント</p><a href="https://scratch.mit.edu/users/hamuzon/">見る</a></div>
         <div class="work-card"><h3>GitHub</h3><p>@hamuzon</p><a href="https://github.com/hamuzon">見る</a></div>
         <div class="work-card"><h3>Bluesky</h3><p>@hamuzon-jp.f5.si</p><a href="https://bsky.app/profile/hamuzon-jp.f5.si">見る</a></div>
         <div class="work-card"><h3>Twitter (X)</h3><p>@hamu_sata</p><a href="https://x.com/hamu_sata">見る</a></div>
