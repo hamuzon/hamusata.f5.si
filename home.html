@@ -15,14 +15,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;500&family=Plus+Jakarta+Sans:wght@200;700&display=swap" rel="stylesheet" />
 
-  <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
-  <meta property="og:title" content="HAMUSATA – ホームページ" />
-  <meta property="og:description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://hamusata.f5.si" />
-  <meta property="og:image" content="https://hamusata.f5.si/icon_500_500.webp" />
-  <meta name="twitter:card" content="summary_large_image" />
-
   <style>
     :root {
       --bg: #fffbf8;
@@ -161,15 +153,15 @@
     .works {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 60px;
+      gap: 50px;
     }
 
     .work-card {
       background: var(--glass);
       backdrop-filter: blur(30px);
       -webkit-backdrop-filter: blur(30px);
-      padding: 80px 45px;
-      border-radius: 65px;
+      padding: 70px 40px;
+      border-radius: 60px;
       border: 1px solid var(--border);
       transition: 0.8s cubic-bezier(0.1, 1, 0.2, 1);
       display: flex;
@@ -180,16 +172,16 @@
     }
 
     .work-card:hover {
-      transform: translateY(-25px) scale(1.02);
+      transform: translateY(-20px) scale(1.03);
       background: #fff;
-      box-shadow: 0 50px 100px rgba(0,0,0,0.06);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.07);
     }
 
-    .work-card img { width: 80px; height: 80px; border-radius: 22px; margin-bottom: 45px; }
+    .work-card img { width: 72px; height: 72px; border-radius: 20px; margin-bottom: 40px; }
 
-    .work-card h3 { font-size: 1.25rem; margin-bottom: 25px; font-weight: 500; }
+    .work-card h3 { font-size: 1.2rem; margin-bottom: 24px; font-weight: 500; }
 
-    .work-card p { font-size: 0.95rem; opacity: 0.7; margin-bottom: 45px; flex-grow: 1; line-height: 2.2; }
+    .work-card p { font-size: 0.95rem; opacity: 0.7; margin-bottom: 40px; flex-grow: 1; }
 
     .work-card a {
       margin-top: auto;
@@ -199,18 +191,18 @@
       text-decoration: none;
       color: var(--text);
       border: 1px solid var(--text);
-      padding: 14px 35px;
-      border-radius: 60px;
+      padding: 12px 30px;
+      border-radius: 50px;
       letter-spacing: 0.2em;
       transition: 0.3s;
     }
 
     .work-card a:hover { background: var(--text); color: var(--bg); }
 
-    .note { font-size: 0.75rem; opacity: 0.5; margin-top: 18px; }
+    .note { font-size: 0.75rem; opacity: 0.5; margin-top: 15px; }
 
     footer {
-      padding: 220px 0 100px;
+      padding: 200px 0 80px;
       text-align: center;
       font-family: var(--font-en);
       font-size: 0.85rem;
@@ -218,13 +210,11 @@
       letter-spacing: 0.4em;
     }
 
-    footer a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
-    footer a:hover { border-bottom: 1px solid var(--text); }
+    footer a { color: inherit; text-decoration: none; }
 
     @media (max-width: 768px) {
-      section { padding: 150px 0; }
+      section { padding: 140px 0; }
       .works { grid-template-columns: 1fr; }
-      .container { padding: 0 25px; }
     }
   </style>
 </head>
@@ -247,12 +237,6 @@
       <li><a href="#mutual-links" data-lang="nav_links">相互リンク</a></li>
       <li><a href="#sns" data-lang="nav_sns">SNSリンク</a></li>
       <li><a href="terms.html" data-lang="nav_terms">利用規約</a></li>
-      <li>
-        <a href="https://github.com/hamuzon/hamusata.f5.si" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:8px; justify-content:center;">
-          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width:18px; height:18px; filter: invert(0.3);">
-          <span data-lang="nav_github">site-Code-GitHub</span>
-        </a>
-      </li>
     </ul>
   </nav>
 
@@ -267,7 +251,7 @@
 
     <section id="profile">
       <h2 data-lang="profile_title">自己紹介</h2>
-      <div style="text-align: center; max-width: 750px; margin: 0 auto;">
+      <div style="text-align: center; max-width: 800px; margin: 0 auto;">
         <p data-lang="profile_p1">こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。</p>
         <p data-lang="profile_p2">ハムスターを飼っています。</p>
         <p data-lang="profile_p3">ネットの海でプログラミングしたりネットしたりして過ごしてます。</p>
@@ -323,7 +307,7 @@
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
           <h3 data-lang="w_pw_title">pw.link-s.f5.si</h3>
-          <p data-lang="w_pw_desc">APIベースのパスワード生成サービス。ログ保存等は一切ありません。</p>
+          <p data-lang="w_pw_desc">APIベースのパスワード生成サービス。</p>
           <a href="https://pw.link-s.f5.si" data-lang="link_view">見る</a>
           <p class="note" data-lang="pw_note">※エラー時は<a href="https://password-create.link-s.f5.si/">こちら</a></p>
         </div>
@@ -338,8 +322,8 @@
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
           <h3 data-lang="w_terms_title">利用規約</h3>
-          <p data-lang="w_terms_desc">サイト利用規約とプライバシーポリシーの確認はこちら。</p>
-          <a href="terms.html" data-lang="link_view">確認する</a>
+          <p data-lang="w_terms_desc">サイト利用規約とプライバシーポリシーはこちら。</p>
+          <a href="terms.html" data-lang="link_view">見る</a>
         </div>
 
       </div>
@@ -362,7 +346,7 @@
       <div class="works">
         <div class="work-card">
           <img src="https://hamusata.f5.si/icon.webp" alt="icon">
-          <h3 data-lang="status_card_title">Service Status</h3>
+          <h3 data-lang="status_card_title">System Status</h3>
           <p data-lang="status_note">各サービスのリアルタイムな稼働状況を確認できます。</p>
           <a href="https://stats.uptimerobot.com/tT7bs2uEHa" data-lang="link_view">見る</a>
         </div>
@@ -384,8 +368,8 @@
     <section id="sns">
       <h2 data-lang="sns_title">SNSリンク</h2>
       <div class="works">
-        <div class="work-card"><h3>Scratch (hamusata)</h3><p>hamusataアカウント</p><a href="https://scratch.mit.edu/users/hamusata/">見る</a></div>
-        <div class="work-card"><h3>Scratch (hamuzon)</h3><p>hamuzonアカウント</p><a href="https://scratch.mit.edu/users/hamuzon/">見る</a></div>
+        <div class="work-card"><h3>Scratch (1)</h3><p>hamusataアカウント</p><a href="https://scratch.mit.edu/users/hamusata/">見る</a></div>
+        <div class="work-card"><h3>Scratch (2)</h3><p>hamuzonアカウント</p><a href="https://scratch.mit.edu/users/hamuzon/">見る</a></div>
         <div class="work-card"><h3>GitHub</h3><p>@hamuzon</p><a href="https://github.com/hamuzon">見る</a></div>
         <div class="work-card"><h3>Bluesky</h3><p>@hamuzon-jp.f5.si</p><a href="https://bsky.app/profile/hamuzon-jp.f5.si">見る</a></div>
         <div class="work-card"><h3>Twitter (X)</h3><p>@hamu_sata</p><a href="https://x.com/hamu_sata">見る</a></div>
@@ -407,7 +391,7 @@
         if (entry.isIntersecting) entry.target.classList.add('active');
         else entry.target.classList.remove('active');
       });
-    }, { threshold: 0.05 });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('section').forEach(s => observer.observe(s));
     document.getElementById('year').textContent = new Date().getFullYear();
