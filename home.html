@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-lang="title">HAMUSATA – ホームページ</title>
+
+  <link rel="icon" href="https://hamusata.f5.si/favicon.ico" sizes="any">
+  <link rel="icon" href="https://hamusata.f5.si/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
+
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#fffbf8" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;500&family=Plus+Jakarta+Sans:wght@200;700&display=swap" rel="stylesheet" />
+
+  <script>
+    const themeCSS = [
+      "css/dark.css", "css/dark-hc.css", "css/dark-mc.css",
+      "css/light.css", "css/light-hc.css", "css/light-mc.css"
+    ];
+    themeCSS.forEach(href => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      document.head.appendChild(link);
+    });
+  </script>
+
+  <style>
+    :root {
+      --bg: #fffbf8;
+      --text: #5c5552;
+      --accent: #d6c7bc;
+      --glass: rgba(255, 255, 255, 0.4);
+      --border: rgba(255, 255, 255, 0.8);
+      --font-jp: 'Noto Serif JP', serif;
+      --font-en: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body.dark {
+      --bg: #12100f;
+      --text: #d6c7bc;
+      --accent: #2a2624;
+      --glass: rgba(30, 28, 27, 0.6);
+      --border: rgba(255, 255, 255, 0.05);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-jp);
+      overflow-x: hidden;
+      line-height: 2.3;
+      background-image: 
+          radial-gradient(circle at 10% 10%, #fff0e0 0%, transparent 35%),
+          radial-gradient(circle at 90% 90%, #f0f4ff 0%, transparent 35%);
+      background-attachment: fixed;
+      transition: background 0.6s ease;
+    }
+
+    #lang-switch {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      padding: 0.7rem 1.5rem;
+      font-size: 0.85rem;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      cursor: pointer;
+      color: var(--text);
+      font-family: var(--font-en);
+      font-weight: 700;
+      z-index: 2000;
+      transition: 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+    }
+    #lang-switch:hover { transform: scale(1.08) translateY(-2px); background: #fff; }
+
+    #menu-toggle {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 2100;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      backdrop-filter: blur(20px);
+    }
+    #menu-toggle span { width: 24px; height: 1.5px; background: var(--text); transition: 0.3s; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+    header.hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .banner-link img {
+      max-width: 380px;
+      height: auto;
+      margin-bottom: 60px;
+      animation: heroFloat 10s infinite ease-in-out;
+    }
+    @keyframes heroFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+    h1.main-title {
+      font-family: var(--font-en);
+      font-size: clamp(2rem, 8vw, 4rem);
+      font-weight: 200;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+
+    section {
+      padding: 220px 0;
+      opacity: 0;
+      transform: translateY(100px);
+      transition: 1.8s cubic-bezier(0.1, 1, 0.2, 1);
+    }
+    section.active { opacity: 1; transform: translateY(0); }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 100px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      font-size: 1.8rem;
+      position: relative;
+    }
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 1px;
+      background: var(--text);
+      opacity: 0.15;
+    }
+
+    .works {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 50px;
+    }
+
+    .work-card {
+      background: var(--glass);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      padding: 70px 40px;
+      border-radius: 60px;
+      border: 1px solid var(--border);
+      transition: 0.8s cubic-bezier(0.1, 1, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+    }
+    .work-card:hover {
+      transform: translateY(-20px) scale(1.03);
+      background: #fff;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.07);
+    }
+    .work-card img { width: 72px; height: 72px; border-radius: 20px; margin-bottom: 40px; }
+    .work-card h3 { font-size: 1.2rem; margin-bottom: 24px; font-weight: 500; }
+    .work-card p { font-size: 0.95rem; opacity: 0.7; margin-bottom: 40px; flex-grow: 1; }
+    .work-card a {
+      margin-top: auto;
+      font-family: var(--font-en);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid var(--text);
+      padding: 12px 30px;
+      border-radius: 50px;
+      letter-spacing: 0.2em;
+      transition: 0.3s;
+    }
+    .work-card a:hover { background: var(--text); color: var(--bg); }
+    .note { font-size: 0.75rem; opacity: 0.5; margin-top: 15px; }
+
+    footer {
+      padding: 200px 0 80px;
+      text-align: center;
+      font-family: var(--font-en);
+      font-size: 0.85rem;
+      opacity: 0.4;
+      letter-spacing: 0.4em;
+    }
+    footer a { color: inherit; text-decoration: none; }
+
+    @media (max-width: 768px) {
+      section { padding: 140px 0; }
+      .works { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body class="light">
+
+  <button id="lang-switch" aria-label="言語切替">🌐 English</button>
+
+  <button id="menu-toggle" aria-label="メニューを開く">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav id="mobile-menu" aria-label="Main navigation">
+    <ul>
+      <li><a href="#home" data-lang="nav_home">ホーム</a></li>
+      <li><a href="#profile" data-lang="nav_profile">自己紹介</a></li>
+      <li><a href="#portfolio" data-lang="nav_portfolio">ポートフォリオ</a></li>
+      <li><a href="#random" data-lang="nav_random">ランダム作品</a></li>
+      <li><a href="#status" data-lang="nav_status">サービス稼働状況</a></li>
+      <li><a href="#mutual-links" data-lang="nav_links">相互リンク</a></li>
+      <li><a href="#sns" data-lang="nav_sns">SNSリンク</a></li>
+      <li><a href="terms.html" data-lang="nav_terms">利用規約</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <header id="home" class="hero">
+      <div class="banner-link">
+        <img src="hamusata_399-120.webp" alt="hamusata banner" width="399" height="120">
+      </div>
+      <h1 class="main-title" data-lang="page_title">HAMUSATA ホームページ</h1>
+    </header>
+
+    <section id="profile">
+      <h2 data-lang="profile_title">自己紹介</h2>
+      <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+        <p data-lang="profile_p1">こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。</p>
+        <p data-lang="profile_p2">ハムスターを飼っています。</p>
+        <p data-lang="profile_p3">ネットの海でプログラミングしたりネットしたりして過ごしてます。</p>
+      </div>
+    </section>
+
+    <section id="portfolio">
+      <h2 data-lang="portfolio_title">ポートフォリオリンク集</h2>
+      <div class="works">
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
+          <h3 data-lang="w_main_title">HAMUSATA Portal</h3>
+          <p data-lang="w_main_desc">メインのポータルリンク。色々なものをまとめています。</p>
+          <a href="https://home.hamusata.f5.si" data-lang="link_view">見る</a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
+          <h3 data-lang="w_github_pages_title">GitHub版</h3>
+          <p data-lang="w_github_pages_desc">GitHub Pages 版ホームページ。</p>
+          <a href="https://hamuzon.github.io" data-lang="link_view">見る</a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
+          <h3 data-lang="w_hamuzon_title">hamuzon-jp</h3>
+          <p data-lang="w_hamuzon_desc">hamuzon-jp.f5.si のポータル版サイト。</p>
+          <a href="https://hamuzon-jp.f5.si/" data-lang="link_view">見る</a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
+          <h3 data-lang="w_fc2_title">hamuzon (FC2)</h3>
+          <p data-lang="w_fc2_desc">FC2版ホームページ。いろんなコンテンツがあります。</p>
+          <a href="https://hamuzon.web.fc2.com/" data-lang="link_view">見る</a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
+          <h3 data-lang="w_link_s_title">link-s.f5.si</h3>
+          <p data-lang="w_link_s_desc">短縮URL・ショートカットリンクサービス。</p>
+          <a href="https://link-s.f5.si" data-lang="link_view">見る</a>
+        </div>
+
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
+          <h3 data-lang="w_pw_title">pw.link-s.f5.si</h3>
+          <p data-lang="w_pw_desc">APIベースのパスワード生成サービス。</p>
+          <a href="https://pw.link-s.f5.si" data-lang="link_view">見る</a>
+          <p class="note" data-lang="pw_note">※エラー時は<a href="https://password-create.link-s.f5.si/">こちら</a></p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="random">
+      <h2 data-lang="random_title">ランダム作品</h2>
+      <div class="works">
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
+          <h3 data-lang="random_card_title">Random Box</h3>
+          <p data-lang="random_card_desc">作品をランダムに開くボタンです。</p>
+          <a href="./random/" data-lang="link_open">開く</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="status">
+      <h2 data-lang="status_title">サービス稼働状況</h2>
+      <div class="works">
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
+          <h3 data-lang="status_card_title">System Status</h3>
+          <p data-lang="status_note">各サービスのリアルタイムな稼働状況を確認できます。</p>
+          <a href="https://stats.uptimerobot.com/tT7bs2uEHa" data-lang="link_view">見る</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="mutual-links">
+      <h2 data-lang="mutual_title">相互リンク</h2>
+      <div class="works">
+        <div class="work-card">
+          <img src="https://hamusata.f5.si/icon.webp" alt="icon">
+          <h3 data-lang="mutual_card_title">Mutual Links</h3>
+          <p data-lang="mutual_card_desc">相互リンクページに移動します。</p>
+          <a href="./links/" data-lang="link_open">開く</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="sns">
+      <h2 data-lang="sns_title">SNSリンク</h2>
+      <div class="works">
+        <div class="work-card"><h3>GitHub</h3><p>@hamuzon</p><a href="https://github.com/hamuzon">見る</a></div>
+        <div class="work-card"><h3>Bluesky</h3><p>@hamuzon-jp.f5.si</p><a href="https://bsky.app/profile/hamuzon-jp.f5.si">見る</a></div>
+        <div class="work-card"><h3>Twitter (X)</h3><p>@hamu_sata</p><a href="https://x.com/hamu_sata">見る</a></div>
+        <div class="work-card"><h3>Scratch</h3><p>hamusata アカウント</p><a href="https://scratch.mit.edu/users/hamusata/">見る</a></div>
+      </div>
+    </section>
+
+    <footer>
+      &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a>
+    </footer>
+
+  </div>
+
+  <script src="js/script.js"></script>
+  <script src="js/lang-switch.js"></script>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+        else entry.target.classList.remove('active');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(s => observer.observe(s));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
