@@ -7,7 +7,7 @@
     --text-light: #5c5552;
     --text-dark: #fff;
     --accent: #00bcd4;
-    --glass: rgba(255, 255, 255, 0.25);
+    --glass: rgba(255,255,255,0.15);
     --font-jp: 'Noto Serif JP', serif;
     --font-en: 'Plus Jakarta Sans', sans-serif;
 }
@@ -23,6 +23,7 @@ body {
     min-height: 100vh;
     line-height: 1.6;
     scroll-behavior: smooth;
+    text-align: center;
     overflow-x: hidden;
     transition: background-color 0.3s, color 0.3s;
     font-size: clamp(0.9rem, 1.5vw, 1.1rem);
@@ -99,7 +100,9 @@ header {
 セクション & ガラスカード
 ========================= */
 section {
-    padding: 100px 0;
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 2rem;
 }
 
 .glass-card {
@@ -109,7 +112,7 @@ section {
     padding: 50px;
     border-radius: 45px;
     border: 1px solid rgba(255,255,255,0.3);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
     color: inherit;
     transition: background-color 0.3s, color 0.3s, transform 0.3s;
 }
@@ -142,24 +145,25 @@ WORKS グリッド
 }
 
 .mini-card {
-    background: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.12);
     padding: 30px;
     border-radius: 30px;
     text-align: center;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
 }
 
 .mini-card:hover {
-    background: rgba(255,255,255,0.35);
-    transform: scale(1.03) translateY(-5px);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 45px rgba(0,0,0,0.35);
+    background-color: rgba(255,255,255,0.25);
 }
 
 .mini-card h3 {
     font-size: 0.9rem;
     margin-bottom: 10px;
     font-weight: 500;
-    color: rgba(140,126,116,0.9);
+    color: #8c7e74;
     letter-spacing: 0.1em;
 }
 
@@ -182,14 +186,13 @@ footer {
 }
 
 /* =========================
-スクロールリビールアニメ
+スクロールリビール
 ========================= */
 .reveal {
     opacity: 0;
     transform: translateY(40px);
     transition: 1.5s cubic-bezier(0.2, 1, 0.2, 1);
 }
-
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
