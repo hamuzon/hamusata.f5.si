@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Redirecting / ページ移動中</title>
+
+  <!-- JavaScript無効時の保険 -->
+  <meta http-equiv="refresh" content="0; url=IE.html">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Potta One', system-ui, -apple-system, BlinkMacSystemFont,
+                   "Segoe UI", "Yu Gothic", Meiryo, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      color: #333;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .box {
+      max-width: 460px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+
+    .en {
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 1.2rem;
+      padding: 0.6rem 1.2rem;
+      background-color: #1a73e8;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    a:hover,
+    a:focus {
+      background-color: #1669c1;
+      outline: none;
+    }
+
+    /* スマホ */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      p {
+        font-size: 0.9rem;
+      }
+      a {
+        width: 100%;
+      }
+    }
+
+    /* ダークモード */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #121212;
+        color: #eee;
+      }
+      .en {
+        color: #aaa;
+      }
+      a {
+        background-color: #8ab4f8;
+        color: #121212;
+      }
+      a:hover,
+      a:focus {
+        background-color: #669df6;
+      }
+    }
+  </style>
+
+  <script>
+    // Cloudflare Pages / IE対応リダイレクト
+    (function () {
+      var target = "IE.html";
+      try {
+        window.location.replace(target);
+      } catch (e) {
+        window.location.href = target;
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="box">
+    <h1>ページ移動中…</h1>
+    <p>IE 対応ページへ移動しています。</p>
+
+    <p class="en">
+      Redirecting to the IE compatible page.
+    </p>
+
+    <p>
+      自動で移動しない場合は、下のボタンをクリックしてください。
+    </p>
+
+    <p class="en">
+      If you are not redirected automatically, please click the button below.
+    </p>
+
+    <a href="IE.html">
+      IE.html へ移動 / Go to IE.html
+    </a>
+
+    <noscript>
+      <p>JavaScript が無効です。</p>
+      <p class="en">JavaScript is disabled.</p>
+    </noscript>
+  </div>
+</body>
+</html>
