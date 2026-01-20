@@ -1,8 +1,8 @@
 // functions/_middleware.js
 
 export async function onRequest(context) {
-  // 機能操作: 0 = OFF, 1 = ON
-  const ENABLED = 1;
+  // 機能操作: 0 = OFF, 1 = ON, 2 = ON（all top Domain）
+  const ENABLED = 2;
 
   const { request } = context;
   const url = new URL(request.url);
@@ -11,7 +11,7 @@ export async function onRequest(context) {
 
 
   // --- スイッチ判定 ---
-  if (ENABLED !== 1) {
+  if (ENABLED === 0) {
     return context.next();
   }
 
@@ -53,25 +53,35 @@ export async function onRequest(context) {
   }
 
 
-  // モバイル判定
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+  // ===== モード1: モバイル/PC判定リダイレクト =====
+  if (ENABLED === 1) {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
 
-  const baseWithoutWWW = hostname.replace(/^www\./, "");
-  const hasM = baseWithoutWWW.startsWith("m.");
-  const pureBase = baseWithoutWWW.replace(/^m\./, "");
+    const baseWithoutWWW = hostname.replace(/^www\./, "");
+    const hasM = baseWithoutWWW.startsWith("m.");
+    const pureBase = baseWithoutWWW.replace(/^m\./, "");
 
+    // ===== モバイル端末 / Mobile =====
+    if (isMobile && !hasM) {
+      url.hostname = `www.m.${pureBase}`;
+      return Response.redirect(url.toString(), 302);
+    }
 
-  // ===== モバイル端末 / Mobile =====
-  if (isMobile && !hasM) {
-    url.hostname = `www.m.${pureBase}`;
-    return Response.redirect(url.toString(), 302);
+    // ===== PC端末 / PC =====
+    if (!isMobile && hasM) {
+      url.hostname = `www.${pureBase}`;
+      return Response.redirect(url.toString(), 302);
+    }
   }
 
 
-  // ===== PC端末 / PC =====
-  if (!isMobile && hasM) {
-    url.hostname = `www.${pureBase}`;
-    return Response.redirect(url.toString(), 302);
+  // ===== モード2 :　トップドメイン統一 / Unification of top domains =====
+  if (ENABLED === 2) {
+   const baseWithoutWWW = hostname.replace(/^www\./, "").replace(/^m\./, "");
+    if (baseWithoutWWW !== "hamusata.f5.si") {
+      url.hostname = "hamusata.f5.si";
+      return Response.redirect(url.toString(), 302);
+    }
   }
 
 
