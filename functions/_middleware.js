@@ -1,8 +1,8 @@
 // functions/_middleware.js
 
 export async function onRequest(context) {
-  // 機能操作: true 、false 
-  const ENABLED = true;
+  // 機能操作: 0 = OFF, 1 = ON
+  const ENABLED = 1;
 
   const { request } = context;
   const url = new URL(request.url);
@@ -11,7 +11,7 @@ export async function onRequest(context) {
 
 
   // --- スイッチ判定 ---
-  if (!ENABLED) {
+  if (ENABLED !== 1) {
     return context.next();
   }
 
@@ -44,6 +44,7 @@ export async function onRequest(context) {
 
 
   const ua = request.headers.get("user-agent") || "";
+
 
   // --- BOT除外判定  ---
   const isBot = /bot|googlebot|bingbot|yandex|baidu|duckduckbot|slurp|ia_archiver/i.test(ua);
