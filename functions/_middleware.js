@@ -39,6 +39,7 @@ export async function onRequest(context) {
 
   // --- 対象ドメインのみ ---
   if (!hostname.endsWith("hamusata.f5.si")) {
+    // サブドメイン系列以外はリダイレクトせずそのまま
     return context.next();
   }
 
@@ -63,13 +64,13 @@ export async function onRequest(context) {
 
     // ===== モバイル端末 / Mobile =====
     if (isMobile && !hasM) {
-      url.hostname = `www.m.${pureBase}`;
+      url.hostname = `m.${pureBase}`;
       return Response.redirect(url.toString(), 302);
     }
 
     // ===== PC端末 / PC =====
     if (!isMobile && hasM) {
-      url.hostname = `www.${pureBase}`;
+      url.hostname = `${pureBase}`;
       return Response.redirect(url.toString(), 302);
     }
   }
@@ -77,8 +78,7 @@ export async function onRequest(context) {
 
   // ===== モード2 :　トップドメイン統一 / Unification of top domains =====
   if (ENABLED === 2) {
-   const baseWithoutWWW = hostname.replace(/^www\./, "").replace(/^m\./, "");
-    if (baseWithoutWWW !== "hamusata.f5.si") {
+    if (hostname !== "hamusata.f5.si") {
       url.hostname = "hamusata.f5.si";
       return Response.redirect(url.toString(), 302);
     }
