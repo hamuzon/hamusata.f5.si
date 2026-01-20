@@ -64,13 +64,13 @@ export async function onRequest(context) {
 
     // ===== モバイル端末 / Mobile =====
     if (isMobile && !hasM) {
-      url.hostname = `m.${pureBase}`;
+      url.hostname = `www.m.${pureBase}`;
       return Response.redirect(url.toString(), 302);
     }
 
     // ===== PC端末 / PC =====
     if (!isMobile && hasM) {
-      url.hostname = `${pureBase}`;
+      url.hostname = `www.${pureBase}`;
       return Response.redirect(url.toString(), 302);
     }
   }
