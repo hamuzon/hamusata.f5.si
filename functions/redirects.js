@@ -4,14 +4,14 @@ export async function onRequest(context) {
 
   // ===== リダイレクトリスト =====
   const redirects = [
-    // X / Twitter
+    // ===== X / Twitter =====
     { from: "/x", to: "https://x.com/hamu_sata" },
     { from: "/x-1", to: "https://x.com/hamu_sata" },
     { from: "/twt", to: "https://x.com/hamu_sata" },
     { from: "/twitter", to: "https://x.com/hamu_sata" },
     { from: "/twitter-1", to: "https://x.com/hamu_sata" },
 
-    // Scratch
+    // ===== Scratch =====
     { from: "/s", to: "https://scratch.mit.edu/users/hamu_sata" },
     { from: "/s-1", to: "https://scratch.mit.edu/users/hamu_sata" },
     { from: "/s-2", to: "https://scratch.mit.edu/users/hamuzon" },
@@ -19,13 +19,13 @@ export async function onRequest(context) {
     { from: "/scratch-1", to: "https://scratch.mit.edu/users/hamu_sata" },
     { from: "/scratch-2", to: "https://scratch.mit.edu/users/hamuzon" },
 
-    // GitHub
+    // ===== GitHub =====
     { from: "/g", to: "https://github.com/hamuzon" },
     { from: "/g-1", to: "https://github.com/hamuzon" },
     { from: "/github", to: "https://github.com/hamuzon" },
     { from: "/github-1", to: "https://github.com/hamuzon" },
 
-    // Bluesky
+    // ===== Bluesky =====
     { from: "/b", to: "https://bsky.app/profile/hamusata.f5.si" },
     { from: "/b-1", to: "https://bsky.app/profile/hamuzon-jp.f5.si" },
     { from: "/bs", to: "https://bsky.app/profile/hamusata.f5.si" },
@@ -33,13 +33,13 @@ export async function onRequest(context) {
     { from: "/bluesky", to: "https://bsky.app/profile/hamusata.f5.si" },
     { from: "/bluesky-1", to: "https://bsky.app/profile/hamuzon-jp.f5.si" },
 
-    // Device Info
+    // ===== Device Info =====
     { from: "/d", to: "https://device-info.hamusata.f5.si/" },
     { from: "/d-1", to: "https://device-info.hamusata.f5.si/" },
     { from: "/device", to: "https://device-info.hamusata.f5.si/" },
     { from: "/device-info", to: "https://device-info.hamusata.f5.si/" },
 
-    // internal links
+    // ===== internal links =====
     { from: "/index.html", to: "/" },
     { from: "/license", to: "/" },
     { from: "/readme.md", to: "/" },
@@ -48,7 +48,7 @@ export async function onRequest(context) {
     { from: "/mutual_links", to: "/links" }
   ];
 
-  // 該当リダイレクトを検索
+  // ===== 該当リダイレクトを検索 =====
   const match = redirects.find(r => r.from === path);
 
   if (match) {
