@@ -1,6 +1,6 @@
 export async function onRequest(context) {
   const url = new URL(context.request.url);
-  const path = url.pathname.toLowerCase();
+  const path = url.pathname.toLowerCase(); 
 
   // ===== リダイレクトリスト =====
   const redirects = [
