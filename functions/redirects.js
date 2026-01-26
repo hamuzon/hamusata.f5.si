@@ -1,7 +1,10 @@
 export async function onRequest(context) {
   const url = new URL(context.request.url);
-  let path = url.pathname.toLowerCase();
-  if (path.endsWith("/")) path = path.slice(0, -1);
+
+  const normalize = (p) =>
+    p.toLowerCase().replace(/\/+$/, "") || "/";
+
+  const path = normalize(url.pathname);
 
   // ===== リダイレクトリスト =====
   const redirects = [
@@ -49,15 +52,7 @@ export async function onRequest(context) {
     { from: "/mutual_links", to: "/links" }
   ];
 
-  const match = redirects.find(r => {
-    let from = r.from.toLowerCase();
-    if (from.endsWith("/")) from = from.slice(0, -1);
-
-    let p = path;
-    if (p.endsWith("/")) p = p.slice(0, -1);
-
-    return from === p;
-  });
+  const match = redirects.find(r => normalize(r.from) === path);
 
   if (match) {
     return Response.redirect(match.to, 301);
