@@ -52,11 +52,15 @@ export async function onRequest(context) {
   const match = redirects.find(r => {
     let from = r.from.toLowerCase();
     if (from.endsWith("/")) from = from.slice(0, -1);
-    return from === path;
+
+    let p = path;
+    if (p.endsWith("/")) p = p.slice(0, -1);
+
+    return from === p;
   });
 
   if (match) {
-    return Response.redirect(match.to, 301); 
+    return Response.redirect(match.to, 301);
   }
 
   return new Response("Not Found", { status: 404 });
