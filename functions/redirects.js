@@ -1,6 +1,7 @@
 export async function onRequest(context) {
   const url = new URL(context.request.url);
-  const path = url.pathname.toLowerCase();
+  let path = url.pathname.toLowerCase();
+  if (path.endsWith("/")) path = path.slice(0, -1);
 
   // ===== リダイレクトリスト =====
   const redirects = [
@@ -48,11 +49,14 @@ export async function onRequest(context) {
     { from: "/mutual_links", to: "/links" }
   ];
 
-  // ===== 小文字化して比較 =====
-  const match = redirects.find(r => r.from.toLowerCase() === path);
+  const match = redirects.find(r => {
+    let from = r.from.toLowerCase();
+    if (from.endsWith("/")) from = from.slice(0, -1);
+    return from === path;
+  });
 
   if (match) {
-    return Response.redirect(match.to, 301);
+    return Response.redirect(match.to, 301); 
   }
 
   return new Response("Not Found", { status: 404 });
