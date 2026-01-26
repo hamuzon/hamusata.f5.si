@@ -1,40 +1,42 @@
-# ===== X / Twitter =====
-/x           https://x.com/hamu_sata   301
-/x-1         https://x.com/hamu_sata   301
-/twt         https://x.com/hamu_sata   301
-/twitter     https://x.com/hamu_sata   301
-/twitter-1   https://x.com/hamu_sata   301
+===== X / Twitter =====
+/x           https://x.com/hamu_sata   301   [NC]
+/x-1         https://x.com/hamu_sata   301   [NC]
+/twt         https://x.com/hamu_sata   301   [NC]
+/twitter     https://x.com/hamu_sata   301   [NC]
+/twitter-1   https://x.com/hamu_sata   301   [NC]
 
-# ===== Scratch =====
-/s           https://scratch.mit.edu/users/hamusata   301
-/s-1         https://scratch.mit.edu/users/hamusata   301
-/s-2         https://scratch.mit.edu/users/hamuzon    301
-/scratch     https://scratch.mit.edu/users/hamusata   301
-/scratch-1   https://scratch.mit.edu/users/hamusata   301
-/scratch-2   https://scratch.mit.edu/users/hamuzon    301
+===== Scratch =====
+/s           https://scratch.mit.edu/users/hamusata   301   [NC]
+/s-1         https://scratch.mit.edu/users/hamusata   301   [NC]
+/s-2         https://scratch.mit.edu/users/hamuzon    301   [NC]
+/scratch     https://scratch.mit.edu/users/hamusata   301   [NC]
+/scratch-1   https://scratch.mit.edu/users/hamusata   301   [NC]
+/scratch-2   https://scratch.mit.edu/users/hamuzon    301   [NC]
 
-# ===== GitHub =====
-/g           https://github.com/hamuzon   301
-/g-1         https://github.com/hamuzon   301
-/github      https://github.com/hamuzon   301
-/github-1    https://github.com/hamuzon   301
+===== GitHub =====
+/g           https://github.com/hamuzon   301   [NC]
+/g-1         https://github.com/hamuzon   301   [NC]
+/github      https://github.com/hamuzon   301   [NC]
+/github-1    https://github.com/hamuzon   301   [NC]
 
-# ===== Bluesky =====
-/b           https://bsky.app/profile/hamusata.f5.si   301
-/b-1         https://bsky.app/profile/hamuzon-jp.f5.si   301
-/bs          https://bsky.app/profile/hamusata.f5.si   301
-/bs-1        https://bsky.app/profile/hamuzon-jp.f5.si   301
-/bluesky     https://bsky.app/profile/hamusata.f5.si   301
-/bluesky-1   https://bsky.app/profile/hamuzon-jp.f5.si   301
+===== Bluesky =====
+/b           https://bsky.app/profile/hamusata.f5.si   301   [NC]
+/b-1         https://bsky.app/profile/hamuzon-jp.f5.si   301   [NC]
+/bs          https://bsky.app/profile/hamusata.f5.si   301   [NC]
+/bs-1        https://bsky.app/profile/hamuzon-jp.f5.si   301   [NC]
+/bluesky     https://bsky.app/profile/hamusata.f5.si   301   [NC]
+/bluesky-1   https://bsky.app/profile/hamuzon-jp.f5.si   301   [NC]
 
-# ===== Device Info =====
-/d           https://device-info.hamusata.f5.si/   301
-/d-1         https://device-info.hamusata.f5.si/   301
-/device      https://device-info.hamusata.f5.si/   301
-/device-info https://device-info.hamusata.f5.si/   301
+===== Device Info =====
+/d           https://device-info.hamusata.f5.si/   301   [NC]
+/d-1         https://device-info.hamusata.f5.si/   301   [NC]
+/device      https://device-info.hamusata.f5.si/   301   [NC]
+/device-info https://device-info.hamusata.f5.si/   301   [NC]
 
-# ===== internal link =====
-/index.html    /        301
-/LICENSE       /        301
-/README.md     /        301
-/go            /links   301
+===== internal link =====
+/index.html     /        301   [NC]
+/LICENSE        /        301   [NC]
+/README.md      /        301   [NC]
+/go             /links   301   [NC]
+/link           /links   301   [NC]
+/mutual_Links   /links   301   [NC]
