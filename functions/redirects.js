@@ -1,6 +1,6 @@
 export async function onRequest(context) {
   const url = new URL(context.request.url);
-  const path = url.pathname.toLowerCase(); 
+  const path = url.pathname.toLowerCase();
 
   // ===== リダイレクトリスト =====
   const redirects = [
@@ -48,8 +48,8 @@ export async function onRequest(context) {
     { from: "/mutual_links", to: "/links" }
   ];
 
-  // ===== 該当リダイレクトを検索 =====
-  const match = redirects.find(r => r.from === path);
+  // ===== 小文字化して比較 =====
+  const match = redirects.find(r => r.from.toLowerCase() === path);
 
   if (match) {
     return Response.redirect(match.to, 301);
