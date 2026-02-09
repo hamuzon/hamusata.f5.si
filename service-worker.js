@@ -1,4 +1,4 @@
-Const CACHE_NAME = 'hamusata-v10.01.00';
+const CACHE_NAME = 'hamusata-v10.01.00';
 
 const urlsToCache = [
   '/',              
