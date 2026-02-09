@@ -49,14 +49,14 @@ export async function onRequest(context) {
     { from: "/readme.md", to: "/" },
     { from: "/go", to: "/links" },
     { from: "/link", to: "/links" },
-    { from: "/mutual_links", to: "/links" }
+    { from: "/mutual_links", to: "/links" },
   ];
 
-  const match = redirects.find(r => normalize(r.from) === path);
+  const match = redirects.find(r => r.from === path);
 
   if (match) {
     return Response.redirect(match.to, 301);
   }
 
-  return new Response("Not Found", { status: 404 });
+  return context.next();
 }
