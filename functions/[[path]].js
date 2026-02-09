@@ -55,7 +55,12 @@ export async function onRequest(context) {
   const match = redirects.find(r => r.from === path);
 
   if (match) {
-    return Response.redirect(match.to, 301);
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: match.to,
+      },
+    });
   }
 
   return context.next();
