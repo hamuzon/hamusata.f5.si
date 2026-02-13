@@ -1,7 +1,0 @@
-name = "hamusata-f5-si"
-main = "src/index.js"
-compatibility_date = "2024-04-05"
-
-[site]
-bucket = "./"
-exclude = ["node_modules", ".git", "functions", "src", "package.json", "package-lock.json", "wrangler.toml", "README.md", "LICENSE"]
