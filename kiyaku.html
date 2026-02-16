@@ -16,45 +16,43 @@
   <link rel="stylesheet" href="css/style.css">
 
   <!-- テーマCSS -->
-<style>
-  :root { --terms-timestamp: 1763880300; /* 指定日 */ }
+  <style>
+    :root { --terms-timestamp: 1771218000; /* 更新日 */ }
 
-  /* 言語切替ボタン 固定 */
-  #lang-switch {
-    position: fixed;
-    top: 16px;
-    left: 16px; 
-    padding: 0.5rem 1rem;
-    font-size: 0.95rem;
-    border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.2);
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(16px);
-    cursor: pointer;
-    z-index: 1001;
-    transition: all 0.3s ease;
-  }
-  body.dark #lang-switch {
-    background: rgba(0,0,0,0.35);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.2);
-  }
-  #lang-switch:hover {
-    background: rgba(0,188,212,0.25);
-    transform: scale(1.05);
-  }
+    /* 言語切替ボタン 固定 */
+    #lang-switch {
+      position: fixed;
+      top: 16px;
+      left: 16px; 
+      padding: 0.5rem 1rem;
+      font-size: 0.95rem;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(16px);
+      cursor: pointer;
+      z-index: 1001;
+      transition: all 0.3s ease;
+    }
+    body.dark #lang-switch {
+      background: rgba(0,0,0,0.35);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    #lang-switch:hover {
+      background: rgba(0,188,212,0.25);
+      transform: scale(1.05);
+    }
 
-  /* 言語切替表示 */
-  .lang-ja .en { display: none; }
-  .lang-en .ja { display: none; }
+    /* 言語切替表示 */
+    .lang-ja .en { display: none; }
+    .lang-en .ja { display: none; }
 
-  header {
-    position: relative;
-    text-align: center;
-  }
-</style>
-
-
+    header {
+      position: relative;
+      text-align: center;
+    }
+  </style>
 </head>
 <body class="light lang-ja">
 
