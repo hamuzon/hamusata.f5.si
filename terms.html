@@ -1,211 +1,160 @@
 <!DOCTYPE html>
 <html lang="ja-en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>利用規約・プライバシーポリシー / Terms of Service & Privacy Policy – HAMUSATA</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>利用規約・プライバシーポリシー / Terms of Service & Privacy Policy – HAMUSATA</title>
 
-  <!-- Favicon -->
-  <link rel="icon" href="https://hamusata.f5.si/favicon.ico" type="image/x-icon">
-  <link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png" sizes="32x32">
-  <link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp" sizes="32x32">
-  <link rel="icon" type="image/svg+xml" href="https://hamusata.f5.si/icon.svg">
-  <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
+<!-- Favicon -->
+<link rel="icon" href="https://hamusata.f5.si/favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" href="https://hamusata.f5.si/icon.png" sizes="32x32">
+<link rel="icon" type="image/webp" href="https://hamusata.f5.si/icon.webp" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="https://hamusata.f5.si/icon.svg">
+<link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
 
-  <!-- 共通CSS -->
-  <link rel="stylesheet" href="css/style.css">
+<!-- 共通CSS -->
+<link rel="stylesheet" href="css/style.css">
 
-  <!-- テーマCSS -->
+<!-- 制定日CSS -->
 <style>
-  :root { --terms-timestamp: 1763880300; /* 指定日 */ }
+  :root { --terms-timestamp: 1771218000; /* 更新日 */ }
 
-  /* 言語切替ボタン 固定 */
+  body { margin:0; font-family: sans-serif; line-height:1.6; }
+  main { max-width: 800px; margin: 2rem auto; padding: 0 1.5rem; }
+  h1, h2, h3 { margin-top: 2rem; margin-bottom: 1rem; }
+  ul { margin: 0.5rem 0 1rem 1.5rem; }
+  p { margin: 0.5rem 0; }
+
   #lang-switch {
-    position: fixed;
-    top: 16px;
-    left: 16px; 
-    padding: 0.5rem 1rem;
-    font-size: 0.95rem;
-    border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.2);
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(16px);
-    cursor: pointer;
-    z-index: 1001;
-    transition: all 0.3s ease;
+    position: fixed; top:16px; left:16px;
+    padding:0.5rem 1rem; font-size:0.95rem; border-radius:12px;
+    border:1px solid rgba(0,0,0,0.2); background:rgba(255,255,255,0.15);
+    backdrop-filter: blur(16px); cursor:pointer; z-index:1001; transition:all 0.3s ease;
   }
   body.dark #lang-switch {
-    background: rgba(0,0,0,0.35);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.35); color:#fff; border:1px solid rgba(255,255,255,0.2);
   }
-  #lang-switch:hover {
-    background: rgba(0,188,212,0.25);
-    transform: scale(1.05);
-  }
+  #lang-switch:hover { background: rgba(0,188,212,0.25); transform: scale(1.05); }
 
-  /* 言語切替表示 */
-  .lang-ja .en { display: none; }
-  .lang-en .ja { display: none; }
+  .lang-ja .en { display:none; }
+  .lang-en .ja { display:none; }
 
-  header {
-    position: relative;
-    text-align: center;
-  }
+  header { text-align:center; margin-bottom: 2rem; }
+  footer { text-align:center; padding:2rem 1rem; font-size:0.9rem; line-height:1.4; }
 </style>
-
-
 </head>
 <body class="light lang-ja">
 
-  <header>
-    <a href="index.html" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
-      <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
-    </a>
-    <button id="lang-switch" aria-label="言語切り替え / Language switch">🌐 English</button>
-  </header>
+<header>
+  <a href="index.html" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
+    <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
+  </a>
+  <button id="lang-switch" aria-label="言語切り替え / Language switch">🌐 English</button>
+</header>
 
-  <main>
-    <section>
-      <h1>
-        <span class="ja">利用規約・プライバシーポリシー</span>
-        <span class="en">Terms of Service & Privacy Policy</span>
-      </h1>
+<main>
+<section>
+<h1>
+  <span class="ja">利用規約・プライバシーポリシー</span>
+  <span class="en">Terms of Service & Privacy Policy</span>
+</h1>
 
-      <p><strong>
-        <span class="ja">制定日:</span>
-        <span class="en">Effective Date:</span>
-      </strong></p>
-      <ul>
-        <li>JST: <span id="japan-time"></span></li>
-        <li>UTC: <span id="utc-time"></span></li>
-        <li>Local time: <span id="local-time"></span></li>
-      </ul>
+<p><strong>
+  <span class="ja">制定日:</span>
+  <span class="en">Effective Date:</span>
+</strong></p>
 
-      <p class="ja">このウェブサイト（以下「当サイト」）は、hamusata が運営しています。当サイトをご利用いただく前に、以下の内容をご確認ください。</p>
-      <p class="en">This website (hereinafter referred to as “the Site”) is operated by hamusata. Please read the following terms carefully before using this Site.</p>
+<ul>
+  <li>JST: <span id="japan-time"></span></li>
+  <li>UTC: <span id="utc-time"></span></li>
+  <li>Local time: <span id="local-time"></span></li>
+</ul>
 
-      <h2><span class="ja">1. サービス内容</span><span class="en">1. Description of Service</span></h2>
-      <p class="ja">当サイトは、HAMUSATA関連の情報提供およびリンク集、コンテンツ閲覧サービスを提供します。利用者は自己の責任でご利用ください。</p>
-      <p class="en">The Site provides information, link collections, and content browsing related to HAMUSATA. Users agree to use the Site at their own discretion and responsibility.</p>
+<p class="ja">このウェブサイト（以下「当サイト」）は、hamusata が運営しています。当サイトをご利用いただく前に、以下の内容をご確認ください。</p>
+<p class="en">This website (hereinafter referred to as “the Site”) is operated by hamusata. Please read the following terms carefully before using this Site.</p>
 
-      <h2><span class="ja">2. 禁止事項</span><span class="en">2. Prohibited Activities</span></h2>
-      <p class="ja">当サイトの利用にあたり、以下の行為を禁止します：</p>
-      <p class="en">The following actions are prohibited when using this Site:</p>
-      <ul>
-        <li><span class="ja">法令・公序良俗に反する行為</span><span class="en">Violating laws, regulations, or public order and morals</span></li>
-        <li><span class="ja">他者や当サイトの運営に損害を与える行為</span><span class="en">Causing harm to other users or to the operation of the Site</span></li>
-        <li><span class="ja">不正アクセスやサーバーへの攻撃行為</span><span class="en">Unauthorized access or attacks on the server</span></li>
-        <li><span class="ja">サイト内コンテンツの無断転載・改変</span><span class="en">Reproduction or alteration of the Site’s content without permission</span></li>
-      </ul>
+<h2><span class="ja">1. サービス内容</span><span class="en">1. Description of Service</span></h2>
+<p class="ja">当サイトは、HAMUSATA関連の情報提供およびリンク集、コンテンツ閲覧サービスを提供します。利用者は自己の責任でご利用ください。</p>
+<p class="en">The Site provides information, link collections, and content browsing related to HAMUSATA. Users agree to use the Site at their own discretion and responsibility.</p>
 
-      <h2><span class="ja">3. 免責事項</span><span class="en">3. Disclaimer</span></h2>
-      <p class="ja">当サイトに掲載される情報は正確性に努めていますが、内容の完全性・正確性を保証するものではありません。当サイトの利用により生じた損害について、一切責任を負いません。</p>
-      <p class="en">While the Site strives to provide accurate information, it does not guarantee its completeness or accuracy. The operator is not responsible for any damages arising from the use of the Site.</p>
+<h2><span class="ja">2. 禁止事項</span><span class="en">2. Prohibited Activities</span></h2>
+<p class="ja">当サイトの利用にあたり、以下の行為を禁止します：</p>
+<p class="en">The following actions are prohibited when using this Site:</p>
 
-      <h2><span class="ja">4. 著作権</span><span class="en">4. Copyright</span></h2>
-      <p class="ja">当サイト内のコンテンツ（文章・画像・プログラムなど）の著作権は当サイト運営者または各権利者に帰属します。無断使用・転載は禁止します。</p>
-      <p class="en">All content on this Site, including text, images, and programs, is the property of the Site’s operator or respective copyright holders. Unauthorized use or reproduction is strictly prohibited.</p>
+<ul>
+  <li><span class="ja">法令・公序良俗に反する行為</span><span class="en">Violating laws, regulations, or public order and morals</span></li>
+  <li><span class="ja">他者や当サイトの運営に損害を与える行為</span><span class="en">Causing harm to other users or to the operation of the Site</span></li>
+  <li><span class="ja">不正アクセスやサーバーへの攻撃行為</span><span class="en">Unauthorized access or attacks on the server</span></li>
+  <li><span class="ja">サイト内コンテンツの無断転載・改変</span><span class="en">Reproduction or alteration of the Site’s content without permission</span></li>
+</ul>
 
-      <h2><span class="ja">5. クッキー・アクセス解析</span><span class="en">5. Cookies & Analytics</span></h2>
-      <p class="ja">当サイトでは、サービス向上のためアクセス解析（Google Analytics 等）を利用する場合があります。収集されるデータは匿名化されており、個人を特定する情報は含まれません。</p>
-      <p class="en">The Site may use analytics tools (such as Google Analytics) to improve user experience. Collected data is anonymized and does not contain personally identifiable information.</p>
+<h2><span class="ja">3. 免責事項</span><span class="en">3. Disclaimer</span></h2>
+<p class="ja">当サイトに掲載される情報は正確性に努めていますが、内容の完全性・正確性を保証するものではありません。当サイトの利用により生じた損害について、一切責任を負いません。</p>
+<p class="en">While the Site strives to provide accurate information, it does not guarantee its completeness or accuracy. The operator is not responsible for any damages arising from the use of the Site.</p>
 
-      <h2><span class="ja">6. プライバシーポリシー</span><span class="en">6. Privacy Policy</span></h2>
-      <p class="ja">当サイトでは、ユーザーの個人情報（名前・メールアドレス等）は一切取得していません。アクセス解析やクッキー等を使用する場合がありますが、収集されるデータは匿名化されており、個人を特定する情報は含まれません。</p>
-      <p class="en">This Site does not collect any personal information from users (such as name or email address). The Site may use analytics or cookies, but any collected data is anonymized and does not contain personally identifiable information.</p>
+<h2><span class="ja">4. 著作権</span><span class="en">4. Copyright</span></h2>
+<p class="ja">当サイト内のコンテンツ（文章・画像・プログラムなど）の著作権は当サイト運営者または各権利者に帰属します。無断使用・転載は禁止します。</p>
+<p class="en">All content on this Site, including text, images, and programs, is the property of the Site’s operator or respective copyright holders. Unauthorized use or reproduction is strictly prohibited.</p>
 
-      <p class="ja">
-        当サイトは Cloudflare Pages を利用しています。詳細は
-        <a href="https://www.cloudflare.com/ja-jp/terms/" target="_blank" rel="noopener">Cloudflare 利用規約</a>および
-        <a href="https://www.cloudflare.com/ja-jp/privacypolicy/" target="_blank" rel="noopener">Cloudflare プライバシーポリシー</a>をご覧ください。
-      </p>
-      <p class="en">
-        This Site is hosted via Cloudflare Pages. For details, see the
-        <a href="https://www.cloudflare.com/ja-jp/terms/" target="_blank" rel="noopener">Cloudflare Terms of Service</a> and
-        <a href="https://www.cloudflare.com/ja-jp/privacypolicy/" target="_blank" rel="noopener">Cloudflare Privacy Policy</a>.
-      </p>
+<h2><span class="ja">5. クッキー・アクセス解析</span><span class="en">5. Cookies & Analytics</span></h2>
+<p class="ja">当サイトでは、サービス向上のためアクセス解析（Google Analytics 等）を利用する場合があります。収集されるデータは匿名化されており、個人を特定する情報は含まれません。</p>
+<p class="en">The Site may use analytics tools (such as Google Analytics) to improve user experience. Collected data is anonymized and does not contain personally identifiable information.</p>
 
-      <p class="ja">
-        また、当サイトでは Google Analytics を利用してアクセス解析を行っています。詳細は
-        <a href="https://policies.google.com/" target="_blank" rel="noopener">Google プライバシーと利用規約</a>をご確認ください。
-      </p>
-      <p class="en">
-        This Site uses Google Analytics for anonymized traffic analysis. For details, see
-        <a href="https://policies.google.com/" target="_blank" rel="noopener">Google Privacy & Terms</a>.
-      </p>
+<h2><span class="ja">6. プライバシーポリシー</span><span class="en">6. Privacy Policy</span></h2>
+<p class="ja">当サイトでは、ユーザーの個人情報（名前・メールアドレス等）は一切取得していません。アクセス解析やクッキー等を使用する場合がありますが、収集されるデータは匿名化されており、個人を特定する情報は含まれません。</p>
+<p class="en">This Site does not collect any personal information from users (such as name or email address). The Site may use analytics or cookies, but any collected data is anonymized and does not contain personally identifiable information.</p>
 
-      <h2><span class="ja">7. 規約の変更</span><span class="en">7. Changes to the Terms</span></h2>
-      <p class="ja">当サイトは本規約を予告なく変更することがあります。最新の内容は当ページにてご確認ください。</p>
-      <p class="en">The Site may modify these terms without prior notice. Please check this page periodically for the latest version.</p>
+<h2><span class="ja">7. AI学習・スクレイピング</span><span class="en">7. AI Training & Scraping</span></h2>
+<p class="ja">当サイト内のコンテンツ（テキスト、画像、コード等）を、生成AI（人工知能）等の機械学習モデルの学習データとして利用すること、およびそのための網羅的なデータ収集（スクレイピング、クローリング）を禁止します。<br>ただし、検索エンジンによるインデックス作成や、個人利用の範囲での非公開な解析を除きます。</p>
+<p class="en">The use of content on this Site (text, images, code, etc.) as training data for machine learning models such as generative AI, and comprehensive data collection (scraping, crawling) for such purposes, is prohibited.<br>Exceptions include indexing by search engines and private analysis for personal use.</p>
 
-    </section>
-  </main>
+<h2><span class="ja">8. 規約の変更</span><span class="en">8. Changes to the Terms</span></h2>
+<p class="ja">当サイトは本規約を予告なく変更することがあります。最新の内容は当ページにてご確認ください。</p>
+<p class="en">The Site may modify these terms without prior notice. Please check this page periodically for the latest version.</p>
 
-  <footer>
-    &copy; <span id="year"></span>
-    <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved. |
-    <a href="./index.html" class="ja">ホームページに戻る</a>
-    <a href="./index.html" class="en">Back to Home</a>
-  </footer>
+</section>
+</main>
 
-  <script>
-    // 年自動更新
-    const baseYear = 2025;
-    const currentYear = new Date().getFullYear();
-    document.getElementById("year").textContent =
-      currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
+<footer>
+  &copy; <span id="year"></span>
+  <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – All rights reserved. |
+  <a href="./index.html">ホームページに戻る / Back to Home</a>
+</footer>
 
-    // テーマ切替
-    const urlParams = new URLSearchParams(window.location.search);
-    const themeParam = urlParams.get('theme');
-    function applyTheme(theme) {
-      document.body.classList.toggle('dark', theme === 'dark');
-      document.body.classList.toggle('light', theme !== 'dark');
-    }
-    if(themeParam === 'dark' || themeParam === 'light'){ applyTheme(themeParam); }
-    else { applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-      if(!themeParam) applyTheme(e.matches ? 'dark' : 'light');
-    });
+<script>
+  // 年自動更新
+  const baseYear = 2025;
+  const currentYear = new Date().getFullYear();
+  document.getElementById("year").textContent =
+    currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
 
-    // 日付表示
-    const timestamp = Number(getComputedStyle(document.documentElement).getPropertyValue('--terms-timestamp').trim());
-    const date = new Date(timestamp * 1000);
-    document.getElementById('japan-time').textContent = date.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
-    document.getElementById('utc-time').textContent = date.toLocaleString('en-US', { timeZone: 'UTC', hour12: false });
-    document.getElementById('local-time').textContent = date.toLocaleString();
+  // 日付表示
+  const timestamp = Number(getComputedStyle(document.documentElement).getPropertyValue('--terms-timestamp').trim());
+  const date = new Date(timestamp * 1000);
+  document.getElementById('japan-time').textContent = date.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
+  document.getElementById('utc-time').textContent = date.toLocaleString('en-US', { timeZone: 'UTC', hour12: false });
+  document.getElementById('local-time').textContent = date.toLocaleString();
 
-    // 内部リンク パラメータ維持
-    (function() {
-      const currentParams = window.location.search;
-      if (!currentParams) return;
-      document.querySelectorAll('a[href]').forEach(link => {
-        const url = new URL(link.href, window.location.origin);
-        if (url.origin !== window.location.origin) return;
-        if (url.search) return;
-        url.search = currentParams;
-        link.href = url.pathname + url.search + url.hash;
-      });
-    })();
+  // 言語切替
+  const langBtn = document.getElementById('lang-switch');
+  const savedLang = localStorage.getItem('lang');
+  const browserLang = navigator.language || navigator.userLanguage;
+  const defaultLang = savedLang || (browserLang.startsWith('en') ? 'en' : 'ja');
 
-    // 言語切替
-    const langBtn = document.getElementById('lang-switch');
-    const savedLang = localStorage.getItem('lang');
-    const browserLang = navigator.language || navigator.userLanguage;
-    const defaultLang = savedLang || (browserLang.startsWith('en') ? 'en' : 'ja');
-    function setLanguage(lang) {
-      document.body.classList.remove('lang-ja', 'lang-en');
-      document.body.classList.add(`lang-${lang}`);
-      localStorage.setItem('lang', lang);
-      langBtn.textContent = lang === 'ja' ? '🌐 English' : '🌐 日本語';
-    }
-    setLanguage(defaultLang);
-    langBtn.addEventListener('click', () => {
-      const nextLang = document.body.classList.contains('lang-ja') ? 'en' : 'ja';
-      setLanguage(nextLang);
-    });
-  </script>
+  function setLanguage(lang) {
+    document.body.classList.remove('lang-ja', 'lang-en');
+    document.body.classList.add(`lang-${lang}`);
+    localStorage.setItem('lang', lang);
+    langBtn.textContent = lang === 'ja' ? '🌐 English' : '🌐 日本語';
+  }
+
+  setLanguage(defaultLang);
+
+  langBtn.addEventListener('click', () => {
+    const nextLang = document.body.classList.contains('lang-ja') ? 'en' : 'ja';
+    setLanguage(nextLang);
+  });
+</script>
 
 </body>
 </html>
