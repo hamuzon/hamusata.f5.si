@@ -16,74 +16,56 @@
   <link rel="stylesheet" href="css/style.css">
 
   <!-- 内部CSS -->
-  <style>
-    :root { --terms-timestamp: 1771218000; }
+<style>
+  :root { --terms-timestamp: 1771218000; /* 指定日 */ }
+  * { box-sizing: border-box; overflow-wrap: break-word; }
+  a { overflow-wrap: anywhere; word-break: break-word; }
 
-    /* 全体 */
-    body {
-      margin:0;
-      font-family: sans-serif;
-      line-height:1.8;
-      background-color: #fff;
-      color: #111;
-      transition: background 0.3s, color 0.3s;
-    }
-    body.dark {
-      background-color: #121212;
-      color: #eee;
-    }
+  #lang-switch {
+    position: fixed;
+    top: 16px;
+    left: 16px; 
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.15);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.3s ease;
+  }
+  body.dark #lang-switch {
+    background: rgba(0,0,0,0.35);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  #lang-switch:hover {
+    background: rgba(0,188,212,0.25);
+    transform: scale(1.05);
+  }
 
-    main {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-    }
+  .lang-ja .en { display: none; }
+  .lang-en .ja { display: none; }
 
-    /* 見出し */
-    h1 { margin: 3rem 0 1.5rem; font-size: 2rem; }
-    h2 { margin: 2.5rem 0 1rem; font-size: 1.5rem; }
-    h3 { margin: 2rem 0 0.8rem; font-size: 1.2rem; }
+  header {
+    position: relative;
+    text-align: center;
+  }
 
-    /* 段落・リスト */
-    p { margin: 1rem 0; }
-    ul, ol { margin: 1rem 0 1rem 2rem; }
-    li { margin-bottom: 0.6rem; }
-
-    /* リンク */
-    a { color: #0077cc; text-decoration: none; transition: color 0.3s; }
-    body.dark a { color: #4fc3f7; }
-    a:hover { text-decoration: underline; }
-
-    /* 言語切替ボタン */
-    #lang-switch {
-      position: fixed;
-      top:16px;
-      left:16px;
-      padding:0.5rem 1rem;
-      font-size:0.95rem;
-      border-radius:12px;
-      border:1px solid rgba(0,0,0,0.2);
-      background:rgba(255,255,255,0.15);
-      backdrop-filter: blur(16px);
-      cursor:pointer;
-      z-index:1001;
-      transition: all 0.3s ease;
-    }
-    body.dark #lang-switch {
-      background: rgba(0,0,0,0.35);
-      color:#fff;
-      border:1px solid rgba(255,255,255,0.2);
-    }
-    #lang-switch:hover { background: rgba(0,188,212,0.25); transform: scale(1.05); }
-
-    /* 言語表示切替 */
-    .lang-ja .en { display:none; }
-    .lang-en .ja { display:none; }
-
-    /* ヘッダー・フッター */
-    header { text-align:center; margin-bottom:3rem; }
-    footer { text-align:center; padding:3rem 1rem; font-size:0.9rem; line-height:1.6; }
-  </style>
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    overflow-wrap: break-word;
+  }
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  img { max-width: 100%; height: auto; }
+</style>
 </head>
 <body class="light lang-ja">
 
