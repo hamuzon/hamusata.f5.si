@@ -29,7 +29,7 @@ export async function onRequest(context) {
 <title>${nextYear}年カウントダウン</title>
 <meta name="description" content="${nextYear}年（来年）の元旦までの残り時間をリアルタイムでカウントダウン表示します。年越しまであと何日、何時間、何分、何秒かを確認できるシンプルなタイマーサイトです。">
 <meta property="og:title" content="${nextYear}年カウントダウン！">
-<meta property="og:description" content="来年の元旦までの残り時間をリアルタイムでカウントダウン！">
+<meta property="og:description" content="来年 (${nextYear})年の元旦までの残り時間をリアルタイムでカウントダウン！">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
