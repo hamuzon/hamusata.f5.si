@@ -54,6 +54,7 @@
     border-radius: 12px;
     border: 1px solid rgba(0,0,0,0.2);
     background: rgba(255,255,255,0.15);
+    -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
     cursor: pointer;
     z-index: 1001;
@@ -70,6 +71,19 @@
   #lang-switch:hover {
     transform: scale(1.05);
     background: rgba(0,188,212,0.18);
+  }
+
+  .nav-github-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .nav-github-icon {
+    width: 20px;
+    height: 20px;
+    background-color: #222;
+    border-radius: 50%;
+    padding: 2px;
   }
 </style>
 
@@ -100,8 +114,8 @@
       <li><a href="#sns" data-lang="nav_sns">SNSリンク</a></li>
       <li><a href="terms.html" data-lang="nav_terms">利用規約・プライバシーポリシー</a></li>
       <li>
-        <a href="https://github.com/hamuzon/hamusata.f5.si" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:6px;">
-          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width:20px; height:20px; background-color:#222; border-radius:50%; padding:2px;">
+        <a href="https://github.com/hamuzon/hamusata.f5.si" target="_blank" rel="noopener noreferrer" class="nav-github-link">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" class="nav-github-icon">
           <span data-lang="nav_github">site-Code-GitHub</span>
         </a>
       </li>

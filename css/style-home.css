@@ -107,8 +107,8 @@ section {
 
 .glass-card {
     background: var(--glass);
-    backdrop-filter: blur(28px);
     -webkit-backdrop-filter: blur(28px);
+    backdrop-filter: blur(28px);
     padding: 50px;
     border-radius: 45px;
     border: 1px solid rgba(255,255,255,0.3);
