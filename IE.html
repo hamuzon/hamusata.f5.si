@@ -456,6 +456,14 @@
 
     <script>
         (function() {
+            var ieSupportEndUnix = 1772290800;
+            var currentUnix = Math.floor(Date.now() / 1000);
+
+            if (currentUnix >= ieSupportEndUnix) {
+                window.location.replace('/');
+                return;
+            }
+
             if (window.CSS && window.CSS.supports && window.CSS.supports('backdrop-filter', 'blur(30px)')) {
                 document.body.classList.add('backdrop-support');
             }
