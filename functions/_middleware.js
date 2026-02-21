@@ -56,7 +56,7 @@ export async function onRequest(context) {
 
   // ===== モード1: モバイル/PC判定リダイレクト =====
   if (ENABLED === 1) {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|Opera Mini/i.test(ua);
 
     const baseWithoutWWW = hostname.replace(/^www\./, "");
     const hasM = baseWithoutWWW.startsWith("m.");
