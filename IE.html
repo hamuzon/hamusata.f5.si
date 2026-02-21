@@ -465,8 +465,24 @@
                     var remainingMs = deadline - currentTime;
                     var remainingDays = Math.floor(remainingMs / 86400000);
                     var remainingHours = Math.floor((remainingMs % 86400000) / 3600000);
+                    var warningBanner = document.createElement('div');
 
-                    alert('【重要】このサイトのIEモード対応は2026年3月1日で終了します。残り' + remainingDays + '日' + remainingHours + '時間です。Edge等に切り替えてください。');
+                    warningBanner.innerHTML = '【重要】このサイトのIEモード対応は2026年3月1日で終了します。残り' + remainingDays + '日' + remainingHours + '時間です。Edge等に切り替えてください。';
+                    warningBanner.style.background = '#ffeb3b';
+                    warningBanner.style.color = '#000';
+                    warningBanner.style.fontSize = '16px';
+                    warningBanner.style.fontWeight = '700';
+                    warningBanner.style.lineHeight = '1.5';
+                    warningBanner.style.padding = '14px 16px';
+                    warningBanner.style.textAlign = 'center';
+                    warningBanner.style.position = 'sticky';
+                    warningBanner.style.top = '0';
+                    warningBanner.style.left = '0';
+                    warningBanner.style.width = '100%';
+                    warningBanner.style.zIndex = '9999';
+                    warningBanner.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.25)';
+
+                    document.body.insertBefore(warningBanner, document.body.firstChild);
                 } else {
                     document.body.innerHTML = '<h1>サポート終了</h1><p>2026年3月1日をもって、このサイトはInternet Explorerモードでの閲覧を終了しました。最新のブラウザをご利用ください。</p>';
                     return;
