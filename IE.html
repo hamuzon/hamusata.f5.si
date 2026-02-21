@@ -460,7 +460,19 @@
             var currentTime = Date.now();
             var isIE = /MSIE|Trident/.test(window.navigator.userAgent);
             var searchParams = new URLSearchParams(window.location.search);
-            var cancelRedirect = searchParams.get('cancelRedirect') === '1';
+            var cancelRedirectKeys = ['cancelRedirect', 'redirectCancel', 'creapass', 'querypass'];
+            var cancelRedirectValues = ['1', 'true', 'yes', 'on', 'skip'];
+            var redirectCookieName = 'ie_html_redirect_once';
+            var cancelRedirect = false;
+            var hasRedirectCookie = document.cookie.indexOf(redirectCookieName + '=1') !== -1;
+
+            for (var i = 0; i < cancelRedirectKeys.length; i++) {
+                var keyValue = searchParams.get(cancelRedirectKeys[i]);
+                if (keyValue && cancelRedirectValues.indexOf(String(keyValue).toLowerCase()) !== -1) {
+                    cancelRedirect = true;
+                    break;
+                }
+            }
 
             if (currentTime >= deadline) {
                 if (isIE) {
@@ -468,21 +480,19 @@
                     return;
                 }
 
-                if (!cancelRedirect) {
+                if (!cancelRedirect && !hasRedirectCookie) {
+                    document.cookie = redirectCookieName + '=1; path=/; max-age=31536000; SameSite=Lax';
                     window.location.replace('/');
                     return;
                 }
             }
 
             if (isIE) {
-                var remainingMs = deadline - currentTime;
-                var remainingDays = Math.floor(remainingMs / 86400000);
-                var remainingHours = Math.floor((remainingMs % 86400000) / 3600000);
                 var warningBanner = document.createElement('div');
                 var warningText = document.createElement('span');
                 var closeButton = document.createElement('button');
 
-                warningText.textContent = '【重要】このサイトのIEモード対応は2026年3月1日で終了します。残り' + remainingDays + '日' + remainingHours + '時間です。Edge等に切り替えてください。';
+                warningText.textContent = '【重要】<t:1772290799:f> は 残り<t:1772290800:R> です。Edge等に切り替えてください。';
                 closeButton.textContent = '✕';
 
                 warningBanner.style.background = '#ffeb3b';
