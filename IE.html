@@ -456,14 +456,21 @@
 
     <script>
         (function() {
-            var ieSupportEndUnix = 1772290800;
-            var currentUnix = Math.floor(Date.now() / 1000);
-            var ua = window.navigator.userAgent;
-            var isIE = ua.indexOf('MSIE ') !== -1 || ua.indexOf('Trident/') !== -1;
+            var deadline = 1772290800 * 1000;
+            var currentTime = Date.now();
+            var isIE = /MSIE|Trident/.test(window.navigator.userAgent);
 
-            if (isIE && currentUnix >= ieSupportEndUnix) {
-                window.location.replace('/');
-                return;
+            if (isIE) {
+                if (currentTime < deadline) {
+                    var remainingMs = deadline - currentTime;
+                    var remainingDays = Math.floor(remainingMs / 86400000);
+                    var remainingHours = Math.floor((remainingMs % 86400000) / 3600000);
+
+                    alert('【重要】このサイトのIEモード対応は2026年3月1日で終了します。残り' + remainingDays + '日' + remainingHours + '時間です。Edge等に切り替えてください。');
+                } else {
+                    document.body.innerHTML = '<h1>サポート終了</h1><p>2026年3月1日をもって、このサイトはInternet Explorerモードでの閲覧を終了しました。最新のブラウザをご利用ください。</p>';
+                    return;
+                }
             }
 
             if (window.CSS && window.CSS.supports && window.CSS.supports('backdrop-filter', 'blur(30px)')) {
