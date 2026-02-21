@@ -458,8 +458,10 @@
         (function() {
             var ieSupportEndUnix = 1772290800;
             var currentUnix = Math.floor(Date.now() / 1000);
+            var ua = window.navigator.userAgent;
+            var isIE = ua.indexOf('MSIE ') !== -1 || ua.indexOf('Trident/') !== -1;
 
-            if (currentUnix >= ieSupportEndUnix) {
+            if (isIE && currentUnix >= ieSupportEndUnix) {
                 window.location.replace('/');
                 return;
             }
