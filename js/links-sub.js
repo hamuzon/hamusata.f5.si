@@ -44,12 +44,17 @@ async function loadLinks() {
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
     // JSONのlangキー取得
-    const langDataRes = await fetch("lang/sub-lang.json");
+    const langDataRes = await fetch("/lang/sub-lang.json");
     const langData = await langDataRes.json();
     const lang = localStorage.getItem("lang") || (navigator.language.startsWith("en") ? "en" : "ja");
 
-    rows.slice(1).forEach(row => {
-      const [title, description, image, link, section, internalLinkFlag] = row;
+    const firstRow = rows[0] || [];
+    const looksLikeHeader = String(firstRow[4] || "").trim().toLowerCase() === "section";
+    const dataRows = looksLikeHeader ? rows.slice(1) : rows;
+
+    dataRows.forEach(row => {
+      const [title, description, image, link, rawSection, internalLinkFlag] = row;
+      const section = String(rawSection || "").trim().toLowerCase();
       if (!section || !sections[section] || !sections[section].container) return;
 
       const container = sections[section].container;
@@ -87,7 +92,9 @@ async function loadLinks() {
       // リンク
       if (link) {
         const a = document.createElement("a");
+        const normalizedLink = String(link).trim();
         const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
+        const isHomeHamusataLink = /https?:\/\/(home\.)?hamusata\.f5\.si\/?/i.test(normalizedLink);
 
         if (isInternal) {
           const currentParams = new URLSearchParams(window.location.search);
@@ -95,11 +102,11 @@ async function loadLinks() {
           const newParams = new URLSearchParams();
           if (themeParam) newParams.set("theme", themeParam);
 
-          a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
-        } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
-          a.href = seasonLinks[season] || link;
+          a.href = normalizedLink.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
+        } else if (section === "portfolio" && isHomeHamusataLink) {
+          a.href = seasonLinks[season] || normalizedLink;
         } else {
-          a.href = link;
+          a.href = normalizedLink;
         }
 
         a.target = "_blank";
