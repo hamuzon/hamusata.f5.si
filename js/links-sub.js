@@ -44,13 +44,17 @@ async function loadLinks() {
                    month >= 9 && month <= 11 ? "autumn" : "winter";
 
     // JSONのlangキー取得
-    const langDataRes = await fetch("lang/sub-lang.json");
+    const langDataRes = await fetch("/lang/sub-lang.json");
     const langData = await langDataRes.json();
     const lang = localStorage.getItem("lang") || (navigator.language.startsWith("en") ? "en" : "ja");
 
-    rows.slice(1).forEach(row => {
+    const firstRow = rows[0] || [];
+    const looksLikeHeader = String(firstRow[4] || "").trim().toLowerCase() === "section";
+    const dataRows = looksLikeHeader ? rows.slice(1) : rows;
+
+    dataRows.forEach(row => {
       const [title, description, image, link, rawSection, internalLinkFlag] = row;
-      const section = String(rawSection || "").trim();
+      const section = String(rawSection || "").trim().toLowerCase();
       if (!section || !sections[section] || !sections[section].container) return;
 
       const container = sections[section].container;
