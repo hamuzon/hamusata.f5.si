@@ -7,9 +7,12 @@
     const saved = localStorage.getItem('theme');
     const theme = tp || saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     document.documentElement.className = theme;
-    document.write('<style>body{background-color:'+(theme==='dark'?'#0a0a0a':'#f7eaff')+';color:'+(theme==='dark'?'#fff':'#000')+'}</style>');
   })();
 </script>
+<style>
+  html.light body { background-color: #f7eaff; color: #000; }
+  html.dark body { background-color: #0a0a0a; color: #fff; }
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-lang="page_title">HAMUSATA – ホームページ</title>
@@ -24,7 +27,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="hamusata_399-120.webp" as="image" type="image/webp">
-<link rel="preload" href="https://fonts.gstatic.com/s/pottaone/v11/rax5Hiifdi63pG0Y_F88_YV99C3t.woff2" as="font" type="font/woff2" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 
 <!-- CSS -->
