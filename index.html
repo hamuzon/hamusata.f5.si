@@ -12,7 +12,9 @@
   <link rel="manifest" href="/manifest.json" />
 
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="hamusata_399-120.webp" as="image" type="image/webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 
   <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'" />
@@ -113,7 +115,7 @@
         <li>
           <a href="https://github.com/hamuzon/hamusata.f5.si" target="_blank" rel="noopener noreferrer" class="nav-github-link">
             <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-                 alt="GitHub" class="nav-github-icon">
+                 alt="GitHub" class="nav-github-icon" width="20" height="20" loading="lazy" decoding="async">
             <span data-lang="nav_github">site-Code-GitHub</span>
           </a>
         </li>
@@ -289,8 +291,8 @@
     &copy; <span id="year"></span> <a href="https://github.com/hamuzon">@hamuzon / @hamusata</a> – <span data-lang="footer_reserved">All rights reserved.</span>
   </footer>
 
-  <script src="js/script.js"></script>
-  <script src="js/lang-switch.js"></script>
+  <script src="js/script.js" defer></script>
+  <script src="js/lang-switch.js" defer></script>
 
 </body>
 </html>
