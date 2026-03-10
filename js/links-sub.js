@@ -68,6 +68,8 @@ async function loadLinks() {
         img.alt = title;
         img.loading = "lazy";
         img.decoding = "async";
+        img.width = 105;
+        img.height = 105;
         card.appendChild(img);
       }
 
