@@ -74,7 +74,6 @@ body.dark #mobile-menu {
 /* メニュー開閉 */
 body.menu-open #mobile-menu {
     right: 0;
-    z-index: 100000;
 }
 
 /* メニューリスト */
@@ -135,11 +134,6 @@ body.dark #mobile-menu a {
 body.menu-open #menu-overlay {
     opacity: 1;
     visibility: visible;
-    z-index: 99999;
-}
-
-body.menu-open #menu-toggle {
-    z-index: 100001;
 }
 
 /* =========================
