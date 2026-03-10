@@ -16,18 +16,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
 <!-- CSS -->
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/mobile-menu.css">
+<link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="css/mobile-menu.css" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile-menu.css">
+</noscript>
 
 <!-- テーマCSS -->
 <script>
   const themeCSS = [
-    "css/dark.css",
-    "css/dark-hc.css",
-    "css/dark-mc.css",
-    "css/light.css",
-    "css/light-hc.css",
-    "css/light-mc.css"
+    "css/dark.css", "css/dark-hc.css", "css/dark-mc.css",
+    "css/light.css", "css/light-hc.css", "css/light-mc.css"
   ];
   themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
 </script>
@@ -97,7 +97,7 @@
 <!-- ヘッダー -->
 <header>
   <a href="index.html" id="home" class="banner-link">
-    <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
+    <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" decoding="async" fetchpriority="high">
   </a>
 
   <button id="menu-toggle" aria-label="メニューを開く" aria-expanded="false">

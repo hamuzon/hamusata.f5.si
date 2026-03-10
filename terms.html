@@ -13,7 +13,10 @@
   <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
 
   <!-- 共通CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="css/style.css">
+  </noscript>
 
   <!-- 内部CSS -->
 <style>
@@ -76,7 +79,7 @@
   <!-- ヘッダー -->
   <header>
     <a href="index.html" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
-      <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
+      <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" decoding="async" fetchpriority="high">
     </a>
     <button id="lang-switch" aria-label="言語切り替え / Language switch">🌐 English</button>
   </header>
