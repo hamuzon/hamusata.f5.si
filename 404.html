@@ -11,6 +11,7 @@
   <link rel="icon" href="https://hamusata.f5.si/icon.webp" type="image/webp">
 
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/mobile-menu.css">
 
   <style>
     :root { --bg-color: #f7eaff; --text-color: #000; }
@@ -171,6 +172,22 @@
     })();
   </script>
 
+  <button id="menu-toggle" aria-label="メニューを開く">
+    <span></span><span></span><span></span>
+  </button>
+  <nav id="mobile-menu" aria-label="Main navigation">
+    <ul>
+      <li><a href="index.html" data-lang="nav_home">ホーム</a></li>
+      <li><a href="index.html#profile" data-lang="nav_profile">自己紹介</a></li>
+      <li><a href="index.html#portfolio" data-lang="nav_portfolio">ポートフォリオ</a></li>
+      <li><a href="index.html#random" data-lang="nav_random">ランダム作品</a></li>
+      <li><a href="index.html#status" data-lang="nav_status">サービス稼働状況</a></li>
+      <li><a href="index.html#mutual-links" data-lang="nav_links">相互リンク</a></li>
+      <li><a href="index.html#sns" data-lang="nav_sns">SNSリンク</a></li>
+      <li><a href="terms.html" data-lang="nav_terms">利用規約・プライバシーポリシー</a></li>
+    </ul>
+  </nav>
+  <div id="menu-overlay"></div>
   <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
 
   <h1 id="page-title">404 ページが見つかりません</h1>
@@ -204,6 +221,16 @@
         applyTheme(e.matches ? 'dark' : 'light');
       }
     });
+
+    // ハンバーガーメニュー
+    (function(){
+      const toggle = document.getElementById('menu-toggle');
+      const overlay = document.getElementById('menu-overlay');
+      if(toggle && overlay){
+        toggle.addEventListener('click', () => document.body.classList.toggle('menu-open'));
+        overlay.addEventListener('click', () => document.body.classList.remove('menu-open'));
+      }
+    })();
 
     const langData = {
       "ja": {
