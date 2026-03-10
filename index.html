@@ -5,30 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="title">HAMUSATA – ホームページ</title>
 
+  <!-- テーマフリッカー防止: DOMContentLoaded前にクラスを設定 -->
+  <script>
+    (function(){
+      var tp = new URLSearchParams(window.location.search).get('theme');
+      var theme = (tp === 'dark' || tp === 'light') ? tp
+                : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.className = theme;
+    })();
+  </script>
+
   <link rel="icon" href="https://hamusata.f5.si/favicon.ico" sizes="any">
   <link rel="icon" href="https://hamusata.f5.si/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
 
   <link rel="manifest" href="/manifest.json" />
 
-
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/mobile-menu.css" />
-
-  <script>
-    const themeCSS = [
-      "css/dark.css",
-      "css/dark-hc.css",
-      "css/dark-mc.css",
-      "css/light.css",
-      "css/light-hc.css",
-      "css/light-mc.css"
-    ];
-    themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
-  </script>
+  <link rel="stylesheet" href="css/dark.css" />
+  <link rel="stylesheet" href="css/dark-hc.css" />
+  <link rel="stylesheet" href="css/dark-mc.css" />
+  <link rel="stylesheet" href="css/light.css" />
+  <link rel="stylesheet" href="css/light-hc.css" />
+  <link rel="stylesheet" href="css/light-mc.css" />
 
   <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
   <meta property="og:title" content="HAMUSATA – ホームページ" />
@@ -59,7 +63,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.12);
       line-height:1;
     }
-    body.dark #lang-switch {
+    html.dark #lang-switch {
       background: rgba(0,0,0,0.35);
       color: #fff;
       border: 1px solid rgba(255,255,255,0.12);
@@ -82,7 +86,7 @@
   </style>
 </head>
 
-<body class="light">
+<body>
   <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
 
   <header>

@@ -1,9 +1,6 @@
 // ============================================
-// js/script-sub.js 
+// js/script-sub.js
 // ============================================
-
-let currentLang = localStorage.getItem("lang") || "ja";
-let langSub = {};
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -15,67 +12,62 @@ document.addEventListener('DOMContentLoaded', () => {
     if (el) el.textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
   })();
 
-  // テーマ自動切替
-  (function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const themeParam = urlParams.get('theme');
-
-    function applyTheme(theme) {
-      document.documentElement.classList.remove('dark', 'light');
-      document.documentElement.classList.add(theme);
-      document.body.classList.remove('dark', 'light');
-      document.body.classList.add(theme);
-    }
-
-    if (themeParam === 'dark' || themeParam === 'light') {
-      applyTheme(themeParam);
-    } else {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const handleThemeChange = (e) => {
-        const tp = new URLSearchParams(window.location.search).get('theme');
-        if (tp !== 'dark' && tp !== 'light') {
-          applyTheme(e.matches ? 'dark' : 'light');
-        }
-      };
-      mediaQuery.addEventListener('change', handleThemeChange);
-      applyTheme(mediaQuery.matches ? 'dark' : 'light');
-    }
-  })();
+  // テーマ監視 (適用自体はHEAD内のインラインスクリプトで実施済み、ここではシステム設定変更のみを追従)
+  if (!new URLSearchParams(window.location.search).has('theme')) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      document.documentElement.className = e.matches ? 'dark' : 'light';
+    });
+  }
 
   // ハンバーガーメニュー開閉
   (function () {
     const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
     const menuOverlay = document.getElementById('menu-overlay');
-    const path = window.location.pathname.toLowerCase();
-    const isHiddenPage = path.endsWith('/404') || path.endsWith('/404.html') || path.includes('/teams') || path.includes('teamspage');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const body = document.body;
+    let isAnimating = false;
 
-    if (isHiddenPage) {
-      if (menuToggle) menuToggle.style.display = 'none';
-      if (mobileMenu) mobileMenu.style.display = 'none';
-      if (menuOverlay) menuOverlay.style.display = 'none';
-      document.body.classList.remove('menu-open');
-      return;
+    function closeMenu() {
+      body.classList.remove('menu-open');
+      if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
     }
 
-    if (menuToggle && mobileMenu && menuOverlay) {
-      function setMenuState(isOpen) {
-        document.body.classList.toggle('menu-open', isOpen);
-        menuToggle.setAttribute('aria-expanded', String(isOpen));
-        mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-      }
+    function openMenu() {
+      body.classList.add('menu-open');
+      if (menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
+    }
 
-      menuToggle.setAttribute('aria-controls', 'mobile-menu');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      mobileMenu.setAttribute('aria-hidden', 'true');
+    if (menuToggle) {
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (isAnimating) return;
+        isAnimating = true;
+        const isOpen = body.classList.contains('menu-open');
+        isOpen ? closeMenu() : openMenu();
+        setTimeout(() => { isAnimating = false; }, 400);
+      });
+    }
 
-      menuToggle.addEventListener('click', () => {
-        setMenuState(!document.body.classList.contains('menu-open'));
+    // オーバーレイクリックで閉じる
+    if (menuOverlay) {
+      menuOverlay.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeMenu();
+      });
+    }
+
+    // メニュー内リンクをクリックしたら閉じる
+    if (mobileMenu) {
+      // クリックがメニューの外（overlay）へ伝播しないようにする
+      mobileMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
       });
 
-      menuOverlay.addEventListener('click', () => setMenuState(false));
-      mobileMenu.addEventListener('click', (event) => {
-        if (event.target.closest('a')) setMenuState(false);
+      // すべてのナビリンクでメニューを閉じる
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          closeMenu();
+        });
       });
     }
   })();
@@ -85,37 +77,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function menuScrollToHome(event) {
       event.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      history.replaceState(null, '', ' ');
+      history.replaceState(null, '', location.pathname + location.search);
       document.body.classList.remove('menu-open');
+      const toggle = document.getElementById('menu-toggle');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
     }
     document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
   })();
 
   // PWA: Service Worker 登録
-  (function () {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-          .then(r => console.log('Service Worker registered with scope:', r.scope))
-          .catch(e => console.error('Service Worker registration failed:', e));
-      });
-    }
-  })();
-
-  // 内部リンクURLパラメータ維持
-  (function () {
-    const currentParams = window.location.search;
-    if (!currentParams) return;
-    document.querySelectorAll('a[href]').forEach(link => {
-      try {
-        const url = new URL(link.href, window.location.origin);
-        if (url.origin !== window.location.origin || url.search) return;
-        url.search = currentParams;
-        link.href = url.pathname + url.search + url.hash;
-      } catch (e) {
-        // 無効なhref値は無視
-      }
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(registration => console.log('Service Worker registered with scope:', registration.scope))
+        .catch(error => console.error('Service Worker registration failed:', error));
     });
-  })();
+  }
 
 });

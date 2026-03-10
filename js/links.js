@@ -17,6 +17,8 @@ async function loadLinks() {
   for (const key in sections) {
     if (sections[key].container) {
       sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
+      // レイアウトシフトを防ぐために最小の高さを設定
+      sections[key].container.style.minHeight = "200px";
     }
   }
 
@@ -100,6 +102,9 @@ document.addEventListener("DOMContentLoaded", loadLinks);
 
   const links = document.querySelectorAll('a[href]');
   links.forEach(link => {
+    // SNSセクション内のリンクは除外
+    if (link.closest('#sns')) return;
+
     const url = new URL(link.href, window.location.origin);
 
     // 外部リンクを除外

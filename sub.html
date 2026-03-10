@@ -3,9 +3,9 @@
 <head>
   <script>
     (function(){
-      const tp = new URLSearchParams(window.location.search).get('theme');
-      const theme = (tp === 'dark' || tp === 'light') ? tp : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.classList.add(theme);
+      var tp = new URLSearchParams(window.location.search).get('theme');
+      var theme = (tp === 'dark' || tp === 'light') ? tp : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.className = theme;
     })();
   </script>
   <style>
@@ -38,17 +38,7 @@
 <link rel="stylesheet" href="css/light.css">
 <link rel="stylesheet" href="css/light-hc.css">
 <link rel="stylesheet" href="css/light-mc.css">
-<noscript>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/mobile-menu.css">
-  <link rel="stylesheet" href="css/dark.css">
-  <link rel="stylesheet" href="css/dark-hc.css">
-  <link rel="stylesheet" href="css/dark-mc.css">
-  <link rel="stylesheet" href="css/light.css">
-  <link rel="stylesheet" href="css/light-hc.css">
-  <link rel="stylesheet" href="css/light-mc.css">
-  <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
-</noscript>
+
 
 <!-- SEO -->
 <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si">
@@ -81,7 +71,7 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.12);
     line-height: 1;
   }
-  body.dark #lang-switch {
+  html.dark #lang-switch {
     background: rgba(0,0,0,0.35);
     color: #fff;
     border: 1px solid rgba(255,255,255,0.12);
@@ -108,12 +98,7 @@
 
 </head>
 <body>
-<script>
-  (function(){
-    const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-    document.body.classList.add(theme);
-  })();
-</script>
+
 
 <!-- Language switch button -->
 <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
@@ -194,10 +179,7 @@
 <script src="js/links-sub.js" defer data-cfasync="false"></script>
 <script src="js/lang-switch-sub.js" defer data-cfasync="false"></script>
 
-<!-- 年表示 -->
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+
 
 </body>
 </html>

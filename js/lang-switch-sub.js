@@ -5,7 +5,7 @@
 async function loadSubLang(lang) {
   try {
     // sub-lang.json を取得
-    const res = await fetch("lang/sub-lang.json");
+    const res = await fetch("/lang/sub-lang.json");
     const data = await res.json();
     const text = data[lang] || data["ja"];
 
@@ -38,17 +38,17 @@ async function loadSubLang(lang) {
   }
 }
 
+// defer付きスクリプトはDOMContentLoaded直前に実行されるため、
+// DOMContentLoadedのネストは不要。直接initを実行する。
 function initSubLang() {
   const saved = localStorage.getItem("lang");
   const browserLang = navigator.language.startsWith("en") ? "en" : "ja";
   const lang = saved || browserLang;
 
-  // ページ読み込み後に翻訳
-  window.addEventListener("DOMContentLoaded", () => {
-    loadSubLang(lang);
-  });
+  // 翻訳を適用
+  loadSubLang(lang);
 
-  // ボタンクリックで切替
+  // ボタンクリックで切替（ボタンはDOMに存在する前提でdeferにより保証）
   const btn = document.getElementById("lang-switch");
   if (btn) {
     btn.addEventListener("click", async () => {
@@ -59,5 +59,5 @@ function initSubLang() {
   }
 }
 
-// 初期化
+// defer付きで読み込まれているため、DOM構築完了後に実行される
 initSubLang();

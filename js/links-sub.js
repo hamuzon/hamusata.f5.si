@@ -19,6 +19,8 @@ async function loadLinks() {
   for (const key in sections) {
     if (sections[key].container) {
       sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
+      // レイアウトシフトを防ぐために最小の高さを設定
+      sections[key].container.style.minHeight = "200px";
     }
   }
 
@@ -49,12 +51,11 @@ async function loadLinks() {
     const lang = localStorage.getItem("lang") || (navigator.language.startsWith("en") ? "en" : "ja");
 
     const firstRow = rows[0] || [];
-    const looksLikeHeader = String(firstRow[4] || "").trim().toLowerCase() === "section";
+    const looksLikeHeader = String(firstRow[4] || "").toLowerCase() === "section";
     const dataRows = looksLikeHeader ? rows.slice(1) : rows;
 
     dataRows.forEach(row => {
-      const [title, description, image, link, rawSection, internalLinkFlag] = row;
-      const section = String(rawSection || "").trim().toLowerCase();
+      const [title, description, image, link, section, internalLinkFlag] = row;
       if (!section || !sections[section] || !sections[section].container) return;
 
       const container = sections[section].container;
@@ -67,9 +68,8 @@ async function loadLinks() {
         img.src = image;
         img.alt = title;
         img.loading = "lazy";
+        img.className = "work-card-image"; // アスペクト比修正用のクラス
         img.decoding = "async";
-        img.width = 105;
-        img.height = 105;
         card.appendChild(img);
       }
 
@@ -94,9 +94,9 @@ async function loadLinks() {
       // リンク
       if (link) {
         const a = document.createElement("a");
-        const normalizedLink = String(link).trim();
-        const isInternal = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
-        const isHomeHamusataLink = /https?:\/\/(home\.)?hamusata\.f5\.si\/?/i.test(normalizedLink);
+        const isInternalFlag = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
+        // SNSセクションは常に外部リンク扱い（クエリ引き継ぎ対象外）
+        const isInternal = isInternalFlag && section !== "sns";
 
         if (isInternal) {
           const currentParams = new URLSearchParams(window.location.search);
@@ -104,18 +104,22 @@ async function loadLinks() {
           const newParams = new URLSearchParams();
           if (themeParam) newParams.set("theme", themeParam);
 
-          a.href = normalizedLink.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
-        } else if (section === "portfolio" && isHomeHamusataLink) {
-          a.href = seasonLinks[season] || normalizedLink;
+          a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
+        } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
+          a.href = seasonLinks[season] || link;
         } else {
-          a.href = normalizedLink;
+          a.href = link;
         }
 
         a.target = "_blank";
         a.rel = "noopener noreferrer";
 
-        a.innerHTML = langData[lang]["link_view"] || "View"; // innerHTML に変更
+        const viewText = langData[lang]["link_view"] || "View";
+        a.innerHTML = viewText;
         a.dataset.langKey = "link_view";
+        // アクセシビリティ改善: スクリーンリーダー向けにリンクの目的を明確にする
+        const h3Text = h3.textContent || title;
+        a.setAttribute("aria-label", `${h3Text} ${viewText.split('/')[0].trim()}`);
         card.appendChild(a);
       }
 

@@ -14,10 +14,10 @@ const urlParams = new URLSearchParams(window.location.search);
 const themeParam = urlParams.get('theme');
 
 if (themeParam === 'dark' || themeParam === 'light') {
-    document.body.className = themeParam;
+    document.documentElement.className = themeParam;
 } else {
     function applyTheme() {
-        document.body.className =
+        document.documentElement.className =
             window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
     applyTheme();
@@ -34,6 +34,8 @@ async function loadLinks() {
     const container = document.getElementById("mutualLinks");
 
     container.innerHTML = '<p>読み込み中…</p>';
+    // レイアウトシフト軽減のため最小高さを設定
+    container.style.minHeight = '200px';
 
     try {
         const res = await fetch(url);

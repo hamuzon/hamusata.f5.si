@@ -1,115 +1,108 @@
 // js/script.js
 
-document.addEventListener('DOMContentLoaded', () => {
+// ===== 年自動更新 =====
+const baseYear = 2025;
+const now = new Date().getFullYear();
+const yearEl = document.getElementById("year");
+if (yearEl) {
+  yearEl.textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
+}
 
-  // ===== 年自動更新 =====
-  (function () {
-    const baseYear = 2025;
-    const now = new Date().getFullYear();
-    const el = document.getElementById("year");
-    if (el) el.textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
-  })();
 
-  // ===== テーマ判定 & 同期 (URL優先 -> 端末設定) =====
-  (function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const themeParam = urlParams.get('theme');
+// ===== テーマ監視 (適用自体はHEAD内のインラインスクリプトで行い、ここではシステム設定変更のみを追従) =====
+if (!new URLSearchParams(window.location.search).has('theme')) {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    document.documentElement.className = e.matches ? 'dark' : 'light';
+  });
+}
 
-    function applyTheme(theme) {
-      document.documentElement.classList.remove('dark', 'light');
-      document.documentElement.classList.add(theme);
-      document.body.classList.remove('dark', 'light');
-      document.body.classList.add(theme);
-    }
 
-    if (themeParam === 'dark' || themeParam === 'light') {
-      applyTheme(themeParam);
-    } else {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const handleThemeChange = (e) => {
-        const tp = new URLSearchParams(window.location.search).get('theme');
-        if (tp !== 'dark' && tp !== 'light') {
-          applyTheme(e.matches ? 'dark' : 'light');
-        }
-      };
-      mediaQuery.addEventListener('change', handleThemeChange);
-      applyTheme(mediaQuery.matches ? 'dark' : 'light');
-    }
-  })();
+// ===== ハンバーガーメニュー開閉 =====
+(function () {
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuOverlay = document.getElementById('menu-overlay');
+  const mobileMenu = document.getElementById('mobile-menu');
+  let isAnimating = false;
 
-  // ===== ハンバーガーメニュー開閉 =====
-  (function () {
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuOverlay = document.getElementById('menu-overlay');
-    const path = window.location.pathname.toLowerCase();
-    const isHiddenPage = path.endsWith('/404') || path.endsWith('/404.html') || path.includes('/teams') || path.includes('teamspage');
+  function closeMenu() {
+    document.body.classList.remove('menu-open');
+    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+  }
 
-    if (isHiddenPage) {
-      if (menuToggle) menuToggle.style.display = 'none';
-      if (mobileMenu) mobileMenu.style.display = 'none';
-      if (menuOverlay) menuOverlay.style.display = 'none';
-      document.body.classList.remove('menu-open');
-      return;
-    }
+  function openMenu() {
+    document.body.classList.add('menu-open');
+    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
+  }
 
-    if (menuToggle && mobileMenu && menuOverlay) {
-      function setMenuState(isOpen) {
-        document.body.classList.toggle('menu-open', isOpen);
-        menuToggle.setAttribute('aria-expanded', String(isOpen));
-        mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-      }
-
-      menuToggle.setAttribute('aria-controls', 'mobile-menu');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-
-      menuToggle.addEventListener('click', () => {
-        setMenuState(!document.body.classList.contains('menu-open'));
-      });
-
-      menuOverlay.addEventListener('click', () => setMenuState(false));
-      mobileMenu.addEventListener('click', (event) => {
-        if (event.target.closest('a')) setMenuState(false);
-      });
-    }
-  })();
-
-  // ===== #home スクロール処理 =====
-  (function () {
-    function menuScrollToHome(event) {
-      event.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      history.replaceState(null, '', ' ');
-      document.body.classList.remove('menu-open');
-    }
-    document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
-  })();
-
-  // ===== PWA Service Worker =====
-  (function () {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-          .then(r => console.log('Service Worker registered with scope:', r.scope))
-          .catch(e => console.error('Service Worker registration failed:', e));
-      });
-    }
-  })();
-
-  // ===== 内部リンクURLパラメータ維持 =====
-  (function () {
-    const currentParams = window.location.search;
-    if (!currentParams) return;
-    document.querySelectorAll('a[href]').forEach(link => {
-      try {
-        const url = new URL(link.href, window.location.origin);
-        if (url.origin !== window.location.origin || url.search) return;
-        url.search = currentParams;
-        link.href = url.pathname + url.search + url.hash;
-      } catch (e) {
-        // 無効なhref値は無視
-      }
+  if (menuToggle) {
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isAnimating) return;
+      isAnimating = true;
+      const isOpen = document.body.classList.contains('menu-open');
+      isOpen ? closeMenu() : openMenu();
+      setTimeout(() => { isAnimating = false; }, 400);
     });
-  })();
+  }
+
+  // オーバーレイクリックで閉じる
+  if (menuOverlay) {
+    menuOverlay.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeMenu();
+    });
+  }
+
+  // メニュー内リンクをクリックしたら閉じる
+  // (ナビリンクはクリックで遷移 or スクロールするためメニューを閉じる)
+  if (mobileMenu) {
+    // クリックがメニューの外（overlay）へ伝播しないようにする
+    mobileMenu.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    // すべてのナビリンクでメニューを閉じる
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+  }
+})();
+
+
+// ===== #home スクロール処理 =====
+document.querySelectorAll('.nav-home').forEach(el => {
+  el.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.replaceState(null, '', location.pathname + location.search);
+    document.body.classList.remove('menu-open');
+    const toggle = document.getElementById('menu-toggle');
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+  });
 });
+
+
+// ===== 内部リンクURLパラメータ維持 =====
+(function() {
+  const currentParams = window.location.search;
+  if (!currentParams) return;
+
+  const links = document.querySelectorAll('a[href]');
+  links.forEach(link => {
+    // SNSセクション内のリンクは除外
+    if (link.closest('#sns')) return;
+
+    const url = new URL(link.href, window.location.origin);
+
+    // 外部リンクを除外
+    if (url.origin !== window.location.origin) return;
+
+    // すでにクエリがある場合は追加せず
+    if (url.search) return;
+
+    url.search = currentParams;
+    link.href = url.pathname + url.search + url.hash;
+  });
+})();
