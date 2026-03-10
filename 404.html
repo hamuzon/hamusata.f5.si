@@ -13,6 +13,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
   <style>
+    :root { --bg-color: #f7eaff; --text-color: #000; }
+    :root.dark { --bg-color: #0a0a0a; --text-color: #fff; }
+    html, body { background-color: var(--bg-color); color: var(--text-color); }
+  </style>
+
+  <script>
+    (function(){
+      const tp = new URLSearchParams(window.location.search).get('theme');
+      const theme = tp || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.className = theme;
+    })();
+  </script>
+
+  <style>
     * {
       margin: 0;
       padding: 0;
@@ -150,6 +164,12 @@
 </head>
 
 <body class="light">
+  <script>
+    (function(){
+      const theme = document.documentElement.className;
+      document.body.className = theme;
+    })();
+  </script>
 
   <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
 
@@ -172,18 +192,17 @@
     document.getElementById("year").textContent =
       now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const themeParam = urlParams.get('theme');
-
-    if(themeParam==='dark'||themeParam==='light'){
-      document.body.className = themeParam;
-    } else {
-      function applyTheme(){
-        document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
-      applyTheme();
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+    function applyTheme() {
+      const theme = document.documentElement.className;
+      document.body.className = theme;
     }
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if(!new URLSearchParams(window.location.search).get('theme')) {
+        const theme = e.matches ? 'dark' : 'light';
+        document.documentElement.className = theme;
+        applyTheme();
+      }
+    });
 
     const langData = {
       "ja": {

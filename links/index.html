@@ -13,14 +13,31 @@
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Potta+One&family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 
+<style>
+  :root { --bg-color: #f7eaff; --text-color: #000; }
+  :root.dark { --bg-color: #0a0a0a; --text-color: #fff; }
+  html, body { background-color: var(--bg-color); color: var(--text-color); }
+</style>
+
+<script>
+  (function(){
+    const tp = new URLSearchParams(window.location.search).get('theme');
+    const theme = tp || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.className = theme;
+  })();
+</script>
+
 <!-- 外部CSS -->
-<link rel="stylesheet" href="../css/style-links.css" media="print" onload="this.media='all'">
-<noscript>
-    <link rel="stylesheet" href="../css/style-links.css">
-</noscript>
+<link rel="stylesheet" href="../css/style-links.css" />
 </head>
 
-<body class="light">
+<body>
+<script>
+  (function(){
+    const theme = document.documentElement.className;
+    document.body.className = theme;
+  })();
+</script>
 
 <header>
     <a href="https://www.hamusata.f5.si" class="banner-link">

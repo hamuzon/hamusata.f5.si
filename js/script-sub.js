@@ -20,14 +20,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const themeParam = urlParams.get('theme');
 
+    function applyTheme(theme) {
+      document.documentElement.className = theme;
+      document.body.className = theme;
+    }
+
     if (themeParam === 'dark' || themeParam === 'light') {
-      document.body.className = themeParam;
+      applyTheme(themeParam);
     } else {
-      function applyTheme() {
-        document.body.className = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
-      applyTheme();
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const handleThemeChange = (e) => {
+        if (!urlParams.get('theme')) {
+          applyTheme(e.matches ? 'dark' : 'light');
+        }
+      };
+      mediaQuery.addEventListener('change', handleThemeChange);
+      applyTheme(mediaQuery.matches ? 'dark' : 'light');
     }
   })();
 

@@ -14,6 +14,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" />
 
   <style>
+    :root { --bg-color: #f7eaff; --text-color: #000; }
+    :root.dark { --bg-color: #0a0a0a; --text-color: #fff; }
+    html, body { background-color: var(--bg-color); color: var(--text-color); }
+  </style>
+
+  <script>
+    (function(){
+      const tp = new URLSearchParams(window.location.search).get('theme');
+      const theme = tp || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.className = theme;
+    })();
+  </script>
+
+  <style>
     body {
       font-family: 'Potta One', sans-serif;
       min-height: 100vh;
@@ -102,6 +116,12 @@
   </style>
 </head>
 <body>
+<script>
+  (function(){
+    const theme = document.documentElement.className;
+    document.body.className = theme;
+  })();
+</script>
 
   <h1>
     作品ランダムリンク <br />
@@ -139,20 +159,17 @@
     yearSpan.textContent = currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
 
     // テーマ切替（light/dark）
-    const urlParams = new URLSearchParams(window.location.search);
-    const themeParam = urlParams.get('theme');
-
-    if (themeParam === 'dark' || themeParam === 'light') {
-      document.body.className = themeParam;
-    } else {
-      function applyTheme() {
-        document.body.className =
-          window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
-      applyTheme();
-      window.matchMedia('(prefers-color-scheme: dark)')
-            .addEventListener('change', applyTheme);
+    function applyTheme() {
+      const theme = document.documentElement.className;
+      document.body.className = theme;
     }
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if(!new URLSearchParams(window.location.search).get('theme')) {
+        const theme = e.matches ? 'dark' : 'light';
+        document.documentElement.className = theme;
+        applyTheme();
+      }
+    });
 
     // リンクにクエリパラメータを継承
     (function() {

@@ -4,8 +4,7 @@
   <script>
     (function(){
       const tp = new URLSearchParams(window.location.search).get('theme');
-      const saved = localStorage.getItem('theme');
-      const theme = tp || saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const theme = tp || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.documentElement.className = theme;
     })();
   </script>
@@ -28,16 +27,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" href="hamusata_399-120.webp" as="image" type="image/webp" />
-  <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'" />
-  <link rel="stylesheet" href="css/mobile-menu.css" media="print" onload="this.media='all'" />
-  <link rel="stylesheet" href="css/dark.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/dark-hc.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/dark-mc.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/light.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/light-hc.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/light-mc.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/mobile-menu.css" />
+  <link rel="stylesheet" href="css/dark.css">
+  <link rel="stylesheet" href="css/dark-hc.css">
+  <link rel="stylesheet" href="css/dark-mc.css">
+  <link rel="stylesheet" href="css/light.css">
+  <link rel="stylesheet" href="css/light-hc.css">
+  <link rel="stylesheet" href="css/light-mc.css">
   <noscript>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/mobile-menu.css" />

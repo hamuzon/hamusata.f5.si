@@ -10,10 +10,30 @@ document.addEventListener('DOMContentLoaded', () => {
     if (el) el.textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
   })();
 
-  // ===== URLパラメータ取得 & テーマ適用 =====
+  // ===== テーマ判定 & 同期 (URL優先 -> 端末設定) =====
   (function () {
-    const tp = new URLSearchParams(window.location.search).get('theme');
-    if (tp) localStorage.setItem('theme', tp);
+    const urlParams = new URLSearchParams(window.location.search);
+    const themeParam = urlParams.get('theme');
+
+    function applyTheme(theme) {
+      document.documentElement.className = theme;
+      document.body.className = theme;
+    }
+
+    if (themeParam === 'dark' || themeParam === 'light') {
+      applyTheme(themeParam);
+    } else {
+      // 端末設定に追従
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const handleThemeChange = (e) => {
+        if (!urlParams.get('theme')) {
+          applyTheme(e.matches ? 'dark' : 'light');
+        }
+      };
+      mediaQuery.addEventListener('change', handleThemeChange);
+      // 初回適用
+      applyTheme(mediaQuery.matches ? 'dark' : 'light');
+    }
   })();
 
   // ===== ハンバーガーメニュー開閉 =====
