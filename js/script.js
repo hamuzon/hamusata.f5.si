@@ -40,10 +40,33 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== ハンバーガーメニュー開閉 =====
   (function () {
     const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
     const menuOverlay = document.getElementById('menu-overlay');
-    if (menuToggle && menuOverlay) {
-      menuToggle.addEventListener('click', () => document.body.classList.toggle('menu-open'));
-      menuOverlay.addEventListener('click', () => document.body.classList.remove('menu-open'));
+    if (menuToggle && mobileMenu && menuOverlay) {
+      let lock = false;
+
+      function setMenuState(isOpen) {
+        if (lock) return;
+        lock = true;
+        document.body.classList.toggle('menu-open', isOpen);
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+        window.setTimeout(() => { lock = false; }, 220);
+      }
+
+      menuToggle.setAttribute('aria-controls', 'mobile-menu');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+
+      menuToggle.addEventListener('pointerdown', (event) => {
+        event.preventDefault();
+        setMenuState(!document.body.classList.contains('menu-open'));
+      });
+
+      menuOverlay.addEventListener('click', () => setMenuState(false));
+      mobileMenu.addEventListener('click', (event) => {
+        if (event.target.closest('a')) setMenuState(false);
+      });
     }
   })();
 
