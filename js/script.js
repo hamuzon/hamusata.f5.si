@@ -16,22 +16,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeParam = urlParams.get('theme');
 
     function applyTheme(theme) {
-      document.documentElement.className = theme;
-      document.body.className = theme;
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.body.classList.remove('dark', 'light');
+      document.body.classList.add(theme);
     }
 
     if (themeParam === 'dark' || themeParam === 'light') {
       applyTheme(themeParam);
     } else {
-      // 端末設定に追従
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
       const handleThemeChange = (e) => {
-        if (!urlParams.get('theme')) {
+        const tp = new URLSearchParams(window.location.search).get('theme');
+        if (tp !== 'dark' && tp !== 'light') {
           applyTheme(e.matches ? 'dark' : 'light');
         }
       };
       mediaQuery.addEventListener('change', handleThemeChange);
-      // 初回適用
       applyTheme(mediaQuery.matches ? 'dark' : 'light');
     }
   })();

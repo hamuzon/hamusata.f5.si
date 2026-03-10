@@ -21,8 +21,8 @@
   <script>
     (function(){
       const tp = new URLSearchParams(window.location.search).get('theme');
-      const theme = tp || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.className = theme;
+      const theme = (tp === 'dark' || tp === 'light') ? tp : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.classList.add(theme);
     })();
   </script>
 
@@ -88,8 +88,8 @@
 <body class="light lang-ja">
   <script>
     (function(){
-      const theme = document.documentElement.className;
-      document.body.className = theme + ' lang-ja';
+      const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      document.body.classList.add(theme, 'lang-ja');
     })();
   </script>
 
@@ -215,17 +215,16 @@
       currentYear > baseYear ? `${baseYear}~${currentYear}` : baseYear;
 
     // テーマ切替
-    function applyTheme() {
-      const theme = document.documentElement.className;
-      document.body.classList.toggle('dark', theme === 'dark');
-      document.body.classList.toggle('light', theme !== 'dark');
+    function applyTheme(theme) {
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.body.classList.remove('dark', 'light');
+      document.body.classList.add(theme);
     }
-    applyTheme();
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-      if(!new URLSearchParams(window.location.search).get('theme')) {
-        const theme = e.matches ? 'dark' : 'light';
-        document.documentElement.className = theme;
-        applyTheme();
+      const tp = new URLSearchParams(window.location.search).get('theme');
+      if (tp !== 'dark' && tp !== 'light') {
+        applyTheme(e.matches ? 'dark' : 'light');
       }
     });
 

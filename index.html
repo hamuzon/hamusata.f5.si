@@ -4,8 +4,8 @@
   <script>
     (function(){
       const tp = new URLSearchParams(window.location.search).get('theme');
-      const theme = tp || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.className = theme;
+      const theme = (tp === 'dark' || tp === 'light') ? tp : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.classList.add(theme);
     })();
   </script>
   <style>
@@ -104,8 +104,8 @@
 <body>
   <script>
     (function(){
-      const theme = document.documentElement.className;
-      document.body.className = theme;
+      const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      document.body.classList.add(theme);
     })();
   </script>
 
