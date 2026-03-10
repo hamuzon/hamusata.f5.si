@@ -42,6 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.getElementById('menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
     const menuOverlay = document.getElementById('menu-overlay');
+    const path = window.location.pathname.toLowerCase();
+    const isHiddenPage = path.endsWith('/404') || path.endsWith('/404.html') || path.includes('/teams') || path.includes('teamspage');
+
+    if (isHiddenPage) {
+      if (menuToggle) menuToggle.style.display = 'none';
+      if (mobileMenu) mobileMenu.style.display = 'none';
+      if (menuOverlay) menuOverlay.style.display = 'none';
+      document.body.classList.remove('menu-open');
+      return;
+    }
+
     if (menuToggle && mobileMenu && menuOverlay) {
       let lock = false;
 
