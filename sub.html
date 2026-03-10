@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<script>
-  (function(){
-    const tp = new URLSearchParams(window.location.search).get('theme');
-    const saved = localStorage.getItem('theme');
-    const theme = tp || saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    document.documentElement.className = theme;
-  })();
-</script>
-<style>
-  html.light body { background-color: #f7eaff; color: #000; }
-  html.dark body { background-color: #0a0a0a; color: #fff; }
-</style>
+  <script>
+    (function(){
+      const tp = new URLSearchParams(window.location.search).get('theme');
+      const saved = localStorage.getItem('theme');
+      const theme = tp || saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.className = theme;
+    })();
+  </script>
+  <style>
+    :root { --bg-color: #f7eaff; --text-color: #000; }
+    :root.dark { --bg-color: #0a0a0a; --text-color: #fff; }
+    html, body { background-color: var(--bg-color); color: var(--text-color); }
+  </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-lang="page_title">HAMUSATA – ホームページ</title>
@@ -107,8 +108,13 @@
 </style>
 
 </head>
-<body class="light">
-<script>document.body.className = document.documentElement.className;</script>
+<body>
+<script>
+  (function(){
+    const theme = document.documentElement.className;
+    document.body.className = theme;
+  })();
+</script>
 
 <!-- Language switch button -->
 <button id="lang-switch">🌐 English</button>
@@ -116,7 +122,7 @@
 <!-- ヘッダー -->
 <header>
   <a href="index.html" id="home" class="banner-link">
-    <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" decoding="async">
+    <img src="hamusata_399-120.webp" alt="hamusata home banner" title="HAMUSATA Home" width="399" height="120" decoding="async">
   </a>
 
   <button id="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
