@@ -45,8 +45,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // ハンバーガーメニュー開閉
   (function () {
     const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
     const menuOverlay = document.getElementById('menu-overlay');
     const body = document.body;
+    const path = window.location.pathname.toLowerCase();
+    const isHiddenPage = path.endsWith('/404') || path.endsWith('/404.html') || path.includes('/teams') || path.includes('teamspage');
+
+    if (isHiddenPage) {
+      if (menuToggle) menuToggle.style.display = 'none';
+      if (mobileMenu) mobileMenu.style.display = 'none';
+      if (menuOverlay) menuOverlay.style.display = 'none';
+      body.classList.remove('menu-open');
+      return;
+    }
 
     if (menuToggle) {
       menuToggle.addEventListener('click', () => {
