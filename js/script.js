@@ -54,23 +54,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (menuToggle && mobileMenu && menuOverlay) {
-      let lock = false;
-
       function setMenuState(isOpen) {
-        if (lock) return;
-        lock = true;
         document.body.classList.toggle('menu-open', isOpen);
         menuToggle.setAttribute('aria-expanded', String(isOpen));
         mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-        window.setTimeout(() => { lock = false; }, 220);
       }
 
       menuToggle.setAttribute('aria-controls', 'mobile-menu');
       menuToggle.setAttribute('aria-expanded', 'false');
       mobileMenu.setAttribute('aria-hidden', 'true');
 
-      menuToggle.addEventListener('pointerdown', (event) => {
-        event.preventDefault();
+      menuToggle.addEventListener('click', () => {
         setMenuState(!document.body.classList.contains('menu-open'));
       });
 
