@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ===== 年自動更新 =====
-  (function() {
+  (function () {
     const baseYear = 2025;
     const now = new Date().getFullYear();
     const el = document.getElementById("year");
@@ -11,24 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
   // ===== URLパラメータ取得 & テーマ適用 =====
-  (function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const themeParam = urlParams.get('theme');
-
-    if (themeParam === 'dark' || themeParam === 'light') {
-      document.body.className = themeParam;
-    } else {
-      function applyTheme() {
-        document.body.className =
-          window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
-      applyTheme();
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
-    }
+  (function () {
+    const tp = new URLSearchParams(window.location.search).get('theme');
+    if (tp) localStorage.setItem('theme', tp);
   })();
 
   // ===== ハンバーガーメニュー開閉 =====
-  (function() {
+  (function () {
     const menuToggle = document.getElementById('menu-toggle');
     const menuOverlay = document.getElementById('menu-overlay');
     if (menuToggle && menuOverlay) {
@@ -38,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
   // ===== #home スクロール処理 =====
-  (function() {
+  (function () {
     function menuScrollToHome(event) {
       event.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -49,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
   // ===== PWA Service Worker =====
-  (function() {
+  (function () {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')
@@ -60,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
   // ===== 内部リンクURLパラメータ維持 =====
-  (function() {
+  (function () {
     const currentParams = window.location.search;
     if (!currentParams) return;
     document.querySelectorAll('a[href]').forEach(link => {
