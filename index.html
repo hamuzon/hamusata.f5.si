@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <script>
-    (function(){
-      const tp = new URLSearchParams(window.location.search).get('theme');
-      const theme = (tp === 'dark' || tp === 'light') ? tp : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.classList.add(theme);
-    })();
-  </script>
-  <style>
-    :root { --bg-color: #f7eaff; --text-color: #000; }
-    :root.dark { --bg-color: #0a0a0a; --text-color: #fff; }
-    html, body { background-color: var(--bg-color); color: var(--text-color); }
-  </style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang="title">HAMUSATA – ホームページ</title>
@@ -24,30 +12,23 @@
   <link rel="manifest" href="/manifest.json" />
 
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="hamusata_399-120.webp" as="image" type="image/webp" />
   <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/mobile-menu.css" />
-  <link rel="stylesheet" href="css/dark.css">
-  <link rel="stylesheet" href="css/dark-hc.css">
-  <link rel="stylesheet" href="css/dark-mc.css">
-  <link rel="stylesheet" href="css/light.css">
-  <link rel="stylesheet" href="css/light-hc.css">
-  <link rel="stylesheet" href="css/light-mc.css">
-  <noscript>
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/mobile-menu.css" />
-    <link rel="stylesheet" href="css/dark.css">
-    <link rel="stylesheet" href="css/dark-hc.css">
-    <link rel="stylesheet" href="css/dark-mc.css">
-    <link rel="stylesheet" href="css/light.css">
-    <link rel="stylesheet" href="css/light-hc.css">
-    <link rel="stylesheet" href="css/light-mc.css">
-    <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
-  </noscript>
+
+  <script>
+    const themeCSS = [
+      "css/dark.css",
+      "css/dark-hc.css",
+      "css/dark-mc.css",
+      "css/light.css",
+      "css/light-hc.css",
+      "css/light-mc.css"
+    ];
+    themeCSS.forEach(href => document.write(`<link rel="stylesheet" href="${href}">`));
+  </script>
 
   <meta name="description" content="HAMUSATA.f5.si のホームページです / This is the homepage of HAMUSATA.f5.si" />
   <meta property="og:title" content="HAMUSATA – ホームページ" />
@@ -84,7 +65,7 @@
       border: 1px solid rgba(255,255,255,0.12);
       box-shadow: 0 4px 12px rgba(255,255,255,0.06);
     }
-    #lang-switch:hover { transform: scale(1.05); background: rgba(0,188,212,0.18); }
+    #lang-switch:hover { transform: scale(1.05); background: rgba(27,151,169,0.18); }
 
     .nav-github-link {
       display: flex;
@@ -101,19 +82,12 @@
   </style>
 </head>
 
-<body>
-  <script>
-    (function(){
-      const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-      document.body.classList.add(theme);
-    })();
-  </script>
-
+<body class="light">
   <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
 
   <header>
     <a href="index.html" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
-      <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" decoding="async">
+      <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" loading="lazy" decoding="async">
     </a>
 
     <button id="menu-toggle" aria-label="メニューを開く" aria-expanded="false">

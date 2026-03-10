@@ -4,8 +4,8 @@
   <script>
     (function(){
       const tp = new URLSearchParams(window.location.search).get('theme');
-      const theme = tp || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.className = theme;
+      const theme = (tp === 'dark' || tp === 'light') ? tp : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.classList.add(theme);
     })();
   </script>
   <style>
@@ -89,7 +89,7 @@
   }
   #lang-switch:hover {
     transform: scale(1.05);
-    background: rgba(0,188,212,0.18);
+    background: rgba(27,151,169,0.18);
   }
 
   .nav-github-link {
@@ -110,17 +110,17 @@
 <body>
 <script>
   (function(){
-    const theme = document.documentElement.className;
-    document.body.className = theme;
+    const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    document.body.classList.add(theme);
   })();
 </script>
 
 <!-- Language switch button -->
-<button id="lang-switch">🌐 English</button>
+<button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
 
 <!-- ヘッダー -->
 <header>
-  <a href="index.html" id="home" class="banner-link">
+  <a href="index.html" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
     <img src="hamusata_399-120.webp" alt="hamusata home banner" title="HAMUSATA Home" width="399" height="120" decoding="async">
   </a>
 
@@ -128,9 +128,9 @@
     <span></span><span></span><span></span>
   </button>
 
-  <nav id="mobile-menu">
+  <nav id="mobile-menu" aria-label="Main navigation">
     <ul>
-      <li><a href="#home" data-lang="nav_home">ホーム</a></li>
+      <li><a href="#home" data-lang="nav_home" class="nav-home">ホーム</a></li>
       <li><a href="#profile" data-lang="nav_profile">自己紹介</a></li>
       <li><a href="#portfolio" data-lang="nav_portfolio">ポートフォリオ</a></li>
       <li><a href="#random" data-lang="nav_random">ランダム作品</a></li>

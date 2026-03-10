@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.getElementById('menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
     const menuOverlay = document.getElementById('menu-overlay');
-    const body = document.body;
     const path = window.location.pathname.toLowerCase();
     const isHiddenPage = path.endsWith('/404') || path.endsWith('/404.html') || path.includes('/teams') || path.includes('teamspage');
 
@@ -55,21 +54,28 @@ document.addEventListener('DOMContentLoaded', () => {
       if (menuToggle) menuToggle.style.display = 'none';
       if (mobileMenu) mobileMenu.style.display = 'none';
       if (menuOverlay) menuOverlay.style.display = 'none';
-      body.classList.remove('menu-open');
+      document.body.classList.remove('menu-open');
       return;
     }
 
-    if (menuToggle) {
-      menuToggle.addEventListener('click', () => {
-        const open = body.classList.toggle('menu-open');
-        menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-    }
+    if (menuToggle && mobileMenu && menuOverlay) {
+      function setMenuState(isOpen) {
+        document.body.classList.toggle('menu-open', isOpen);
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+      }
 
-    if (menuOverlay) {
-      menuOverlay.addEventListener('click', () => {
-        body.classList.remove('menu-open');
-        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-controls', 'mobile-menu');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+
+      menuToggle.addEventListener('click', () => {
+        setMenuState(!document.body.classList.contains('menu-open'));
+      });
+
+      menuOverlay.addEventListener('click', () => setMenuState(false));
+      mobileMenu.addEventListener('click', (event) => {
+        if (event.target.closest('a')) setMenuState(false);
       });
     }
   })();
@@ -79,10 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function menuScrollToHome(event) {
       event.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      history.replaceState(null, '', location.pathname + location.search);
+      history.replaceState(null, '', ' ');
       document.body.classList.remove('menu-open');
-      const toggle = document.getElementById('menu-toggle');
-      if (toggle) toggle.setAttribute('aria-expanded', 'false');
     }
     document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
   })();
@@ -90,10 +94,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // PWA: Service Worker 登録
   (function () {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(registration => console.log('Service Worker registered with scope:', registration.scope))
-        .catch(error => console.error('Service Worker registration failed:', error));
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(r => console.log('Service Worker registered with scope:', r.scope))
+          .catch(e => console.error('Service Worker registration failed:', e));
+      });
     }
+  })();
+
+  // 内部リンクURLパラメータ維持
+  (function () {
+    const currentParams = window.location.search;
+    if (!currentParams) return;
+    document.querySelectorAll('a[href]').forEach(link => {
+      try {
+        const url = new URL(link.href, window.location.origin);
+        if (url.origin !== window.location.origin || url.search) return;
+        url.search = currentParams;
+        link.href = url.pathname + url.search + url.hash;
+      } catch (e) {
+        // 無効なhref値は無視
+      }
+    });
   })();
 
 });
