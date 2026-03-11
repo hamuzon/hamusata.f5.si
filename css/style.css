@@ -1,5 +1,5 @@
 /* css/style.css */
-/* テーマクラスは <html> 要素 (document.documentElement) に付与する統一方針 */
+
 
 /* =========================
 リセット & 基本スタイル
@@ -28,10 +28,10 @@ body {
 ========================= */
 html.light body {
   background:
-    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175,109,255,0.85), transparent 68%),
-    radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255,100,180,0.75), transparent 68%),
-    radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255,235,170,0.98), transparent 68%),
-    radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120,190,255,0.3), transparent 68%),
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175, 109, 255, 0.85), transparent 68%),
+    radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255, 100, 180, 0.75), transparent 68%),
+    radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255, 235, 170, 0.98), transparent 68%),
+    radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120, 190, 255, 0.3), transparent 68%),
     linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
   color: #000;
 }
@@ -39,10 +39,10 @@ html.light body {
 html.dark body {
   background-color: #0a0a0a;
   background-image:
-    radial-gradient(ellipse at 20% 30%, rgba(56,189,248,0.4) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 70%, rgba(139,92,246,0.3) 0%, transparent 70%),
-    radial-gradient(ellipse at 60% 20%, rgba(236,72,153,0.25) 0%, transparent 50%),
-    radial-gradient(ellipse at 40% 80%, rgba(34,197,94,0.2) 0%, transparent 65%);
+    radial-gradient(ellipse at 20% 30%, rgba(56, 189, 248, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(139, 92, 246, 0.3) 0%, transparent 70%),
+    radial-gradient(ellipse at 60% 20%, rgba(236, 72, 153, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 40% 80%, rgba(34, 197, 94, 0.2) 0%, transparent 65%);
   color: #fff;
 }
 
@@ -52,7 +52,6 @@ html.dark body {
 a {
   color: inherit;
   text-decoration: underline;
-  transition: color 0.3s;
 }
 
 /* =========================
@@ -84,8 +83,8 @@ header {
   max-height: 120px;
   object-fit: contain;
   border-radius: 14px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.2);
-  background: rgba(255,255,255,0.15);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   -webkit-backdrop-filter: blur(24px);
   backdrop-filter: blur(24px);
   transition: background-color 0.3s;
@@ -106,12 +105,12 @@ section {
   margin: 3rem auto;
   padding: 2rem;
   border-radius: 20px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   -webkit-backdrop-filter: blur(28px);
   backdrop-filter: blur(28px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
   color: inherit;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s;
 }
 
 section h2 {
@@ -152,10 +151,10 @@ section h2 {
   padding: 1.5rem;
   text-align: center;
   border-radius: 20px;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.12);
   -webkit-backdrop-filter: blur(28px);
   backdrop-filter: blur(28px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
   transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
 
@@ -164,13 +163,13 @@ section h2 {
   height: 80px;
   margin-bottom: 1rem;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   object-fit: cover;
 }
 
 .work-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 45px rgba(0,0,0,0.35);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35);
 }
 
 .work-card a {
@@ -181,11 +180,11 @@ section h2 {
   margin-top: 1rem;
   padding: 0.8rem 1.8rem;
   border-radius: 18px;
-  background-color: rgba(0,188,212,0.15);
+  background-color: rgba(0, 188, 212, 0.15);
   color: inherit;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s;
   font-size: clamp(0.9rem, 1.2vw, 1rem);
 }
 
@@ -213,20 +212,20 @@ footer {
 レスポンシブ補助
 ========================= */
 @media (max-width: 480px) {
-  .work-card img {  
-      width: 64px;  
-      height: 64px;  
-  }  
+  .work-card img {
+    width: 64px;
+    height: 64px;
+  }
 
-  h1 {  
-      font-size: clamp(1.4rem, 6vw, 1.8rem);  
-  }  
+  h1 {
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
+  }
 
-  section h2 {  
-      font-size: clamp(1.2rem, 5vw, 1.6rem);  
-  }  
+  section h2 {
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+  }
 
-  #profile .profile p {  
-      font-size: clamp(0.85rem, 2vw, 0.95rem);  
-  }  
+  #profile .profile p {
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+  }
 }
