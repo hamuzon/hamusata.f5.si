@@ -67,7 +67,7 @@ button:hover {
   display: block;
   line-height: 1.4;
 }
-body.dark #output a {
+.dark #output a {
   color: #80deea;
 }
 #copyBtn {
@@ -88,12 +88,12 @@ body.dark #output a {
   margin-top: 0.5rem;
   min-height: 1.2em;
 }
-body.dark #error {
+.dark #error {
   color: #ff80ab;
 }
 </style>
 </head>
-<body class="light">
+<body>
 <section>
 <h1>🎬 YouTube Link</h1>
 <input type="text" id="videoInput" placeholder="動画IDまたはURLを入力" />
@@ -107,8 +107,8 @@ body.dark #error {
 const urlParams = new URLSearchParams(window.location.search);
 const themeParam = urlParams.get('theme');
 function applyTheme(theme) {
-  document.body.classList.remove('light', 'dark');
-  document.body.classList.add(theme);
+  document.documentElement.classList.remove('light', 'dark');
+  document.documentElement.classList.add(theme);
 }
 if (themeParam === 'dark' || themeParam === 'light') {
   applyTheme(themeParam);
