@@ -16,7 +16,7 @@ export async function onRequest(context) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hamusata.f5.si/css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 <style>
 body {
   display: flex;
