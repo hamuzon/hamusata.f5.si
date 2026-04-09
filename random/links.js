@@ -148,6 +148,7 @@ const links = [
     "https://hamuzon.web.fc2.com/url/",
     "https://hamuzon.web.fc2.com/video/",
     "https://hamuzon.web.fc2.com/website-list/",
+    "https://hamuzon.web.fc2.com/clock-app/",
 
     "https://go.link-s.f5.si/",
     "https://link-s.f5.si/",
