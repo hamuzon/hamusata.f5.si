@@ -48,6 +48,7 @@ const links = [
     "https://www.hamusata.f5.si/",
     "https://youtube.hamusata.f5.si/",
     "https://yt.hamusata.f5.si/",
+    "https://clock.hamusata.f5.si/",
 
     "https://expo.hamuzon-jp.f5.si/",
     "https://globe.world.hamuzon-jp.f5.si/",
@@ -74,6 +75,7 @@ const links = [
     "https://pc.hamuzon-jp.f5.si/",
     "https://pw-pc.hamuzon-jp.f5.si/",
     "https://pw-sp.hamuzon-jp.f5.si/",
+    "https://hamuzon-jp.f5.si/clock-app/",
 
     "https://hamuzon.github.io/",
     "https://hamuzon.github.io/binary-decimal-converter/",
@@ -101,6 +103,7 @@ const links = [
     "https://hamuzon.github.io/expo2025-counter/",
     "https://hamuzon.github.io/QR/mail",
     "https://hamuzon.github.io/QR/mc-qr",
+    "https://hamuzon.github.io/QR/Image-qr-scanner",
     "https://hamuzon.github.io/omikuji/",
     "https://hamuzon.github.io/omikuji/V1/",
     "https://hamuzon.github.io/omikuji/V2/",
@@ -121,6 +124,7 @@ const links = [
     "https://hamuzon.github.io/Time-Zone_app/",
     "https://hamuzon.github.io/todo/",
     "https://hamuzon.github.io/Video-hub/",
+    "https://hamuzon-jp.f5.si/clock-app/",
 
     "https://hamuzon.web.fc2.com/bin2dec/",
     "https://hamuzon.web.fc2.com/birthday/",
