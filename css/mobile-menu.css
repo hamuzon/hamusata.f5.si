@@ -23,7 +23,7 @@
     height: 4px;
     background-color: #000;
     border-radius: 2px;
-    transition: all 0.4s ease;
+    transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
 html.dark #menu-toggle span {
@@ -110,7 +110,7 @@ html.dark #mobile-menu a {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
     z-index: 900;
 }
 
@@ -118,6 +118,7 @@ body.menu-open #menu-overlay {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+    transition: opacity 0.4s ease, visibility 0s;
 }
 
 @media (max-width: 480px) {
