@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-
-# Standard robots.txt to replace invalid Cloudflare directives
 Disallow: /yhkq/
 Disallow: /zaraz/
