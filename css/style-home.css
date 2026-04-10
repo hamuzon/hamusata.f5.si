@@ -39,6 +39,10 @@ body {
 /* =========================
 ライト・ダーク切替
 ========================= */
+/* ルート要素に背景色を設定してフリッカーを防止 */
+html.light { background-color: var(--bg-light); }
+html.dark { background-color: var(--bg-dark); }
+
 body.light {
     background-color: var(--bg-light);
     color: var(--text-light);

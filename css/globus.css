@@ -12,6 +12,10 @@ body {
   font-weight: 500;
 }
 
+/* 背景のフラッシュ防止 */
+html.light { background-color: #f7fff8; }
+html.dark { background-color: #0a0a0a; }
+
 /* ----------------------------
    Light Mode
 ---------------------------- */
