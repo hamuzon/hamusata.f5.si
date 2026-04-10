@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /yhkq/
 Disallow: /zaraz/
+
+Sitemap: https://home.hamusata.f5.si/public/hamusata.f5.si-sitemap.xml
