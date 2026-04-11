@@ -26,6 +26,10 @@ body {
 /* =========================
 ライト・ダーク背景
 ========================= */
+/* 再読み込み時の白いチラつき（FOUC）を防止 */
+html.light { background-color: #f7eaff; }
+html.dark { background-color: #0a0a0a; }
+
 html.light body {
   background:
     radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175, 109, 255, 0.85), transparent 68%),
