@@ -43,3 +43,5 @@
 /link/          /links   301
 /mutual_Links   /links   301
 /mutual_Links/  /links   301
+
+/dc/   /?utm_source=discord&utm_medium=social   302
