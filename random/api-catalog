@@ -1,0 +1,16 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://hamusata.f5.si/",
+      "rel": "service-desc",
+      "href": "https://hamusata.f5.si/lang/lang.json",
+      "type": "application/json"
+    },
+    {
+      "anchor": "https://hamusata.f5.si/",
+      "rel": "service-doc",
+      "href": "https://github.com/hamuzon/hamusata.f5.si#readme",
+      "type": "text/html"
+    }
+  ]
+}
