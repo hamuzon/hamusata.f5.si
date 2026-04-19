@@ -15,6 +15,41 @@ export async function onRequest(context) {
     return context.next();
   }
 
+  // --- Markdown Negotiation ---
+  const acceptHeader = request.headers.get("Accept") || "";
+  if (acceptHeader.includes("text/markdown")) {
+    // If homepage is requested in Markdown
+    if (pathname === "/" || pathname === "/index.html") {
+      const markdownContent = `# HAMUSATA – ホームページ
+
+こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。
+ハムスターを飼っています。
+
+## ポートフォリオリンク集
+- [HAMUSATA – ホームページ](https://home.hamusata.f5.si) - メインのポータルリンク。
+- [GitHub版 – ホームページ](https://hamuzon.github.io) - GitHub Pages 版。
+- [hamuzon – ホームページ](https://hamuzon-jp.f5.si/) - リンクポータル版。
+- [link-s.f5.si](https://link-s.f5.si) - ショートカットリンクサービス。
+- [pw.link-s.f5.si](https://pw.link-s.f5.si) - パスワード生成サービス。
+
+## SNSリンク
+- [Scratch (hamusata)](https://scratch.mit.edu/users/hamusata/)
+- [Scratch (hamuzon)](https://scratch.mit.edu/users/hamuzon/)
+- [GitHub](https://github.com/hamuzon)
+- [Bluesky](https://bsky.app/profile/hamuzon-jp.f5.si)
+
+---
+© 2025 @hamuzon / @hamusata`;
+      
+      return new Response(markdownContent, {
+        headers: {
+          "Content-Type": "text/markdown; charset=utf-8",
+          "Link": '</.well-known/api-catalog>; rel="api-catalog", </.well-known/agent-skills/index.json>; rel="agent-skills"'
+        }
+      });
+    }
+  }
+
 
   // --- favicon.ico ---
   if (pathname === "/favicon.ico") {

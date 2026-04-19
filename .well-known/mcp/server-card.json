@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "hamusata-site-tools": {
+      "serverInfo": {
+        "name": "HAMUSATA Site Tools",
+        "version": "1.0.0"
+      },
+      "transport": {
+        "type": "webmcp"
+      },
+      "capabilities": {
+        "tools": {
+          "listChanged": true
+        }
+      }
+    }
+  }
+}
