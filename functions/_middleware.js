@@ -33,9 +33,11 @@ export async function onRequest(context) {
   ];
 
   // 拡張子がある場合、または除外リストに含まれる場合はスルー
-  // ただし .html と拡張子なし（ディレクトリ等）は Markdown Negotiation の対象とする可能性があるため、ここでは除外判定を細かく制御
+  // ただし .html と拡張子なし、および .well-known 以下のファイルは処理対象とする
   if (EXCLUDED_EXTENSIONS.some(ext => pathname.endsWith(ext)) && !pathname.endsWith('.html')) {
-    return context.next();
+    if (!pathname.startsWith('/.well-known/')) {
+      return context.next();
+    }
   }
 
 
@@ -165,7 +167,14 @@ Please visit the [Home Page](https://hamusata.f5.si/) for main content.`;
         "content-type": "text/markdown; charset=utf-8",
         "x-markdown-tokens": tokenCount.toString(),
         "vary": "Accept",
-        "Link": '</.well-known/api-catalog>; rel="api-catalog", </.well-known/agent-skills/index.json>; rel="agent-skills", </.well-known/mcp/server-card.json>; rel="mcp-server-card"'
+        "Link": [
+          '</.well-known/api-catalog>; rel="api-catalog"',
+          '</.well-known/agent-skills/index.json>; rel="agent-skills"',
+          '</.well-known/mcp/server-card.json>; rel="mcp-server-card"',
+          '</.well-known/openid-configuration>; rel="openid-configuration"',
+          '</.well-known/oauth-authorization-server>; rel="oauth-authorization-server"',
+          '</.well-known/oauth-protected-resource>; rel="oauth-protected-resource"'
+        ].join(", ")
       }
     });
   }
@@ -176,7 +185,12 @@ Please visit the [Home Page](https://hamusata.f5.si/) for main content.`;
       "linkset": [
         {
           "anchor": "https://hamusata.f5.si/",
-          "service-desc": [{ "href": "https://hamusata.f5.si/lang/lang.json", "type": "application/json" }],
+          "service-desc": [
+            { "href": "https://hamusata.f5.si/lang/lang.json", "type": "application/json" },
+            { "href": "https://hamusata.f5.si/.well-known/openid-configuration", "type": "application/json" },
+            { "href": "https://hamusata.f5.si/.well-known/oauth-authorization-server", "type": "application/json" },
+            { "href": "https://hamusata.f5.si/.well-known/oauth-protected-resource", "type": "application/json" }
+          ],
           "service-doc": [{ "href": "https://github.com/hamuzon/hamusata.f5.si#readme", "type": "text/html" }],
           "agent-skills": [{ "href": "https://hamusata.f5.si/.well-known/agent-skills/index.json", "type": "application/json" }],
           "mcp-server-card": [{ "href": "https://hamusata.f5.si/.well-known/mcp/server-card.json", "type": "application/json" }]
@@ -217,6 +231,20 @@ Please visit the [Home Page](https://hamusata.f5.si/) for main content.`;
           "url": "https://hamusata.f5.si/random/index.html",
           "methods": ["GET"],
           "sha256": randomHash
+        },
+        {
+          "name": "OAuth Discovery",
+          "type": "discovery",
+          "description": "Exposes OAuth/OIDC metadata for server discovery.",
+          "url": "https://hamusata.f5.si/.well-known/openid-configuration",
+          "methods": ["GET"]
+        },
+        {
+          "name": "OAuth Protected Resource",
+          "type": "discovery",
+          "description": "Exposes metadata for protected resources and their auth servers.",
+          "url": "https://hamusata.f5.si/.well-known/oauth-protected-resource",
+          "methods": ["GET"]
         }
       ]
     }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
@@ -234,6 +262,30 @@ Please visit the [Home Page](https://hamusata.f5.si/) for main content.`;
     }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
   }
 
+  // --- OAuth/OIDC Discovery (RFC 8414 / OIDC Discovery 1.0) ---
+  if (pathname === "/.well-known/openid-configuration" || pathname === "/.well-known/oauth-authorization-server") {
+    return new Response(JSON.stringify({
+      "issuer": "https://hamusata.f5.si",
+      "authorization_endpoint": "https://hamusata.f5.si/auth/authorize",
+      "token_endpoint": "https://hamusata.f5.si/auth/token",
+      "jwks_uri": "https://hamusata.f5.si/.well-known/jwks.json",
+      "response_types_supported": ["code", "token", "id_token"],
+      "subject_types_supported": ["public"],
+      "id_token_signing_alg_values_supported": ["RS256"],
+      "grant_types_supported": ["authorization_code", "client_credentials"],
+      "scopes_supported": ["openid", "profile", "email", "read", "write"]
+    }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
+  }
+
+  // --- OAuth Protected Resource (RFC 9728) ---
+  if (pathname === "/.well-known/oauth-protected-resource") {
+    return new Response(JSON.stringify({
+      "resource": "https://hamusata.f5.si/",
+      "authorization_servers": ["https://hamusata.f5.si"],
+      "scopes_supported": ["read", "write"]
+    }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
+  }
+
   // それ以外はそのまま。ただし HTML の場合は Link ヘッダーを付与してエージェント発見性を高める。
   const response = await context.next();
   const contentType = response.headers.get("content-type") || "";
@@ -245,6 +297,9 @@ Please visit the [Home Page](https://hamusata.f5.si/) for main content.`;
       '</.well-known/api-catalog>; rel="api-catalog"',
       '</.well-known/agent-skills/index.json>; rel="agent-skills"',
       '</.well-known/mcp/server-card.json>; rel="mcp-server-card"',
+      '</.well-known/openid-configuration>; rel="openid-configuration"',
+      '</.well-known/oauth-authorization-server>; rel="oauth-authorization-server"',
+      '</.well-known/oauth-protected-resource>; rel="oauth-protected-resource"',
       '<https://fonts.googleapis.com/css2?family=Potta+One&display=swap>; rel="preload"; as="style"'
     ].join(", "));
     

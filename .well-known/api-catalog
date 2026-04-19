@@ -6,6 +6,18 @@
         {
           "href": "https://hamusata.f5.si/lang/lang.json",
           "type": "application/json"
+        },
+        {
+          "href": "https://hamusata.f5.si/.well-known/openid-configuration",
+          "type": "application/json"
+        },
+        {
+          "href": "https://hamusata.f5.si/.well-known/oauth-authorization-server",
+          "type": "application/json"
+        },
+        {
+          "href": "https://hamusata.f5.si/.well-known/oauth-protected-resource",
+          "type": "application/json"
         }
       ],
       "service-doc": [

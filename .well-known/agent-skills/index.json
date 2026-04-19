@@ -16,6 +16,24 @@
         "GET"
       ],
       "sha256": ""
+    },
+    {
+      "name": "OAuth Discovery",
+      "type": "discovery",
+      "description": "Exposes OAuth/OIDC metadata for server discovery.",
+      "url": "https://hamusata.f5.si/.well-known/openid-configuration",
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "name": "OAuth Protected Resource",
+      "type": "discovery",
+      "description": "Exposes metadata for protected resources and their auth servers.",
+      "url": "https://hamusata.f5.si/.well-known/oauth-protected-resource",
+      "methods": [
+        "GET"
+      ]
     }
   ]
 }
