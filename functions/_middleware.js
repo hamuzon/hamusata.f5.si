@@ -49,19 +49,17 @@ export async function onRequest(context) {
 
 
   const ua = request.headers.get("user-agent") || "";
-
-
-  // --- BOT除外判定  ---
   const isBot = /bot|googlebot|bingbot|yandex|baidu|duckduckbot|slurp|ia_archiver/i.test(ua);
-  if (isBot) {
-    return context.next();
-  }
 
 
   // ===== モード1: モバイル/PC判定リダイレクト =====
   if (ENABLED === 1) {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|Opera Mini/i.test(ua);
+    // BOTの場合はリダイレクトをスキップ
+    if (isBot) {
+      return context.next();
+    }
 
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|Opera Mini/i.test(ua);
     const baseWithoutWWW = hostname.replace(/^www\./, "");
     const hasM = baseWithoutWWW.startsWith("m.");
     const pureBase = baseWithoutWWW.replace(/^m\./, "");
