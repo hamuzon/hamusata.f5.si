@@ -85,6 +85,43 @@ export async function onRequest(context) {
   }
 
 
+  // ===== Markdown Negotiation =====
+  const acceptHeader = request.headers.get("accept") || "";
+  if (acceptHeader.includes("text/markdown")) {
+    const md = `# HAMUSATA – ホームページ
+
+## 自己紹介 (Profile)
+こんにちは、hamusataです。webサイトを作ったりネットをしてるネットの海の住民。ハムスターを飼っています。
+
+## ポートフォリオ (Portfolio)
+- [HAMUSATA – ホームページ](https://home.hamusata.f5.si) - メインポータル
+- [GitHub版 – ホームページ](https://hamuzon.github.io)
+- [hamuzon – ホームページ](https://hamuzon-jp.f5.si/)
+- [hamuzon (FC2)系](https://hamuzon.web.fc2.com/)
+- [link-s.f5.si](https://link-s.f5.si) - 短縮URLサービス
+- [go.link-s.f5.si](https://go.link-s.f5.si) - カスタムパス対応版
+- [pw.link-s.f5.si](https://pw.link-s.f5.si) - パスワード生成
+
+## SNSリンク (SNS)
+- [Scratch (hamusata)](https://scratch.mit.edu/users/hamusata/)
+- [Scratch (hamuzon)](https://scratch.mit.edu/users/hamuzon/)
+- [GitHub](https://github.com/hamuzon)
+- [Bluesky](https://bsky.app/profile/hamuzon-jp.f5.si)
+
+## サービス稼働状況 (Status)
+- [稼働状況を見る](https://stats.uptimerobot.com/tT7bs2uEHa)
+
+---
+© 2025 @hamuzon / @hamusata`;
+
+    return new Response(md, {
+      headers: {
+        "content-type": "text/markdown; charset=utf-8",
+        "x-markdown-tokens": "true"
+      }
+    });
+  }
+
   // それ以外はそのまま
   return context.next();
 }
