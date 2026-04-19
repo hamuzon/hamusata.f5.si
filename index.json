@@ -1,0 +1,14 @@
+{
+  "skills": [
+    {
+      "name": "Random Work Discovery",
+      "type": "discovery",
+      "description": "Provides access to a collection of random tools and projects created by hamusata.",
+      "url": "https://hamusata.f5.si/random/index.html",
+      "methods": [
+        "GET"
+      ],
+      "sha256": "eb3848970e28f1e582e9d29b282054a169b5962e2a05e55e054457e514f777a9"
+    }
+  ]
+}

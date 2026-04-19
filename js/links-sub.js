@@ -143,4 +143,31 @@ async function loadLinks() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadLinks);
+function registerWebMCP() {
+  if (typeof navigator !== 'undefined' && navigator.modelContext && navigator.modelContext.provideContext) {
+    navigator.modelContext.provideContext({
+      tools: [
+        {
+          name: "open_random_work",
+          description: "Opens a random project or tool from hamusata's collection.",
+          inputSchema: {
+            type: "object",
+            properties: {}
+          },
+          execute: async () => {
+            if (typeof openRandomLink === 'function') {
+              openRandomLink();
+              return { output: "Opened a random work." };
+            }
+            return { error: "openRandomLink function not found." };
+          }
+        }
+      ]
+    });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadLinks();
+  registerWebMCP();
+});
