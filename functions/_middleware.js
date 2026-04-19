@@ -40,6 +40,115 @@ export async function onRequest(context) {
     }
   }
 
+  // --- .well-known などのエージェント向けファイルをミドルウェアで直接ハンドリング（404対策） ---
+  if (pathname.startsWith("/.well-known/")) {
+    if (pathname === "/.well-known/api-catalog") {
+      return new Response(JSON.stringify({
+        "linkset": [
+          {
+            "anchor": "https://hamusata.f5.si/",
+            "service-desc": [
+              { "href": "https://hamusata.f5.si/lang/lang.json", "type": "application/json" },
+              { "href": "https://hamusata.f5.si/.well-known/openid-configuration", "type": "application/json" },
+              { "href": "https://hamusata.f5.si/.well-known/oauth-authorization-server", "type": "application/json" },
+              { "href": "https://hamusata.f5.si/.well-known/oauth-protected-resource", "type": "application/json" }
+            ],
+            "service-doc": [{ "href": "https://github.com/hamuzon/hamusata.f5.si#readme", "type": "text/html" }],
+            "agent-skills": [{ "href": "https://hamusata.f5.si/.well-known/agent-skills/index.json", "type": "application/json" }],
+            "mcp-server-card": [{ "href": "https://hamusata.f5.si/.well-known/mcp/server-card.json", "type": "application/json" }]
+          }
+        ]
+      }), { headers: { "Content-Type": "application/linkset+json; charset=utf-8" } });
+    }
+
+    if (pathname === "/.well-known/agent-skills/index.json") {
+      // リンク先のハッシュ値を自動計算するヘルパー
+      const getDynamicSha256 = async (path) => {
+        try {
+          const res = await context.env.ASSETS.fetch(new URL(path, request.url));
+          if (!res.ok) return "hash-error";
+          const buffer = await res.arrayBuffer();
+          const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+          return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        } catch (e) {
+          return "calculation-failed";
+        }
+      };
+
+      const randomHash = await getDynamicSha256("/random/index.html");
+
+      return new Response(JSON.stringify({
+        "skills": [
+          {
+            "name": "Markdown Negotiation",
+            "type": "negotiation",
+            "description": "Supports Accept: text/markdown to provide structured content for agents.",
+            "url": "https://hamusata.f5.si/",
+            "methods": ["GET"]
+          },
+          {
+            "name": "Random Work Discovery",
+            "type": "discovery",
+            "description": "Provides access to a collection of random tools and projects created by hamusata.",
+            "url": "https://hamusata.f5.si/random/index.html",
+            "methods": ["GET"],
+            "sha256": randomHash
+          },
+          {
+            "name": "OAuth Discovery",
+            "type": "discovery",
+            "description": "Exposes OAuth/OIDC metadata for server discovery.",
+            "url": "https://hamusata.f5.si/.well-known/openid-configuration",
+            "methods": ["GET"]
+          },
+          {
+            "name": "OAuth Protected Resource",
+            "type": "discovery",
+            "description": "Exposes metadata for protected resources and their auth servers.",
+            "url": "https://hamusata.f5.si/.well-known/oauth-protected-resource",
+            "methods": ["GET"]
+          }
+        ]
+      }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
+    }
+
+    if (pathname === "/.well-known/mcp/server-card.json") {
+      return new Response(JSON.stringify({
+        "serverInfo": {
+          "name": "HAMUSATA WebMCP Server",
+          "version": "1.0.0",
+          "description": "Exposes site sections and tools for the HAMUSATA portal."
+        },
+        "capabilities": { "tools": { "listChanged": true } },
+        "transport": { "type": "webmcp", "url": "https://hamusata.f5.si/" }
+      }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
+    }
+
+    // --- OAuth/OIDC Discovery (RFC 8414 / OIDC Discovery 1.0) ---
+    if (pathname === "/.well-known/openid-configuration" || pathname === "/.well-known/oauth-authorization-server") {
+      return new Response(JSON.stringify({
+        "issuer": "https://hamusata.f5.si",
+        "authorization_endpoint": "https://hamusata.f5.si/auth/authorize",
+        "token_endpoint": "https://hamusata.f5.si/auth/token",
+        "jwks_uri": "https://hamusata.f5.si/.well-known/jwks.json",
+        "response_types_supported": ["code", "token", "id_token"],
+        "subject_types_supported": ["public"],
+        "id_token_signing_alg_values_supported": ["RS256"],
+        "grant_types_supported": ["authorization_code", "client_credentials"],
+        "scopes_supported": ["openid", "profile", "email", "read", "write"]
+      }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
+    }
+
+    // --- OAuth Protected Resource (RFC 9728) ---
+    if (pathname === "/.well-known/oauth-protected-resource") {
+      return new Response(JSON.stringify({
+        "resource": "https://hamusata.f5.si/",
+        "authorization_servers": ["https://hamusata.f5.si"],
+        "scopes_supported": ["read", "write"]
+      }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
+    }
+  }
+
 
   // --- 対象ドメインのみ ---
   if (!hostname.endsWith("hamusata.f5.si")) {
@@ -53,12 +162,7 @@ export async function onRequest(context) {
 
 
   // ===== モード1: モバイル/PC判定リダイレクト =====
-  if (ENABLED === 1) {
-    // BOTの場合はリダイレクトをスキップ
-    if (isBot) {
-      return context.next();
-    }
-
+  if (ENABLED === 1 && !isBot) {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|Opera Mini/i.test(ua);
     const baseWithoutWWW = hostname.replace(/^www\./, "");
     const hasM = baseWithoutWWW.startsWith("m.");
@@ -175,113 +279,6 @@ Please visit the [Home Page](https://hamusata.f5.si/) for main content.`;
         ].join(", ")
       }
     });
-  }
-
-  // --- .well-known などのエージェント向けファイルをミドルウェアで直接ハンドリング（404対策） ---
-  if (pathname === "/.well-known/api-catalog") {
-    return new Response(JSON.stringify({
-      "linkset": [
-        {
-          "anchor": "https://hamusata.f5.si/",
-          "service-desc": [
-            { "href": "https://hamusata.f5.si/lang/lang.json", "type": "application/json" },
-            { "href": "https://hamusata.f5.si/.well-known/openid-configuration", "type": "application/json" },
-            { "href": "https://hamusata.f5.si/.well-known/oauth-authorization-server", "type": "application/json" },
-            { "href": "https://hamusata.f5.si/.well-known/oauth-protected-resource", "type": "application/json" }
-          ],
-          "service-doc": [{ "href": "https://github.com/hamuzon/hamusata.f5.si#readme", "type": "text/html" }],
-          "agent-skills": [{ "href": "https://hamusata.f5.si/.well-known/agent-skills/index.json", "type": "application/json" }],
-          "mcp-server-card": [{ "href": "https://hamusata.f5.si/.well-known/mcp/server-card.json", "type": "application/json" }]
-        }
-      ]
-    }), { headers: { "Content-Type": "application/linkset+json; charset=utf-8" } });
-  }
-
-  if (pathname === "/.well-known/agent-skills/index.json") {
-    // リンク先のハッシュ値を自動計算するヘルパー
-    const getDynamicSha256 = async (path) => {
-      try {
-        const res = await context.env.ASSETS.fetch(new URL(path, request.url));
-        if (!res.ok) return "hash-error";
-        const buffer = await res.arrayBuffer();
-        const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
-        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
-      } catch (e) {
-        return "calculation-failed";
-      }
-    };
-
-    const randomHash = await getDynamicSha256("/random/index.html");
-
-    return new Response(JSON.stringify({
-      "skills": [
-        {
-          "name": "Markdown Negotiation",
-          "type": "negotiation",
-          "description": "Supports Accept: text/markdown to provide structured content for agents.",
-          "url": "https://hamusata.f5.si/",
-          "methods": ["GET"]
-        },
-        {
-          "name": "Random Work Discovery",
-          "type": "discovery",
-          "description": "Provides access to a collection of random tools and projects created by hamusata.",
-          "url": "https://hamusata.f5.si/random/index.html",
-          "methods": ["GET"],
-          "sha256": randomHash
-        },
-        {
-          "name": "OAuth Discovery",
-          "type": "discovery",
-          "description": "Exposes OAuth/OIDC metadata for server discovery.",
-          "url": "https://hamusata.f5.si/.well-known/openid-configuration",
-          "methods": ["GET"]
-        },
-        {
-          "name": "OAuth Protected Resource",
-          "type": "discovery",
-          "description": "Exposes metadata for protected resources and their auth servers.",
-          "url": "https://hamusata.f5.si/.well-known/oauth-protected-resource",
-          "methods": ["GET"]
-        }
-      ]
-    }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
-  }
-
-  if (pathname === "/.well-known/mcp/server-card.json") {
-    return new Response(JSON.stringify({
-      "serverInfo": {
-        "name": "HAMUSATA WebMCP Server",
-        "version": "1.0.0",
-        "description": "Exposes site sections and tools for the HAMUSATA portal."
-      },
-      "capabilities": { "tools": { "listChanged": true } },
-      "transport": { "type": "webmcp", "url": "https://hamusata.f5.si/" }
-    }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
-  }
-
-  // --- OAuth/OIDC Discovery (RFC 8414 / OIDC Discovery 1.0) ---
-  if (pathname === "/.well-known/openid-configuration" || pathname === "/.well-known/oauth-authorization-server") {
-    return new Response(JSON.stringify({
-      "issuer": "https://hamusata.f5.si",
-      "authorization_endpoint": "https://hamusata.f5.si/auth/authorize",
-      "token_endpoint": "https://hamusata.f5.si/auth/token",
-      "jwks_uri": "https://hamusata.f5.si/.well-known/jwks.json",
-      "response_types_supported": ["code", "token", "id_token"],
-      "subject_types_supported": ["public"],
-      "id_token_signing_alg_values_supported": ["RS256"],
-      "grant_types_supported": ["authorization_code", "client_credentials"],
-      "scopes_supported": ["openid", "profile", "email", "read", "write"]
-    }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
-  }
-
-  // --- OAuth Protected Resource (RFC 9728) ---
-  if (pathname === "/.well-known/oauth-protected-resource") {
-    return new Response(JSON.stringify({
-      "resource": "https://hamusata.f5.si/",
-      "authorization_servers": ["https://hamusata.f5.si"],
-      "scopes_supported": ["read", "write"]
-    }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
   }
 
   // それ以外はそのまま。ただし HTML の場合は Link ヘッダーを付与してエージェント発見性を高める。
