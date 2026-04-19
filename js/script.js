@@ -106,3 +106,56 @@ document.querySelectorAll('.nav-home').forEach(el => {
     link.href = url.pathname + url.search + url.hash;
   });
 })();
+
+// ===== WebMCP Implementation =====
+if (typeof navigator !== 'undefined' && 'modelContext' in navigator) {
+  navigator.modelContext.provideContext({
+    tools: [
+      {
+        name: "get_site_info",
+        description: "Get general information about HAMUSATA homepage and available sections.",
+        inputSchema: {
+          type: "object",
+          properties: {}
+        },
+        execute: async () => {
+          return {
+            title: document.title,
+            owner: "@hamuzon / @hamusata",
+            sections: [
+              { id: "profile", name: "Profile / Self-introduction" },
+              { id: "portfolio", name: "Portfolio / Work Links" },
+              { id: "random", name: "Random Works" },
+              { id: "status", name: "Project Status" },
+              { id: "mutual-links", name: "Mutual Links" },
+              { id: "sns", name: "SNS Links (Scratch, GitHub, Bluesky)" }
+            ]
+          };
+        }
+      },
+      {
+        name: "scroll_to_section",
+        description: "Smoothly scrolls the page to a specific section.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            sectionId: {
+              type: "string",
+              enum: ["profile", "portfolio", "random", "status", "mutual-links", "sns"],
+              description: "The ID of the section to scroll to."
+            }
+          },
+          required: ["sectionId"]
+        },
+        execute: async ({ sectionId }) => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            return { success: true, message: `Scrolled to ${sectionId}` };
+          }
+          return { success: false, message: `Section ${sectionId} not found` };
+        }
+      }
+    ]
+  });
+}
