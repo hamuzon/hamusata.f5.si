@@ -170,16 +170,83 @@ Please visit the [Home Page](https://hamusata.f5.si/) for main content.`;
     });
   }
 
+  // --- .well-known などのエージェント向けファイルをミドルウェアで直接ハンドリング（404対策） ---
+  if (pathname === "/.well-known/api-catalog") {
+    return new Response(JSON.stringify({
+      "linkset": [
+        {
+          "anchor": "https://hamusata.f5.si/",
+          "service-desc": [{ "href": "https://hamusata.f5.si/lang/lang.json", "type": "application/json" }],
+          "service-doc": [{ "href": "https://github.com/hamuzon/hamusata.f5.si#readme", "type": "text/html" }],
+          "agent-skills": [{ "href": "https://hamusata.f5.si/.well-known/agent-skills/index.json", "type": "application/json" }],
+          "mcp-server-card": [{ "href": "https://hamusata.f5.si/.well-known/mcp/server-card.json", "type": "application/json" }]
+        }
+      ]
+    }), { headers: { "Content-Type": "application/linkset+json; charset=utf-8" } });
+  }
+
+  if (pathname === "/.well-known/agent-skills/index.json") {
+    // リンク先のハッシュ値を自動計算するヘルパー
+    const getDynamicSha256 = async (path) => {
+      try {
+        const res = await context.env.ASSETS.fetch(new URL(path, request.url));
+        if (!res.ok) return "hash-error";
+        const buffer = await res.arrayBuffer();
+        const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+      } catch (e) {
+        return "calculation-failed";
+      }
+    };
+
+    const randomHash = await getDynamicSha256("/random/index.html");
+
+    return new Response(JSON.stringify({
+      "skills": [
+        {
+          "name": "Markdown Negotiation",
+          "type": "negotiation",
+          "description": "Supports Accept: text/markdown to provide structured content for agents.",
+          "url": "https://hamusata.f5.si/",
+          "methods": ["GET"]
+        },
+        {
+          "name": "Random Work Discovery",
+          "type": "discovery",
+          "description": "Provides access to a collection of random tools and projects created by hamusata.",
+          "url": "https://hamusata.f5.si/random/index.html",
+          "methods": ["GET"],
+          "sha256": randomHash
+        }
+      ]
+    }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
+  }
+
+  if (pathname === "/.well-known/mcp/server-card.json") {
+    return new Response(JSON.stringify({
+      "serverInfo": {
+        "name": "HAMUSATA WebMCP Server",
+        "version": "1.0.0",
+        "description": "Exposes site sections and tools for the HAMUSATA portal."
+      },
+      "capabilities": { "tools": { "listChanged": true } },
+      "transport": { "type": "webmcp", "url": "https://hamusata.f5.si/" }
+    }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
+  }
+
   // それ以外はそのまま。ただし HTML の場合は Link ヘッダーを付与してエージェント発見性を高める。
   const response = await context.next();
   const contentType = response.headers.get("content-type") || "";
 
   if (contentType.includes("text/html")) {
+    // 既存のレスポンスを変更せずにヘッダーを追加して新しいレスポンスを作成
     const newHeaders = new Headers(response.headers);
-    // エージェントが発見しやすいように Link ヘッダーを追加
-    newHeaders.append("Link", '</.well-known/api-catalog>; rel="api-catalog"');
-    newHeaders.append("Link", '</.well-known/agent-skills/index.json>; rel="agent-skills"');
-    newHeaders.append("Link", '</.well-known/mcp/server-card.json>; rel="mcp-server-card"');
+    newHeaders.set("Link", [
+      '</.well-known/api-catalog>; rel="api-catalog"',
+      '</.well-known/agent-skills/index.json>; rel="agent-skills"',
+      '</.well-known/mcp/server-card.json>; rel="mcp-server-card"',
+      '<https://fonts.googleapis.com/css2?family=Potta+One&display=swap>; rel="preload"; as="style"'
+    ].join(", "));
     
     return new Response(response.body, {
       status: response.status,
