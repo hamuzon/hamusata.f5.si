@@ -2,15 +2,30 @@
   "linkset": [
     {
       "anchor": "https://hamusata.f5.si/",
-      "rel": "service-desc",
-      "href": "https://hamusata.f5.si/lang/lang.json",
-      "type": "application/json"
-    },
-    {
-      "anchor": "https://hamusata.f5.si/",
-      "rel": "service-doc",
-      "href": "https://github.com/hamusata/hamusata.f5.si#readme",
-      "type": "text/html"
+      "service-desc": [
+        {
+          "href": "https://hamusata.f5.si/lang/lang.json",
+          "type": "application/json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://github.com/hamuzon/hamusata.f5.si#readme",
+          "type": "text/html"
+        }
+      ],
+      "agent-skills": [
+        {
+          "href": "https://hamusata.f5.si/.well-known/agent-skills/index.json",
+          "type": "application/json"
+        }
+      ],
+      "mcp-server-card": [
+        {
+          "href": "https://hamusata.f5.si/.well-known/mcp/server-card.json",
+          "type": "application/json"
+        }
+      ]
     }
   ]
 }

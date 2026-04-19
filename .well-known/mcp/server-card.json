@@ -1,16 +1,16 @@
 {
-  "mcpServer": {
+  "serverInfo": {
     "name": "HAMUSATA WebMCP Server",
     "version": "1.0.0",
-    "description": "Exposes site sections and tools for the HAMUSATA portal.",
-    "capabilities": {
-      "tools": {
-        "listChanged": true
-      }
-    },
-    "transport": {
-      "type": "webmcp",
-      "url": "https://hamusata.f5.si/"
+    "description": "Exposes site sections and tools for the HAMUSATA portal."
+  },
+  "capabilities": {
+    "tools": {
+      "listChanged": true
     }
+  },
+  "transport": {
+    "type": "webmcp",
+    "url": "https://hamusata.f5.si/"
   }
 }

@@ -1,6 +1,13 @@
 {
   "skills": [
     {
+      "name": "Markdown Negotiation",
+      "type": "negotiation",
+      "description": "Supports Accept: text/markdown to provide structured content for agents.",
+      "url": "https://hamusata.f5.si/",
+      "methods": ["GET"]
+    },
+    {
       "name": "Random Work Discovery",
       "type": "discovery",
       "description": "Provides access to a collection of random tools and projects created by hamusata.",

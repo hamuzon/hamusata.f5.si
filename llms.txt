@@ -1,0 +1,25 @@
+# HAMUSATA – ホームページ
+
+HAMUSATAのホームページ。自己紹介やポートフォリオ、運営サービス一覧、サービス稼働状況、SNSリンク、相互リンクなどをまとめたポータルサイトです。
+
+## ポートフォリオリンク集 (Portfolio)
+
+- [HAMUSATA – ホームページ](https://home.hamusata.f5.si) - メインのポータルリンク。
+- [GitHub版 – ホームページ](https://hamuzon.github.io) - GitHub Pages版。
+- [hamuzon – ホームページ](https://hamuzon-jp.f5.si/) - リンクポータル版。
+- [hamuzon (FC2)系](https://hamuzon.web.fc2.com/) - FC2版ホームページ。
+- [link-s.f5.si](https://link-s.f5.si) - 短縮URL・ショートカットリンクサービス。
+- [go.link-s.f5.si](https://go.link-s.f5.si) - カスタムパス対応短縮リンク。
+- [pw.link-s.f5.si](https://pw.link-s.f5.si) - パスワード生成サービス。
+
+## SNSリンク
+
+- [Scratch (hamusata)](https://scratch.mit.edu/users/hamusata/)
+- [Scratch (hamuzon)](https://scratch.mit.edu/users/hamuzon/)
+- [GitHub (hamuzon)](https://github.com/hamuzon)
+- [Bluesky](https://bsky.app/profile/hamuzon-jp.f5.si)
+
+## サイト情報
+
+- [利用規約・プライバシーポリシー](https://hamusata.f5.si/terms.html)
+- [サービス稼働状況](https://stats.uptimerobot.com/tT7bs2uEHa)
