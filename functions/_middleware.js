@@ -147,6 +147,33 @@ export async function onRequest(context) {
         "scopes_supported": ["read", "write"]
       }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
     }
+
+    // --- JWKS (RFC 7517) ---
+    if (pathname === "/.well-known/jwks.json") {
+      return new Response(JSON.stringify({
+        "keys": []
+      }), { headers: { "Content-Type": "application/jwk-set+json; charset=utf-8" } });
+    }
+  }
+
+
+  // --- Auth Endpoints (for Discovery) ---
+  if (pathname === "/auth/authorize") {
+    return new Response(`<!DOCTYPE html>
+<html>
+<head><title>Authorize - HAMUSATA</title></head>
+<body>
+  <h1>Authorization Endpoint (Placeholder)</h1>
+  <p>This is a placeholder for the OAuth2 authorization endpoint used for discovery tests.</p>
+</body>
+</html>`, { headers: { "Content-Type": "text/html; charset=utf-8" } });
+  }
+
+  if (pathname === "/auth/token") {
+    return new Response(JSON.stringify({
+      "error": "not_supported",
+      "error_description": "This is a placeholder token endpoint."
+    }), { headers: { "Content-Type": "application/json; charset=utf-8" } });
   }
 
 
@@ -269,6 +296,7 @@ Please visit the [Home Page](https://hamusata.f5.si/) for main content.`;
         "content-type": "text/markdown; charset=utf-8",
         "x-markdown-tokens": tokenCount.toString(),
         "vary": "Accept",
+        "Content-Signal": "ai-train=yes, search=yes, ai-input=yes",
         "Link": [
           '</.well-known/api-catalog>; rel="api-catalog"',
           '</.well-known/agent-skills/index.json>; rel="agent-skills"',
