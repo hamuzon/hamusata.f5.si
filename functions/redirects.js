@@ -10,10 +10,10 @@ export async function onRequest(context) {
   const redirects = [
     // ===== X / Twitter =====
     { from: "/x", to: "https://x.com/hamu_sata" },
-    { from: "/x-1", to: "https://x.com/hamu_sata" },
+    { from: "/x-1", to: "https://x.com/i/user/1797783565670952960" },
     { from: "/twt", to: "https://x.com/hamu_sata" },
     { from: "/twitter", to: "https://x.com/hamu_sata" },
-    { from: "/twitter-1", to: "https://x.com/hamu_sata" },
+    { from: "/twitter-1", to: "https://x.com/i/user/1797783565670952960" },
 
     // ===== Scratch =====
     { from: "/s", to: "https://scratch.mit.edu/users/hamu_sata" },

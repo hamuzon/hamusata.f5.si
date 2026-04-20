@@ -298,6 +298,15 @@ Please visit the [Home Page](https://hamusata.f5.si/) for main content.`;
       '<https://fonts.googleapis.com/css2?family=Potta+One&display=swap>; rel="preload"; as="style"'
     ].join(", "));
     
+    const existingVary = newHeaders.get("Vary");
+    if (existingVary) {
+      if (!existingVary.toLowerCase().includes("accept")) {
+        newHeaders.set("Vary", existingVary + ", Accept");
+      }
+    } else {
+      newHeaders.set("Vary", "Accept");
+    }
+    
     return new Response(response.body, {
       status: response.status,
       statusText: response.statusText,
