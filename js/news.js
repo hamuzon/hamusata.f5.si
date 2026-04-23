@@ -14,12 +14,16 @@ async function loadNewsData() {
     // URLパラメータからID(認識コード)を取得 (?id=... または ?ID=...)
     const params = new URLSearchParams(window.location.search);
     const targetId = params.get('id') || params.get('ID');
-    // ID指定がある場合は全データから検索（内容は空や"0"でないこと）
-    const idItem = targetId ? dataRows.find(row => String(row[0]) === targetId && row[1] && String(row[1]) !== "0") : null;
+    // ID指定がある場合は全データから検索（内容が有効なもの）
+    const idItem = targetId ? dataRows.find(row => 
+      String(row[0]) === targetId && row[1] && String(row[1]).trim() !== "" && String(row[1]).trim() !== "0"
+    ) : null;
 
     const container = document.getElementById("news-list-container");
-    // 掲載状態(F列/index 5)が "1" ではないものを有効なデータとする
-    const activeRows = dataRows.filter(row => String(row[5] || "") !== "1");
+    // 掲載状態(F列)が "1" ではない、かつ内容(B列)が空や"0"ではないものを有効なデータとする
+    const activeRows = dataRows.filter(row => 
+      String(row[5] || "") !== "1" && row[1] && String(row[1]).trim() !== "" && String(row[1]).trim() !== "0"
+    );
 
     let displayedInBarRow = null;
 
@@ -52,12 +56,11 @@ async function loadNewsData() {
       const listRows = idItem ? [idItem] : activeRows.filter(row => row !== displayedInBarRow);
 
       if (listRows.length === 0) {
-        container.innerHTML = `<p>${targetId ? "指定されたお知らせは見つかりませんでした。" : "お知らせはありませんでした。"}</p>`;
+        container.innerHTML = `<p>${targetId ? "指定されたお知らせは見つかりませんでした。" : "現在表示できるお知らせはありません。"}</p>`;
       } else {
         container.innerHTML = "";
         [...listRows].reverse().forEach(row => {
           const [code, content, tag, pinned, emergency, status] = row;
-          if (!content || String(content).trim() === "" || String(content).trim() === "0") return; // 内容が空、または「0」の場合はスキップ
 
           const statusTag = tag || (emergency ? "緊急" : "通知");
 
