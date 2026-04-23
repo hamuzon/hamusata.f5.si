@@ -153,6 +153,35 @@
       border-radius: 50%;
       padding: 2px;
     }
+
+    /* 固定通知バーのスタイル */
+    .pinned-notice {
+      background: linear-gradient(90deg, #0097a7, #00bcd4);
+      color: #fff;
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+      display: none; /* デフォルトは非表示 */
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 1000;
+    }
+    .pinned-notice a { color: #fff; font-weight: bold; text-decoration: underline; }
+    /* データがある時だけJSで class="show" を付与 */
+    .pinned-notice.show { display: flex; }
+
+    /* 緊急事態時のスタイル */
+    .pinned-notice.emergency {
+      background: linear-gradient(90deg, #ff5252, #b71c1c);
+      animation: pulse-red 2s infinite;
+    }
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 82, 82, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 82, 82, 0); }
+    }
   </style>
 </head>
 
@@ -160,6 +189,11 @@
   <button id="lang-switch" aria-label="言語切替 / Language switch">🌐 English</button>
 
   <header>
+    <!-- 固定お知らせバー (Spreadsheet の news シートに固定指定がある場合のみ表示) -->
+    <div class="pinned-notice" id="top-notice" aria-live="polite">
+      <span data-lang="top_notice_text"></span>
+    </div>
+
     <a href="index.html" id="home" class="banner-link" aria-label="HAMUSATA ホームへ移動">
       <img src="hamusata_399-120.webp" alt="hamusata home banner" width="399" height="120" decoding="async"
         loading="eager" fetchpriority="high" data-cfasync="false">
@@ -172,6 +206,7 @@
     <nav id="mobile-menu" aria-label="Main navigation">
       <ul>
         <li><a href="#home" data-lang="nav_home" class="nav-home">ホーム</a></li>
+        <li><a href="news.html" data-lang="nav_news">お知らせ</a></li>
         <li><a href="#profile" data-lang="nav_profile">自己紹介</a></li>
         <li><a href="#portfolio" data-lang="nav_portfolio">ポートフォリオ</a></li>
         <li><a href="#random" data-lang="nav_random">ランダム作品</a></li>
@@ -372,6 +407,7 @@
 
   <script src="js/script.js" defer data-cfasync="false"></script>
   <script src="js/lang-switch.js" defer data-cfasync="false"></script>
+  <script src="js/news.js" defer></script>
 
 </body>
 
