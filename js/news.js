@@ -49,7 +49,7 @@ async function loadNewsData() {
         container.innerHTML = "";
         [...listRows].reverse().forEach(row => {
           const [code, content, tag, pinned, emergency, status] = row;
-          if (!content) return; // 内容が空の行はスキップ
+          if (!content || String(content).trim() === "" || String(content).trim() === "0") return; // 内容が空、または「0」の場合はスキップ
 
           const statusTag = tag || (emergency ? "緊急" : "通知");
 
