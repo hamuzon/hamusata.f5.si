@@ -15,11 +15,6 @@ async function loadNewsData() {
     // 掲載状態(F列/index 5)が "1" ではないものを有効なデータとする
     const activeRows = dataRows.filter(row => String(row[5] || "") !== "1");
 
-    // 有効なデータが空の場合の処理
-    if (activeRows.length === 0) {
-      if (container) container.innerHTML = "<p>現在お知らせはありません。</p>";
-    }
-
     // 1. トップページの固定通知バー制御
     const topNotice = document.getElementById("top-notice");
     if (topNotice) {
@@ -41,25 +36,29 @@ async function loadNewsData() {
 
     // 2. お知らせページ (news.html) のリスト表示
     if (container) {
-      container.innerHTML = "";
-      [...activeRows].reverse().forEach(row => {
-        const [code, content, tag, pinned, emergency, status] = row;
-        if (!content) return; // 内容が空の行はスキップ
+      if (activeRows.length === 0) {
+        container.innerHTML = "<p>現在お知らせはありません。</p>";
+      } else {
+        container.innerHTML = "";
+        [...activeRows].reverse().forEach(row => {
+          const [code, content, tag, pinned, emergency, status] = row;
+          if (!content) return; // 内容が空の行はスキップ
 
-        const statusTag = tag || (emergency ? "緊急" : "通知");
+          const statusTag = tag || (emergency ? "緊急" : "通知");
 
-        const article = document.createElement("article");
-        article.className = "news-item";
-        if (emergency) article.style.borderLeft = "4px solid #ff5252";
+          const article = document.createElement("article");
+          article.className = "news-item";
+          if (emergency) article.style.borderLeft = "4px solid #ff5252";
 
-        article.innerHTML = `
-          <div class="news-header">
-            <span class="news-tag">${statusTag}</span>
-          </div>
-          <p class="news-content">${content}</p>
-        `;
-        container.appendChild(article);
-      });
+          article.innerHTML = `
+            <div class="news-header">
+              <span class="news-tag">${statusTag}</span>
+            </div>
+            <p class="news-content">${content}</p>
+          `;
+          container.appendChild(article);
+        });
+      }
     }
   } catch (e) { 
     console.error("News load failed:", e);
