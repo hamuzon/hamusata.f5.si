@@ -24,7 +24,7 @@ async function loadNewsData() {
 
       if (pinnedItem) {
         const content = pinnedItem[1] || "";
-        const textEl = topNotice.querySelector("[data-lang='top_notice_text']");
+        const textEl = topNotice.querySelector(".notice-text");
 
         if (textEl) textEl.textContent = (emergencyItem ? "⚠️ 緊急： " : "") + content;
         if (emergencyItem) topNotice.classList.add("emergency"); // 赤色アニメーション用
@@ -37,7 +37,7 @@ async function loadNewsData() {
     // 2. お知らせページ (news.html) のリスト表示
     if (container) {
       if (activeRows.length === 0) {
-        container.innerHTML = "<p>現在お知らせはありません。</p>";
+        container.innerHTML = "<p>お知らせはありませんでした。</p>";
       } else {
         container.innerHTML = "";
         [...activeRows].reverse().forEach(row => {
@@ -63,7 +63,7 @@ async function loadNewsData() {
   } catch (e) { 
     console.error("News load failed:", e);
     const container = document.getElementById("news-list-container");
-    if (container) container.innerHTML = "<p>お知らせの取得に失敗しました。時間をおいて再度お試しください。</p>";
+    if (container) container.innerHTML = "<p>お知らせの取得に失敗しました。</p>";
   }
 }
 document.addEventListener("DOMContentLoaded", loadNewsData);
