@@ -1,9 +1,9 @@
 # ===== X / Twitter =====
 /x           https://x.com/hamu_sata   301
-/x-1         https://x.com/i/user/1797783565670952960  301
+/x-1         https://x.com/hamu_sata   301
 /twt         https://x.com/hamu_sata   301
 /twitter     https://x.com/hamu_sata   301
-/twitter-1   https://x.com/i/user/1797783565670952960   301
+/twitter-1   https://x.com/hamu_sata   301
 
 # ===== Scratch =====
 /s           https://scratch.mit.edu/users/hamusata   301
@@ -50,6 +50,6 @@
 /lit  /?utm_source=litlink&utm_medium=social   302
 /tre  /?utm_source=linktree&utm_medium=social  302
 
-/sitemap.xml    https://home.hamusata.f5.si/public/hamusata.f5.si-sitemap.xml 301
-
-
+# ===== sitemap =====
+/sitemap.xml   https://home.hamusata.f5.si/public/hamusata.f5.si-sitemap.xml   301
+/sitemap       https://home.hamusata.f5.si/public/hamusata.f5.si-sitemap.xml   301
