@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>林檎（リンゴ）画像 / Apple image</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;500&family=Plus+Jakarta+Sans:wght@200;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;500&family=Plus+Jakarta+Sans:wght@200;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg: #fffbf8;
@@ -61,6 +64,7 @@
             width: 100%;
             max-width: 360px;
             background: var(--glass);
+            -webkit-backdrop-filter: blur(14px);
             backdrop-filter: blur(14px);
             border-radius: 26px;
             overflow: hidden;
@@ -136,6 +140,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -192,7 +197,7 @@
     </footer>
 
     <script>
-        (function() {
+        (function () {
             const baseYear = 2026;
             const currentYear = new Date().getFullYear();
             document.getElementById("y").textContent = currentYear > baseYear ? `${baseYear}–${currentYear}` : `${baseYear}`;
@@ -200,11 +205,11 @@
             let sx, sy;
             const links = document.querySelectorAll(".image-link");
             for (let i = 0; i < links.length; i++) {
-                links[i].addEventListener("pointerdown", function(e) {
+                links[i].addEventListener("pointerdown", function (e) {
                     sx = e.clientX;
                     sy = e.clientY;
                 });
-                links[i].addEventListener("pointerup", function(e) {
+                links[i].addEventListener("pointerup", function (e) {
                     if (Math.abs(e.clientX - sx) < 8 && Math.abs(e.clientY - sy) < 8)
                         window.open(this.dataset.href, "_blank", "noopener");
                 });
@@ -213,4 +218,5 @@
     </script>
 
 </body>
+
 </html>
