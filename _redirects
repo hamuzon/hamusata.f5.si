@@ -44,11 +44,17 @@
 /mutual_Links   /links   301
 /mutual_Links/  /links   301
 
+# ===== Social Analytics =====
 /dc   /?utm_source=discord&utm_medium=social   302
 /bky  /?utm_source=bluesky&utm_medium=social   302
 /tx   /?utm_source=twitter&utm_medium=social   302
 /lit  /?utm_source=litlink&utm_medium=social   302
 /tre  /?utm_source=linktree&utm_medium=social  302
+
+/ig   /?utm_source=instagram&utm_medium=social   302
+/fb   /?utm_source=facebook&utm_medium=social    302
+/th   /?utm_source=threads&utm_medium=social     302
+/meta /?utm_source=meta&utm_medium=social        302
 
 # ===== sitemap =====
 /sitemap.xml   https://home.hamusata.f5.si/public/hamusata.f5.si-sitemap.xml   301
