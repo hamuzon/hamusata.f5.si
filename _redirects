@@ -56,6 +56,8 @@
 /th   /?utm_source=threads&utm_medium=social     302
 /meta /?utm_source=meta&utm_medium=social        302
 
+/nos  /?utm_source=nostr&utm_medium=social   302
+
 # ===== sitemap =====
 /sitemap.xml   https://home.hamusata.f5.si/public/hamusata.f5.si-sitemap.xml   301
 /sitemap       https://home.hamusata.f5.si/public/hamusata.f5.si-sitemap.xml   301
