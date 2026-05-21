@@ -22,12 +22,13 @@
 
   <link rel="manifest" href="/manifest.json" />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" href="hamusata_399-120.webp" as="image" type="image/webp" fetchpriority="high" />
 
-  <!-- Critical Font Preload - Using cross-origin to match Google Fonts behavior -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" />
+  <!-- Font CSS is loaded asynchronously to avoid blocking first paint -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" /></noscript>
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/mobile-menu.css" />
@@ -104,6 +105,11 @@
       /* Backdrop filter is expensive on LCP elements, removed for performance */
     }
 
+
+    main section {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 700px;
+    }
     h1 {
       font-size: clamp(1.6rem, 4vw, 2.2rem);
       margin: 1rem auto;
