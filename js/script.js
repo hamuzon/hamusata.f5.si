@@ -89,21 +89,26 @@ document.querySelectorAll('.nav-home').forEach(el => {
   const currentParams = window.location.search;
   if (!currentParams) return;
 
-  const links = document.querySelectorAll('a[href]');
+  const links = document.querySelectorAll('a[href]:not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"])');
   links.forEach(link => {
     // SNSセクション内のリンクは除外
     if (link.closest('#sns')) return;
 
-    const url = new URL(link.href, window.location.origin);
-
-    // 外部リンクを除外
-    if (url.origin !== window.location.origin) return;
+    const href = link.getAttribute('href');
+    if (!href) return;
 
     // すでにクエリがある場合は追加せず
-    if (url.search) return;
+    if (href.includes('?')) return;
 
-    url.search = currentParams;
-    link.href = url.pathname + url.search + url.hash;
+    // 外部リンクを除外
+    if (/^https?:\/\//i.test(href) && !href.startsWith(window.location.origin)) return;
+
+    if (href.startsWith('/')) {
+      link.href = `${href}${currentParams}`;
+      return;
+    }
+
+    link.href = `${href}${currentParams}`;
   });
 })();
 
