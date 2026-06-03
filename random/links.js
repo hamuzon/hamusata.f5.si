@@ -51,6 +51,7 @@ const links = [
 
     "https://expo.hamuzon-jp.f5.si/",
     "https://globe.world.hamuzon-jp.f5.si/",
+    "https://olympic-countdown.hamuzon-jp.f5.si/",
     "https://hamuzon-jp.f5.si/bin2dec/",
     "https://hamuzon-jp.f5.si/birthday/",
     "https://hamuzon-jp.f5.si/calculator/",
