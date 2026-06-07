@@ -3,10 +3,9 @@
 export async function onRequest(context) {
   const url = new URL(context.request.url);
 
-  // ドメイン末尾にドットを削除 (FQDN正規化)
   if (url.hostname.endsWith(".")) {
-    url.hostname = url.hostname.slice(0, -1);
-    return Response.redirect(url.toString(), 301);
+    url.hostname = url.hostname.replace(/\.+$/, "");
+    return Response.redirect(url.href, 301);
   }
 
   // 機能操作: 0 = OFF, 1 = ON, 2 = ON（all top Domain）
