@@ -4,7 +4,7 @@ export async function onRequest(context) {
   // 機能操作 (Feature Toggle): 0 = OFF, 1 = ON, 2 = ON（all top Domain）
   const ENABLED = 2;
 
-
+  // --- スイッチ判定 ---
   if (ENABLED === 0) {
     return context.next();
   }
