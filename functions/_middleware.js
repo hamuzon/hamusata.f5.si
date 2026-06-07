@@ -3,22 +3,16 @@
 export async function onRequest(context) {
   const url = new URL(context.request.url);
 
-  // ドメイン末尾にドットを削除
+  // ドメイン末尾にドットを削除 (FQDN正規化)
   if (url.hostname.endsWith(".")) {
     url.hostname = url.hostname.slice(0, -1);
     return Response.redirect(url.toString(), 301);
   }
 
-  return context.next();
-}
-
-
-export async function onRequest(context) {
   // 機能操作: 0 = OFF, 1 = ON, 2 = ON（all top Domain）
   const ENABLED = 2;
 
   const { request } = context;
-  const url = new URL(request.url);
   const hostname = url.hostname.toLowerCase();
   const pathname = url.pathname.toLowerCase();
 
