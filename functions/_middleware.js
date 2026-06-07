@@ -1,26 +1,24 @@
 // functions/_middleware.js
 
 export async function onRequest(context) {
-  const url = new URL(context.request.url);
-
-  if (url.hostname.endsWith(".")) {
-    url.hostname = url.hostname.replace(/\.+$/, "");
-    return Response.redirect(url.href, 301);
-  }
-
-  // 機能操作: 0 = OFF, 1 = ON, 2 = ON（all top Domain）
+  // 機能操作 (Feature Toggle): 0 = OFF, 1 = ON, 2 = ON（all top Domain）
   const ENABLED = 2;
 
-  const { request } = context;
-  const hostname = url.hostname.toLowerCase();
-  const pathname = url.pathname.toLowerCase();
 
-
-  // --- スイッチ判定 ---
   if (ENABLED === 0) {
     return context.next();
   }
 
+  const url = new URL(context.request.url);
+
+  if (url.hostname.endsWith(".")) {
+    url.hostname = url.hostname.slice(0, -1);
+    return Response.redirect(url.toString(), 301);
+  }
+
+  const { request } = context;
+  const hostname = url.hostname.toLowerCase();
+  const pathname = url.pathname.toLowerCase();
 
   // --- favicon.ico ---
   if (pathname === "/favicon.ico") {
