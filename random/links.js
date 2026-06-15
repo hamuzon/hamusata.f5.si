@@ -14,7 +14,6 @@ const links = [
     "https://exe.hamusata.f5.si/",
     "https://expo.hamusata.f5.si/",
     "https://expo2025-counter.hamusata.f5.si",
-    "https://globe.world.hamusata.f5.si/",
     "https://go-link-s.hamusata.f5.si/",
     "https://go.link.hamusata.f5.si/",
     "https://google.hamusata.f5.si/",
@@ -50,7 +49,6 @@ const links = [
     "https://yt.hamusata.f5.si/",
 
     "https://expo.hamuzon-jp.f5.si/",
-    "https://globe.world.hamuzon-jp.f5.si/",
     "https://olympic-countdown.hamuzon-jp.f5.si/",
     "https://hamuzon-jp.f5.si/bin2dec/",
     "https://hamuzon-jp.f5.si/birthday/",
