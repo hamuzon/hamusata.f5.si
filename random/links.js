@@ -11,7 +11,6 @@ const links = [
     "https://dice.hamusata.f5.si",
     "https://discord-tools.hamusata.f5.si/",
     "https://editor.hamusata.f5.si/",
-    "https://exe.hamusata.f5.si/",
     "https://expo.hamusata.f5.si/",
     "https://expo2025-counter.hamusata.f5.si",
     "https://go-link-s.hamusata.f5.si/",
