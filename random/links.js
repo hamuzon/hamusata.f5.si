@@ -1,5 +1,4 @@
 const links = [
-    "https://app.hamusata.f5.si/",
     "https://bin2dec.hamusata.f5.si",
     "https://Calculator.hamusata.f5.si",
     "https://calendar.hamusata.f5.si",
