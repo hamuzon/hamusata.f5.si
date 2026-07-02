@@ -34,7 +34,6 @@ async function loadLinks() {
     const container = document.getElementById("mutualLinks");
 
     container.innerHTML = '<p>読み込み中…</p>';
-    // レイアウトシフト軽減のため最小高さを設定
     container.style.minHeight = '200px';
 
     try {
