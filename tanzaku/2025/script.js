@@ -160,8 +160,8 @@ document.getElementById('postBtn').onclick = () => {
   tweetText += `🎋願いごと🎋\n\n`;
 
   tweetText +=
-    'https://hamuzon-jp.f5.si/wish\n' +
-    'https://hamuzon-jp.f5.si/wish-2025\n\n';
+    'https://hamusata.f5.si/wish\n' +
+    'https://hamusata.f5.si/wish-2025\n\n';
 
   tweetText += '#七夕 #TanzakuMaker';
 
