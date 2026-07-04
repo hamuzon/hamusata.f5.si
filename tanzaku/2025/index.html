@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>七夕短冊メーカー 2025</title>
+<meta name="description" content="七夕の短冊を作成できるサイトです。願い事を書いて、画像を保存・X(Twitter)シェアができる機能あり / A web app to create Tanabata tanzaku online. Write your wish, save and share the image.">
+<link rel="canonical" href="https://hamusata.f5.si/tanzaku/2025/">
+
+<!-- OGP -->
+<meta property="og:title" content="七夕短冊メーカー 2025">
+<meta property="og:description" content="七夕の短冊を作成できるサイトです。願い事を書いて、画像を保存・X(Twitter)シェアができる機能あり / A web app to create Tanabata tanzaku online. Write your wish, save and share the image.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hamusata.f5.si/tanzaku/2025/">
+<meta property="og:image" content="https://hamusata.f5.si/tanzaku/2025/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="七夕短冊メーカー 2025">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-light.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <img src="icon-light.svg" alt="Icon" />
+  <h1>七夕短冊メーカー</h1>
+  <p>2025</p>
+</header>
+
+<div class="bamboo"></div>
+
+<div class="container">
+  <div class="input-area" role="form" aria-label="願い事入力フォーム">
+    <input id="wishInput" type="text" placeholder="願い事を書いてください🌟" maxlength="50" aria-label="願い事" />
+    <input id="nameInput" type="text" placeholder="名前（任意）" maxlength="20" aria-label="名前（任意）" />
+    <select id="colorSelect" aria-label="短冊の色を選択">
+      <option value="red" selected>赤</option>
+      <option value="blue">青</option>
+      <option value="yellow">黄</option>
+      <option value="green">緑</option>
+      <option value="purple">紫</option>
+    </select>
+    <button type="button" onclick="addOwn()">🎋 表示・投稿準備</button>
+  </div>
+
+  <!-- ユーザー短冊 -->
+  <div class="tanzaku-wrapper hidden" id="ownWrapper"></div>
+
+  <!-- 例の短冊 -->
+  <div class="tanzaku-wrapper" id="exampleTanzaku">
+    <div class="string"></div><div class="tanzaku red example">🌏世界が平和でありますように</div>
+    <div class="string"></div><div class="tanzaku blue example">😊毎日楽しくすごせますように</div>
+    <div class="string"></div><div class="tanzaku green example">🎓勉強がうまくいきますように</div>
+  </div>
+
+  <div class="btn-area" id="btnArea">
+    <button id="saveBtn" type="button">🎁 短冊を持ち帰る</button>
+    <button id="postBtn" type="button">🚀 投稿する</button>
+  </div>
+</div>
+
+<footer>
+  2025 <a href="." target="_blank" rel="noopener noreferrer">@hamuzon</a>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
