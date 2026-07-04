@@ -46,6 +46,11 @@
 /terms /terms-and-privacy 301
 /privacy /terms-and-privacy 301
 
+# ===== Tanzaku =====
+/wish           /tanzaku/        301
+/wish-2025      /tanzaku/2025/   301
+/wish-2026      /tanzaku/2026/   301
+
 # ===== Social Analytics =====
 /dc   /?utm_source=discord&utm_medium=social   302
 /bky  /?utm_source=bluesky&utm_medium=social   302
