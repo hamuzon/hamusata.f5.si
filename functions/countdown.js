@@ -9,14 +9,10 @@ export async function onRequest(context) {
     const yearDisplay = currentYear > baseYear ? `${baseYear}–${currentYear}` : baseYear;
 
     let copyrightContent = "";
-    if (hostname === "hamuzon.github.io") {
-        copyrightContent = `&copy; ${yearDisplay} <a href="https://hamuzon.github.io" target="_blank" rel="noopener noreferrer">@hamuzon</a>`;
-    } else if (hostname.includes("hamusata.f5.si")) {
+    if (hostname.includes("hamusata.f5.si")) {
         copyrightContent = `&copy; ${yearDisplay} <a href="https://hamusata.f5.si" target="_blank" rel="noopener noreferrer">@hamusata</a>`;
     } else if (hostname.includes("hamuzon-jp.f5.si")) {
         copyrightContent = `&copy; ${yearDisplay} <a href="https://hamusata.f5.si" target="_blank" rel="noopener noreferrer">@hamuzon</a>`;
-    } else if (hostname.includes("hamuzon.web.fc2.com")) {
-        copyrightContent = `&copy; ${yearDisplay} <a href="https://hamuzon.web.fc2.com" target="_blank" rel="noopener noreferrer">@hamuzon</a>`;
     } else {
         copyrightContent = `&copy; ${yearDisplay} New Year Countdown`;
     }
@@ -32,6 +28,10 @@ export async function onRequest(context) {
 <meta property="og:description" content="来年 (${nextYear})年の元旦までの残り時間をリアルタイムでカウントダウン！">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
+<script>
+    const theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.className = theme;
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <style>
     * {
@@ -187,10 +187,6 @@ export async function onRequest(context) {
         gap: 1rem;
     }
 </style>
-<script>
-    const theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    document.documentElement.className = theme;
-</script>
 </head>
 <body>
     <header>
