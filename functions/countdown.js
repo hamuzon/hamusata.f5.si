@@ -34,6 +34,18 @@ export async function onRequest(context) {
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <style>
+    html {
+        background: #0a0a0a;
+    }
+
+    html.light {
+        background: #fde2ea;
+    }
+
+    html.dark {
+        background: #0a0a0a;
+    }
+
     * {
         margin: 0;
         padding: 0;
