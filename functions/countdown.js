@@ -3,6 +3,12 @@ export async function onRequest(context) {
     const url = new URL(request.url);
     const hostname = url.hostname;
 
+    // 末尾スラッシュがある場合はスラッシュなしにリダイレクト
+    if (url.pathname.endsWith('/') && url.pathname !== '/') {
+        const cleanUrl = url.toString().replace(/\/+$/, '');
+        return Response.redirect(cleanUrl, 301);
+    }
+
     const baseYear = 2025;
     const currentYear = parseInt(new Intl.DateTimeFormat('en-US', { year: 'numeric', timeZone: 'Asia/Tokyo' }).format(new Date()));
     const nextYear = currentYear + 1;
