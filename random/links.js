@@ -131,8 +131,6 @@ const links = [
     "https://pw-sp.hamuzon-jp.f5.si/",
     "https://device-info-old.hamuzon-jp.f5.si/",
     "https://birthday.hamuzon-jp.f5.si/",
-    "https://scratch.mit.edu/users/hamusata/",
-    "https://scratch.mit.edu/users/hamuzon/",
     "https://hamuzon-jp.f5.si/bin2dec/old/",
     "https://hamuzon-jp.f5.si/microwave/",
     "https://hamuzon-jp.f5.si/WORLD-time/",
