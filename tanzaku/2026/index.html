@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,7 +10,8 @@
 
   <!-- OGP -->
   <meta property="og:title" content="七夕短冊メーカー 2026">
-  <meta property="og:description" content="オンラインで七夕の短冊を作成できるウェブアプリです。願い事を書いて、画像を保存・シェアしましょう。/ A web app to create Tanabata tanzaku online. Write your wish, save and share the image.">
+  <meta property="og:description"
+    content="オンラインで七夕の短冊を作成できるウェブアプリです。願い事を書いて、画像を保存・シェアしましょう。/ A web app to create Tanabata tanzaku online. Write your wish, save and share the image.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hamusata.f5.si/tanzaku/2026/">
   <meta property="og:image" content="https://hamusata.f5.si/tanzaku/2026/ogp.png">
@@ -21,6 +23,7 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
 </head>
+
 <body>
   <header>
     🎋 七夕短冊メーカー 2026 / Tanzaku Maker 2026🎋
@@ -29,7 +32,8 @@
   <div class="container">
     <!-- 入力フォーム -->
     <div class="input-area" role="form" aria-label="願い事入力フォーム">
-      <textarea id="wishInput" placeholder="願い事を書いてください🌟 / Enter your wish" maxlength="100" aria-label="願い事"></textarea>
+      <textarea id="wishInput" placeholder="願い事を書いてください🌟 / Enter your wish" maxlength="100"
+        aria-label="願い事"></textarea>
       <input id="nameInput" type="text" placeholder="名前（任意） / Name (Optional)" maxlength="20" aria-label="名前" />
       <select id="colorSelect" aria-label="短冊の色を選択" title="短冊の色を選択">
         <option value="red" selected>赤 / Red</option>
@@ -47,13 +51,16 @@
     <!-- 例の短冊 -->
     <div class="tanzaku-wrapper" id="exampleTanzaku">
       <div class="string"></div>
-      <div class="tanzaku red">🌏世界が平和でありますように<div class="name">願い星</div></div>
+      <div class="tanzaku red">🌏世界が平和でありますように<div class="name">願い星</div>
+      </div>
 
       <div class="string"></div>
-      <div class="tanzaku blue">😊毎日楽しくすごせますように<div class="name">星のしずく</div></div>
+      <div class="tanzaku blue">😊毎日楽しくすごせますように<div class="name">星のしずく</div>
+      </div>
 
       <div class="string"></div>
-      <div class="tanzaku green">🎓勉強がうまくいきますように<div class="name">たなばたの風</div></div>
+      <div class="tanzaku green">🎓勉強がうまくいきますように<div class="name">たなばたの風</div>
+      </div>
     </div>
 
     <!-- 保存・投稿ボタン -->
@@ -64,10 +71,11 @@
   </div>
 
   <footer>
-    &copy; 2026 <a href="https://hamusata.f5.si/" target="_blank" rel="noopener noreferrer">@hamuzon</a>
+    &copy; 2026 <a href="https://hamusata.f5.si/" target="_blank" rel="noopener noreferrer">@hamusata</a>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.13/html-to-image.js"></script>
   <script src="script.js"></script>
 </body>
+
 </html>
