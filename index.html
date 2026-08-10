@@ -51,7 +51,6 @@
   <meta name="twitter:image" content="https://hamusata.f5.si/logo.webp" />
 
   <style>
-    /* Critical CSS - 初期表示の高速化用 */
     * {
       margin: 0;
       padding: 0;
@@ -86,7 +85,6 @@
       z-index: 10;
       position: relative;
       min-height: 180px;
-      /* Preserve space for banner + transition */
     }
 
     .banner-link {
@@ -103,8 +101,6 @@
       border-radius: 14px;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
       background: rgba(255, 255, 255, 0.05);
-      /* Reduced opacity */
-      /* Backdrop filter is expensive on LCP elements, removed for performance */
     }
 
 
