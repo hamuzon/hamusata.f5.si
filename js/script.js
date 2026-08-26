@@ -85,9 +85,18 @@ document.querySelectorAll('.nav-home').forEach(el => {
 
 
 // ===== 内部リンクURLパラメータ維持 =====
-(function() {
+(function () {
   const currentParams = window.location.search;
   if (!currentParams) return;
+
+  const params = new URLSearchParams(currentParams);
+  for (const key of Array.from(params.keys())) {
+    if (key === '_gl' || key.startsWith('_ga')) {
+      params.delete(key);
+    }
+  }
+  const cleanQuery = params.toString() ? `?${params.toString()}` : '';
+  if (!cleanQuery) return;
 
   const links = document.querySelectorAll('a[href]:not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"])');
   links.forEach(link => {
@@ -104,11 +113,11 @@ document.querySelectorAll('.nav-home').forEach(el => {
     if (/^https?:\/\//i.test(href) && !href.startsWith(window.location.origin)) return;
 
     if (href.startsWith('/')) {
-      link.href = `${href}${currentParams}`;
+      link.href = `${href}${cleanQuery}`;
       return;
     }
 
-    link.href = `${href}${currentParams}`;
+    link.href = `${href}${cleanQuery}`;
   });
 })();
 
