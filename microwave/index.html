@@ -1,382 +1,376 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-  if (window.location.search) {
-    try {
-      const url = new URL(window.location.href);
-      let changed = false;
-      for (const key of Array.from(url.searchParams.keys())) {
-        if (key === '_gl' || key.startsWith('_ga')) {
-          url.searchParams.delete(key);
-          changed = true;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>電子レンジ ワット数・加熱時間変換ツール</title>
+
+    <link rel="canonical" href="https://hamuzon-jp.f5.si/microwave/">
+
+    <meta name="description"
+        content="電子レンジのワット数と加熱時間を自動で変換するツールです。レシピの指定時間をお使いの電子レンジのワット数に合わせて簡単に換算できます。料理、あたため、解凍などにご利用ください。">
+
+    <meta name="keywords"
+        content="電子レンジ,ワット数,加熱時間,時間,変換,換算,計算,電子レンジ時間,レンジ時間,ワット数変換,加熱時間変換,無料,無料ツール,あたため,解凍,料理,レシピ,microwave,wattage,time,converter,calculator,free,cooking,reheat,defrost">
+
+    <meta name="robots" content="index,follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="電子レンジ ワット数・加熱時間変換ツール">
+    <meta property="og:description" content="電子レンジのワット数と加熱時間を自動で変換するツールです。">
+    <meta property="og:locale" content="ja_JP">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="電子レンジ ワット数・加熱時間変換ツール">
+    <meta name="twitter:description" content="電子レンジのワット数と加熱時間を自動で変換するツールです。">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Potta One', cursive, system-ui, sans-serif;
         }
-      }
-      if (changed) {
-        const cleanUrl = url.pathname + (url.search ? url.search : '') + url.hash;
-        window.history.replaceState(null, '', cleanUrl);
-      }
-    } catch (e) {}
-  }
-</script>
 
-<title>電子レンジ ワット数・加熱時間変換ツール</title>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #1a1d2e;
+            background-image:
+                radial-gradient(ellipse at 20% 30%, rgba(56, 189, 248, 0.3) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 70%, rgba(139, 92, 246, 0.25) 0%, transparent 70%),
+                radial-gradient(ellipse at 60% 20%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(34, 197, 94, 0.15) 0%, transparent 65%),
+                linear-gradient(180deg, #1a1d2e 0%, #0a0a0a 100%);
+            background-attachment: fixed;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-<link rel="canonical" href="https://hamuzon-jp.f5.si/microwave/">
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
 
-<meta name="description" content="電子レンジのワット数と加熱時間を自動で変換するツールです。レシピの指定時間をお使いの電子レンジのワット数に合わせて簡単に換算できます。料理、あたため、解凍などにご利用ください。">
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+            -webkit-backdrop-filter: blur(28px);
+            backdrop-filter: blur(28px);
+        }
 
-<meta name="keywords" content="電子レンジ,ワット数,加熱時間,時間,変換,換算,計算,電子レンジ時間,レンジ時間,ワット数変換,加熱時間変換,無料,無料ツール,あたため,解凍,料理,レシピ,microwave,wattage,time,converter,calculator,free,cooking,reheat,defrost">
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 30px;
+            color: #ffffff;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
 
-<meta name="robots" content="index,follow">
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="電子レンジ ワット数・加熱時間変換ツール">
-<meta property="og:description" content="電子レンジのワット数と加熱時間を自動で変換するツールです。">
-<meta property="og:locale" content="ja_JP">
+        .input-with-unit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+        }
 
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="電子レンジ ワット数・加熱時間変換ツール">
-<meta name="twitter:description" content="電子レンジのワット数と加熱時間を自動で変換するツールです。">
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
+        label {
+            display: block;
+            font-weight: 400;
+            margin-bottom: 6px;
+            color: #c0c0c0;
+        }
 
-<style>
-*{
-    box-sizing:border-box;
-    font-family: 'Potta One', cursive, system-ui, sans-serif;
-}
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            font-size: 17px;
+            background: transparent;
+            color: #ffffff;
+        }
 
-body{
-    margin: 0;
-    padding: 20px;
-    background-color: #1a1d2e;
-    background-image:
-        radial-gradient(ellipse at 20% 30%, rgba(56, 189, 248, 0.3) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 70%, rgba(139, 92, 246, 0.25) 0%, transparent 70%),
-        radial-gradient(ellipse at 60% 20%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
-        radial-gradient(ellipse at 40% 80%, rgba(34, 197, 94, 0.15) 0%, transparent 65%),
-        linear-gradient(180deg, #1a1d2e 0%, #0a0a0a 100%);
-    background-attachment: fixed;
-    color: #e0e0e0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
+        .input-with-unit {
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
 
-.container{
-    max-width: 500px;
-    width: 100%;
-}
+        input,
+        select {
+            -webkit-appearance: none;
+            /* for iOS */
+            appearance: none;
+        }
 
-.card{
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 24px;
-    padding: 32px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-    -webkit-backdrop-filter: blur(28px);
-    backdrop-filter: blur(28px);
-}
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #89b1f7;
+            box-shadow: 0 0 0 3px rgba(137, 177, 247, 0.2);
+        }
 
-h1{
-    text-align:center;
-    margin-top:0;
-    margin-bottom: 30px;
-    color: #ffffff;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-}
+        .input-with-unit:focus-within {
+            outline: none;
+            border-color: #89b1f7;
+            box-shadow: 0 0 0 3px rgba(137, 177, 247, 0.2);
+        }
 
-.input-group {
-    display: flex;
-    flex-direction: column;
-}
+        .time {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
 
-.input-with-unit {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 10px;
-}
+        .time>.input-with-unit {
+            flex: 1 1 0;
+            min-width: 0;
+        }
 
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-}
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 18px;
+            background: rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
 
-label{
-    display:block;
-    font-weight: 400;
-    margin-bottom:6px;
-    color: #c0c0c0;
-}
+        .unit {
+            padding-right: 12px;
+            color: #999;
+        }
 
-input, select {
-    width:100%;
-    padding:12px;
-    border: none;
-    font-size:17px;
-    background: transparent;
-    color: #ffffff;
-}
+        .big {
+            font-size: 34px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #c8d9ff;
+            text-shadow: 0 0 12px rgba(185, 210, 255, 0.6);
+        }
 
-.input-with-unit {
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
+        .en-result {
+            display: none;
+            font-size: 0.6em;
+            opacity: 0.7;
+            margin-top: 8px;
+        }
 
-input, select {
-    -webkit-appearance: none; /* for iOS */
-    appearance: none;
-}
+        .note {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 13px;
+            line-height: 1.6;
+            text-align: center;
+        }
 
-input:focus, select:focus {
-    outline: none;
-    border-color: #89b1f7;
-    box-shadow: 0 0 0 3px rgba(137, 177, 247, 0.2);
-}
+        .hidden {
+            display: none;
+        }
 
-.input-with-unit:focus-within {
-    outline: none;
-    border-color: #89b1f7;
-    box-shadow: 0 0 0 3px rgba(137, 177, 247, 0.2);
-}
+        .note p {
+            margin: 0;
+        }
 
-.time{
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
+        .lang-en {
+            display: none;
+            margin-top: 1.5em;
+            padding-top: 1.5em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-.time > .input-with-unit{
-    flex: 1 1 0;
-    min-width: 0;
-}
+        @media(max-width:600px) {
+            body {
+                padding: 10px;
+            }
 
-.result{
-    margin-top:25px;
-    padding:20px;
-    border-radius: 18px;
-    background: rgba(0, 0, 0, 0.2);
-    text-align:center;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.unit {
-    padding-right: 12px;
-    color: #999;
-}
-
-.big{
-    font-size:34px;
-    font-weight:bold;
-    margin:10px 0;
-    color: #c8d9ff;
-    text-shadow: 0 0 12px rgba(185, 210, 255, 0.6);
-}
-
-.en-result {
-    display: none;
-    font-size: 0.6em;
-    opacity: 0.7;
-    margin-top: 8px;
-}
-
-.note{
-    margin-top:20px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: #999;
-    font-size:13px;
-    line-height:1.6;
-    text-align: center;
-}
-
-.hidden {
-    display: none;
-}
-
-.note p {
-    margin: 0;
-}
-
-.lang-en {
-    display: none;
-    margin-top: 1.5em;
-    padding-top: 1.5em;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-@media(max-width:600px){
-    body {
-        padding: 10px;
-    }
-    .grid{
-        grid-template-columns:1fr;
-    }
-}
-</style>
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-<div class="card">
+        <div class="card">
 
-<h1>電子レンジ時間計算ツール</h1>
+            <h1>電子レンジ時間計算ツール</h1>
 
-<div class="grid">
+            <div class="grid">
 
-<div class="input-group">
-    <label for="from">元のワット数</label>
-    <div class="input-with-unit">
-        <input type="number" id="from" value="500" placeholder="例: 500">
-        <span class="unit">W</span>
-    </div>
-</div>
+                <div class="input-group">
+                    <label for="from">元のワット数</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="from" value="500" placeholder="例: 500">
+                        <span class="unit">W</span>
+                    </div>
+                </div>
 
-<div class="input-group">
-    <label for="to">変換後のワット数</label>
-    <div class="input-with-unit">
-        <input type="number" id="to" value="600" placeholder="例: 600">
-        <span class="unit">W</span>
-    </div>
-</div>
+                <div class="input-group">
+                    <label for="to">変換後のワット数</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="to" value="600" placeholder="例: 600">
+                        <span class="unit">W</span>
+                    </div>
+                </div>
 
-</div>
+            </div>
 
-<br>
+            <br>
 
-<div class="input-group">
-    <label for="min">元の加熱時間</label>
-    <div class="time">
-        <div class="input-with-unit">
-            <input type="number" id="min" min="0" value="2" placeholder="分" aria-label="元の加熱時間（分）">
-            <span class="unit">分</span>
+            <div class="input-group">
+                <label for="min">元の加熱時間</label>
+                <div class="time">
+                    <div class="input-with-unit">
+                        <input type="number" id="min" min="0" value="2" placeholder="分" aria-label="元の加熱時間（分）">
+                        <span class="unit">分</span>
+                    </div>
+                    <div class="input-with-unit">
+                        <input type="number" id="sec" min="0" value="0" placeholder="秒" aria-label="元の加熱時間（秒）">
+                        <span class="unit">秒</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result">
+
+                <div>変換後の加熱時間</div>
+
+                <div class="big" id="answer">
+                    ...
+                </div>
+
+                <div id="seconds">
+                    ...
+                </div>
+
+            </div>
+
+            <div class="note">
+
+                <p class="lang-ja">⚠注意⚠
+                    時間は目安です。食品の種類・量・温度・容器や、お使いの電子レンジの性能によって実際の仕上がりは異なります。必ず様子を見ながら、必要に応じて追加で加熱してください。</p>
+                <p class="lang-en">⚠Caution⚠ The time is an estimate. The actual result may vary depending on the type,
+                    amount, temperature of the food, the container, and the performance of your microwave. Always check
+                    the food and heat additionally if necessary.</p>
+
+            </div>
+
         </div>
-        <div class="input-with-unit">
-            <input type="number" id="sec" min="0" value="0" placeholder="秒" aria-label="元の加熱時間（秒）">
-            <span class="unit">秒</span>
-        </div>
+
     </div>
-</div>
 
-<div class="result">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fromInput = document.getElementById('from');
+            const toInput = document.getElementById('to');
+            const minInput = document.getElementById('min');
+            const secInput = document.getElementById('sec');
+            const answerEl = document.getElementById('answer');
+            const secondsEl = document.getElementById('seconds');
 
-<div>変換後の加熱時間</div>
+            // localStorageから値を読み込む
+            fromInput.value = localStorage.getItem('microwave-from') || '500';
+            toInput.value = localStorage.getItem('microwave-to') || '600';
+            minInput.value = localStorage.getItem('microwave-min') || '2';
+            secInput.value = localStorage.getItem('microwave-sec') || '0';
 
-<div class="big" id="answer">
-...
-</div> 
+            function calc() {
+                const from = Number(fromInput.value) || 0;
+                const to = Number(toInput.value) || 0;
 
-<div id="seconds">
-...
-</div>
+                let min = Number(minInput.value) || 0;
+                let sec = Number(secInput.value) || 0;
 
-</div>
+                // 秒が60以上なら分へ繰り上げ
+                while (sec >= 60) {
+                    min++;
+                    sec -= 60;
+                }
 
-<div class="note">
+                minInput.value = min;
+                secInput.value = sec;
 
-<p class="lang-ja">⚠注意⚠ 時間は目安です。食品の種類・量・温度・容器や、お使いの電子レンジの性能によって実際の仕上がりは異なります。必ず様子を見ながら、必要に応じて追加で加熱してください。</p>
-<p class="lang-en">⚠Caution⚠ The time is an estimate. The actual result may vary depending on the type, amount, temperature of the food, the container, and the performance of your microwave. Always check the food and heat additionally if necessary.</p>
+                const totalSeconds = min * 60 + sec;
 
-</div>
+                // localStorage保存
+                localStorage.setItem('microwave-from', fromInput.value);
+                localStorage.setItem('microwave-to', toInput.value);
+                localStorage.setItem('microwave-min', minInput.value);
+                localStorage.setItem('microwave-sec', secInput.value);
 
-</div>
+                if (from <= 0) {
+                    answerEl.textContent = "-";
+                    secondsEl.textContent = "元のW数を入力";
+                    return;
+                }
 
-</div>
+                if (to <= 0) {
+                    answerEl.textContent = "-";
+                    secondsEl.textContent = "変換後のW数を入力";
+                    return;
+                }
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const fromInput = document.getElementById('from');
-    const toInput = document.getElementById('to');
-    const minInput = document.getElementById('min');
-    const secInput = document.getElementById('sec');
-    const answerEl = document.getElementById('answer');
-    const secondsEl = document.getElementById('seconds');
+                const resultSeconds = Math.round(totalSeconds * from / to);
+                const resultMin = Math.floor(resultSeconds / 60);
+                const resultSec = resultSeconds % 60;
 
-    // localStorageから値を読み込む
-    fromInput.value = localStorage.getItem('microwave-from') || '500';
-    toInput.value = localStorage.getItem('microwave-to') || '600';
-    minInput.value = localStorage.getItem('microwave-min') || '2';
-    secInput.value = localStorage.getItem('microwave-sec') || '0';
-
-    function calc() {
-        const from = Number(fromInput.value) || 0;
-        const to = Number(toInput.value) || 0;
-
-        let min = Number(minInput.value) || 0;
-        let sec = Number(secInput.value) || 0;
-
-        // 秒が60以上なら分へ繰り上げ
-        while (sec >= 60) {
-            min++;
-            sec -= 60;
-        }
-
-        minInput.value = min;
-        secInput.value = sec;
-
-        const totalSeconds = min * 60 + sec;
-
-        // localStorage保存
-        localStorage.setItem('microwave-from', fromInput.value);
-        localStorage.setItem('microwave-to', toInput.value);
-        localStorage.setItem('microwave-min', minInput.value);
-        localStorage.setItem('microwave-sec', secInput.value);
-
-        if (from <= 0) {
-            answerEl.textContent = "-";
-            secondsEl.textContent = "元のW数を入力";
-            return;
-        }
-
-        if (to <= 0) {
-            answerEl.textContent = "-";
-            secondsEl.textContent = "変換後のW数を入力";
-            return;
-        }
-
-        const resultSeconds = Math.round(totalSeconds * from / to);
-        const resultMin = Math.floor(resultSeconds / 60);
-        const resultSec = resultSeconds % 60;
-
-        answerEl.textContent = `${resultMin}分${resultSec}秒`;
-        secondsEl.textContent = `${resultSeconds} 秒`;
-    }
-
-    // 秒が0のとき↓キーで 59秒＋分を1減らす
-    secInput.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowDown') {
-            const sec = Number(secInput.value) || 0;
-            const min = Number(minInput.value) || 0;
-
-            if (sec === 0 && min > 0) {
-                e.preventDefault();
-                minInput.value = min - 1;
-                secInput.value = 59;
-                calc();
+                answerEl.textContent = `${resultMin}分${resultSec}秒`;
+                secondsEl.textContent = `${resultSeconds} 秒`;
             }
-        }
-    });
 
-    [fromInput, toInput, minInput, secInput].forEach(el => {
-        el.addEventListener('input', calc);
-    });
+            // 秒が0のとき↓キーで 59秒＋分を1減らす
+            secInput.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown') {
+                    const sec = Number(secInput.value) || 0;
+                    const min = Number(minInput.value) || 0;
 
-    calc();
-});
-</script>
+                    if (sec === 0 && min > 0) {
+                        e.preventDefault();
+                        minInput.value = min - 1;
+                        secInput.value = 59;
+                        calc();
+                    }
+                }
+            });
+
+            [fromInput, toInput, minInput, secInput].forEach(el => {
+                el.addEventListener('input', calc);
+            });
+
+            calc();
+        });
+    </script>
 
 </body>
+
 </html>
