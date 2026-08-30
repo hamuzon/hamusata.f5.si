@@ -38,7 +38,10 @@ async function loadLinks() {
       autumn: "https://home.hamusata.f5.si/autumn",
       winter: "https://home.hamusata.f5.si/winter"
     };
-    const month = new Date().getMonth() + 1;
+    const nowObj = new Date();
+    const currentYear = nowObj.getFullYear();
+    const month = nowObj.getMonth() + 1;
+    const seasonYear = (month === 1 || month === 2) ? currentYear - 1 : currentYear;
     const season = month >= 3 && month <= 5 ? "spring" :
       month >= 6 && month <= 8 ? "summer" :
         month >= 9 && month <= 11 ? "autumn" : "winter";

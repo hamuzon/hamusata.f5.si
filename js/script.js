@@ -8,6 +8,42 @@ if (yearEl) {
   yearEl.textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 }
 
+// ===== 季節リンク自動設定 (Season Links) =====
+(function () {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const seasonYear = (month === 1 || month === 2) ? year - 1 : year;
+
+  const season = month >= 3 && month <= 5 ? "spring" :
+    month >= 6 && month <= 8 ? "summer" :
+      month >= 9 && month <= 11 ? "autumn" : "winter";
+
+  const seasonLinks = {
+    spring: "https://home.hamusata.f5.si/spring",
+    summer: "https://home.hamusata.f5.si/summer",
+    autumn: "https://home.hamusata.f5.si/autumn",
+    winter: "https://home.hamusata.f5.si/winter"
+  };
+
+  const updateMainLink = () => {
+    const mainTitle = document.querySelector('[data-lang="w_main_title"]');
+    if (mainTitle) {
+      const card = mainTitle.closest('.work-card');
+      const link = card ? card.querySelector('a') : null;
+      if (link && seasonLinks[season]) {
+        link.href = seasonLinks[season];
+      }
+    }
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", updateMainLink);
+  } else {
+    updateMainLink();
+  }
+})();
+
 if (!new URLSearchParams(window.location.search).has('theme')) {
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
     document.documentElement.className = e.matches ? 'dark' : 'light';
