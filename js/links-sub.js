@@ -15,11 +15,9 @@ async function loadLinks() {
     sns: { container: document.getElementById("snsLinks"), name: "SNS", default: "読み込み中..." }
   };
 
-  // ローディング表示
   for (const key in sections) {
     if (sections[key].container) {
       sections[key].container.innerHTML = `<p>${sections[key].default}</p>`;
-      // レイアウトシフトを防ぐために最小の高さを設定
       sections[key].container.style.minHeight = "200px";
     }
   }
@@ -42,8 +40,8 @@ async function loadLinks() {
     };
     const month = new Date().getMonth() + 1;
     const season = month >= 3 && month <= 5 ? "spring" :
-                   month >= 6 && month <= 8 ? "summer" :
-                   month >= 9 && month <= 11 ? "autumn" : "winter";
+      month >= 6 && month <= 8 ? "summer" :
+        month >= 9 && month <= 11 ? "autumn" : "winter";
 
     // JSONのlangキー取得
     const langDataRes = await fetch("/lang/sub-lang.json");
@@ -62,40 +60,35 @@ async function loadLinks() {
       const card = document.createElement("div");
       card.className = "work-card";
 
-      // 画像
       if (image) {
         const img = document.createElement("img");
         img.src = image;
         img.alt = title;
         img.loading = "lazy";
-        img.className = "work-card-image"; // アスペクト比修正用のクラス
+        img.className = "work-card-image";
         img.decoding = "async";
         card.appendChild(img);
       }
 
-      // タイトル
       const h3 = document.createElement("h3");
       let keyTitle = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_title";
       if (!langData[lang][keyTitle]) keyTitle = title;
-      h3.innerHTML = langData[lang][keyTitle] || title; // innerHTML に変更
+      h3.innerHTML = langData[lang][keyTitle] || title;
       h3.dataset.langKey = keyTitle;
       card.appendChild(h3);
 
-      // 説明
       if (description) {
         const p = document.createElement("p");
         let keyDesc = "w_" + title.toLowerCase().replace(/[^a-z0-9]+/g, "_") + "_desc";
         if (!langData[lang][keyDesc]) keyDesc = description;
-        p.innerHTML = langData[lang][keyDesc] || description; // innerHTML に変更
+        p.innerHTML = langData[lang][keyDesc] || description;
         p.dataset.langKey = keyDesc;
         card.appendChild(p);
       }
 
-      // リンク
       if (link) {
         const a = document.createElement("a");
         const isInternalFlag = ["on", "1", "true"].includes(String(internalLinkFlag).toLowerCase());
-        // SNSセクションは常に外部リンク扱い（クエリ引き継ぎ対象外）
         const isInternal = isInternalFlag && section !== "sns";
 
         if (isInternal) {
@@ -117,7 +110,6 @@ async function loadLinks() {
         const viewText = langData[lang]["link_view"] || "View";
         a.innerHTML = viewText;
         a.dataset.langKey = "link_view";
-        // アクセシビリティ改善: スクリーンリーダー向けにリンクの目的を明確にする
         const h3Text = h3.textContent || title;
         a.setAttribute("aria-label", `${h3Text} ${viewText.split('/')[0].trim()}`);
         card.appendChild(a);
@@ -126,7 +118,6 @@ async function loadLinks() {
       container.appendChild(card);
     });
 
-    // データなし対応
     for (const key in sections) {
       if (sections[key].container && sections[key].container.children.length === 0) {
         sections[key].container.innerHTML = `<p>${sections[key].name}の読み込みに失敗</p>`;

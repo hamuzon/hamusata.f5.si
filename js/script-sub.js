@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (el) el.textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
   })();
 
-  // テーマ監視 (適用自体はHEAD内のインラインスクリプトで実施済み、ここではシステム設定変更のみを追従)
   if (!new URLSearchParams(window.location.search).has('theme')) {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
       document.documentElement.className = e.matches ? 'dark' : 'light';
@@ -48,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // オーバーレイクリックで閉じる
     if (menuOverlay) {
       menuOverlay.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -56,14 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // メニュー内リンクをクリックしたら閉じる
     if (mobileMenu) {
-      // クリックがメニューの外（overlay）へ伝播しないようにする
       mobileMenu.addEventListener('click', (e) => {
         e.stopPropagation();
       });
 
-      // すべてのナビリンクでメニューを閉じる
       mobileMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
           closeMenu();
@@ -85,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.nav-home').forEach(el => el.addEventListener('click', menuScrollToHome));
   })();
 
-  // PWA: Service Worker 登録
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/service-worker.js')

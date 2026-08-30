@@ -48,7 +48,6 @@ async function loadLinks() {
             const [title, description, image, link] = row;
             if (!link && !title) return;
 
-            // カード全体をリンク化
             const cardLink = document.createElement("a");
             cardLink.className = "sougolink";
             cardLink.href = link || "#";
@@ -57,7 +56,6 @@ async function loadLinks() {
             cardLink.style.color = "inherit";
             cardLink.style.textDecoration = "none";
 
-            // 画像
             if (image) {
                 const img = document.createElement("img");
                 img.src = image;
@@ -67,7 +65,6 @@ async function loadLinks() {
                 cardLink.appendChild(img);
             }
 
-            // タイトル
             if (title) {
                 const h3Title = document.createElement("h3");
                 h3Title.textContent = title;
@@ -75,7 +72,6 @@ async function loadLinks() {
                 cardLink.appendChild(h3Title);
             }
 
-            // サブタイトル（description）
             if (description) {
                 const h3Desc = document.createElement("h3");
                 h3Desc.textContent = description;
@@ -96,13 +92,12 @@ async function loadLinks() {
     }
 }
 
-// ページ読み込み時に実行
 document.addEventListener("DOMContentLoaded", loadLinks);
 
 // =========================
 // 内部リンクURLパラメータ維持
 // =========================
-(function() {
+(function () {
     const currentParams = window.location.search;
     if (!currentParams) return;
 

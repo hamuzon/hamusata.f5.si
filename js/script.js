@@ -8,8 +8,6 @@ if (yearEl) {
   yearEl.textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 }
 
-
-// ===== テーマ監視 (適用自体はHEAD内のインラインスクリプトで行い、ここではシステム設定変更のみを追従) =====
 if (!new URLSearchParams(window.location.search).has('theme')) {
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
     document.documentElement.className = e.matches ? 'dark' : 'light';
@@ -17,7 +15,6 @@ if (!new URLSearchParams(window.location.search).has('theme')) {
 }
 
 
-// ===== ハンバーガーメニュー開閉 =====
 (function () {
   const menuToggle = document.getElementById('menu-toggle');
   const menuOverlay = document.getElementById('menu-overlay');
@@ -45,7 +42,6 @@ if (!new URLSearchParams(window.location.search).has('theme')) {
     });
   }
 
-  // オーバーレイクリックで閉じる
   if (menuOverlay) {
     menuOverlay.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -53,15 +49,11 @@ if (!new URLSearchParams(window.location.search).has('theme')) {
     });
   }
 
-  // メニュー内リンクをクリックしたら閉じる
-  // (ナビリンクはクリックで遷移 or スクロールするためメニューを閉じる)
   if (mobileMenu) {
-    // クリックがメニューの外（overlay）へ伝播しないようにする
     mobileMenu.addEventListener('click', (e) => {
       e.stopPropagation();
     });
 
-    // すべてのナビリンクでメニューを閉じる
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         closeMenu();
@@ -71,7 +63,6 @@ if (!new URLSearchParams(window.location.search).has('theme')) {
 })();
 
 
-// ===== #home スクロール処理 =====
 document.querySelectorAll('.nav-home').forEach(el => {
   el.addEventListener('click', (event) => {
     event.preventDefault();
@@ -84,7 +75,6 @@ document.querySelectorAll('.nav-home').forEach(el => {
 });
 
 
-// ===== 内部リンクURLパラメータ維持 =====
 (function () {
   const currentParams = window.location.search;
   if (!currentParams) return;
@@ -100,16 +90,13 @@ document.querySelectorAll('.nav-home').forEach(el => {
 
   const links = document.querySelectorAll('a[href]:not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"])');
   links.forEach(link => {
-    // SNSセクション内のリンクは除外
     if (link.closest('#sns')) return;
 
     const href = link.getAttribute('href');
     if (!href) return;
 
-    // すでにクエリがある場合は追加せず
     if (href.includes('?')) return;
 
-    // 外部リンクを除外
     if (/^https?:\/\//i.test(href) && !href.startsWith(window.location.origin)) return;
 
     if (href.startsWith('/')) {
