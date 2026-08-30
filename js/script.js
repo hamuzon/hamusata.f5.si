@@ -8,7 +8,6 @@ if (yearEl) {
   yearEl.textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
 }
 
-// ===== 季節リンク自動設定 (Season Links) =====
 (function () {
   const date = new Date();
   const year = date.getFullYear();
