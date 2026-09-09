@@ -9,6 +9,53 @@ if (yearEl) {
 }
 
 (function () {
+  const analyticsParams = [
+    '_gl',
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_term',
+    'utm_content',
+    'utm_id',
+    'utm_source_platform',
+    'utm_creative_format',
+    'utm_marketing_tactic',
+    'gclid',
+    'dclid',
+    'gbraid',
+    'wbraid'
+  ];
+
+  if (typeof window !== "undefined" && window.location && window.location.search) {
+    setTimeout(() => {
+      try {
+        const currentUrl = new URL(window.location.href);
+        let changed = false;
+
+        for (const key of Array.from(currentUrl.searchParams.keys())) {
+          if (
+            analyticsParams.includes(key) ||
+            key.startsWith('_ga')
+          ) {
+            currentUrl.searchParams.delete(key);
+            changed = true;
+          }
+        }
+
+        if (changed) {
+          const cleanUrl =
+            currentUrl.pathname +
+            (currentUrl.search ? currentUrl.search : "") +
+            currentUrl.hash;
+
+          window.history.replaceState(null, "", cleanUrl);
+        }
+      } catch (e) {}
+    }, 5000);
+  }
+})();
+
+(function () {
   const date = new Date();
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
