@@ -1,5 +1,4 @@
 const links = [
-    "https://app.hamusata.f5.si/",
     "https://bin2dec.hamusata.f5.si/",
     "https://calculator.hamusata.f5.si/",
     "https://calculator.hamusata.f5.si/v1/",
@@ -23,8 +22,6 @@ const links = [
     "https://discord-tools.hamusata.f5.si/message-id/",
     "https://discord-tools.hamusata.f5.si/timestamp/",
     "https://editor.hamusata.f5.si/",
-    "https://exe.hamusata.f5.si/",
-    "https://expo.hamusata.f5.si/",
     "https://expo-countdown.hamusata.f5.si/",
     "https://expo-countdown.hamusata.f5.si/2025/ja",
     "https://expo-countdown.hamusata.f5.si/2025/en",
@@ -89,7 +86,7 @@ const links = [
     "https://todo.hamusata.f5.si/",
     "https://video-hub.hamusata.f5.si/",
     "https://yt.hamusata.f5.si/",
-    "https://yt.hamusata.f5.si/text",
+    "https://yt.hamusata.f5.si/text/",
     "https://yt.hamusata.f5.si/thumbnail",
 
     "https://device-info.hamuzon-jp.f5.si/",
