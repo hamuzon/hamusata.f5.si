@@ -1,0 +1,32 @@
+{
+  "name": "hamusata.f5.si",
+  "version": "1.0.0",
+  "description": "hamusata の個人サイトです。  \r This is the personal website of hamusata.",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hamuzon/hamusata.f5.si.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hamuzon/hamusata.f5.si/issues"
+  },
+  "homepage": "https://github.com/hamuzon/hamusata.f5.si#readme",
+  "devDependencies": {
+    "electron": "^44.3.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "f5.hamusata.app",
+    "productName": "hamusata",
+    "artifactName": "hamusata_Setup-${version}.${ext}",
+    "win": {
+      "target": "nsis"
+    }
+  }
+}
