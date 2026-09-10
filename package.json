@@ -17,6 +17,9 @@
     "url": "https://github.com/hamuzon/hamusata.f5.si/issues"
   },
   "homepage": "https://github.com/hamuzon/hamusata.f5.si#readme",
+  "dependencies": {
+    "electron-updater": "^6.8.9"
+  },
   "devDependencies": {
     "electron": "^44.3.0",
     "electron-builder": "^26.15.3"
@@ -27,6 +30,10 @@
     "artifactName": "hamusata_Setup-${version}.${ext}",
     "win": {
       "target": "nsis"
+    },
+    "publish": {
+      "provider": "generic",
+      "url": "https://app.hamusata.f5.si/setupfiles"
     }
   }
 }
