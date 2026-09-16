@@ -8,7 +8,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Potta One', cursive;
+  font-family: 'Potta One', cursive, sans-serif;
 }
 
 body {
@@ -24,11 +24,63 @@ body {
 }
 
 /* =========================
+言語切替ボタン
+========================= */
+#lang-switch {
+  position: fixed;
+  top: max(20px, calc(env(safe-area-inset-top, 0px) + 14px));
+  left: max(20px, calc(env(safe-area-inset-left, 0px) + 16px));
+  right: auto;
+  padding: 0.55rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.25);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  cursor: pointer;
+  z-index: 1002;
+  transition: all 0.18s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  line-height: 1;
+}
+
+html.dark #lang-switch {
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.06);
+}
+
+#lang-switch:hover {
+  transform: scale(1.05);
+  background: rgba(27, 151, 169, 0.18);
+}
+
+.nav-github-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-github-icon {
+  width: 20px;
+  height: 20px;
+  background-color: #222;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+/* =========================
 ライト・ダーク背景
 ========================= */
-/* 再読み込み時の白いチラつき（FOUC）を防止 */
-html.light { background-color: #f7eaff; }
-html.dark { background-color: #0a0a0a; }
+html.light {
+  background-color: #f7eaff;
+}
+
+html.dark {
+  background-color: #0a0a0a;
+}
 
 html.light body {
   background:
@@ -115,6 +167,8 @@ section {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
   color: inherit;
   transition: background-color 0.3s;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
 }
 
 section h2 {
