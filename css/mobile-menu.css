@@ -1,29 +1,41 @@
-/* --- mobile-menu.css --- */
-
 #menu-toggle {
     position: fixed;
-    top: 16px;
-    right: 16px;
+    top: max(20px, calc(env(safe-area-inset-top, 0px) + 14px));
+    right: max(20px, calc(env(safe-area-inset-right, 0px) + 18px));
     width: 48px;
     height: 48px;
-    background: transparent;
-    border: none;
+    background: rgba(255, 255, 255, 0.25);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 14px;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 1002;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
     box-sizing: border-box;
-    transition: transform 0.4s ease;
+    transition: transform 0.3s ease, background 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+html.dark #menu-toggle {
+    background: rgba(20, 20, 20, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 #menu-toggle span {
     display: block;
-    height: 4px;
+    width: 22px;
+    height: 3px;
     background-color: #000;
     border-radius: 2px;
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+    transform-origin: center;
 }
 
 html.dark #menu-toggle span {
@@ -31,15 +43,16 @@ html.dark #menu-toggle span {
 }
 
 body.menu-open #menu-toggle span:nth-child(1) {
-    transform: rotate(-45deg) translate(-6px, 6px);
+    transform: translateY(8px) rotate(45deg);
 }
 
 body.menu-open #menu-toggle span:nth-child(2) {
     opacity: 0;
+    transform: scaleX(0);
 }
 
 body.menu-open #menu-toggle span:nth-child(3) {
-    transform: rotate(45deg) translate(-6px, -6px);
+    transform: translateY(-8px) rotate(-45deg);
 }
 
 #mobile-menu {
@@ -49,7 +62,9 @@ body.menu-open #menu-toggle span:nth-child(3) {
     width: 75%;
     max-width: 320px;
     height: 100vh;
-    padding-top: 80px;
+    padding-top: max(85px, calc(env(safe-area-inset-top, 0px) + 75px));
+    padding-right: max(6px, calc(env(safe-area-inset-right, 0px) + 6px));
+    padding-bottom: max(24px, calc(env(safe-area-inset-bottom, 0px) + 16px));
     border-radius: 16px 0 0 16px;
     overflow-y: auto;
     z-index: 1000;
