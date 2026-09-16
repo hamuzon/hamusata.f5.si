@@ -25,7 +25,7 @@
     "electron-builder": "^26.15.3"
   },
   "build": {
-    "appId": "f5.hamusata.app",
+    "appId": "si.f5.hamusata",
     "productName": "hamusata",
     "artifactName": "hamusata_Setup-${version}.${ext}",
     "win": {
