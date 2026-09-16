@@ -13,22 +13,23 @@
   <link rel="apple-touch-icon" href="https://hamusata.f5.si/icon.png">
 
   <style>
-    :root { --bg-color: #f7eaff; --text-color: #000; }
-    :root.dark { --bg-color: #0a0a0a; --text-color: #fff; }
-    html, body { background-color: var(--bg-color); color: var(--text-color); }
+    html.light { background-color: #f7eaff; }
+    html.dark { background-color: #0a0a0a; }
   </style>
 
   <script>
     (function(){
       const tp = new URLSearchParams(window.location.search).get('theme');
       const theme = (tp === 'dark' || tp === 'light') ? tp : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.classList.add(theme);
+      document.documentElement.className = theme;
     })();
   </script>
 
   <!-- 共通CSS -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/foldable.css">
+  <link rel="stylesheet" href="css/dark.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="css/light.css" media="(prefers-color-scheme: light)">
 
   <!-- 内部CSS -->
 <style>
