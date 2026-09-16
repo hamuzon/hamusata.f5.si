@@ -2,8 +2,8 @@ export async function onRequest(context) {
   const { request } = context;
   const url = new URL(request.url);
   const v = url.searchParams.get("v");
-  const typeParam = url.searchParams.get("type") || "";
-  const t = url.searchParams.get("t") || "";
+  const typeParam = (url.searchParams.get("type") || "").toLowerCase();
+  const t = url.searchParams.get("t") || url.searchParams.get("time") || "";
 
   if (!v) {
     const html = `<!DOCTYPE html>
@@ -136,8 +136,11 @@ button {
 button:active {
   transform: scale(0.98);
 }
+#generate {
+  margin-top: 0.7rem;
+}
 #output {
-  margin-top: 0.75rem;
+  margin-top: 0.85rem;
   word-break: break-all;
   overflow-wrap: anywhere;
   font-size: clamp(0.85rem, 2.5vw, 1rem);
@@ -150,7 +153,7 @@ button:active {
   color: #008ba3;
   text-decoration: underline;
   font-weight: 700;
-  display: inline-block;
+  display: inline;
   line-height: 1.4;
   word-break: break-all;
   overflow-wrap: anywhere;
@@ -162,19 +165,17 @@ html.dark #output a, body.dark #output a, .dark #output a {
   margin-top: 0.75rem;
   padding: 0.7rem 1.2rem;
   border-radius: 12px;
-  background: #00bcd4;
+  background: linear-gradient(90deg, #00bcd4, #26c6da);
   color: #fff;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 188, 212, 0.25);
-  min-height: 42px;
-  width: auto;
-  margin-left: auto;
-  margin-right: auto;
+  min-height: 44px;
+  width: 100%;
 }
 @media (hover: hover) {
   #copyBtn:hover {
-    background: #0097a7;
+    background: linear-gradient(90deg, #00acc1, #00bcd4);
   }
 }
 #copyBtn:active {
@@ -194,8 +195,7 @@ html.dark #error, body.dark #error, .dark #error {
   color: #ff80ab;
 }
 
-
-/* Small mobile devices (e.g. iPhone SE, compact Android, foldable cover screen) */
+/* Small mobile devices */
 @media (max-width: 400px) {
   body {
     padding: max(14px, calc(env(safe-area-inset-top, 0px) + 8px))
@@ -215,10 +215,6 @@ html.dark #error, body.dark #error, .dark #error {
   input, button {
     margin: 0.4rem 0;
     padding: 0.65rem 0.8rem;
-    border-radius: 12px;
-  }
-  #copyBtn {
-    width: 100%;
     border-radius: 12px;
   }
 }
@@ -272,11 +268,13 @@ html.dark #error, body.dark #error, .dark #error {
 <body>
 <section class="yt-card">
 <h1>🎬 YouTube Link</h1>
-<input type="text" id="videoInput" placeholder="動画IDまたはURLを入力" />
-<input type="text" id="t" placeholder="再生開始時間 t=xx（任意）" />
+<input type="text" id="videoInput" placeholder="動画IDまたはURL" autofocus />
+<input type="text" id="t" placeholder="再生開始時間 (t=xx) (任意)" />
+
 <button id="generate">リンク生成</button>
+
 <div id="error"></div>
-<div id="output"></div>
+<div id="output" aria-live="polite"></div>
 <button id="copyBtn" style="display:none;">📋 コピー</button>
 </section>
 <script>
@@ -292,97 +290,160 @@ const error = document.getElementById("error");
 const btn = document.getElementById("generate");
 const copyBtn = document.getElementById("copyBtn");
 
+function parse(input) {
+  let v = "";
+  let type = "";
+  let t = "";
+
+  try {
+    const thumbMatch = input.match(/(?:img\\.youtube\\.com|i\\d?\\.ytimg\\.com)\\/vi\\/([a-zA-Z0-9_-]{11})/);
+    if (thumbMatch && thumbMatch[1]) {
+      v = thumbMatch[1];
+      return { v, type, t };
+    }
+
+    if (input.startsWith("http://") || input.startsWith("https://")) {
+      const u = new URL(input);
+      const h = u.hostname;
+      const path = u.pathname;
+
+      const isYT =
+        h === "youtube.com" ||
+        h.endsWith(".youtube.com") ||
+        /(^|\\.)youtube\\.[a-z]{2,}/i.test(h);
+
+      const isMusic = h === "music.youtube.com";
+
+      if (isYT) {
+        if (path.startsWith("/watch")) {
+          v = u.searchParams.get("v") || "";
+          if (isMusic) type = "m";
+        } else if (path.startsWith("/shorts/")) {
+          v = path.split("/shorts/")[1]?.split(/[?#/]/)[0] || "";
+          type = "s";
+        } else if (path.startsWith("/embed/")) {
+          v = path.split("/embed/")[1]?.split(/[?#/]/)[0] || "";
+        } else if (path.startsWith("/live/")) {
+          v = path.split("/live/")[1]?.split(/[?#/]/)[0] || "";
+        }
+        t = u.searchParams.get("t") || u.searchParams.get("time") || "";
+      } else if (h === "youtu.be") {
+        v = path.replace(/^\\/+/, "").split(/[?#/]/)[0] || "";
+        t = u.searchParams.get("t") || u.searchParams.get("time") || "";
+      } else {
+        v = u.searchParams.get("v") || u.searchParams.get("V") || "";
+        type = (u.searchParams.get("type") || u.searchParams.get("TYPE") || "").toLowerCase();
+        t = u.searchParams.get("t") || u.searchParams.get("time") || "";
+      }
+    } else if (input.includes("?")) {
+      const [id, params] = input.split("?");
+      v = id || "";
+      const p = new URLSearchParams(params);
+      type = (p.get("type") || "").toLowerCase();
+      t = p.get("t") || p.get("time") || "";
+    } else {
+      v = input;
+    }
+
+    v = (v || "").trim();
+    if (!v) return null;
+
+    return { v, type, t };
+  } catch {
+    return null;
+  }
+}
+
+function build(v, type, t) {
+  var url = location.origin + "/yt/?v=" + encodeURIComponent(v);
+  if (type) url += "&type=" + encodeURIComponent(type);
+  if (t) url += "&t=" + encodeURIComponent(t);
+  return url;
+}
+
+function generateLink() {
+  error.textContent = "";
+  output.innerHTML = "";
+  copyBtn.style.display = "none";
+
+  const input = videoInput.value.trim();
+  const time = tInput.value.trim();
+
+  if (!input) {
+    error.textContent = "❌ 有効なURLまたはIDを入力してください";
+    return;
+  }
+
+  const r = parse(input);
+  if (!r || !r.v) {
+    error.textContent = "❌ 有効なURLまたはIDを入力してください";
+    return;
+  }
+
+  const finalT = time || r.t;
+  const link = build(r.v, r.type, finalT);
+
+  const a = document.createElement("a");
+  a.href = link;
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  a.textContent = link;
+
+  output.innerHTML = "✅ ";
+  output.appendChild(a);
+  copyBtn.style.display = "block";
+}
+
+btn.addEventListener("click", generateLink);
+
 [videoInput, tInput].forEach(el => {
   el.addEventListener("keydown", e => {
     if (e.key === "Enter") {
-      btn.click();
+      generateLink();
     }
   });
 });
 
-btn.addEventListener("click", () => {
-  let input = videoInput.value.trim();
-  let time = tInput.value.trim();
-  error.textContent = "";
-  output.innerHTML = "";
-  copyBtn.style.display = "none";
-  if (!input) {
-    error.textContent = "⚠️ 入力してください";
-    return;
-  }
-  let v = input;
-  let type = "";
-  let paramT = "";
-  try {
-    if (input.startsWith("http")) {
-      const urlObj = new URL(input);
-      const host = urlObj.hostname;
-      if (host.includes("youtube.com") || host.includes("music.youtube.com")) {
-        if (urlObj.pathname.startsWith("/watch")) {
-          v = urlObj.searchParams.get("v") || "";
-        }
-        if (host.includes("music.youtube.com")) {
-          type = "m";
-        }
-        if (urlObj.pathname.startsWith("/shorts/")) {
-          v = urlObj.pathname.split("/shorts/")[1].split("/")[0];
-          type = "s";
-        }
-        paramT = urlObj.searchParams.get("t") || "";
-      } else if (host === "youtu.be") {
-        v = urlObj.pathname.replace("/", "");
-        paramT = urlObj.searchParams.get("t") || "";
-      }
-    }
-  } catch (e) {}
-  let finalT = time || paramT;
-  let link = \`\${location.origin}/yt/?v=\${v}\`;
-  if (type) link += \`&type=\${type}\`;
-  if (finalT) link += \`&t=\${encodeURIComponent(finalT)}\`;
-  output.innerHTML = \`✅ <a href="\${link}" target="_blank" rel="noopener noreferrer">\${link}</a>\`;
-  copyBtn.style.display = "inline-flex";
-});
-
 copyBtn.addEventListener("click", async () => {
   const a = output.querySelector("a");
-  if (a && a.href) {
-    const text = a.href;
-    const origText = copyBtn.textContent;
-    const showSuccess = () => {
-      copyBtn.textContent = "✅ コピーしました";
-      setTimeout(() => copyBtn.textContent = origText, 2000);
-    };
-    const showError = () => {
-      copyBtn.textContent = "❌ コピー失敗";
-      setTimeout(() => copyBtn.textContent = origText, 2000);
-    };
+  if (!a || !a.href) return;
 
-    if (navigator.clipboard && window.isSecureContext) {
-      try {
-        await navigator.clipboard.writeText(text);
-        showSuccess();
-        return;
-      } catch (e) {}
-    }
+  const text = a.href;
+  const origText = "📋 コピー";
+  const showSuccess = () => {
+    copyBtn.textContent = "✅ コピー完了";
+    setTimeout(() => { copyBtn.textContent = origText; }, 2000);
+  };
+  const showError = () => {
+    copyBtn.textContent = "❌ 失敗";
+    setTimeout(() => { copyBtn.textContent = origText; }, 2000);
+  };
 
+  if (navigator.clipboard && window.isSecureContext) {
     try {
-      const tempInput = document.createElement("textarea");
-      tempInput.value = text;
-      tempInput.style.position = "fixed";
-      tempInput.style.opacity = "0";
-      document.body.appendChild(tempInput);
-      tempInput.focus();
-      tempInput.select();
-      const successful = document.execCommand("copy");
-      document.body.removeChild(tempInput);
-      if (successful) {
-        showSuccess();
-      } else {
-        showError();
-      }
-    } catch (e) {
+      await navigator.clipboard.writeText(text);
+      showSuccess();
+      return;
+    } catch (e) {}
+  }
+
+  try {
+    const tempInput = document.createElement("textarea");
+    tempInput.value = text;
+    tempInput.style.position = "fixed";
+    tempInput.style.opacity = "0";
+    document.body.appendChild(tempInput);
+    tempInput.focus();
+    tempInput.select();
+    const successful = document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    if (successful) {
+      showSuccess();
+    } else {
       showError();
     }
+  } catch (e) {
+    showError();
   }
 });
 </script>
@@ -418,11 +479,11 @@ copyBtn.addEventListener("click", async () => {
 
   let redirectUrl;
   if (typeParam === "m") {
-    redirectUrl = `https://music.youtube.com/watch?v=${v}`;
+    redirectUrl = `https://music.youtube.com/watch?v=${encodeURIComponent(v)}`;
   } else if (typeParam === "s") {
-    redirectUrl = isMobile ? `https://m.youtube.com/shorts/${v}` : `https://www.youtube.com/shorts/${v}`;
+    redirectUrl = isMobile ? `https://m.youtube.com/shorts/${encodeURIComponent(v)}` : `https://www.youtube.com/shorts/${encodeURIComponent(v)}`;
   } else {
-    redirectUrl = `https://youtu.be/${v}`;
+    redirectUrl = `https://youtu.be/${encodeURIComponent(v)}`;
   }
 
   if (t) {
@@ -430,7 +491,7 @@ copyBtn.addEventListener("click", async () => {
     redirectUrl += `${separator}t=${encodeURIComponent(t)}`;
   }
 
-  return Response.redirect(redirectUrl, 302);
+  return Response.redirect(redirectUrl, 307);
 }
 
 export const handleYt = (request) => onRequest({ request });
