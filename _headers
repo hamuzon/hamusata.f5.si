@@ -1,5 +1,6 @@
-/*
+ /*
   Cache-Control: public, max-age=0, must-revalidate
+  ! X-Frame-Options
   Link: </.well-known/api-catalog>; rel="api-catalog", </.well-known/agent-skills/index.json>; rel="agent-skills", </.well-known/mcp/server-card.json>; rel="mcp-server-card", </.well-known/openid-configuration>; rel="openid-configuration", </.well-known/oauth-authorization-server>; rel="oauth-authorization-server", </.well-known/oauth-protected-resource>; rel="oauth-protected-resource"
 
 /.well-known/api-catalog
