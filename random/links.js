@@ -109,7 +109,6 @@ const links = [
     "https://hamuzon-jp.f5.si/calendar/",
     "https://hamuzon-jp.f5.si/clock/",
     "https://hamuzon-jp.f5.si/clock-app/",
-    "https://hamuzon-jp.f5.si/Device-info/",
     "https://hamuzon-jp.f5.si/dice/",
     "https://hamuzon-jp.f5.si/discord-tools/",
     "https://hamuzon-jp.f5.si/editor/",
