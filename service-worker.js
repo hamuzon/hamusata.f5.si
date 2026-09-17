@@ -3,7 +3,6 @@ const CACHE_NAME = 'hamusata-v10.02.00';
 const urlsToCache = [
   '/',
   '/404.html',
-  '/404-test.html',
   '/BingSiteAuth.xml',
   '/LICENSE',
   '/README.md',
