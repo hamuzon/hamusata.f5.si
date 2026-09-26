@@ -31,6 +31,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
+    <script>
+        (function () {
+            const requestedTheme = new URLSearchParams(window.location.search).get('theme');
+            const theme = requestedTheme === 'light' || requestedTheme === 'dark'
+                ? requestedTheme
+                : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.classList.add(theme);
+        })();
+    </script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -203,6 +213,48 @@
             margin-top: 1.5em;
             padding-top: 1.5em;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        :root.light body {
+            background-color: #f7eaff;
+            background-image:
+                radial-gradient(ellipse 80% 60% at 70% 20%, rgba(175, 109, 255, 0.85), transparent 68%),
+                radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255, 100, 180, 0.75), transparent 68%),
+                radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255, 235, 170, 0.98), transparent 68%),
+                radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120, 190, 255, 0.3), transparent 68%),
+                linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
+            color: #000;
+        }
+
+        :root.light .card {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        :root.light h1,
+        :root.light label { color: #000; }
+        :root.light .input-with-unit {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+        :root.light input,
+        :root.light select,
+        :root.light .unit { color: #000; }
+        :root.light .result {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(0, 0, 0, 0.15);
+        }
+        :root.light .note { color: #000; }
+        :root.light .big {
+            color: #000;
+            text-shadow: none;
+        }
+        :root.light .note,
+        :root.light .lang-en { border-color: rgba(0, 0, 0, 0.15); }
+        :root.light .input-with-unit:focus-within {
+            border-color: #4c662b;
+            box-shadow: 0 0 0 3px rgba(76, 102, 43, 0.2);
         }
 
         @media(max-width:600px) {
