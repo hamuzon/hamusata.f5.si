@@ -48,6 +48,16 @@ const urlsToCache = [
   '/icon_800.avif',
   '/icon_800.webp',
 
+  '/Image/sns/bluesky_media_kit_logo_transparent_1.svg',
+  '/Image/sns/bluesky_media_kit_logo_transparent_2.svg',
+  '/Image/sns/bluesky_media_kit_logo_transparent_3.svg',
+  '/Image/sns/bluesky_media_kit_logo_transparent_4.svg',
+  '/Image/sns/GitHub_Invertocat_Black.png',
+  '/Image/sns/GitHub_Invertocat_White.png',
+  '/Image/sns/x_logo-black.png',
+  '/Image/sns/x_logo-white.png',
+  '/Image/sns/x_logo.svg',
+
   '/css/dark.css',
   '/css/dark-hc.css',
   '/css/dark-mc.css',
