@@ -54,16 +54,17 @@
 /wish-2025     /tanzaku/2025/                                           301
 /wish-2026     /tanzaku/2026/                                           301
 
+# ===== Karotter =====
+/karotter      https://karotter.com/profile/hamusata 302
+
 # ===== Social Analytics =====
+/krt           /?utm_source=karotter&utm_medium=social 302
 /dc            /?utm_source=discord&utm_medium=social                   302
 /bky           /?utm_source=bluesky&utm_medium=social                   302
 /tx            /?utm_source=twitter&utm_medium=social                   302
 /lit           /?utm_source=litlink&utm_medium=social                   302
 /tre           /?utm_source=linktree&utm_medium=social                  302
 /nos           /?utm_source=nostr&utm_medium=social                     302
-/karotter      /?utm_source=karotter&utm_medium=social                  302
-
-
 /ig            /?utm_source=instagram&utm_medium=social                 302
 /fb            /?utm_source=facebook&utm_medium=social                  302
 /th            /?utm_source=threads&utm_medium=social                   302
