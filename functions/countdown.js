@@ -239,10 +239,36 @@ export async function onRequest(context) {
 
     <script>
         let lastYearNum = 0;
+        let timeOffset = 0;
+
+        async function syncTime() {
+            const endpoints = [
+                { url: 'https://api-time.hamusata.f5.si/',   parse: d => d.unix_ms },
+                { url: 'https://api-time.hamuzon-jp.f5.si/', parse: d => d.unix_ms },
+                { url: 'https://timeapi.io/api/Time/current/zone?timeZone=UTC', parse: d => Date.parse(d.dateTime + 'Z') }
+            ];
+            for (const ep of endpoints) {
+                try {
+                    const sendTime = Date.now();
+                    const res = await fetch(ep.url, { cache: 'no-store' });
+                    const receiveTime = Date.now();
+                    const data = await res.json();
+                    const serverMs = ep.parse(data);
+                    if (!serverMs || isNaN(serverMs)) continue;
+                    const rtt = receiveTime - sendTime;
+                    timeOffset = serverMs + rtt / 2 - receiveTime;
+                    return;
+                } catch (_) {}
+            }
+        }
+
+        function getNow() {
+            return new Date(Date.now() + timeOffset);
+        }
 
         function updateCountdown() {
-            const now = new Date();
-            const targetDate = new Date(now.getFullYear() + 1, 0, 1); // 翌年の1月1日
+            const now = getNow();
+            const targetDate = new Date(now.getFullYear() + 1, 0, 1);
             const remaining = targetDate - now;
 
             const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
@@ -267,7 +293,7 @@ export async function onRequest(context) {
         }
 
         function updateNowTime() {
-            const now = new Date();
+            const now = getNow();
             document.querySelector('.nowYear').textContent = now.getFullYear();
             document.querySelector('.nowMonth').textContent = now.getMonth() + 1;
             document.querySelector('.nowDay').textContent = now.getDate();
@@ -276,11 +302,12 @@ export async function onRequest(context) {
             document.querySelector('.nowSecond').textContent = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
         }
 
-
         setInterval(updateCountdown, 10);
         setInterval(updateNowTime, 1000);
         updateCountdown();
         updateNowTime();
+        syncTime();
+        setInterval(syncTime, 30 * 60 * 1000);
     </script>
 </body>
 </html>`;
