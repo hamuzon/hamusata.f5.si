@@ -5,7 +5,8 @@
   "main": "electron/main.cjs",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder",
+    "build:win": "electron-builder --win nsis"
   },
   "repository": {
     "type": "git",
@@ -18,18 +19,20 @@
   },
   "homepage": "https://github.com/hamuzon/hamusata.f5.si#readme",
   "dependencies": {
-    "electron-updater": "^6.8.9"
+    "electron-updater": "^6.8.11"
   },
   "devDependencies": {
-    "electron": "^44.3.0",
-    "electron-builder": "^26.15.3"
+    "electron": "^45.0.0",
+    "electron-builder": "^26.18.0"
   },
   "build": {
     "appId": "si.f5.hamusata",
     "productName": "hamusata",
     "artifactName": "hamusata_Setup-${version}.${ext}",
+    "forceCodeSigning": true,
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "signAndEditExecutable": true
     },
     "publish": {
       "provider": "generic",
