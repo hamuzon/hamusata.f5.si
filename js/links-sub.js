@@ -32,11 +32,25 @@ async function loadLinks() {
       if (sections[key].container) sections[key].container.innerHTML = "";
     }
 
-    const seasonLinks = {
-      spring: "https://home.hamusata.f5.si/spring",
-      summer: "https://home.hamusata.f5.si/summer",
-      autumn: "https://home.hamusata.f5.si/autumn",
-      winter: "https://home.hamusata.f5.si/winter"
+    const seasonLinksMap = {
+      "HAMUSATA – ホームページ": {
+        spring: "https://home.hamusata.f5.si/spring",
+        summer: "https://home.hamusata.f5.si/summer",
+        autumn: "https://home.hamusata.f5.si/autumn",
+        winter: "https://home.hamusata.f5.si/winter"
+      },
+      "GitHub版 – ホームページ": {
+        spring: "https://hamuzon.github.io/spring",
+        summer: "https://hamuzon.github.io/summer",
+        autumn: "https://hamuzon.github.io/autumn",
+        winter: "https://hamuzon.github.io/winter"
+      },
+      "hamuzon – ホームページ": {
+        spring: "https://hamuzon-jp.f5.si/spring",
+        summer: "https://hamuzon-jp.f5.si/summer",
+        autumn: "https://hamuzon-jp.f5.si/autumn",
+        winter: "https://hamuzon-jp.f5.si/winter"
+      }
     };
     const nowObj = new Date();
     const currentYear = nowObj.getFullYear();
@@ -101,8 +115,8 @@ async function loadLinks() {
           if (themeParam) newParams.set("theme", themeParam);
 
           a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
-        } else if (title === "HAMUSATA – ホームページ" && section === "portfolio") {
-          a.href = seasonLinks[season] || link;
+        } else if (seasonLinksMap[title] && section === "portfolio") {
+          a.href = seasonLinksMap[title][season] || link;
         } else {
           a.href = link;
         }

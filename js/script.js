@@ -18,28 +18,44 @@ if (yearEl) {
     month >= 6 && month <= 8 ? "summer" :
       month >= 9 && month <= 11 ? "autumn" : "winter";
 
-  const seasonLinks = {
-    spring: "https://home.hamusata.f5.si/spring",
-    summer: "https://home.hamusata.f5.si/summer",
-    autumn: "https://home.hamusata.f5.si/autumn",
-    winter: "https://home.hamusata.f5.si/winter"
+  const seasonLinksMap = {
+    w_main_title: {
+      spring: "https://home.hamusata.f5.si/spring",
+      summer: "https://home.hamusata.f5.si/summer",
+      autumn: "https://home.hamusata.f5.si/autumn",
+      winter: "https://home.hamusata.f5.si/winter"
+    },
+    w_github_pages_title: {
+      spring: "https://hamuzon.github.io/spring",
+      summer: "https://hamuzon.github.io/summer",
+      autumn: "https://hamuzon.github.io/autumn",
+      winter: "https://hamuzon.github.io/winter"
+    },
+    w_hamuzon_title: {
+      spring: "https://hamuzon-jp.f5.si/spring",
+      summer: "https://hamuzon-jp.f5.si/summer",
+      autumn: "https://hamuzon-jp.f5.si/autumn",
+      winter: "https://hamuzon-jp.f5.si/winter"
+    }
   };
 
-  const updateMainLink = () => {
-    const mainTitle = document.querySelector('[data-lang="w_main_title"]');
-    if (mainTitle) {
-      const card = mainTitle.closest('.work-card');
-      const link = card ? card.querySelector('a') : null;
-      if (link && seasonLinks[season]) {
-        link.href = seasonLinks[season];
+  const updateSeasonLinks = () => {
+    for (const [key, links] of Object.entries(seasonLinksMap)) {
+      const titleEl = document.querySelector(`[data-lang="${key}"]`);
+      if (titleEl) {
+        const card = titleEl.closest('.work-card');
+        const link = card ? card.querySelector('a') : null;
+        if (link && links[season]) {
+          link.href = links[season];
+        }
       }
     }
   };
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", updateMainLink);
+    document.addEventListener("DOMContentLoaded", updateSeasonLinks);
   } else {
-    updateMainLink();
+    updateSeasonLinks();
   }
 })();
 
