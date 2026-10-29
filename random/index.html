@@ -171,19 +171,83 @@
       }
     });
 
-    // リンクにクエリパラメータを継承
+    // リンクにクエリパラメータを継承（分析パラメータは除く）
     (function() {
-      const currentParams = window.location.search;
-      if (!currentParams) return;
+      const analyticsParams = [
+        '_gl',
+        'utm_source',
+        'utm_medium',
+        'utm_campaign',
+        'utm_term',
+        'utm_content',
+        'utm_id',
+        'utm_source_platform',
+        'utm_creative_format',
+        'utm_marketing_tactic',
+        'gclid',
+        'dclid',
+        'gbraid',
+        'wbraid'
+      ];
+
+      const params = new URLSearchParams(window.location.search);
+      for (const key of Array.from(params.keys())) {
+        if (analyticsParams.includes(key) || key.startsWith('_ga')) {
+          params.delete(key);
+        }
+      }
+      const cleanQuery = params.toString();
+      if (!cleanQuery) return;
 
       const linksElements = document.querySelectorAll('a[href]');
       linksElements.forEach(link => {
         const url = new URL(link.href, window.location.origin);
         if (url.origin !== window.location.origin) return;
         if (url.search) return;
-        url.search = currentParams;
+        url.search = cleanQuery;
         link.href = url.pathname + url.search + url.hash;
       });
+    })();
+
+    // 数秒後に分析パラメータをURLから消す
+    (function() {
+      const analyticsParams = [
+        '_gl',
+        'utm_source',
+        'utm_medium',
+        'utm_campaign',
+        'utm_term',
+        'utm_content',
+        'utm_id',
+        'utm_source_platform',
+        'utm_creative_format',
+        'utm_marketing_tactic',
+        'gclid',
+        'dclid',
+        'gbraid',
+        'wbraid'
+      ];
+
+      if (window.location.search) {
+        setTimeout(() => {
+          try {
+            const currentUrl = new URL(window.location.href);
+            let changed = false;
+
+            for (const key of Array.from(currentUrl.searchParams.keys())) {
+              if (analyticsParams.includes(key) || key.startsWith('_ga')) {
+                currentUrl.searchParams.delete(key);
+                changed = true;
+              }
+            }
+
+            if (changed) {
+              window.history.replaceState(null, "",
+                currentUrl.pathname + currentUrl.search + currentUrl.hash);
+            }
+          } catch (e) {}
+        }, 5000);
+      }
     })();
 
     // Service Worker 登録
