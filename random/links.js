@@ -83,7 +83,6 @@ const links = [
     "https://text.hamusata.f5.si/",
     "https://text.hamusata.f5.si/legacy/",
     "https://text-legacy.hamusata.f5.si/",
-    "https://time.hamusata.f5.si/",
     "https://time-zone.hamusata.f5.si/",
     "https://todo.hamusata.f5.si/",
     "https://video-hub.hamusata.f5.si/",
