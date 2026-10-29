@@ -199,6 +199,7 @@ const links = [
     "https://hamuzon.github.io/expo-countdown/2027/ja/",
     "https://hamuzon.github.io/expo-countdown/2030/en/",
     "https://hamuzon.github.io/expo-countdown/2030/ja/",
+    "https://hamuzon.github.io/microwave",
     "https://hamuzon.github.io/olympic-countdown/",
     "https://hamuzon.github.io/omikuji/",
     "https://hamuzon.github.io/omikuji/V1/",
