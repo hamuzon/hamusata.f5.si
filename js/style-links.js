@@ -101,13 +101,23 @@ document.addEventListener("DOMContentLoaded", loadLinks);
     const currentParams = window.location.search;
     if (!currentParams) return;
 
+    const params = new URLSearchParams(currentParams);
+    for (const key of Array.from(params.keys())) {
+        if (key === '_gl' || key.startsWith('_ga') || key.startsWith('utm_') ||
+            key === 'gclid' || key === 'dclid' || key === 'gbraid' || key === 'wbraid') {
+            params.delete(key);
+        }
+    }
+    const cleanQuery = params.toString() ? `?${params.toString()}` : '';
+    if (!cleanQuery) return;
+
     const links = document.querySelectorAll('a[href]');
     links.forEach(link => {
         const url = new URL(link.href, window.location.origin);
         if (url.origin !== window.location.origin) return;
         if (url.search) return;
 
-        url.search = currentParams;
+        url.search = cleanQuery;
         link.href = url.pathname + url.search + url.hash;
     });
 })();

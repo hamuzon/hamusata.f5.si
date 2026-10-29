@@ -132,7 +132,8 @@ document.querySelectorAll('.nav-home').forEach(el => {
 
   const params = new URLSearchParams(currentParams);
   for (const key of Array.from(params.keys())) {
-    if (key === '_gl' || key.startsWith('_ga')) {
+    if (key === '_gl' || key.startsWith('_ga') || key.startsWith('utm_') ||
+        key === 'gclid' || key === 'dclid' || key === 'gbraid' || key === 'wbraid') {
       params.delete(key);
     }
   }
