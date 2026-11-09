@@ -12,58 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (el) el.textContent = now > baseYear ? `${baseYear}~${now}` : `${baseYear}`;
   })();
 
-  // 季節・イベント自動判定
-  (function () {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-
-    function getSetsubunDate(year) {
-      if (year <= 2024) return 3;
-
-      return Math.floor(
-        20.8431 +
-        0.242194 * (year - 1980) -
-        Math.floor((year - 1980) / 4)
-      );
-    }
-
-    function getCurrentPage() {
-      if (month === 1 && day <= 7) return "newyear";
-      if (month === 2 && day === getSetsubunDate(year)) return "Setsubun";
-      if (month === 2 && day === 14) return "chocolate";
-      if (month === 3 && day === 14) return "whiteday";
-      if (month === 4 && day === 1) return "aprilfool";
-      if (month === 10 && day === 31) return "halloween";
-      if (month === 12 && (day === 24 || day === 25)) return "christmas";
-
-      if (month >= 3 && month <= 5) return "spring";
-      if (month >= 6 && month <= 8) return "summer";
-      if (month >= 9 && month <= 11) return "autumn";
-
-      return "winter";
-    }
-
-    const page = getCurrentPage();
-
-    const domains = {
-      w_main_title: "https://home.hamusata.f5.si/",
-      w_github_pages_title: "https://hamuzon.github.io/",
-      w_hamuzon_title: "https://hamuzon-jp.f5.si/"
-    };
-
-    for (const [key, domain] of Object.entries(domains)) {
-      const titleEl = document.querySelector(`[data-lang="${key}"]`);
-      if (!titleEl) continue;
-
-      const card = titleEl.closest(".work-card");
-      const link = card ? card.querySelector("a") : null;
-
-      if (link) link.href = domain + page;
-    }
-  })();
-
   if (!new URLSearchParams(window.location.search).has('theme')) {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
       document.documentElement.className = e.matches ? 'dark' : 'light';
