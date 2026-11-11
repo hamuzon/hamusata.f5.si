@@ -37,19 +37,37 @@ async function loadLinks() {
         spring: "https://home.hamusata.f5.si/spring",
         summer: "https://home.hamusata.f5.si/summer",
         autumn: "https://home.hamusata.f5.si/autumn",
-        winter: "https://home.hamusata.f5.si/winter"
+        winter: "https://home.hamusata.f5.si/winter",
+        chocolate: "https://home.hamusata.f5.si/chocolate",
+        whiteday: "https://home.hamusata.f5.si/whiteday",
+        aprilfool: "https://home.hamusata.f5.si/aprilfool",
+        christmas: "https://home.hamusata.f5.si/christmas",
+        newyear: "https://home.hamusata.f5.si/newyear",
+        Setsubun: "https://home.hamusata.f5.si/Setsubun"
       },
       "GitHub版 – ホームページ": {
         spring: "https://hamuzon.github.io/spring",
         summer: "https://hamuzon.github.io/summer",
         autumn: "https://hamuzon.github.io/autumn",
-        winter: "https://hamuzon.github.io/winter"
+        winter: "https://hamuzon.github.io/winter",
+        chocolate: "https://hamuzon.github.io/chocolate",
+        whiteday: "https://hamuzon.github.io/whiteday",
+        aprilfool: "https://hamuzon.github.io/aprilfool",
+        christmas: "https://hamuzon.github.io/christmas",
+        newyear: "https://hamuzon.github.io/newyear",
+        Setsubun: "https://hamuzon.github.io/Setsubun"
       },
       "hamuzon – ホームページ": {
         spring: "https://hamuzon-jp.f5.si/spring",
         summer: "https://hamuzon-jp.f5.si/summer",
         autumn: "https://hamuzon-jp.f5.si/autumn",
-        winter: "https://hamuzon-jp.f5.si/winter"
+        winter: "https://hamuzon-jp.f5.si/winter",
+        chocolate: "https://hamuzon-jp.f5.si/chocolate",
+        whiteday: "https://hamuzon-jp.f5.si/whiteday",
+        aprilfool: "https://hamuzon-jp.f5.si/aprilfool",
+        christmas: "https://hamuzon-jp.f5.si/christmas",
+        newyear: "https://hamuzon-jp.f5.si/newyear",
+        Setsubun: "https://hamuzon-jp.f5.si/Setsubun"
       }
     };
     const nowObj = new Date();
@@ -59,6 +77,39 @@ async function loadLinks() {
     const season = month >= 3 && month <= 5 ? "spring" :
       month >= 6 && month <= 8 ? "summer" :
         month >= 9 && month <= 11 ? "autumn" : "winter";
+    const getSpecialEventPath = (date) => {
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+
+      if (month === 1 && day <= 3) return "newyear";
+      if (month === 2 && day === 14) return "chocolate";
+      if (month === 3 && day === 14) return "whiteday";
+      if (month === 4 && day === 1) return "aprilfool";
+      if (month === 12 && (day === 24 || day === 25)) return "christmas";
+
+      const setsubunRanges = [
+        [1873, 1884, 3, 3, 3, 3],
+        [1885, 1900, 2, 3, 3, 3],
+        [1901, 1917, 3, 4, 4, 4],
+        [1918, 1954, 3, 3, 4, 4],
+        [1955, 1987, 3, 3, 3, 4],
+        [1988, 2020, 3, 3, 3, 3],
+        [2021, 2057, 2, 3, 3, 3],
+        [2058, 2090, 2, 2, 3, 3],
+        [2091, 2100, 2, 2, 2, 3],
+        [2101, 2123, 3, 3, 3, 4]
+      ];
+      const range = setsubunRanges.find(([startYear, endYear]) => year >= startYear && year <= endYear);
+      if (month === 2 && range) {
+        const remainder = year % 4;
+        const setsubunDay = range[remainder === 0 ? 5 : remainder + 1];
+        if (day === setsubunDay) return "Setsubun";
+      }
+
+      return null;
+    };
+    const specialEventPath = getSpecialEventPath(nowObj);
 
     // JSONのlangキー取得
     const langDataRes = await fetch("/lang/sub-lang.json");
@@ -116,7 +167,7 @@ async function loadLinks() {
 
           a.href = link.split("?")[0] + (newParams.toString() ? "?" + newParams.toString() : "");
         } else if (seasonLinksMap[title] && section === "portfolio") {
-          a.href = seasonLinksMap[title][season] || link;
+          a.href = seasonLinksMap[title][specialEventPath || season] || link;
         } else {
           a.href = link;
         }
