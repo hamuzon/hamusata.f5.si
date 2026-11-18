@@ -1415,6 +1415,19 @@ export async function onRequest(context) {
 
         const encTz = encodeURIComponent(currentTz || 'UTC');
 
+        function payloadZone(d) {
+            const zone = d && (d.timeZone || d.timezone || d.tz);
+
+            if (typeof zone === 'string' && zone) {
+                try {
+                    getZoneFormatter(zone);
+                    return zone;
+                } catch(e) {}
+            }
+
+            return currentTz;
+        }
+
         function parseData(d) {
             if (!d) return null;
 
@@ -1431,11 +1444,37 @@ export async function onRequest(context) {
             }
 
             if (d.utc_datetime) {
-                return Date.parse(d.utc_datetime);
+                // 名前の通り UTC 基準（オフセット無しなら UTC として解釈）
+                return parseZonedDateTime(d.utc_datetime, 'UTC');
+            }
+
+            // 数値パーツは文字列より曖昧さが無いので優先する
+            if (
+                typeof d.year === 'number' &&
+                typeof d.month === 'number' &&
+                typeof d.day === 'number' &&
+                typeof d.hour === 'number' &&
+                typeof d.minute === 'number'
+            ) {
+                return wallClockToUtcMs(payloadZone(d), {
+                    year: d.year,
+                    month: d.month,
+                    day: d.day,
+                    hour: d.hour,
+                    minute: d.minute,
+                    second: typeof d.seconds === 'number'
+                        ? d.seconds
+                        : (typeof d.second === 'number' ? d.second : 0),
+                    ms: typeof d.milliSeconds === 'number'
+                        ? d.milliSeconds
+                        : (typeof d.milliseconds === 'number' ? d.milliseconds : 0)
+                });
             }
 
             if (d.dateTime) {
-                return Date.parse(String(d.dateTime).trim());
+                // dateTime はオフセットを持たない「その土地の壁時計」なので、
+                // ブラウザのローカル時刻として解釈してはいけない
+                return parseZonedDateTime(d.dateTime, payloadZone(d));
             }
 
             return null;
@@ -1496,19 +1535,31 @@ export async function onRequest(context) {
         return new Date(Date.now() + timeOffset);
     }
 
-    const tzFormatter = new Intl.DateTimeFormat('en-CA', {
-        timeZone: currentTz,
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hourCycle: 'h23'
-    });
+    const zoneFormatterCache = new Map();
 
-    function getTzParts(date) {
-        const parts = tzFormatter.formatToParts(date);
+    function getZoneFormatter(zone) {
+        let formatter = zoneFormatterCache.get(zone);
+
+        if (!formatter) {
+            formatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: zone,
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hourCycle: 'h23'
+            });
+
+            zoneFormatterCache.set(zone, formatter);
+        }
+
+        return formatter;
+    }
+
+    function getTzPartsIn(zone, date) {
+        const parts = getZoneFormatter(zone).formatToParts(date);
 
         const g = type => {
             const item = parts.find(p => p.type === type);
@@ -1523,6 +1574,84 @@ export async function onRequest(context) {
             minute: g('minute'),
             second: g('second')
         };
+    }
+
+    function getTzParts(date) {
+        return getTzPartsIn(currentTz, date);
+    }
+
+    // 指定タイムゾーンの「壁時計」→ UTC ミリ秒
+    function wallClockToUtcMs(zone, p) {
+        const ms = p.ms || 0;
+
+        const wallAsUtc = Date.UTC(
+            p.year,
+            p.month - 1,
+            p.day,
+            p.hour,
+            p.minute,
+            p.second,
+            ms
+        );
+
+        let ts = wallAsUtc;
+
+        // 夏時間の切り替わり付近でも収束するように数回反復する
+        for (let i = 0; i < 3; i++) {
+            const zp = getTzPartsIn(zone, new Date(ts));
+
+            const asUtc = Date.UTC(
+                zp.year,
+                zp.month - 1,
+                zp.day,
+                zp.hour,
+                zp.minute,
+                zp.second,
+                ms
+            );
+
+            const next = wallAsUtc - (asUtc - ts);
+
+            if (next === ts) break;
+
+            ts = next;
+        }
+
+        return ts;
+    }
+
+    const OFFSET_SUFFIX = /(?:Z|[+-]\d{2}:?\d{2})$/i;
+
+    function parseZonedDateTime(value, zone) {
+        const str = String(value).trim().replace(' ', 'T');
+
+        if (!str) return null;
+
+        // オフセット付きならそのまま解釈できる
+        if (OFFSET_SUFFIX.test(str)) {
+            const offsetMs = Date.parse(str);
+            return isNaN(offsetMs) ? null : offsetMs;
+        }
+
+        const m = str.match(
+            /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?(?:\.(\d+))?/
+        );
+
+        if (m) {
+            return wallClockToUtcMs(zone, {
+                year: parseInt(m[1], 10),
+                month: parseInt(m[2], 10),
+                day: parseInt(m[3], 10),
+                hour: parseInt(m[4], 10),
+                minute: parseInt(m[5], 10),
+                second: parseInt(m[6] || '0', 10),
+                ms: Math.floor(Number('0.' + (m[7] || '0')) * 1000)
+            });
+        }
+
+        const localMs = Date.parse(str);
+
+        return isNaN(localMs) ? null : localMs;
     }
 
     function getNewYearUtcMs(year) {
