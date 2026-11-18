@@ -187,9 +187,12 @@ export async function onRequest(context) {
     }
 
     #page_title {
-        flex: 1;
-        width: auto;
-        min-width: 0;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: max-content;
+        max-width: calc(100% - 24rem);
         font-size: clamp(1rem, 3.5vw, 2.2rem);
         font-weight: 600;
         text-align: center;
@@ -486,6 +489,10 @@ export async function onRequest(context) {
         #page_title {
             grid-column: 1;
             grid-row: 1;
+            position: static;
+            transform: none;
+            width: auto;
+            max-width: none;
         }
 
         .headerControls {
