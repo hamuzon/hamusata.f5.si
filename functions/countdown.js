@@ -14,8 +14,30 @@ export async function onRequest(context) {
     const baseYear = 2025;
 
     const userDefaultTz = request.cf?.timezone || 'Asia/Tokyo';
-    const requestedTz = url.searchParams.get('tz');
-    const tz = requestedTz || userDefaultTz;
+
+    const isValidTz = value => {
+        if (!value) return false;
+
+        try {
+            new Intl.DateTimeFormat('en-US', { timeZone: value });
+            return true;
+        } catch(e) {
+            return false;
+        }
+    };
+
+    const requestedTz = isValidTz(url.searchParams.get('tz'))
+        ? url.searchParams.get('tz')
+        : null;
+
+    const tz = requestedTz || (isValidTz(userDefaultTz) ? userDefaultTz : 'UTC');
+
+    if (url.searchParams.get('tz') && !requestedTz) {
+        // 不正なタイムゾーンは URL から取り除く
+        const cleanUrl = new URL(url);
+        cleanUrl.searchParams.delete('tz');
+        return Response.redirect(cleanUrl.toString(), 307);
+    }
 
     if (requestedTz === userDefaultTz) {
         const cleanUrl = new URL(url);
@@ -717,7 +739,23 @@ export async function onRequest(context) {
     })();
 
     const urlParams = new URLSearchParams(location.search);
-    const currentTz = urlParams.get('tz') || browserTz;
+
+    function isValidTz(value) {
+        if (!value) return false;
+
+        try {
+            new Intl.DateTimeFormat('en-US', { timeZone: value });
+            return true;
+        } catch(e) {
+            return false;
+        }
+    }
+
+    const requestedTz = urlParams.get('tz');
+
+    const currentTz = isValidTz(requestedTz)
+        ? requestedTz
+        : (isValidTz(browserTz) ? browserTz : 'UTC');
 
     let lastYearNum = 0;
     let timeOffset = 0;
