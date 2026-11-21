@@ -1,12 +1,13 @@
+
 {
   "name": "hamusata.f5.si",
-  "version": "1.0.0",
-  "description": "hamusata の個人サイトです。  \r This is the personal website of hamusata.",
+  "version": "2.0.0",
+  "description": "hamusata の個人サイトです。 This is the personal website of hamusata.",
   "main": "electron/main.cjs",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
-    "build:win": "electron-builder --win nsis"
+    "build:win": "electron-builder --win nsis portable"
   },
   "repository": {
     "type": "git",
@@ -28,11 +29,47 @@
   "build": {
     "appId": "si.f5.hamusata",
     "productName": "hamusata",
-    "artifactName": "hamusata_Setup-${version}.${ext}",
-    "forceCodeSigning": true,
+    "directories": {
+      "output": "dist"
+    },
+    "forceCodeSigning": false,
+    "files": [
+      "electron/**/*",
+      "**/*.html",
+      "**/*.css",
+      "**/*.js",
+      "**/*.json",
+      "**/*.webp",
+      "**/*.png",
+      "**/*.jpg",
+      "**/*.jpeg",
+      "**/*.gif",
+      "**/*.svg",
+      "**/*.ico",
+      "**/*.woff",
+      "**/*.woff2",
+      "**/*.ttf",
+      "**/*.otf",
+      "**/*.mp4",
+      "**/*.webm",
+      "**/*.mp3",
+      "**/*.wav",
+      "**/*.ogg",
+      "!dist/**/*",
+      "!.git/**/*"
+    ],
     "win": {
-      "target": "nsis",
-      "signAndEditExecutable": true
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "hamusata"
     },
     "publish": {
       "provider": "generic",
