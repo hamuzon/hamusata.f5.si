@@ -1,4 +1,3 @@
-
 {
   "name": "hamusata.f5.si",
   "version": "2.0.0",
@@ -29,6 +28,7 @@
   "build": {
     "appId": "si.f5.hamusata",
     "productName": "hamusata",
+    "artifactName": "${productName}_Setup-${version}.${ext}",
     "directories": {
       "output": "dist"
     },
