@@ -458,6 +458,7 @@ async function checkForUpdates() {
   });
 
   autoUpdater.autoDownload = true;
+  autoUpdater.disableDifferentialDownload = true;
   autoUpdater.autoInstallOnAppQuit = true;
 
   autoUpdater.on("update-available", () => {
@@ -537,3 +538,4 @@ app.on("before-quit", () => {
     localServer = null;
   }
 });
+
